@@ -13,7 +13,7 @@ class Barra extends Component {
 
         };
 
-        this.permutarColapso=this.permutarColapso.bind(this);
+        this.permutarColapso = this.permutarColapso.bind(this);
 
     }
 
@@ -31,44 +31,44 @@ class Barra extends Component {
 
         return (
             <>
-            <Navbar dark expand="md">
+                <Navbar dark expand="md" className="fixed-top sombra-barra">
 
-                <div className="container">
+                    <div className="container">
 
-                    <NavbarToggler onClick={this.permutarColapso}>
 
-                    </NavbarToggler>
-                    <NavbarBrand className="mr-auto" href="/">
-                        <img src="recursos/imagenes/logo.png" height="30" width="100" alt="logo temple" />
-                    </NavbarBrand>
+                        <NavbarBrand className="mr-auto" href="/">
+                            <img src="recursos/imagenes/logo.png" height="30" width="100" alt="logo temple" />
+                        </NavbarBrand>
+                        <NavbarToggler onClick={this.permutarColapso}>
 
-                    <Collapse isOpen={this.state.abierto} navbar className="justify-content-end">
+                        </NavbarToggler>
+                        <Collapse isOpen={this.state.abierto} navbar className="row justify-content-end">
 
-                        <Nav navbar>
+                            <Nav navbar>
 
-                            <NavItem>
-                                <NavLink className="nav-link" to="/bienvenida">
-                                    Inicio
+                                <NavItem className="ml-2">
+                                    <NavLink className="nav-link" to="/bienvenida">
+                                        Inicio
                                 </NavLink>
 
-                            </NavItem>
-                            <NavItem>
-                                <NavLink className="nav-link" to="/bienvenida">
-                                    Descargar
+                                </NavItem>
+                                <NavItem className="ml-2">
+                                    <NavLink className="nav-link" to="/bienvenida">
+                                        Descargar
                                 </NavLink>
 
-                            </NavItem>
-                            <NavItem>
-                                <NavLink className="nav-link" to="/bienvenida">
-                                    Iniciar sesión
+                                </NavItem>
+                                <NavItem className="ml-2">
+                                    <NavLink className="nav-link" to="/bienvenida">
+                                        Iniciar sesión
                                 </NavLink>
 
-                            </NavItem>
-                        </Nav>
+                                </NavItem>
+                            </Nav>
 
-                    </Collapse>
-                </div>
-            </Navbar>
+                        </Collapse>
+                    </div>
+                </Navbar>
             </>
 
         );
