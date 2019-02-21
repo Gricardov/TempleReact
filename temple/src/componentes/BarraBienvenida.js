@@ -53,13 +53,13 @@ class Barra extends Component {
 
                                 </NavItem>
                                 <NavItem className="ml-2">
-                                    <NavLink className="nav-link" to="/bienvenida">
+                                    <NavLink className="nav-link" to="/">
                                         Descargar
                                 </NavLink>
 
                                 </NavItem>
                                 <NavItem className="ml-2">
-                                    <NavLink className="nav-link" to="/bienvenida">
+                                    <NavLink className="nav-link" to="/">
                                         Iniciar sesión
                                 </NavLink>
 

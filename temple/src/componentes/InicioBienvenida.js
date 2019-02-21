@@ -12,11 +12,11 @@ class Inicio extends Component {
     render() {
         return (
             <div className="container-fluid">
-                <section className="row bloque-principal">
+                <section className="row bloque-principal debajo-barra">
                     <div className="col-12">
 
                         <h1>Bienvenido a TEMPLE</h1>
-                        <h2>Porque aprender nunca había sido tan fácil</h2>
+                        <h2>Encontrar al profesor ideal nunca había sido tan fácil</h2>
 
                     </div>
 
