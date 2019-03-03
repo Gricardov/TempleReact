@@ -59,7 +59,7 @@ class Barra extends Component {
 
                                 </NavItem>
                                 <NavItem className="ml-2">
-                                    <NavLink className="nav-link" to="/">
+                                    <NavLink className="nav-link" to="/iniciarSesion">
                                         Iniciar sesión
                                 </NavLink>
 

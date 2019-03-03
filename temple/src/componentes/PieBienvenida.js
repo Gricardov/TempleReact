@@ -47,10 +47,10 @@ const Pie = (props) => {
                     <div className="col-12 col-md-2 offset-md-1">
                         <h4>TEMPLE</h4>
                         <ul className="list-unstyled">
-                            <li><Link to="/bienvenida">Sobre nosotros</Link></li>
-                            <li><Link to="/bienvenida">Misión y visión</Link></li>
-                            <li><Link to="/bienvenida">Para profesores</Link></li>
-                            <li><Link to="/bienvenida">Para estudiantes</Link></li>
+                            <li><Link className="enlace-pie" to="/sobreNosotros">Sobre nosotros</Link></li>
+                            <li><Link className="enlace-pie" to="/bienvenida">Misión y visión</Link></li>
+                            <li><Link className="enlace-pie" to="/bienvenida">Para profesores</Link></li>
+                            <li><Link className="enlace-pie" to="/bienvenida">Para estudiantes</Link></li>
                         </ul>
                     </div>
 
@@ -58,9 +58,9 @@ const Pie = (props) => {
                         <h4>Ayuda</h4>
 
                         <ul className="list-unstyled">
-                            <li><Link to="/bienvenida">Legal</Link></li>
-                            <li><Link to="/bienvenida">Preguntas frecuentess</Link></li>
-                            <li><Link to="/contacto">Contacto</Link></li>                            
+                            <li><Link className="enlace-pie" to="/bienvenida">Legal</Link></li>
+                            <li><Link className="enlace-pie" to="/bienvenida">Preguntas frecuentess</Link></li>
+                            <li><Link className="enlace-pie" to="/contacto">Contacto</Link></li>                            
                         </ul>
                     </div>
                 </div>

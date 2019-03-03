@@ -126,9 +126,8 @@ class Contacto extends Component {
         this.setState({
 
             alterados: {
-
+                ...this.state.alterados,
                 [objetivo.name]: true
-
             }
 
         })

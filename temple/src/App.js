@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
-import Bienvenida from './componentes/ComponentePrincipal';
+import Principal from './componentes/ComponentePrincipal';
 import './App.css';
+import {Provider} from 'react-redux';
+import {ReduxStore} from './redux/reduxStore';
+
+const store=ReduxStore();
 
 class App extends Component {
 
@@ -14,11 +18,13 @@ class App extends Component {
 
   render() {
     return (
+      <Provider store={store}>
       <BrowserRouter>
         <div>
-          <Bienvenida />
+          <Principal />
         </div>
       </BrowserRouter>
+      </Provider>
     );
   }
 }
