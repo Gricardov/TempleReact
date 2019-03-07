@@ -10,21 +10,22 @@ import Login from './IniciarSesionBienvenida';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {obtenerLideres} from '../redux/CreadorAcciones';
+import {obtenerLideres, iniciarSesion} from '../redux/CreadorAcciones';
 
 const mapStateToProps=(state)=>{
 
     return {
 
-        lideres: state.lideres
-
+        lideres: state.lideres,
+        estadoSesion:state.estadoSesion
     }
 
 }
 
 const mapDispatchToProps=(dispatch)=>({
 
-    obtenerLideres: ()=>dispatch(obtenerLideres())
+    obtenerLideres: ()=>dispatch(obtenerLideres()),
+    iniciarSesion: (usuario, contrasena)=>dispatch(iniciarSesion(usuario, contrasena))
 
 })
 
@@ -50,7 +51,15 @@ class Principal extends Component {
                         estaCargando={this.props.lideres.estaCargando}
                         mensError={this.props.lideres.mensError} /> } />                       
                 
-                <Route exact path="/iniciarSesion" component={Login} />
+                <Route exact path="/iniciarSesion" component={()=>
+                
+                    <Login iniciarSesion={this.props.iniciarSesion}
+                    estaCargando={this.props.estadoSesion.estaCargando}
+                    mensError={this.props.estadoSesion.mensError}
+                    usuario={this.props.estadoSesion.usuario}
+                    />
+                
+                } />
 
                     <Redirect to="/bienvenida" />
                     }

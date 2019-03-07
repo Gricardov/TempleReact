@@ -10,7 +10,7 @@ export const Lideres = (state={
 
     switch (action.type){
 
-        case Acciones.OBTENER_LIDERES:
+        case Acciones.LIDERES_OBTENIDOS:
             return {...state, estaCargando:false, mensError:null, lideres:action.payload}
 
         case Acciones.CARGANDO_LIDERES:
