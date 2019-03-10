@@ -1,0 +1,151 @@
+Si hay problemas con CORS en .NET
+
+1-Descargar todos los paquetes de .net CORS e instalarlos
+
+2-En App_Start habilitamos los CORS:
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.Cors;
+
+namespace TempleWebAPI
+{
+    public static class WebApiConfig
+    {
+        public static void Register(HttpConfiguration config)
+        {
+            // Configuración y servicios de API web
+
+            // Habilitando los CORazones
+            var urlPermitidas = new EnableCorsAttribute("*","*","*");
+            config.EnableCors(urlPermitidas);
+
+            // Rutas de API web
+            config.MapHttpAttributeRoutes();
+
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { action=RouteParameter.Optional,id = RouteParameter.Optional }
+            );
+        }
+    }
+}
+
+3-Creamos controlador en blanco de Web API: (se supone que ya se ha creado el modelo ¬¬)
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using Newtonsoft.Json;
+using System.Data.Sql;
+using System.Data.SqlClient;
+using TempleWebAPI.Models;
+using System.Diagnostics;
+
+namespace TempleWebAPI.Controllers
+{
+    [RoutePrefix("api")]
+    public class UsuarioController : ApiController
+    {
+
+        private SqlConnection con = new SqlConnection("server=.;database=BDTEMPLE;uid=sa;pwd=sql");
+
+        [Route("usuarios")]
+
+        public IHttpActionResult getUsuarios() {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("SELECT*FROM TB_USUARIO", con);
+                con.Open();
+                List<Usuario> temporal = new List<Usuario>();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Usuario u = new Usuario();
+                    u.codigo = reader.GetInt32(0);
+                    u.nombre = reader.GetString(1);
+
+                    temporal.Add(u);
+
+
+                }
+
+                reader.Close();
+                con.Close();
+
+                if (temporal.Count() <= 0)
+                {
+                    return NotFound();
+
+                }
+                else
+                {
+
+                    return Ok(temporal);
+                }
+            }
+            catch (Exception e) {
+
+                return BadRequest();
+
+            }
+        }
+
+        [Route("login"), HttpPost]
+
+        public IHttpActionResult
+             login([FromBody]Usuario recibido)
+        {
+            try
+            {
+                //Usuario recibido = JsonConvert.DeserializeObject<Usuario>(usr.ToString());
+                Usuario temporal = null;
+
+                SqlCommand cmd = new SqlCommand("SELECT*FROM TB_USUARIO WHERE LOG_USU=@LOGIN AND CLA_USU=@CONTRASENA", con);
+                con.Open();
+                cmd.Parameters.AddWithValue("@LOGIN", recibido.login);
+                cmd.Parameters.AddWithValue("@CONTRASENA", recibido.contrasena);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    temporal = new Usuario();
+                    temporal.codigo = reader.GetInt32(0);
+                    temporal.nombre = reader.GetString(1);
+
+                }
+
+                reader.Close();
+                con.Close();
+
+                if (temporal != null)
+                {
+                    return Ok(temporal);
+                }
+                else
+                {
+                    return NotFound();
+
+                }
+
+
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest();
+
+            }
+        }
+
+        }
+}
+
+

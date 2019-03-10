@@ -34,7 +34,8 @@
   border-radius: 10px;
   background-color: transparent;
   color: rgba(255, 255, 255, 0.75);
-  padding: 10px 90px;
+  padding: 20px 60px;
+  width: 300px;
   cursor: pointer;
   font-size: 20px;
   margin: 10px 30px;
@@ -102,3 +103,62 @@ address{
 width: 100%;
 
 }
+
+
+
+
+
+/*Media queries*/
+
+/*telefonitos*/
+@media (max-width: 575px){
+
+  .bloque-lateral-texto{
+
+    padding: 45px 50px 0px;
+  
+  }
+
+  .bloque-texto-principal{
+
+    padding-left: 50px;
+    padding-right: 50px;
+    
+  }
+  
+
+}
+
+/*teléfonos*/
+@media (min-width: 576px) { 
+
+  .bloque-lateral-texto{
+
+    padding: 45px 30px 0px;
+  
+  }  
+ 
+ }
+/*tablets*/
+@media (min-width: 768px) {
+
+  .bloque-lateral-texto{
+
+    padding: 45px 30px 0px;
+  
+  }
+ 
+
+ }
+
+/*computadoras*/
+@media (min-width: 992px) { 
+
+  .bloque-lateral-texto{
+
+    padding: 45px 100px 0px;
+  
+  }
+  
+
+ }

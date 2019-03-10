@@ -3,13 +3,7 @@ import {Card, CardImg, CardTitle, CardText, CardBody} from 'reactstrap';
 import {Cargando} from './CargandoComponente';
 
 class SobreNosotros extends Component {
-
-    constructor (props){
-
-        super(props);
-        
-    }
-
+ 
     render(){
 
         const LideresTarjetas=()=>{

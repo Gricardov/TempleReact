@@ -10,12 +10,7 @@ const store=ReduxStore();
 
 class App extends Component {
 
-  constructor(props){
-
-    super(props);
-
-  }
-
+ 
   render() {
     return (
       <Provider store={store}>

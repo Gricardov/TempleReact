@@ -3,9 +3,13 @@ import Barra from './BarraBienvenida';
 import Pie from './PieBienvenida';
 
 import Inicio from './InicioBienvenida';
+import Descargar from './DescargarBienvenida';
 import Contacto from './ContactoBienvenida';
 import SobreNosotros from './SobreNosotrosBienvenida';
 import Login from './IniciarSesionBienvenida';
+
+import SwitchDeslizador from './ComponenteSwitchDeslizador';
+import * as RUTAS from '../compartido/rutas';
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -31,6 +35,12 @@ const mapDispatchToProps=(dispatch)=>({
 
 class Principal extends Component {
 
+    constructor(props){
+
+        super(props);
+        
+    }
+
     componentDidMount(){
 
         this.props.obtenerLideres();
@@ -38,33 +48,35 @@ class Principal extends Component {
     }
 
     render() {
+
         return (
             <div>
 
                 <Barra />
-                <Switch>
-                    <Route path="/bienvenida" component={Inicio} />
-                    <Route exact path="/contacto" component={Contacto} />
-                    <Route exact path="/sobreNosotros" component={()=>
-                    
-                        <SobreNosotros lideres={this.props.lideres.lideres}
-                        estaCargando={this.props.lideres.estaCargando}
-                        mensError={this.props.lideres.mensError} /> } />                       
                 
-                <Route exact path="/iniciarSesion" component={()=>
-                
+                <SwitchDeslizador>
+                    <Route path={RUTAS.INICIO_BIENVENIDA.ruta} component={Inicio} />
+                    <Route path={RUTAS.DESCARGAR_BIENVENIDA.ruta} component={Descargar} />
+                    <Route exact path={RUTAS.INICIAR_SESION_BIENVENIDA.ruta} component={()=>
+
                     <Login iniciarSesion={this.props.iniciarSesion}
                     estaCargando={this.props.estadoSesion.estaCargando}
                     mensError={this.props.estadoSesion.mensError}
-                    usuario={this.props.estadoSesion.usuario}
-                    />
-                
-                } />
+                    usuario={this.props.estadoSesion.usuario} /> } />
 
-                    <Redirect to="/bienvenida" />
+                    <Route exact path={RUTAS.CONTACTO_BIENVENIDA.ruta} component={Contacto} />
+                    <Route exact path={RUTAS.SOBRE_NOSOTROS_BIENVENIDA.ruta} component={()=>
+                    
+                    <SobreNosotros lideres={this.props.lideres.lideres}
+                    estaCargando={this.props.lideres.estaCargando}
+                    mensError={this.props.lideres.mensError} /> } />                       
+                
+                    <Redirect to={RUTAS.INICIO_BIENVENIDA.ruta} />
+                    
                     }
 
-                </Switch>
+                </SwitchDeslizador>
+                    
                 <Pie />
             </div>
 

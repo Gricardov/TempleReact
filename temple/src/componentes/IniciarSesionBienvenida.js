@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Card, CardHeader, CardBody, Button, Form, FormGroup, Label,Col, Row } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Alert, Card, CardHeader, CardBody, Button, Label,Col, Row } from 'reactstrap';
 import {Control, LocalForm, Errors} from 'react-redux-form';
 
 const requerido=(val)=> val && val.length;
@@ -35,7 +34,7 @@ class Login extends Component {
 
     else if (this.props.mensError){
 
-      alerta=<Alert color="warning">{this.props.mensError}</Alert>;
+      alerta=<Alert color="danger">{this.props.mensError}</Alert>;
 
     }
 
@@ -113,7 +112,7 @@ class Login extends Component {
 
                       </Row>
                       <Row className="form-group">
-                        <Label xs={12}>¿No tienes cuenta? <a href="#"> Inscríbete</a></Label>
+                        <Label xs={12}>¿No tienes cuenta? <a href="/"> Inscríbete</a></Label>
                         
                       </Row>
                       <Row className="form-group form-check">

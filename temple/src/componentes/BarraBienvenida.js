@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron } from 'reactstrap';
+import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+
+import * as RUTAS from '../compartido/rutas';
 
 class Barra extends Component {
 
@@ -36,7 +38,7 @@ class Barra extends Component {
                     <div className="container">
 
 
-                        <NavbarBrand className="mr-auto" href="/">
+                        <NavbarBrand className="mr-auto" href={RUTAS.INICIO_BIENVENIDA.ruta}>
                             <img src="recursos/imagenes/logo.png" height="30" width="100" alt="logo temple" />
                         </NavbarBrand>
                         <NavbarToggler onClick={this.permutarColapso}>
@@ -47,19 +49,19 @@ class Barra extends Component {
                             <Nav navbar>
 
                                 <NavItem className="ml-2">
-                                    <NavLink className="nav-link" to="/bienvenida">
+                                    <NavLink className="nav-link" to={RUTAS.INICIO_BIENVENIDA.ruta}>
                                         Inicio
                                 </NavLink>
 
                                 </NavItem>
                                 <NavItem className="ml-2">
-                                    <NavLink className="nav-link" to="/xd">
+                                    <NavLink className="nav-link" to={RUTAS.DESCARGAR_BIENVENIDA.ruta}>
                                         Descargar
                                 </NavLink>
 
                                 </NavItem>
                                 <NavItem className="ml-2">
-                                    <NavLink className="nav-link" to="/iniciarSesion">
+                                    <NavLink className="nav-link" to={RUTAS.INICIAR_SESION_BIENVENIDA.ruta}>
                                         Iniciar sesión
                                 </NavLink>
 

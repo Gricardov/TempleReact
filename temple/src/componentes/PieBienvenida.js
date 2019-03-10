@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 
 const Pie = (props) => {
@@ -19,7 +19,7 @@ const Pie = (props) => {
                             </div>
                             <div className="col-12 d-none d-sm-block mb-2">
                                 <p>Temple es una plataforma que facilita el contacto entre profesores independientes
-                                    y alumnos por medio de tecnologías modernas.
+                                    y alumnos por medio de la tecnología.
                                 </p>
                                 <p className="small">Casi todos los derechos reservados - 2019</p>
                             </div>
@@ -58,7 +58,7 @@ const Pie = (props) => {
                         <h4>Ayuda</h4>
 
                         <ul className="list-unstyled">
-                            <li><Link className="enlace-pie" to="/bienvenida">Legal</Link></li>
+                            <li><Link className="enlace-pie" to="/bienvenida">Términos de uso</Link></li>
                             <li><Link className="enlace-pie" to="/bienvenida">Preguntas frecuentess</Link></li>
                             <li><Link className="enlace-pie" to="/contacto">Contacto</Link></li>                            
                         </ul>
@@ -70,9 +70,5 @@ const Pie = (props) => {
     )
 
 }
-/*<span className="fa fa-facebook mx-auto"></span>
-<span className="fa fa-twitter mx-auto"></span>
-<span className="fa fa-instagram mx-auto"></span>
-<span className="fa fa-linkedin mx-auto"></span>
-<span className="fa fa-google mx-auto"></span>*/
+
 export default Pie;
