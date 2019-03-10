@@ -9,12 +9,12 @@ export const ARREGLO_RUTAS=[INICIO_BIENVENIDA,DESCARGAR_BIENVENIDA,INICIAR_SESIO
 
 export const deslizarDerecha=(rutaDesde, rutaHasta)=>{
 
-    if (rutaDesde=="/" || rutaHasta=="/") return true;
+    if (rutaDesde==="/" || rutaHasta==="/") return true;
 
     else {
 
-    let desde=ARREGLO_RUTAS.filter((ruta)=>ruta.ruta==rutaDesde)[0];
-    let hasta=ARREGLO_RUTAS.filter((ruta)=>ruta.ruta==rutaHasta)[0];
+    let desde=ARREGLO_RUTAS.filter((ruta)=>ruta.ruta===rutaDesde)[0];
+    let hasta=ARREGLO_RUTAS.filter((ruta)=>ruta.ruta===rutaHasta)[0];
     
     return (hasta.id>desde.id?true:false);
     }
