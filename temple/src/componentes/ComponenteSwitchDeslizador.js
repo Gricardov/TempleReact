@@ -44,7 +44,7 @@ componentDidUpdate(prevProps, prevState) {
 intercambiarHijos=()=>{
 
     this.setState({
-        posicionHijo: this.state.posicionHijo==Slider.TO_LEFT?Slider.FROM_RIGHT:Slider.FROM_LEFT,
+        posicionHijo: this.state.posicionHijo===Slider.TO_LEFT?Slider.FROM_RIGHT:Slider.FROM_LEFT,
         hijoAnterior:null,
         idAnterior:null,
         callbackAnimacion:null

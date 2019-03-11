@@ -11,7 +11,7 @@ import Login from './IniciarSesionBienvenida';
 import SwitchDeslizador from './ComponenteSwitchDeslizador';
 import * as RUTAS from '../compartido/rutas';
 
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {obtenerLideres, iniciarSesion} from '../redux/CreadorAcciones';
@@ -34,12 +34,6 @@ const mapDispatchToProps=(dispatch)=>({
 })
 
 class Principal extends Component {
-
-    constructor(props){
-
-        super(props);
-        
-    }
 
     componentDidMount(){
 

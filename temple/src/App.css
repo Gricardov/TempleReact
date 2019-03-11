@@ -1,3 +1,4 @@
+/*Le da una sombrita bien sabrosona a la barra*/
 .sombra-barra{
   -webkit-box-shadow: 0px -8px 15px 10px rgba(0,0,0,0.5);
   -moz-box-shadow: 0px -8px 15px 10px rgba(0,0,0,0.5);
@@ -5,6 +6,7 @@
 
 }
 
+/*Este bloquecito es el principal de la página de inicio*/
 .bloque-principal{
 
   min-height:400px;
@@ -13,21 +15,23 @@
   text-align: center;
 }
 
-/*Este bloquecito va debajo de la barra, por eso debe tener un espaciado interiorr*/
+/*Este bloquecito va inmediatamente debajo de la barra, por eso debe tener un espaciado interiorr*/
 .debajo-barra{
   padding-top: 100px;
   padding-bottom: 50px;
 }
 
 
+/*Los bloques laterales de la página de inicio*/
 .bloque-lateral{
 
-  min-height:400px;
+  min-height:300px;
   background-color: #fff;
   padding: 0px;
 
 }
 
+/*El botoncito de la página de inicio*/
 .boton-bloque-principal{
   border: 1px solid;
   border-color: #fff;
@@ -48,6 +52,11 @@
   box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.25);
 
 
+}
+
+/*Este bloquecito contiene el cuerpo principal de una página, por eso debe tener una altura mínima*/
+.bloque-contenedor{
+  min-height: 90vh;
 }
 
 .pie-bienvenida{
@@ -104,9 +113,14 @@ width: 100%;
 
 }
 
-
-
-
+/*El separador bello*/
+hr {
+  border: 0;
+  height: 1px;
+  background: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, 0.5), transparent);
+  background: linear-gradient(left, transparent, rgba(0, 0, 0, 0.5), transparent);
+  margin: 35px 0 33px 0;
+}
 
 /*Media queries*/
 
@@ -115,14 +129,14 @@ width: 100%;
 
   .bloque-lateral-texto{
 
-    padding: 45px 50px 0px;
+    padding: 45px 30px 0px;
   
   }
 
   .bloque-texto-principal{
 
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
     
   }
   
@@ -139,7 +153,7 @@ width: 100%;
   }  
  
  }
-/*tablets*/
+/*tabletas*/
 @media (min-width: 768px) {
 
   .bloque-lateral-texto{
@@ -156,7 +170,7 @@ width: 100%;
 
   .bloque-lateral-texto{
 
-    padding: 45px 100px 0px;
+    padding: 45px 60px 0px;
   
   }
   

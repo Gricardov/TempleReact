@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Alert, Card, CardHeader, CardBody, Button, Label,Col, Row } from 'reactstrap';
-import {Control, LocalForm, Errors} from 'react-redux-form';
+import { Alert, Card, CardTitle, CardBody, Button, Label, Col, Row } from 'reactstrap';
+import { Control, LocalForm, Errors } from 'react-redux-form';
 
-const requerido=(val)=> val && val.length;
-const maximo=(len)=>(val)=>!(val) || (val.length<=len);
-const minimo=(len)=>(val)=>(val) && (val.length>=len);
+const requerido = (val) => val && val.length;
+const maximo = (len) => (val) => !(val) || (val.length <= len);
+const minimo = (len) => (val) => (val) && (val.length >= len);
 
 
 class Login extends Component {
@@ -12,137 +12,142 @@ class Login extends Component {
   constructor(props) {
 
     super(props);
-    
-    this.iniciarSesion=this.iniciarSesion.bind(this);
+
+    this.iniciarSesion = this.iniciarSesion.bind(this);
   }
 
-  iniciarSesion(valores, evento){
+  iniciarSesion(valores, evento) {
 
     evento.preventDefault();
-    this.props.iniciarSesion(valores.usuario,valores.contrasena);
+    this.props.iniciarSesion(valores.usuario, valores.contrasena);
   }
 
   render() {
 
-    let alerta=null;
+    let alerta = null;
 
-    if (this.props.estaCargando){
+    if (this.props.estaCargando) {
 
-      alerta=<Alert color="info">Cargando . . .</Alert>;
-
-    }
-
-    else if (this.props.mensError){
-
-      alerta=<Alert color="danger">{this.props.mensError}</Alert>;
+      alerta = <Alert color="info">Cargando . . .</Alert>;
 
     }
 
-    else if (this.props.usuario){
+    else if (this.props.mensError) {
 
-      alerta=<Alert color="primary">{JSON.stringify(this.props.usuario)}</Alert>;
+      alerta = <Alert color="danger">{this.props.mensError}</Alert>;
+
+    }
+
+    else if (this.props.usuario) {
+
+      alerta = <Alert color="primary">{JSON.stringify(this.props.usuario)}</Alert>;
 
 
     }
-    
+
     return (
       <>
-      <div className="container debajo-barra">
+        <div className="container debajo-barra bloque-contenedor">
 
-        <div className="row">
+          <Row>
 
-          <div className="col-12">
-            <div className="row">
+            <Col xs={12}>
 
-              <div className="col-12 col-md-7">
-                <Card>
+              <Card>
+                <Row>
 
-                  <CardHeader className="card-header info-color white-text text-center">
-                    <strong>Iniciar sesión en Temple</strong>
-                  </CardHeader>
+                  <Col xs={12} md={7}>
 
-                  <CardBody>
 
-                    <LocalForm onSubmit={(values,event)=>this.iniciarSesion(values,event)}>
-                    
-                      <Row className="form-group">
-                        <Label htmlFor="txtUsuario" xs={12}>Usuario o correo:</Label>
-                        <Col xs={12}>
-                        <Control.text model=".usuario" type="text" name="usuario"
-                        className="form-control" id="txtUsuario"
-                        validators={{
+                    <CardBody>
+                      <CardTitle className="text-center text-muted">
+                        <strong>Iniciar sesión en Temple</strong>
+                      </CardTitle>
+                      <LocalForm onSubmit={(values, event) => this.iniciarSesion(values, event)}>
 
-                          requerido, minimo:minimo(4), maximo:maximo(50)
+                        <Row className="form-group">
+                          <Label htmlFor="txtUsuario" xs={12}>Usuario o correo:</Label>
+                          <Col xs={12}>
+                            <Control.text model=".usuario" type="text" name="usuario"
+                              className="form-control" id="txtUsuario"
+                              validators={{
 
-                        }} />
-                        <Errors
-                          className="text-danger"
-                          model=".usuario"
-                          show="touched"
-                          messages={{
-                            requerido:"El usuario no puede estar vacío",
-                            minimo:"Se espera como mínimo 4 caracteres",
-                            maximo: "Se espera como máximo 50 caracteres"                         
-                          }}                          
-                        
-                        />
-                        </Col>
-                      </Row>
-                      <Row className="form-group">
-                        <Label htmlFor="txtContrasena" xs={12}>Contraseña:</Label>
-                        <Col xs={12}>
-                        <Control.text model=".contrasena" type="password" name="contrasena"
-                        className="form-control" id="txtContrasena"
-                        validators={{
+                                requerido, minimo: minimo(4), maximo: maximo(50)
 
-                          requerido, maximo:maximo(50)
+                              }} />
+                            <Errors
+                              className="text-danger"
+                              model=".usuario"
+                              show="touched"
+                              messages={{
+                                requerido: "El usuario no puede estar vacío",
+                                minimo: "Se espera como mínimo 4 caracteres",
+                                maximo: "Se espera como máximo 50 caracteres"
+                              }}
 
-                        }} />
-                        <Errors
-                          className="text-danger"
-                          model=".contrasena"
-                          show="touched"
-                          messages={{
-                            requerido:"La contraseña no puede estar vacía",
-                            maximo: "Se espera como máximo 50 caracteres"                         
-                          }}                          
-                        
-                        />
-                        </Col>
+                            />
+                          </Col>
+                        </Row>
+                        <Row className="form-group">
+                          <Label htmlFor="txtContrasena" xs={12}>Contraseña:</Label>
+                          <Col xs={12}>
+                            <Control.text model=".contrasena" type="password" name="contrasena"
+                              className="form-control" id="txtContrasena"
+                              validators={{
 
-                      </Row>
-                      <Row className="form-group">
-                        <Label xs={12}>¿No tienes cuenta? <a href="/"> Inscríbete</a></Label>
-                        
-                      </Row>
-                      <Row className="form-group form-check">
-                        <Label className="form-check-label" xs={12}>
-                          <Control.checkbox model=".recordarme" className="form-check-input" type="checkbox" /> Recordarme en este equipo
+                                requerido, maximo: maximo(50)
+
+                              }} />
+                            <Errors
+                              className="text-danger"
+                              model=".contrasena"
+                              show="touched"
+                              messages={{
+                                requerido: "La contraseña no puede estar vacía",
+                                maximo: "Se espera como máximo 50 caracteres"
+                              }}
+
+                            />
+                          </Col>
+
+                        </Row>
+                        <Row className="form-group">
+                          <Label xs={12}>¿No tienes cuenta? <a href="/"> Inscríbete</a></Label>
+
+                        </Row>
+                        <Row className="form-group form-check">
+                          <Label className="form-check-label" xs={12}>
+                            <Control.checkbox model=".recordarme" className="form-check-input" type="checkbox" /> Recordarme en este equipo
                       </Label>
-                      </Row>
-                      <Row className="form-group">
-                      <Col xs={{size:10, offset:1}}>
-                      <Button type="submit" color="primary" className="btn btn-block">Ingresar</Button>
-                      </Col>
-                      </Row>
+                        </Row>
+                        <Row className="form-group">
+                          <Col xs={{ size: 10, offset: 1 }}>
+                            <Button type="submit" color="primary" className="btn btn-block">Ingresar</Button>
+                          </Col>
+                        </Row>
 
-                    </LocalForm>
+                      </LocalForm>
+                      {alerta}
 
-                  </CardBody>
-                </Card>
-                {alerta}
-              </div>
+                    </CardBody>
 
-              <div className="d-none d-md-block col-md-5">
-                <img width="100%" height="100%" src="recursos/imagenes/crear.jpg" alt="img-login" />
-              </div>
+                  </Col>
 
-            </div>
-          </div>
+                  <Col xs={12} md={5} className="d-none d-md-block">
+                    <img width="100%" height="100%" src="recursos/imagenes/iniciar-sesion-inicio.jpg" alt="img-login" />
+                  </Col>
+
+                </Row>
+
+              </Card>
+
+
+
+            </Col>
+          </Row>
+
         </div>
-
-      </div>
-  </>
+      </>
 
     );
 
