@@ -43,16 +43,14 @@ class Principal extends Component {
 
 
     render() {
-
-    const redireccionador=()=>{return <Redirect push to="RUTAS.INICIO_BIENVENIDA.ruta"/>};
+      
 
         return (
             <div>
-
-                <Barra />
+                <Barra/>
                 
                 <SwitchDeslizador>
-                    <Route exact path="/" component={redireccionador} />
+                    <Route exact path="/" component={Inicio} />
                     <Route path={RUTAS.INICIO_BIENVENIDA.ruta} component={Inicio} />
                     <Route path={RUTAS.DESCARGAR_BIENVENIDA.ruta} component={Descargar} />
                     <Route path={RUTAS.INICIAR_SESION_BIENVENIDA.ruta} component={()=>
@@ -69,7 +67,7 @@ class Principal extends Component {
                     estaCargando={this.props.lideres.estaCargando}
                     mensError={this.props.lideres.mensError} /> } />                       
                 
-                    <Redirect to={RUTAS.INICIO_BIENVENIDA.ruta} />
+                    <Redirect to={RUTAS.INICIO_BIENVENIDA.ruta} component={Inicio}/>
                     
                     }
 

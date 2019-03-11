@@ -48,6 +48,7 @@ class Barra extends Component {
                             <Nav navbar>
 
                                 <NavItem className="ml-2">
+                                                                        
                                     <NavLink className="nav-link" to={RUTAS.INICIO_BIENVENIDA.ruta}>
                                         Inicio
                                 </NavLink>
