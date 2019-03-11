@@ -14,7 +14,7 @@ export const ARREGLO_RUTAS=[INICIO_BIENVENIDA,DESCARGAR_BIENVENIDA,INICIAR_SESIO
 
 export const deslizarDerecha=(rutaDesde, rutaHasta)=>{
 
-    if (rutaDesde==="/" || rutaHasta==="/") return true;
+    if (rutaDesde==="/" || rutaHasta==="/" || (!rutaDesde) || (!rutaHasta)) return true;
 
     else {
 
