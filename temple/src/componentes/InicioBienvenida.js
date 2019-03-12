@@ -4,8 +4,7 @@ import {FadeTransform,Transform} from 'react-animation-components';
 class Inicio extends Component {
 
     render() {
-        
-        
+                
         return (
             <div className="container-fluid bloque-contenedor">
             <FadeTransform in
@@ -107,7 +106,7 @@ class Inicio extends Component {
                                     </p>
 
                                     <p className="text-justify">
-                                    <b>Y Listo! ¿Pero cómo elijo al mejor profesor?</b> Todos los profesores cuentan con un perfil donde puedes ver la calificación por estrellas
+                                    <b>¡Y Listo! ¿Pero cómo elijo al mejor profesor?</b> Todos los profesores cuentan con un perfil donde puedes ver la calificación por estrellas
                                      que le han dado sus alumnos, sus horas de experiencia enseñando, y sobretodo, sus reseñas. 
                                     Además, puedes ver su hoja de vida, sus especialidades y su presentación personal. De esta manera, tienes toda la información a la mano 
                                     para hacer una buena elección.                                    
@@ -164,7 +163,7 @@ class Inicio extends Component {
                                     <b>¿Aún gestionas todo a mano? </b>
                                     Deja que Temple haga todo eso por ti. En tu perfil, puedes presentarte con videos e imágenes, subir tu hoja de vida, los cursos que 
                                     enseñas, además de tus modalidades de enseñanza, precios y horarios. Además, consulta tus estadísticas de clases, alumnos, 
-                                    pagos y mucho más. Nos concentramos en lo técnico para que tú te puedas concentrar en dar las mejores clases!
+                                    pagos y mucho más. ¡Nos concentramos en lo técnico para que tú te puedas concentrar en dar las mejores clases!
                                     </p>
                                    
                                     <p className="text-justify"><b>Me encanta la idea, quiero inscribirme como <a href="/">profesor</a></b></p>

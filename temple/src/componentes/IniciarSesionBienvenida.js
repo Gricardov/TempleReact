@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, Card, CardTitle, CardBody, Button, Label, Col, Row } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import {Fade} from 'react-animation-components';
 
 const requerido = (val) => val && val.length;
 const maximo = (len) => (val) => !(val) || (val.length <= len);
@@ -79,6 +80,8 @@ class Login extends Component {
                               className="text-danger"
                               model=".usuario"
                               show="touched"
+                              wrapper="ul"
+                              component={(props) => <MensajeError mensaje={props.children.toString()}/>}
                               messages={{
                                 requerido: "El usuario no puede estar vacío",
                                 minimo: "Se espera como mínimo 4 caracteres",
@@ -102,6 +105,8 @@ class Login extends Component {
                               className="text-danger"
                               model=".contrasena"
                               show="touched"
+                              wrapper="ul"
+                              component={(props) => <MensajeError mensaje={props.children.toString()}/>}
                               messages={{
                                 requerido: "La contraseña no puede estar vacía",
                                 maximo: "Se espera como máximo 50 caracteres"
@@ -152,6 +157,14 @@ class Login extends Component {
     );
 
   }
+
+}
+
+const MensajeError=({mensaje})=>{
+
+  return (
+      <Fade in><li className="text-danger">{mensaje}</li></Fade>
+  );
 
 }
 
