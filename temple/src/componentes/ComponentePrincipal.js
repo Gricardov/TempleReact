@@ -7,11 +7,13 @@ import Descargar from './DescargarBienvenida';
 import Contacto from './ContactoBienvenida';
 import SobreNosotros from './SobreNosotrosBienvenida';
 import Login from './IniciarSesionBienvenida';
+import RegistroAlumno from './RegistroAlumno';
+import RegistroProfesor from './RegistroProfesor';
 
 import SwitchDeslizador from './ComponenteSwitchDeslizador';
 import * as RUTAS from '../compartido/rutas';
 
-import { Route, Redirect, withRouter } from 'react-router-dom';
+import {Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import {actions} from 'react-redux-form';
 
@@ -36,16 +38,19 @@ const mapDispatchToProps=(dispatch)=>({
 
 class Principal extends Component {
 
+    
+
+ 
     componentDidMount(){
 
         this.props.obtenerLideres();
 
     }
 
-
+    
     render() {
       
-
+      
         return (
             <div>
                 <Barra/>
@@ -60,7 +65,7 @@ class Principal extends Component {
                     estaCargando={this.props.estadoSesion.estaCargando}
                     mensError={this.props.estadoSesion.mensError}
                     usuario={this.props.estadoSesion.usuario} /> } />
-
+                   
                     <Route path={RUTAS.CONTACTO_BIENVENIDA.ruta} component={()=>
                     
                     <Contacto reiniciarForm={this.props.reiniciarFormContacto}/>
@@ -72,6 +77,9 @@ class Principal extends Component {
                     estaCargando={this.props.lideres.estaCargando}
                     mensError={this.props.lideres.mensError} /> } />                       
                                         
+                    <Route path={RUTAS.REGISTRO_PROFESOR_BIENVENIDA.ruta} component={RegistroProfesor}/>
+                    <Route path={RUTAS.REGISTRO_ALUMNO_BIENVENIDA.ruta} component={RegistroAlumno}/>
+
                     <Redirect to={RUTAS.INICIO_BIENVENIDA.ruta} component={Inicio}/>
                     
                     }

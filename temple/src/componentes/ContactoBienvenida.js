@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {FormGroup, Label, Input, Col, FormFeedback } from 'reactstrap';
+import {FormGroup, Label, Col} from 'reactstrap';
 import {Control, Form, Errors, actions} from 'react-redux-form';
 import {Fade} from 'react-animation-components';
 
@@ -84,7 +84,7 @@ class Contacto extends Component {
                                                 requerido: 'El correo no puede estar vacío',
                                                 minimo: 'Tu correo debe tener 12 caracteres como mínimo',
                                                 maximo: 'No te pases! :( Tu correo no puede exceder los 50 caracteres',
-                                                correoValido: 'Tu correo no está en formato correcto. Debe ser de este tipo correo@algo.abc'
+                                                correoValido: 'Tu correo no está en formato correcto. Debe tener este formato: correo@algo.abc'
                                         }}
 
                                     />

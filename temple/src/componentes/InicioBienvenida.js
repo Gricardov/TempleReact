@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {FadeTransform,Transform} from 'react-animation-components';
+import * as RUTAS from '../compartido/rutas';
+import {Link} from 'react-router-dom';
+import LinkButton from '../LinkButton/LinkButton'
 
 class Inicio extends Component {
 
@@ -23,10 +26,10 @@ class Inicio extends Component {
 
                         <div className="row justify-content-center">
                             <div>
-                                <button className="boton-bloque-principal">Soy un profesor</button>
+                            <LinkButton to={RUTAS.REGISTRO_PROFESOR_BIENVENIDA.ruta} className="boton-bloque-principal">Soy un profesor</LinkButton>
                             </div>
                             <div>
-                                <button className="boton-bloque-principal">Soy un alumno</button>
+                            <LinkButton to={RUTAS.REGISTRO_ALUMNO_BIENVENIDA.ruta} className="boton-bloque-principal">Soy un alumno</LinkButton>
                             </div>
                         </div>
 
