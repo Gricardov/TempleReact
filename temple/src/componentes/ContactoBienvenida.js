@@ -34,7 +34,7 @@ class Contacto extends Component {
                         <h3>Contáctate con nosotros!</h3>
                     </div>
                     <div className="col-12 col-md-9">
-                        <Form  model="formContacto" onSubmit={(values)=>this.procesarEnvio(values)}>
+                        <Form model="formContacto" onSubmit={(values)=>this.procesarEnvio(values)}>
                             <FormGroup row>
                                 <Label htmlFor="txtNombre" md={2}>Nombre: </Label>
                                 <Col md={10}>
@@ -55,7 +55,7 @@ class Contacto extends Component {
                                         messages={
                                             {
                                                 requerido: 'El nombre no puede estar vacío',
-                                                minimo: 'Tu nombre debe tener 2 caracteres como mínimo. ¡Sí! 2, ¿No conoces el nombre Zu?',
+                                                minimo: 'Tu nombre completo debe tener 2 caracteres como mínimo. ¿No crees? Existe hasta el nombre Zu',
                                                 maximo: 'No te pases! :( Tu nombre no puede exceder los 50 caracteres'
                                             }
                                         }
