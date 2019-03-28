@@ -17,7 +17,7 @@ class DeslizaFuera extends React.Component {
         hijoAnterior:null,
         idPrevio:null,
         callbackAnimacion:null
-    };
+        };
     }
 
 componentDidUpdate(prevProps, prevState) {
@@ -35,7 +35,7 @@ componentDidUpdate(prevProps, prevState) {
         idActual:idActual,
         hijoAnterior: prevProps.children,
         idAnterior,
-        callbackAnimacion: this.intercambiarHijos
+        callbackAnimacion: this.intercambiarHijos,
         });
     }
 
@@ -48,7 +48,6 @@ intercambiarHijos=()=>{
         hijoAnterior:null,
         idAnterior:null,
         callbackAnimacion:null
-
 
     });
 }
@@ -73,20 +72,20 @@ render(){
 
 }
 
-const animarSwitch = (SwitchPersonalizado, ComponenteAnimador)=>({
+const SwitchDeslizador = (ComponenteAnimador,SwitchPersonalizado)=>({
     updateStep,
-    children
+    children,
+    paginaCambio
 }) => (
 
     <Route
     render={({location})=>(
-        <ComponenteAnimador idActual={location.pathname} updateStep={updateStep}>
+        <ComponenteAnimador paginaCambio={paginaCambio} idActual={location.pathname} updateStep={updateStep}>
             <SwitchPersonalizado location={location}>{children}></SwitchPersonalizado>
         </ComponenteAnimador>
     )}    
     />
 );
 
-const SwitchDeslizador = animarSwitch(Switch, DeslizaFuera);
+export default SwitchDeslizador(DeslizaFuera,Switch);
 
-export default SwitchDeslizador;

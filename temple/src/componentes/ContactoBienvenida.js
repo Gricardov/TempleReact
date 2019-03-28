@@ -1,141 +1,31 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, Label, Input, Col, FormFeedback } from 'reactstrap';
+import {FormGroup, Label, Col} from 'reactstrap';
+import {Control, Form, Errors, actions} from 'react-redux-form';
+import {Fade} from 'react-animation-components';
 
+const requerido=(val)=>val && val.length;
+const maximo=(tam)=>(val)=>!(val) || (val.length<=tam);
+const minimo=(tam)=>(val)=>(val) && (val.length>=tam);
+const correoValido=(val)=>/^[A-Z0-9a-z._%+-]+@[A-Z0-9.-]+\.[A-Za-z]{2,4}$/i.test(val);
 
 class Contacto extends Component {
 
     constructor(props) {
 
         super(props);
-        this.state = {
-            nombre: "",
-            correo: "",
-            tipoContacto: "",
-            comentario: "",
-            acepta: false,
-            alterados: {
-
-                nombre: false,
-                correo: false,
-                comentario: false,
-                acepta: false
-
-            }
-        };
-
+        
         this.procesarEnvio = this.procesarEnvio.bind(this);
-        this.reflejarCambio = this.reflejarCambio.bind(this);
-        this.validarDatos = this.validarDatos.bind(this);
-        this.haSidoAlterado = this.haSidoAlterado.bind(this);
+        
     }
 
-    procesarEnvio() {
+    procesarEnvio(valores) {
 
-        alert(JSON.stringify(this.state));
+        alert(JSON.stringify(valores));
 
-
-    }
-
-    reflejarCambio(evento) {
-
-        const objetivo = evento.target;
-
-        const clave = objetivo.name;
-        const valor = (objetivo.type === 'checkbox' ? objetivo.checked : objetivo.value);
-
-        this.setState({
-            [clave]: valor
-
-        });
-
-    }
-
-    validarDatos() {
-
-        const errores = {
-            nombre: '',
-            correo: '',
-            comentario: '',
-            acepta: ''
-
-        }
-
-        const nombre = this.state.nombre;
-        const correo = this.state.correo;
-        const comentario = this.state.comentario;
-        const acepta = this.state.acepta;
-
-        if (this.state.alterados.nombre) {
-
-            if (nombre.length <= 3) {
-
-                errores.nombre = "El nombre debe tener más de 3 caracteres"
-
-            }
-
-            else if (nombre.length > 50) {
-
-                errores.nombre = "El nombre no puede tener más de 50 caracteres"
-
-
-            }
-        }
-
-        if (this.state.alterados.correo) {
-
-            const expReg = /^([a-zA-Z0-9]+@[a-z]{2,10}.[a-z]{3})$/
-
-            if (!expReg.test(correo)) {
-
-                errores.correo = "El correo no tiene el formato solicitado"
-
-            }
-        }
-
-        if (this.state.alterados.comentario) {
-
-            if (comentario.length <= 10) {
-
-                errores.comentario = "El comentario no puede ser menor a 10 caracteres"
-
-            }
-
-            else if (comentario.length > 500) {
-
-                errores.comentario = "El comentario no puede contener más de 500 caracteres"
-
-            }
-        }
-
-        if (this.state.alterados.acepta) {
-
-            if (acepta === false) {
-
-                errores.acepta = "Debes aceptar las bases legaless papito"
-
-            }
-        }
-        return errores;
-
-    }
-
-    haSidoAlterado(evento) {
-
-        const objetivo = evento.target;
-
-        this.setState({
-
-            alterados: {
-                ...this.state.alterados,
-                [objetivo.name]: true
-            }
-
-        })
 
     }
 
     render() {
-        const errores = this.validarDatos();
 
         return (
             <div className="container debajo-barra">
@@ -144,40 +34,74 @@ class Contacto extends Component {
                         <h3>Contáctate con nosotros!</h3>
                     </div>
                     <div className="col-12 col-md-9">
-                        <Form onSubmit={this.procesarEnvio}>
+                        <Form model="formContacto" onSubmit={(values)=>this.procesarEnvio(values)}>
                             <FormGroup row>
                                 <Label htmlFor="txtNombre" md={2}>Nombre: </Label>
                                 <Col md={10}>
-                                    <Input type="text" name="nombre" id="txtNombre"
-                                        value={this.state.nombre} onChange={this.reflejarCambio}
-                                        onBlur={this.haSidoAlterado}
-                                        valid={errores.nombre === ''}
-                                        invalid={errores.nombre !== ''}
+                                    <Control.text   model=".nombre"
+                                                    name="nombre"
+                                                    id="txtNombre"
+                                                    className="form-control"
+                                                    validators={{
+                                                        requerido, minimo:minimo(2), maximo:maximo(50)
+                                                    }}
                                     />
-                                    <FormFeedback>{errores.nombre}</FormFeedback>
+                                    <Errors
+                                        className="text-danger"
+                                        model=".nombre"
+                                        show="touched"
+                                        wrapper="ul"
+                                        component={(props) => <MensajeError mensaje={props.children.toString()}/>}
+                                        messages={
+                                            {
+                                                requerido: 'El nombre no puede estar vacío',
+                                                minimo: 'Tu nombre completo debe tener 2 caracteres como mínimo. ¿No crees? Existe hasta el nombre Zu',
+                                                maximo: 'No te pases! :( Tu nombre no puede exceder los 50 caracteres'
+                                            }
+                                        }
+                                    />
                                 </Col>
                             </FormGroup>
 
                             <FormGroup row>
                                 <Label htmlFor="txtCorreo" md={2}>Correo: </Label>
                                 <Col md={10}>
-                                    <Input type="email" name="correo" id="txtCorreo"
-                                        value={this.state.correo} onChange={this.reflejarCambio}
-                                        onBlur={this.haSidoAlterado}
-                                        valid={errores.correo === ''}
-                                        invalid={errores.correo !== ''} />
-                                    <FormFeedback>{errores.correo}</FormFeedback>
+                                    <Control.text   model=".correo"
+                                                    name="correo"
+                                                    id="txtCorreo"
+                                                    className="form-control"
+                                                    validators={{
+                                                        requerido, minimo: minimo(12), maximo:maximo(50), correoValido
+                                                    }}
+                                                     />
+                                    <Errors
+                                        className="text-danger"
+                                        model=".correo"
+                                        show="touched"
+                                        wrapper="ul"
+                                        component={(props) => <MensajeError mensaje={props.children.toString()}/>}
+                                        messages={{
+                                                requerido: 'El correo no puede estar vacío',
+                                                minimo: 'Tu correo debe tener 12 caracteres como mínimo',
+                                                maximo: 'No te pases! :( Tu correo no puede exceder los 50 caracteres',
+                                                correoValido: 'Tu correo no está en formato correcto. Debe tener este formato: correo@algo.abc'
+                                        }}
+
+                                    />
                                 </Col>
                             </FormGroup>
 
                             <FormGroup row>
-                                <Label htmlFor="txtTipoContacto" md={2}>Tipo de contacto: </Label>
+                                <Label htmlFor="cboTipoContacto" md={2}>Tipo de contacto: </Label>
                                 <Col md={10}>
-                                    <Input type="select" name="tipoContacto" id="txtTipoContacto" value={this.state.tipoContacto} onChange={this.reflejarCambio}>
+                                    <Control.select model="tipoContacto"
+                                                    name="tipoContacto"
+                                                    id="cboTipoContacto"
+                                                    className="form-control"
+                                                    >
                                         <option>Duda</option>
-                                        <option>Queja</option>
-                                        <option>Propuesta indecente</option>
-                                    </Input>
+                                        <option>Reclamo</option>
+                                    </Control.select>
 
                                 </Col>
                             </FormGroup>
@@ -185,32 +109,27 @@ class Contacto extends Component {
                             <FormGroup row>
                                 <Label htmlFor="txtComentario" md={2}>Comentario: </Label>
                                 <Col md={10}>
-                                    <Input type="textarea" rows="12" name="comentario"
-                                        id="txtComentario" value={this.state.comentario}
-                                        onChange={this.reflejarCambio}
-                                        onBlur={this.haSidoAlterado}
-                                        valid={errores.comentario === ''}
-                                        invalid={errores.comentario !== ''} />
-                                    <FormFeedback>{errores.comentario}</FormFeedback>
+                                    <Control.textarea   model=".comentario"
+                                                    rows="12"
+                                                    name="comentario"
+                                                    id="txtComentario"
+                                                    className="form-control"
+                                                    validators={{
+                                                        requerido, minimo: minimo (20), maximo:maximo(500)
+                                                    }} />
+                                    <Errors
+                                        className="text-danger"
+                                        model=".comentario"
+                                        show="touched"
+                                        wrapper="ul"
+                                        component={(props) => <MensajeError mensaje={props.children.toString()}/>}
+                                        messages={{
+                                            requerido:'Tu mensaje no puede estar vacío. ¿Cómo voy a saber lo que necesitas? He practicado adivinación pero no es para tanto',
+                                            minimo:'Tu mensaje debe tener como mínimo 20 caracteres',
+                                            maximo: 'Tu mensaje ha excedido los 500 caracteres :( trata de ser más conciso, por favorr. Igual te queremos <3'
+                                        }}
+                                    />
                                 </Col>
-                            </FormGroup>
-
-                            <FormGroup row>
-                                <div className="col-md-10 offset-md-2">
-                                    <FormGroup check>
-                                        <Label check>
-                                            <Input type="checkbox" name="acepta"
-                                                checked={this.state.acepta} onChange={this.reflejarCambio}
-                                                onBlur={this.haSidoAlterado}
-                                                valid={errores.acepta === ''}
-                                                invalid={errores.acepta !== ''}
-
-                                            /> {' '}
-                                            <strong>He leído las bases legaless</strong>
-                                            <FormFeedback>{errores.acepta}</FormFeedback>
-                                        </Label>
-                                    </FormGroup>
-                                </div>
                             </FormGroup>
 
                             <FormGroup row>
@@ -232,6 +151,14 @@ class Contacto extends Component {
         );
 
     }
+
+}
+
+const MensajeError=({mensaje})=>{
+
+    return (
+        <Fade in><li className="text-danger">{mensaje}</li></Fade>
+    );
 
 }
 

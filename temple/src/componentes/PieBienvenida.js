@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import * as RUTAS from '../compartido/rutas';
 
 const Pie = (props) => {
 
@@ -21,14 +22,14 @@ const Pie = (props) => {
                                 <p>Temple es una plataforma que facilita el contacto entre profesores independientes
                                     y alumnos por medio de la tecnología.
                                 </p>
-                                <p className="small">Casi todos los derechos reservados - 2019</p>
+                                <p className="small">Pronto disponible en: </p>
                             </div>
 
                             <div className="col-12">
                                 <div className="row text-center">
 
                                     <div className="col-12 d-sm-none">
-                                        <p>Descarga la aplicación:</p> 
+                                        <p>Pronto disponible en:</p> 
                                     </div>                                    
 
                                     <div className="col-sm-5">
@@ -47,10 +48,10 @@ const Pie = (props) => {
                     <div className="col-12 col-md-2 offset-md-1">
                         <h4>TEMPLE</h4>
                         <ul className="list-unstyled">
-                            <li><Link className="enlace-pie" to="/sobreNosotros">Sobre nosotros</Link></li>
-                            <li><Link className="enlace-pie" to="/bienvenida">Misión y visión</Link></li>
-                            <li><Link className="enlace-pie" to="/bienvenida">Para profesores</Link></li>
-                            <li><Link className="enlace-pie" to="/bienvenida">Para estudiantes</Link></li>
+                            <li><Link className="enlace-pie" to={RUTAS.SOBRE_NOSOTROS_BIENVENIDA.ruta}>Sobre nosotros</Link></li>
+                            <li><Link className="enlace-pie" to={RUTAS.MISION_VISION_BIENVENIDA.ruta}>Misión y visión</Link></li>
+                            <li><Link className="enlace-pie" to={RUTAS.REGISTRO_PROFESOR_BIENVENIDA.ruta}>Para profesores</Link></li>
+                            <li><Link className="enlace-pie" to={RUTAS.REGISTRO_ALUMNO_BIENVENIDA.ruta}>Para estudiantes</Link></li>
                         </ul>
                     </div>
 
@@ -58,9 +59,9 @@ const Pie = (props) => {
                         <h4>Ayuda</h4>
 
                         <ul className="list-unstyled">
-                            <li><Link className="enlace-pie" to="/bienvenida">Términos de uso</Link></li>
-                            <li><Link className="enlace-pie" to="/bienvenida">Preguntas frecuentess</Link></li>
-                            <li><Link className="enlace-pie" to="/contacto">Contacto</Link></li>                            
+                            <li><Link className="enlace-pie" to={RUTAS.TERMINOS_USO_BIENVENIDA.ruta}>Términos de uso</Link></li>
+                            <li><Link className="enlace-pie" to={RUTAS.PREGUNTAS_FRECUENTES_BIENVENIDA.ruta}>Preguntas frecuentess</Link></li>
+                            <li><Link className="enlace-pie" to={RUTAS.CONTACTO_BIENVENIDA.ruta}>Contacto</Link></li>                            
                         </ul>
                     </div>
                 </div>
