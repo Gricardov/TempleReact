@@ -18,17 +18,17 @@ class FormRegistro extends Component {
         super(props);
         this.state = {
             paso1: {
-                nombres: '',
-                apPat: '',
-                apMat: '',
-                edad: '',
+                nombres: 'mila',
+                apPat: 'luna',
+                apMat: 'luna',
+                edad: '23',
                 genero: '1',
-                correo: '',
-                telefono: ''
+                correo: 'mila@gmail.com',
+                telefono: '7654321'
             },
             paso2: {
                 nivel: '',
-                preferencias: [{ p1: 'xd' }]
+                preferencias: [{ id: null }]
             },
             paso3: {
 
@@ -39,16 +39,28 @@ class FormRegistro extends Component {
         }
         this.agregarPreferencia = this.agregarPreferencia.bind(this);
         this.modificarPreferencia = this.modificarPreferencia.bind(this);
+        this.eliminarPreferencia = this.eliminarPreferencia.bind(this);
+
     }
 
     agregarPreferencia = () => {
         let paso = { ...this.state.paso2 }
-        paso.preferencias.push({ p1: 'xd' })
+        paso.preferencias.push({ id: null })
         this.setState({ paso2: paso })
     }
 
-    modificarPreferencia = (preferencia) => {
+    modificarPreferencia = (indice, preferencia) => {
+        let paso = { ...this.state.paso2 }
+        let preferencias = paso.preferencias;
+        preferencias[indice] = preferencia;
+        this.setState({ paso2: paso })
+    }
 
+    eliminarPreferencia = (indice) => {
+        let paso = { ...this.state.paso2 }
+        let preferencias = paso.preferencias;
+        preferencias[indice] = { id: null };
+        this.setState({ paso2: paso })
     }
 
     componentDidUpdate(previousProps, previousState) {
@@ -70,7 +82,8 @@ class FormRegistro extends Component {
             case 2:
 
                 return (<Paso2 anteriorPaso={this.props.anteriorPaso} siguientePaso={this.props.siguientePaso} agregarPreferencia
-                    ={this.agregarPreferencia} preferencias={this.state.paso2.preferencias} />)
+                    ={this.agregarPreferencia} preferencias={this.state.paso2.preferencias} modificarPreferencia={this.modificarPreferencia}
+                    eliminarPreferencia={this.eliminarPreferencia} />)
 
 
 
@@ -80,7 +93,6 @@ class FormRegistro extends Component {
 }
 
 const Paso2 = (props) => {
-
     return (
         <TransitionGroup>
             <CSSTransition classNames="registro" timeout={300}>
@@ -101,7 +113,8 @@ const Paso2 = (props) => {
 
                         </Col>
                     </FormGroup>
-                    <Preferencias preferencias={props.preferencias} />
+                    <Preferencias preferencias={props.preferencias} modificarPreferencia={props.modificarPreferencia}
+                        eliminarPreferencia={props.eliminarPreferencia} />
 
                     <FormGroup row>
                         <Col xs={12}>
@@ -109,7 +122,7 @@ const Paso2 = (props) => {
                                 color="primary"
                                 block
                                 onClick={() => { props.agregarPreferencia() }}>
-                                <span className="fa fa-plus"></span> Agregar otra preferencia
+                                <span className="fa fa-plus"></span> Agregar otro curso
                         </Button>
                         </Col>
                     </FormGroup>
