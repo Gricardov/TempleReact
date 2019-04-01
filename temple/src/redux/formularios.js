@@ -1,6 +1,6 @@
 export const InicioContacto={
 
-nombre:'',
+nombre:'bella',
 correo:'',
 tipoContacto:'',
 comentario:''

@@ -11,7 +11,8 @@ class Preferencias extends Component {
     }
 
     render() {
-        const preferencias = [...Array(this.props.numPreferencias)].map((_, i) => {
+        //const preferencias = [...Array(this.props.numPreferencias)].map((_, i) => {
+            const preferencias=this.props.preferencias.map((e,i)=>{
             return (
                 <Card key={i} className="mb-3">
                     <CardBody>
@@ -19,7 +20,7 @@ class Preferencias extends Component {
                             { i>0 ? 
                             <Label xs={12}>¿Qué otro curso deseas priorizar?</Label>
                             :
-                            <Label xs={12}>¿Qué tipo de cursos priorizamos para ti?<small>
+                            <Label xs={12}>¿Qué cursos priorizamos para ti?<small>
                                 Puedes elegir otros cursos luego</small></Label>
                             }
                             

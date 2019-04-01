@@ -3,15 +3,16 @@ import { Col, Row } from 'reactstrap';
 import FormRegistro from './FormRegistroAlumno';
 
 class RegistroAlumno extends Component {
-// Este componente maneja los pasos. El formulario se valida a sí mismo y envía la instrucción para cambiar de página.
-// Luego, si se cambia de página, se envia esa información al encabezado y la botonera para que se actualicen.
+    // Este componente maneja los pasos. El formulario se valida a sí mismo y envía la instrucción para cambiar de página.
+    // Luego, si se cambia de página, se envia esa información al encabezado y la botonera para que se actualicen.
 
     constructor(props) {
-
+// El valor de datosAprobados guarda los datos temporales del paso actual
         super(props);
         this.state = {
             pasoActual: 1,
-            pasosTotales: 4
+            pasosTotales: 4,
+            datosAprobados:{}
         }
         this.siguientePaso = this.siguientePaso.bind(this);
         this.anteriorPaso = this.anteriorPaso.bind(this);
@@ -21,12 +22,14 @@ class RegistroAlumno extends Component {
 
         let paso = this.state.pasoActual;
 
-        // Solo si el paso actual es menor que el último, que avance. (Empezamos de 1)
+        // Solo si el paso actual es menor que el último, que avance. (Empezamos de 1). Además, que guarde los valores
         if (paso < this.state.pasosTotales) {
 
             this.setState({
-                pasoActual: paso + 1
+                pasoActual: paso + 1,
+                datosAprobados: valores
             })
+
 
         }
 
@@ -37,7 +40,8 @@ class RegistroAlumno extends Component {
 
         if (paso > 1) {
             this.setState({
-                pasoActual: paso - 1
+                pasoActual: paso - 1,
+                datosAprobados: null
             })
         }
 
@@ -49,7 +53,8 @@ class RegistroAlumno extends Component {
                 <Row>
                     <Col xs={12}>
                         <Encabezado pasoActual={this.state.pasoActual} />
-                        <FormRegistro pasoActual={this.state.pasoActual} siguientePaso={this.siguientePaso} anteriorPaso={this.anteriorPaso} />
+                        <FormRegistro pasoActual={this.state.pasoActual} siguientePaso={this.siguientePaso} anteriorPaso={this.anteriorPaso}
+                        datosAprobados={this.state.datosAprobados} />
                     </Col>
                 </Row>
             </div>
@@ -58,20 +63,24 @@ class RegistroAlumno extends Component {
 
 }
 
-const Encabezado = () => {
+const Encabezado = ({ pasoActual }) => {
+    const lista = (<ol className="step-indicator">
+
+        <li className={pasoActual == 1 ? "active" : ""}>
+            <div className="step">
+                <i className="fa fa-user-circle-o"></i>
+            </div>
+            <div className="caption hidden-xs hidden-sm">Paso <span>1</span>: <span>Datos personales</span></div></li>
+        <li className={pasoActual == 2 ? "active" : ""}>
+            <div className="step"><i className="fa fa-th-list"></i></div>
+            <div className="caption hidden-xs hidden-sm">Paso <span>2</span>: <span>Preferencias</span></div></li>
+        <li className={pasoActual == 3 ? "active" : ""}>
+            <div className="step"><i className="fa fa-paper-plane"></i></div>
+            <div className="caption hidden-xs hidden-sm">Paso <span>3</span>: <span>Perfil</span></div></li>
+    </ol>);
 
     return (
-        <ol className="step-indicator">
-            <li className="active">
-                <div className="step">
-                    <i className="fa fa-user-circle-o"></i>
-                </div>
-                <div className="caption hidden-xs hidden-sm">Paso <span>1</span>: <span>Datos personales</span></div></li>
-            <li className=""><div className="step"><i className="fa fa-th-list"></i></div>
-                <div className="caption hidden-xs hidden-sm">Paso <span>2</span>: <span>Preferencias</span></div></li>
-            <li className=""><div className="step"><i className="fa fa-paper-plane"></i></div>
-                <div className="caption hidden-xs hidden-sm">Paso <span>3</span>: <span>Perfil</span></div></li>
-        </ol>
+      lista
     );
 
 }

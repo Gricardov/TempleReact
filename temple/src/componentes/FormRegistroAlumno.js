@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FormGroup, Label, Col, Row, Card, CardBody, Button } from 'reactstrap';
-import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Control, LocalForm, Errors, actions } from 'react-redux-form';
 import { Fade } from 'react-animation-components';
 import Botonera from './BotoneraRegistro';
 import Preferencias from './ComponentePreferencias';
@@ -17,37 +17,74 @@ class FormRegistro extends Component {
 
         super(props);
         this.state = {
-            numPreferencias: 1
+            paso1: {
+                nombres: '',
+                apPat: '',
+                apMat: '',
+                edad: '',
+                genero: '1',
+                correo: '',
+                telefono: ''
+            },
+            paso2: {
+                nivel: '',
+                preferencias: [{ p1: 'xd' }]
+            },
+            paso3: {
+
+            },
+            paso4: {
+
+            }
         }
         this.agregarPreferencia = this.agregarPreferencia.bind(this);
-
+        this.modificarPreferencia = this.modificarPreferencia.bind(this);
     }
 
     agregarPreferencia = () => {
-        this.setState({ numPreferencias: this.state.numPreferencias + 1 })
+        let paso = { ...this.state.paso2 }
+        paso.preferencias.push({ p1: 'xd' })
+        this.setState({ paso2: paso })
+    }
+
+    modificarPreferencia = (preferencia) => {
+
+    }
+
+    componentDidUpdate(previousProps, previousState) {
+        if (previousProps.datosAprobados !== this.props.datosAprobados) {
+            // Evalúo -1 porque establece los valores del formulario del paso anterior
+            this.setState({ ["paso" + (this.props.pasoActual - 1)]: this.props.datosAprobados })
+
+        }
     }
 
     render() {
 
         switch (this.props.pasoActual) {
-
+            // Si se ha pasado al siguiente paso, quiere decir que los datos han sido aprobados,
+            // por lo tanto, estos deben almacenarse en el state
             case 1:
-                return (<Paso1 anteriorPaso={this.props.anteriorPaso} siguientePaso={this.props.siguientePaso} />)
+                return (<Paso1 valores={this.state.paso1} anteriorPaso={this.props.anteriorPaso} siguientePaso={this.props.siguientePaso} />)
+
             case 2:
+
                 return (<Paso2 anteriorPaso={this.props.anteriorPaso} siguientePaso={this.props.siguientePaso} agregarPreferencia
-                    ={this.agregarPreferencia} numPreferencias={this.state.numPreferencias} />)
+                    ={this.agregarPreferencia} preferencias={this.state.paso2.preferencias} />)
+
+
 
         }
     }
 
 }
 
-const Paso2 = ({ anteriorPaso, siguientePaso, agregarPreferencia, numPreferencias }) => {
+const Paso2 = (props) => {
 
     return (
         <TransitionGroup>
             <CSSTransition classNames="registro" timeout={300}>
-                <LocalForm onSubmit={(values) => siguientePaso(values)}>
+                <LocalForm onSubmit={(values) => props.siguientePaso(values)}>
 
                     <FormGroup row>
                         <Label htmlFor="cboNivel" xs={12}>¿A qué nivel buscas que te enseñen?<small> Puedes cambiar esto después</small></Label>
@@ -64,20 +101,19 @@ const Paso2 = ({ anteriorPaso, siguientePaso, agregarPreferencia, numPreferencia
 
                         </Col>
                     </FormGroup>
-
-                    <Preferencias numPreferencias={numPreferencias} />
+                    <Preferencias preferencias={props.preferencias} />
 
                     <FormGroup row>
                         <Col xs={12}>
                             <Button id="btnPreferencia"
                                 color="primary"
                                 block
-                                onClick={() => { agregarPreferencia() }}>
+                                onClick={() => { props.agregarPreferencia() }}>
                                 <span className="fa fa-plus"></span> Agregar otra preferencia
                         </Button>
                         </Col>
                     </FormGroup>
-                    <Botonera anteriorPaso={anteriorPaso} />
+                    <Botonera anteriorPaso={props.anteriorPaso} />
 
                 </LocalForm>
             </CSSTransition>
@@ -86,14 +122,14 @@ const Paso2 = ({ anteriorPaso, siguientePaso, agregarPreferencia, numPreferencia
 
 }
 
-const Paso1 = ({ anteriorPaso, siguientePaso }) => {
+const Paso1 = (props) => {
 
     return (
         <TransitionGroup>
 
             <CSSTransition classNames="registro" timeout={300}>
 
-                <LocalForm onSubmit={(values) => siguientePaso(values)}>
+                <LocalForm initialState={props.valores} model="paso1" onSubmit={(values) => props.siguientePaso(values)}>
                     <FormGroup row>
                         <Label htmlFor="txtNombres" xs={12}>Nombres</Label>
                         <Col xs={12}>
@@ -214,17 +250,7 @@ const Paso1 = ({ anteriorPaso, siguientePaso }) => {
 
                         <Col>
                             <Row className="justify-content-around">
-                                <FormGroup check>
-                                    <Label check>
-                                        <Control.radio
-                                            name="genero"
-                                            model=".genero"
-                                            id="rdVaron"
-                                            className="form-check-input"
-                                        />{' '}
-                                        Varón
-                </Label>
-                                </FormGroup>
+
                                 <FormGroup check>
                                     <Label check>
                                         <Control.radio
@@ -233,10 +259,27 @@ const Paso1 = ({ anteriorPaso, siguientePaso }) => {
                                             model=".genero"
                                             id="rdMujer"
                                             className="form-check-input"
+                                            value="1"
+
                                         />{' '}
-                                        Mujer
+                                        Femenino
+
                 </Label>
                                 </FormGroup>
+
+                                <FormGroup check>
+                                    <Label check>
+                                        <Control.radio
+                                            name="genero"
+                                            model=".genero"
+                                            id="rdVaron"
+                                            className="form-check-input"
+                                            value="2"
+                                        />{' '}
+                                        Masculino
+                </Label>
+                                </FormGroup>
+
                             </Row>
                         </Col>
                     </FormGroup>
@@ -296,7 +339,7 @@ const Paso1 = ({ anteriorPaso, siguientePaso }) => {
                             />
                         </Col>
                     </FormGroup>
-                    <Botonera anteriorPaso={anteriorPaso} />
+                    <Botonera anteriorPaso={props.anteriorPaso} />
                 </LocalForm>
             </CSSTransition>
         </TransitionGroup>
