@@ -85,17 +85,22 @@ class Preferencias extends Component {
             return (
                 <Card key={i} className="mb-3">
                     <CardBody>
-                        <FormGroup row>
+                        <Row>
                             {i > 0 ?
-                                <Label xs={12}>¿Qué otro curso deseas priorizar?</Label>
+                                <Col xs={12}>
+                                    <Row>
+                                    <Label xs={11}>¿Qué otro curso deseas priorizar?</Label>
+                                    <Col xs={1}>
+                                        <button type="button" className="close" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </Col>
+                                    </Row>
+                                </Col>
                                 :
-                                <div>
-                                    <Label xs={12}>¿Qué cursos priorizamos para ti? <small>
-                                        Puedes elegir otros cursos luego</small></Label>
-                                    <Button close aria-label="Cancel">
-                                        <span>&times;</span>
-                                    </Button>
-                                </div>
+                                <Label xs={12}>¿Qué cursos priorizamos para ti? <small>
+                                    Puedes elegir otros cursos luego</small></Label>
+
                             }
                             <Col xs={12}>
                                 <Row>
@@ -125,7 +130,7 @@ class Preferencias extends Component {
 
 
 
-                        </FormGroup>
+                        </Row>
 
                     </CardBody>
 
