@@ -32,7 +32,6 @@ class Preferencias extends Component {
 
         // Primero, actualizo el estado del texto
         this.actualizarTexto(indice, e.target.value.toString());
-
         // Luego, hago la consulta
         return fetch(URLBase + 'registro/consultarCurso/' + e.target.value)
             .then(response => {
@@ -61,11 +60,11 @@ class Preferencias extends Component {
             .then(response => response.json())
             .then(res => {
                 this.setState({ resultados: res, indiceBusqueda: indice })
+
             })
             .catch(error => {
                 console.log("Error : " + error.message)
             })
-
     }
 
     modificarPreferencia(indice, preferencia) {
@@ -83,64 +82,71 @@ class Preferencias extends Component {
             //console.log(JSON.stringify(this.state))
 
             return (
-                <Card key={i} className="mb-3">
-                    <CardBody>
-                        <Row>
-                            {i > 0 ?
-                                <Col xs={12}>
-                                    <Row>
-                                    <Label xs={11}>¿Qué otro curso deseas priorizar?</Label>
-                                    <Col xs={1}>
-                                        <button type="button" className="close" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </Col>
-                                    </Row>
+                <Row key={i}>
+
+                    {i > 0 ?
+                        <Col xs={12} className="mt-4">
+                            <Row>
+                                <Label xs={11}>¿Qué otro curso deseas priorizar?</Label>
+                                <Col xs={1}>
+                                    <button type="button" className="close" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </Col>
-                                :
-                                <Label xs={12}>¿Qué cursos priorizamos para ti? <small>
-                                    Puedes elegir otros cursos luego</small></Label>
+                            </Row>
+                        </Col>
+                        :
+                        <Label xs={12}>¿Qué cursos priorizamos para ti? <small>
+                            Puedes elegir otros cursos luego</small></Label>
 
-                            }
-                            <Col xs={12}>
-                                <Row>
-                                    <Col xs={12}>
-                                        {e.id ?
-                                            <Pastilla eliminarPreferencia={this.props.eliminarPreferencia} indice={i} texto={this.state.txtPreferencias[i].texto} />
-                                            :
-                                            <Input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="Por ejemplo: Java, SQL Server, MySQL"
-                                                autoComplete="off"
-                                                value={this.state.txtPreferencias[i] ? this.state.txtPreferencias[i].texto : ''}
-                                                onChange={(e) => this.manejarCambio(e, i)}
-                                            />
-                                        }
-                                    </Col>
-                                    {e.id ?
-                                        null
-                                        :
-                                        <Sugerencias indice={i} resultados={this.state.resultados}
-                                            modificarPreferencia={this.modificarPreferencia}
-                                            indiceBusqueda={this.state.indiceBusqueda} />
-                                    }
-                                </Row>
-                            </Col>
+                    }
 
+                    <Col xs={12}>
+                        {e.id ?
+                            <Pastilla eliminarPreferencia={this.props.eliminarPreferencia} indice={i} texto={this.state.txtPreferencias[i].texto} />
+                            :
+                            <Input
+                                type="text"
+                                className="form-control"
+                                placeholder="Por ejemplo: Java, SQL Server, MySQL"
+                                autoComplete="off"
+                                value={this.state.txtPreferencias[i] ? this.state.txtPreferencias[i].texto : ''}
+                                onChange={(e) => this.manejarCambio(e, i)}
+                            />
+                        }
+                    </Col>
+                    {
+                        console.log("El índice de búsqueda actual es " + this.state.indiceBusqueda + ", índice preguntado " + i)
+                    }
+                    {e.id ?
+                        null
+                        :
+                        i == this.state.indiceBusqueda ? <Sugerencias resultados={this.state.resultados}
+                            modificarPreferencia={this.modificarPreferencia} />
+                            :
+                            null
+                    }
+                </Row>
 
-
-                        </Row>
-
-                    </CardBody>
-
-                </Card>
             );
         })
         return (
-            <>
-                {preferencias}
-            </>
+            <Card className="mb-3">
+                <CardBody>
+                    <Row>
+
+                        <Col xs={12}>
+                            {preferencias}
+                        </Col>
+
+
+
+                    </Row>
+
+                </CardBody>
+
+            </Card>
+
         )
     }
 
@@ -154,22 +160,15 @@ const Pastilla = (props) => {
 
 const Sugerencias = (props) => {
 
-    // Para que solo aparezcan las sugerencias en la caja actual
-    if (props.indice == props.indiceBusqueda) {
+    const options = props.resultados.map((e, i) => (
+        <div key={e.ID_CUR} onClick={() => {
+            props.modificarPreferencia(props.indice, { id: e.ID_CUR, texto: e.NOM_CUR })
+        }}>
+            <strong>{e.NOM_CUR}</strong>
+        </div>
+    ))
+    return <div className="autocomplete-items">{options}</div>
 
-        const options = props.resultados.map((e, i) => (
-            <div key={e.ID_CUR} onClick={() => {
-                props.modificarPreferencia(props.indice, { id: e.ID_CUR, texto: e.NOM_CUR })
-            }}>
-                <strong>{e.NOM_CUR}</strong>
-            </div>
-        ))
-        return <div className="autocomplete-items">{options}</div>
-    }
-
-    else {
-        return null;
-    }
 }
 
 export default Preferencias;
