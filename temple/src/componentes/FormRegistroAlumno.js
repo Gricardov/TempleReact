@@ -59,7 +59,8 @@ class FormRegistro extends Component {
     eliminarPreferencia = (indice) => {
         let paso = { ...this.state.paso2 }
         let preferencias = paso.preferencias;
-        preferencias[indice] = { id: null };
+        //alert(JSON.stringify(preferencias))
+        preferencias.splice(indice, 1);
         this.setState({ paso2: paso })
     }
 

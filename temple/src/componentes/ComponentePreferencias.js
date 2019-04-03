@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardBody, Label, Col, Row, FormGroup, Alert, Button } from 'reactstrap';
+import { Card, CardBody, Label, Col, Row, FormGroup, Alert, Button, Container } from 'reactstrap';
 import { Control } from 'react-redux-form';
 import { URLBase } from '../compartido/URLBase';
 import { Input } from 'reactstrap';
@@ -20,10 +20,11 @@ class Preferencias extends Component {
         }
         this.manejarCambio = this.manejarCambio.bind(this);
         this.modificarPreferencia = this.modificarPreferencia.bind(this);
+        this.eliminarPreferencia = this.eliminarPreferencia.bind(this);
         this.actualizarTexto = this.actualizarTexto.bind(this);
     }
     actualizarTexto(indice, txt) {
-        let txtPref = { ...this.state.txtPreferencias }
+        let txtPref = this.state.txtPreferencias
         txtPref[indice] = { texto: txt }
         this.setState({ txtPreferencias: txtPref })
     }
@@ -67,12 +68,26 @@ class Preferencias extends Component {
             })
     }
 
+    eliminarPreferencia(indice) {
+
+        // Le indicamos al padre que elimine la preferencia
+        this.props.eliminarPreferencia(indice);
+
+        // Eliminamos el texto de ese lugar
+        let txtPref = this.state.txtPreferencias;
+        txtPref.splice(indice, 1);
+        this.setState({ txtPreferencias: txtPref })
+
+        console.log(JSON.stringify(this.props.preferencias))
+    }
+
     modificarPreferencia(indice, preferencia) {
         // Primero, modifico el id de la preferencia (lo maneja el padre)
         this.props.modificarPreferencia(indice, { id: preferencia.id });
 
         // Y modifico el texto correspondiente de este componente
         this.actualizarTexto(indice, preferencia.texto);
+        console.log(JSON.stringify(this.props.preferencias))
 
     }
 
@@ -89,7 +104,7 @@ class Preferencias extends Component {
                             <Row>
                                 <Label xs={11}>¿Qué otro curso deseas priorizar?</Label>
                                 <Col xs={1}>
-                                    <button type="button" className="close" aria-label="Close">
+                                    <button type="button" className="close" aria-label="Close" onClick={() => this.eliminarPreferencia(i)}>
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </Col>
@@ -103,7 +118,8 @@ class Preferencias extends Component {
 
                     <Col xs={12}>
                         {e.id ?
-                            <Pastilla eliminarPreferencia={this.props.eliminarPreferencia} indice={i} texto={this.state.txtPreferencias[i].texto} />
+                            <Pastilla modificarPreferencia={this.modificarPreferencia} indice={i}
+                                texto={this.state.txtPreferencias[i].texto} />
                             :
                             <Input
                                 type="text"
@@ -115,14 +131,13 @@ class Preferencias extends Component {
                             />
                         }
                     </Col>
-                    {
-                        console.log("El índice de búsqueda actual es " + this.state.indiceBusqueda + ", índice preguntado " + i)
-                    }
+
                     {e.id ?
                         null
                         :
-                        i == this.state.indiceBusqueda ? <Sugerencias resultados={this.state.resultados}
-                            modificarPreferencia={this.modificarPreferencia} />
+                        i == this.state.indiceBusqueda ?
+                            <Sugerencias resultados={this.state.resultados}
+                                modificarPreferencia={this.modificarPreferencia} indice={i} />
                             :
                             null
                     }
@@ -133,16 +148,7 @@ class Preferencias extends Component {
         return (
             <Card className="mb-3">
                 <CardBody>
-                    <Row>
-
-                        <Col xs={12}>
-                            {preferencias}
-                        </Col>
-
-
-
-                    </Row>
-
+                    {preferencias}
                 </CardBody>
 
             </Card>
@@ -153,8 +159,18 @@ class Preferencias extends Component {
 }
 
 const Pastilla = (props) => {
-    return (<Alert color="primary" toggle={() => { props.eliminarPreferencia(props.indice) }}>
-        {props.texto}
+    return (<Alert color="primary" >
+        <Row>
+            <Col xs={11}>
+                {props.texto}
+            </Col>
+            <Col xs={1}>
+                <span className="enlace-boton" onClick={() => { props.modificarPreferencia(props.indice, { id: null, texto: props.texto }) }}>
+                    Editar
+                </span>
+            </Col>
+        </Row>
+
     </Alert>)
 }
 
@@ -162,13 +178,18 @@ const Sugerencias = (props) => {
 
     const options = props.resultados.map((e, i) => (
         <div key={e.ID_CUR} onClick={() => {
+
             props.modificarPreferencia(props.indice, { id: e.ID_CUR, texto: e.NOM_CUR })
         }}>
-            <strong>{e.NOM_CUR}</strong>
+            <strong>{e.NOM_CUR}</strong> - Perteneciente a la categoría Ciencias de la computación
+            <br />
+            Relacionados:{' '}
+            <span class="badge badge-pill badge-primary">ruby</span>{' '}
+            <span class="badge badge-pill badge-success">sql</span>{' '}
+            <span class="badge badge-pill badge-info">sarita</span>
         </div>
     ))
     return <div className="autocomplete-items">{options}</div>
-
 }
 
 export default Preferencias;
