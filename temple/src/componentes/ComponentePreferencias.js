@@ -92,6 +92,9 @@ class Preferencias extends Component {
     }
 
     render() {
+
+        console.log(JSON.stringify(this.props.preferencias))
+
         //const preferencias = [...Array(this.props.numPreferencias)].map((_, i) => {
         const preferencias = this.props.preferencias.map((e, i) => {
             //console.log(JSON.stringify(this.state))
@@ -184,9 +187,9 @@ const Sugerencias = (props) => {
             <strong>{e.NOM_CUR}</strong> - Perteneciente a la categoría Ciencias de la computación
             <br />
             Relacionados:{' '}
-            <span class="badge badge-pill badge-primary">ruby</span>{' '}
-            <span class="badge badge-pill badge-success">sql</span>{' '}
-            <span class="badge badge-pill badge-info">sarita</span>
+            <span className="badge badge-pill badge-primary">ruby</span>{' '}
+            <span className="badge badge-pill badge-success">sql</span>{' '}
+            <span className="badge badge-pill badge-info">sarita</span>
         </div>
     ))
     return <div className="autocomplete-items">{options}</div>
