@@ -4,7 +4,7 @@ import { Control, LocalForm, Errors, actions } from 'react-redux-form';
 import { Fade } from 'react-animation-components';
 import Botonera from './BotoneraRegistro';
 import Preferencias from './ComponentePreferencias';
-import GoogleApiWrapper from './ComponenteMapa';
+import Mapa from './ComponenteMapa';
 
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -63,7 +63,7 @@ class FormRegistro extends Component {
 
     agregarPreferencia = () => {
         let paso = { ...this.state.paso2 }
-        paso.preferencias.push({ id: null, texto:'' })
+        paso.preferencias.push({ id: null, texto: '' })
         this.setState({ paso2: paso })
     }
 
@@ -132,7 +132,7 @@ class FormRegistro extends Component {
 
 const Paso3 = (props) => {
     return (
-            <GoogleApiWrapper />
+        <Mapa />
     )
 }
 
