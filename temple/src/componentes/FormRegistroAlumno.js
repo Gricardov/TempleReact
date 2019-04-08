@@ -4,6 +4,8 @@ import { Control, LocalForm, Errors, actions } from 'react-redux-form';
 import { Fade } from 'react-animation-components';
 import Botonera from './BotoneraRegistro';
 import Preferencias from './ComponentePreferencias';
+import GoogleApiWrapper from './ComponenteMapa';
+
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const requerido = (val) => val && val.length;
@@ -130,9 +132,7 @@ class FormRegistro extends Component {
 
 const Paso3 = (props) => {
     return (
-        <>
-            Experiencia religiosa
-        </>
+            <GoogleApiWrapper />
     )
 }
 
