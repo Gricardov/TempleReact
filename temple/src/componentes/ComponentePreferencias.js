@@ -64,11 +64,9 @@ class Preferencias extends Component {
 
     render() {
 
-        console.log(JSON.stringify(this.props.preferencias))
 
         //const preferencias = [...Array(this.props.numPreferencias)].map((_, i) => {
         const preferencias = this.props.preferencias.map((e, i) => {
-            //console.log(JSON.stringify(this.state))
 
             return (
                 <Row key={i}>

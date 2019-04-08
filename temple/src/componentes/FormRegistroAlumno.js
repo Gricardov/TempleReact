@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { FormGroup, Label, Col, Row, Card, CardBody, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { FormGroup, Label, Col, Row, Card, CardBody, Button } from 'reactstrap';
 import { Control, LocalForm, Errors, actions } from 'react-redux-form';
 import { Fade } from 'react-animation-components';
 import Botonera from './BotoneraRegistro';
 import Preferencias from './ComponentePreferencias';
+import ModalMensaje from './ModalMensaje';
 import Mapa from './ComponenteMapa';
 
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -57,6 +58,9 @@ class FormRegistro extends Component {
         this.crearError = this.crearError.bind(this);
         // Esto sirve para cerrar la ventana de error
         this.eliminarError = this.eliminarError.bind(this);
+        // Este callback se llama si es que se aceptan los cambios en el formulario
+        this.confirmarCambios=this.confirmarCambios.bind(this);
+
     }
 
     // Para las preferencias
@@ -101,29 +105,39 @@ class FormRegistro extends Component {
         this.setState({ error: null })
     }
 
-    componentDidUpdate(previousProps, previousState) {
+    // Confirmación de los cambios; lo llama el padre
+
+    confirmarCambios = (valores) => {
+        this.props.siguientePaso(valores,(valores,paso)=>{
+            if (valores){
+                this.setState({ ["paso" + (paso)]: valores })
+            }
+        })
+    }
+
+    /*componentDidUpdate(previousProps, previousState) {
         if (previousProps.datosAprobados !== this.props.datosAprobados) {
             // Evalúo -1 porque establece los valores del formulario del paso anterior
             this.setState({ ["paso" + (this.props.pasoActual - 1)]: this.props.datosAprobados })
 
         }
-    }
+    }*/
 
     render() {
+        alert(JSON.stringify(this.state))
 
         switch (this.props.pasoActual) {
             // Si se ha pasado al siguiente paso, quiere decir que los datos han sido aprobados,
             // por lo tanto, estos deben almacenarse en el state
             case 1:
-                return (<Paso1 valores={this.state.paso1} anteriorPaso={this.props.anteriorPaso} siguientePaso={this.props.siguientePaso} />)
-
+                return (<Paso1 valores={this.state.paso1} anteriorPaso={this.props.anteriorPaso} siguientePaso={this.confirmarCambios} />)
             case 2:
-                return (<Paso2 anteriorPaso={this.props.anteriorPaso} siguientePaso={this.props.siguientePaso} agregarPreferencia
+                return (<Paso2 anteriorPaso={this.props.anteriorPaso} siguientePaso={this.confirmarCambios} agregarPreferencia
                     ={this.agregarPreferencia} infoPaso={this.state.paso2} modificarPreferencia={this.modificarPreferencia}
                     eliminarPreferencia={this.eliminarPreferencia} crearError={this.crearError}
                     eliminarError={this.eliminarError} error={this.state.error} />)
             case 3:
-                return (<Paso3 anteriorPaso={this.props.anteriorPaso} siguientePaso={this.props.siguientePaso}></Paso3>)
+                return (<Paso3 s={this.state} anteriorPaso={this.props.anteriorPaso} siguientePaso={this.props.confirmarCambios}></Paso3>)
 
         }
     }
@@ -132,7 +146,10 @@ class FormRegistro extends Component {
 
 const Paso3 = (props) => {
     return (
+        <Col xs={12}>
         <Mapa />
+        <Botonera anteriorPaso={props.anteriorPaso} />
+        </Col>
     )
 }
 
@@ -142,8 +159,9 @@ const Paso2 = (props) => {
     const condicion = props.infoPaso.preferencias.filter((pref) => pref.id)[0]
 
     return (
-        <>
-            <VentanaError error={props.error} eliminarError={props.eliminarError} />
+
+        <Col xs={12}>
+            <ModalMensaje error={props.error} eliminarError={props.eliminarError} />
             <LocalForm onSubmit={(values) => {
                 condicion ? props.siguientePaso(values) : props.crearError('Debes seleccionar un curso como mínimo')
             }}>
@@ -179,7 +197,7 @@ const Paso2 = (props) => {
                 <Botonera anteriorPaso={props.anteriorPaso} />
 
             </LocalForm>
-        </>
+        </Col>
     )
 
 }
@@ -187,239 +205,222 @@ const Paso2 = (props) => {
 const Paso1 = (props) => {
 
     return (
-        <LocalForm initialState={props.valores} model="paso1" onSubmit={(values) => props.siguientePaso(values)}>
-            <FormGroup row>
-                <Label htmlFor="txtNombres" xs={12}>Nombres</Label>
-                <Col xs={12}>
-                    <Control.text
-                        className="form-control"
-                        model=".nombres"
-                        id="txtNombres"
-                        name="nombres"
-                        validators={{
-                            requerido, minimo: minimo(2), maximo: maximo(50)
-                        }}
-                    />
-                    <Errors
-                        className="text-danger"
-                        model=".nombres"
-                        show="touched"
-                        wrapper="ul"
-                        component={(props) => <MensajeError mensaje={props.children.toString()} />}
-                        messages={
-                            {
-                                requerido: 'Los nombres no pueden estar vacíos',
-                                minimo: 'Tu nombre completo debe tener 2 caracteres como mínimo. ¿No crees? Existe hasta el nombre Zu',
-                                maximo: 'No te pases! :( Tu nombre completo no puede exceder los 50 caracteres'
+        <Col xs={12}>
+            <LocalForm initialState={props.valores} model="paso1" onSubmit={(values) => props.siguientePaso(values)}>
+                <FormGroup row>
+                    <Label htmlFor="txtNombres" xs={12}>Nombres</Label>
+                    <Col xs={12}>
+                        <Control.text
+                            className="form-control"
+                            model=".nombres"
+                            id="txtNombres"
+                            name="nombres"
+                            validators={{
+                                requerido, minimo: minimo(2), maximo: maximo(50)
+                            }}
+                        />
+                        <Errors
+                            className="text-danger"
+                            model=".nombres"
+                            show="touched"
+                            wrapper="ul"
+                            component={(props) => <MensajeError mensaje={props.children.toString()} />}
+                            messages={
+                                {
+                                    requerido: 'Los nombres no pueden estar vacíos',
+                                    minimo: 'Tu nombre completo debe tener 2 caracteres como mínimo. ¿No crees? Existe hasta el nombre Zu',
+                                    maximo: 'No te pases! :( Tu nombre completo no puede exceder los 50 caracteres'
+                                }
                             }
-                        }
-                    />
-                </Col>
-            </FormGroup>
+                        />
+                    </Col>
+                </FormGroup>
 
-            <FormGroup row>
-                <Label htmlFor="txtApPat" xs={12}>Apellido paterno</Label>
-                <Col xs={12}>
-                    <Control.text
-                        className="form-control"
-                        model=".apPat"
-                        id="txtApPat"
-                        name="apPat"
-                        validators={{
-                            requerido, minimo: minimo(2), maximo: maximo(50)
-                        }}
-                    />
-                    <Errors
-                        className="text-danger"
-                        model=".apPat"
-                        show="touched"
-                        wrapper="ul"
-                        component={(props) => <MensajeError mensaje={props.children.toString()} />}
-                        messages={
-                            {
-                                requerido: 'Tu apellido paterno no puede estar vacío',
-                                minimo: 'Tu apellido paterno debe tener 2 caracteres como mínimo. ¿No crees? Pensemos en los chinos también',
-                                maximo: 'No te pases! :( ¿Tu apellido paterno cómo va a exceder los 50 caracteres?'
+                <FormGroup row>
+                    <Label htmlFor="txtApPat" xs={12}>Apellido paterno</Label>
+                    <Col xs={12}>
+                        <Control.text
+                            className="form-control"
+                            model=".apPat"
+                            id="txtApPat"
+                            name="apPat"
+                            validators={{
+                                requerido, minimo: minimo(2), maximo: maximo(50)
+                            }}
+                        />
+                        <Errors
+                            className="text-danger"
+                            model=".apPat"
+                            show="touched"
+                            wrapper="ul"
+                            component={(props) => <MensajeError mensaje={props.children.toString()} />}
+                            messages={
+                                {
+                                    requerido: 'Tu apellido paterno no puede estar vacío',
+                                    minimo: 'Tu apellido paterno debe tener 2 caracteres como mínimo. ¿No crees? Pensemos en los chinos también',
+                                    maximo: 'No te pases! :( ¿Tu apellido paterno cómo va a exceder los 50 caracteres?'
+                                }
                             }
-                        }
-                    />
-                </Col>
-            </FormGroup>
+                        />
+                    </Col>
+                </FormGroup>
 
-            <FormGroup row>
-                <Label htmlFor="txtApMat" xs={12}>Apellido materno</Label>
-                <Col xs={12}>
-                    <Control.text
-                        className="form-control"
-                        model=".apMat"
-                        id="txtApMat"
-                        name="apMat"
-                        validators={{
-                            requerido, minimo: minimo(2), maximo: maximo(50)
-                        }}
-                    />
-                    <Errors
-                        className="text-danger"
-                        model=".apMat"
-                        show="touched"
-                        wrapper="ul"
-                        component={(props) => <MensajeError mensaje={props.children.toString()} />}
-                        messages={
-                            {
-                                requerido: 'Tu apellido materno no puede estar vacío',
-                                minimo: 'Tu apellido materno debe tener 2 caracteres como mínimo. ¿No crees? Pensemos en los chinos también',
-                                maximo: 'No te pases! :( ¿Tu apellido materno cómo va a exceder los 50 caracteres?'
+                <FormGroup row>
+                    <Label htmlFor="txtApMat" xs={12}>Apellido materno</Label>
+                    <Col xs={12}>
+                        <Control.text
+                            className="form-control"
+                            model=".apMat"
+                            id="txtApMat"
+                            name="apMat"
+                            validators={{
+                                requerido, minimo: minimo(2), maximo: maximo(50)
+                            }}
+                        />
+                        <Errors
+                            className="text-danger"
+                            model=".apMat"
+                            show="touched"
+                            wrapper="ul"
+                            component={(props) => <MensajeError mensaje={props.children.toString()} />}
+                            messages={
+                                {
+                                    requerido: 'Tu apellido materno no puede estar vacío',
+                                    minimo: 'Tu apellido materno debe tener 2 caracteres como mínimo. ¿No crees? Pensemos en los chinos también',
+                                    maximo: 'No te pases! :( ¿Tu apellido materno cómo va a exceder los 50 caracteres?'
+                                }
                             }
-                        }
-                    />
-                </Col>
-            </FormGroup>
+                        />
+                    </Col>
+                </FormGroup>
 
-            <FormGroup row>
-                <Label htmlFor="txtEdad" xs={12}>Edad: </Label>
-                <Col xs={12}>
-                    <Control.text
-                        className="form-control"
-                        model=".edad"
-                        id="txtEdad"
-                        name="edad"
-                        validators={{
-                            requerido, esNumero
-                        }}
-                    />
-                    <Errors
-                        className="text-danger"
-                        model=".edad"
-                        show="touched"
-                        wrapper="ul"
-                        component={(props) => <MensajeError mensaje={props.children.toString()} />}
-                        messages={
-                            {
-                                requerido: 'Tu edad no puede estar vacía',
-                                esNumero: 'Tu edad debe estar en números. Ejemplo: 22, no "veintidós"'
+                <FormGroup row>
+                    <Label htmlFor="txtEdad" xs={12}>Edad: </Label>
+                    <Col xs={12}>
+                        <Control.text
+                            className="form-control"
+                            model=".edad"
+                            id="txtEdad"
+                            name="edad"
+                            validators={{
+                                requerido, esNumero
+                            }}
+                        />
+                        <Errors
+                            className="text-danger"
+                            model=".edad"
+                            show="touched"
+                            wrapper="ul"
+                            component={(props) => <MensajeError mensaje={props.children.toString()} />}
+                            messages={
+                                {
+                                    requerido: 'Tu edad no puede estar vacía',
+                                    esNumero: 'Tu edad debe estar en números. Ejemplo: 22, no "veintidós"'
+                                }
                             }
-                        }
-                    />
-                </Col>
-            </FormGroup>
+                        />
+                    </Col>
+                </FormGroup>
 
-            <FormGroup row>
-                <Label xs={12}>Género:</Label>
+                <FormGroup row>
+                    <Label xs={12}>Género:</Label>
 
-                <Col>
-                    <Row className="justify-content-around">
+                    <Col>
+                        <Row className="justify-content-around">
 
-                        <FormGroup check>
-                            <Label check>
-                                <Control.radio
+                            <FormGroup check>
+                                <Label check>
+                                    <Control.radio
 
-                                    name="genero"
-                                    model=".genero"
-                                    id="rdMujer"
-                                    className="form-check-input"
-                                    value="1"
+                                        name="genero"
+                                        model=".genero"
+                                        id="rdMujer"
+                                        className="form-check-input"
+                                        value="1"
 
-                                />{' '}
-                                Femenino
+                                    />{' '}
+                                    Femenino
 
                 </Label>
-                        </FormGroup>
+                            </FormGroup>
 
-                        <FormGroup check>
-                            <Label check>
-                                <Control.radio
-                                    name="genero"
-                                    model=".genero"
-                                    id="rdVaron"
-                                    className="form-check-input"
-                                    value="2"
-                                />{' '}
-                                Masculino
+                            <FormGroup check>
+                                <Label check>
+                                    <Control.radio
+                                        name="genero"
+                                        model=".genero"
+                                        id="rdVaron"
+                                        className="form-check-input"
+                                        value="2"
+                                    />{' '}
+                                    Masculino
                 </Label>
-                        </FormGroup>
+                            </FormGroup>
 
-                    </Row>
-                </Col>
-            </FormGroup>
+                        </Row>
+                    </Col>
+                </FormGroup>
 
-            <FormGroup row>
-                <Label htmlFor="txtCorreo" xs={12}>Correo: </Label>
-                <Col xs={12}>
-                    <Control.text model=".correo"
-                        name="correo"
-                        id="txtCorreo"
-                        className="form-control"
-                        validators={{
-                            requerido, minimo: minimo(12), maximo: maximo(50), correoValido
-                        }}
-                    />
-                    <Errors
-                        className="text-danger"
-                        model=".correo"
-                        show="touched"
-                        wrapper="ul"
-                        component={(props) => <MensajeError mensaje={props.children.toString()} />}
-                        messages={{
-                            requerido: 'El correo no puede estar vacío',
-                            minimo: 'Tu correo debe tener 12 caracteres como mínimo',
-                            maximo: 'No te pases! :( Tu correo no puede exceder los 50 caracteres',
-                            correoValido: 'Tu correo no está en formato correcto. Debe tener este formato: correo@algo.abc'
-                        }}
+                <FormGroup row>
+                    <Label htmlFor="txtCorreo" xs={12}>Correo: </Label>
+                    <Col xs={12}>
+                        <Control.text model=".correo"
+                            name="correo"
+                            id="txtCorreo"
+                            className="form-control"
+                            validators={{
+                                requerido, minimo: minimo(12), maximo: maximo(50), correoValido
+                            }}
+                        />
+                        <Errors
+                            className="text-danger"
+                            model=".correo"
+                            show="touched"
+                            wrapper="ul"
+                            component={(props) => <MensajeError mensaje={props.children.toString()} />}
+                            messages={{
+                                requerido: 'El correo no puede estar vacío',
+                                minimo: 'Tu correo debe tener 12 caracteres como mínimo',
+                                maximo: 'No te pases! :( Tu correo no puede exceder los 50 caracteres',
+                                correoValido: 'Tu correo no está en formato correcto. Debe tener este formato: correo@algo.abc'
+                            }}
 
-                    />
-                </Col>
-            </FormGroup>
+                        />
+                    </Col>
+                </FormGroup>
 
-            <FormGroup row>
-                <Label htmlFor="txtTelefono" xs={12}>Teléfono: (Opcional)</Label>
-                <Col xs={12}>
-                    <Control.text
-                        model=".telefono"
-                        name="telefono"
-                        id="txtTelefono"
-                        className="form-control"
-                        validators={{
-                            minimo: minimo(7), maximo: maximo(9), esNumero
-                        }}
-                    />
-                    <Errors
-                        className="text-danger"
-                        model=".telefono"
-                        show="touched"
-                        wrapper="ul"
-                        component={(props) => <MensajeError mensaje={props.children.toString()} />}
-                        messages={{
-                            minimo: 'Tu teléfono debe tener 7 caracteres como mínimo',
-                            maximo: 'Tu teléfono debe tener 9 caracteres, como en un celular',
-                            esNumero: 'El teléfono solo consiste en números'
-                        }}
+                <FormGroup row>
+                    <Label htmlFor="txtTelefono" xs={12}>Teléfono: (Opcional)</Label>
+                    <Col xs={12}>
+                        <Control.text
+                            model=".telefono"
+                            name="telefono"
+                            id="txtTelefono"
+                            className="form-control"
+                            validators={{
+                                minimo: minimo(7), maximo: maximo(9), esNumero
+                            }}
+                        />
+                        <Errors
+                            className="text-danger"
+                            model=".telefono"
+                            show="touched"
+                            wrapper="ul"
+                            component={(props) => <MensajeError mensaje={props.children.toString()} />}
+                            messages={{
+                                minimo: 'Tu teléfono debe tener 7 caracteres como mínimo',
+                                maximo: 'Tu teléfono debe tener 9 caracteres, como en un celular',
+                                esNumero: 'El teléfono solo consiste en números'
+                            }}
 
-                    />
-                </Col>
-            </FormGroup>
-            <Botonera anteriorPaso={props.anteriorPaso} />
-        </LocalForm>
+                        />
+                    </Col>
+                </FormGroup>
+                <Botonera anteriorPaso={props.anteriorPaso} />
+            </LocalForm>
+        </Col>
     )
 
-}
-
-const VentanaError = (props) => {
-    if (props.error) {
-
-        return (
-            <Modal isOpen={true} toggle={() => props.eliminarError()}>
-                <ModalHeader>Ten en cuenta!</ModalHeader>
-                <ModalBody>
-                    {props.error}
-                </ModalBody>
-                <ModalFooter>
-                    <Button color="primary" onClick={() => props.eliminarError()}>Listo</Button>{' '}
-                </ModalFooter>
-            </Modal>
-        );
-    } else {
-        return (null)
-    }
 }
 
 const MensajeError = (props) => {
