@@ -15,24 +15,18 @@ class Preferencias extends Component {
         this.state = {
             consulta: '',
             resultados: [],
-            indiceBusqueda: 0,
-            txtPreferencias: [{ texto: '' }]
+            indiceBusqueda: 0
         }
         this.manejarCambio = this.manejarCambio.bind(this);
-        this.modificarPreferencia = this.modificarPreferencia.bind(this);
-        this.eliminarPreferencia = this.eliminarPreferencia.bind(this);
-        this.actualizarTexto = this.actualizarTexto.bind(this);
+
     }
-    actualizarTexto(indice, txt) {
-        let txtPref = this.state.txtPreferencias
-        txtPref[indice] = { texto: txt }
-        this.setState({ txtPreferencias: txtPref })
-    }
+  
 
     manejarCambio(e, indice) {
 
-        // Primero, actualizo el estado del texto
-        this.actualizarTexto(indice, e.target.value.toString());
+        // Actualizo la preferencia
+        this.props.modificarPreferencia(indice, {id:null, texto:e.target.value.toString()});
+
         // Luego, hago la consulta
         return fetch(URLBase + 'registro/consultarCurso/' + e.target.value)
             .then(response => {
@@ -68,29 +62,6 @@ class Preferencias extends Component {
             })
     }
 
-    eliminarPreferencia(indice) {
-
-        // Le indicamos al padre que elimine la preferencia
-        this.props.eliminarPreferencia(indice);
-
-        // Eliminamos el texto de ese lugar
-        let txtPref = this.state.txtPreferencias;
-        txtPref.splice(indice, 1);
-        this.setState({ txtPreferencias: txtPref })
-
-        console.log(JSON.stringify(this.props.preferencias))
-    }
-
-    modificarPreferencia(indice, preferencia) {
-        // Primero, modifico el id de la preferencia (lo maneja el padre)
-        this.props.modificarPreferencia(indice, { id: preferencia.id });
-
-        // Y modifico el texto correspondiente de este componente
-        this.actualizarTexto(indice, preferencia.texto);
-        console.log(JSON.stringify(this.props.preferencias))
-
-    }
-
     render() {
 
         console.log(JSON.stringify(this.props.preferencias))
@@ -107,29 +78,29 @@ class Preferencias extends Component {
                             <Row>
                                 <Label xs={11}>¿Qué otro curso deseas priorizar?</Label>
                                 <Col xs={1}>
-                                    <button type="button" className="close" aria-label="Close" onClick={() => this.eliminarPreferencia(i)}>
+                                    <button type="button" className="close" aria-label="Close" onClick={() => this.props.eliminarPreferencia(i)}>
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </Col>
                             </Row>
                         </Col>
                         :
-                        <Label xs={12}>¿Qué cursos priorizamos para ti? <small>
-                            Puedes elegir otros cursos luego</small></Label>
+                        <Label xs={12}>¿Qué cursos priorizamos para ti? (Selecciona máximo 4) <small>
+                            Puedes editar estos cursos luego</small></Label>
 
                     }
 
                     <Col xs={12}>
                         {e.id ?
-                            <Pastilla modificarPreferencia={this.modificarPreferencia} indice={i}
-                                texto={this.state.txtPreferencias[i].texto} />
+                            <Pastilla modificarPreferencia={this.props.modificarPreferencia} indice={i}
+                                texto={e.texto} />
                             :
                             <Input
                                 type="text"
                                 className="form-control"
                                 placeholder="Por ejemplo: Java, SQL Server, MySQL"
                                 autoComplete="off"
-                                value={this.state.txtPreferencias[i] ? this.state.txtPreferencias[i].texto : ''}
+                                value={e.texto?e.texto:''}
                                 onChange={(e) => this.manejarCambio(e, i)}
                             />
                         }
@@ -140,7 +111,7 @@ class Preferencias extends Component {
                         :
                         i == this.state.indiceBusqueda ?
                             <Sugerencias resultados={this.state.resultados}
-                                modificarPreferencia={this.modificarPreferencia} indice={i} />
+                                modificarPreferencia={this.props.modificarPreferencia} indice={i} />
                             :
                             null
                     }
