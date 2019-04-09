@@ -7,7 +7,7 @@ import Botonera from './BotoneraRegistro';
 import Preferencias from './ComponentePreferencias';
 import ModalMensaje from './ModalMensaje';
 import Mapa from './ComponenteMapa';
-
+//
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const requerido = (val) => val && val.length;
