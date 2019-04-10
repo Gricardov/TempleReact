@@ -36,7 +36,7 @@ class Paso1 extends Component {
                                 component={(props) => <MensajeError mensaje={props.children.toString()} />}
                                 messages={
                                     {
-                                        requerido: 'Los nombres no pueden estar vacíos',
+                                        requerido: 'Tu nombre debe ser hermoso, anímate a ponerlo :)',
                                         minimo: 'Tu nombre completo debe tener 2 caracteres como mínimo. ¿No crees? Existe hasta el nombre Zu',
                                         maximo: 'No te pases! :( Tu nombre completo no puede exceder los 50 caracteres'
                                     }
