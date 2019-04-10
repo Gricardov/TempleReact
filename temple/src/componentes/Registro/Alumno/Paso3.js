@@ -8,7 +8,7 @@ class Paso3 extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            ...this.props.valores
+            ...this.props.valores[2]
         })
         // Para actualizar coordenadas del mapa
         this.actualizarCoordenadas = this.actualizarCoordenadas.bind(this);
@@ -35,7 +35,7 @@ class Paso3 extends Component {
         return (
             <Col xs={12}>
                 <Mapa posicion={{latitud: this.state.latitud, longitud: this.state.longitud}} actualizarCoordenadas={(coords) => this.actualizarCoordenadas(coords)} />
-                <Botonera anteriorPaso={this.props.anteriorPaso} siguientePaso={this.confirmarCambios} />
+                <Botonera pasoActual={3} valores={this.props.valores} anteriorPaso={this.props.anteriorPaso} siguientePaso={this.confirmarCambios} />
             </Col>
         )
     }

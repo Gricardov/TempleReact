@@ -7,15 +7,16 @@ import { Fade } from 'react-animation-components';
 const requerido = (val) => val && val.length;
 const maximo = (tam) => (val) => !(val) || (val.length <= tam);
 const minimo = (tam) => (val) => (val) && (val.length >= tam);
-const correoValido = (val) => /^[A-Z0-9a-z._%+-]+@[A-Z0-9.-]+\.[A-Za-z]{2,4}$/i.test(val);
-const esNumero = (val) => !isNaN(Number(val));
+const marcado = (val) => val;
 
 class Paso4 extends Component {
 
     render() {
         return (
             <Col xs={12}>
-                <LocalForm initialState={this.props.valores} onSubmit={(values) => this.props.siguientePaso(values)}>
+                <LocalForm initialState={this.props.valores[3]}
+                    onSubmit={(values, event) => this.props.siguientePaso(values, event)}
+                    encType="multipart/form-data">
                     <FormGroup row>
                         <Label htmlFor="txtNomUsu" xs={12}>Elige un nombre de usuario</Label>
                         <Col xs={12}>
@@ -75,7 +76,7 @@ class Paso4 extends Component {
                     </FormGroup>
 
                     <FormGroup row>
-                        <Label htmlFor="txtSobreMi" xs={12}>¿Cómo te describes a ti mismo?</Label>
+                        <Label htmlFor="txtSobreMi" xs={12}>¿Cómo te describes a ti mismo(a)?</Label>
                         <Col xs={12}>
                             <Control.textarea
                                 className="form-control"
@@ -133,63 +134,62 @@ class Paso4 extends Component {
                     </FormGroup>
 
                     <FormGroup row>
-                        <Label htmlFor="txtCorreo" xs={12}>Correo: </Label>
+                        <Label htmlFor="imgPerfil" xs={12}>Foto de perfil</Label>
                         <Col xs={12}>
-                            <Control.text model=".correo"
-                                name="correo"
-                                id="txtCorreo"
+                            <Control.file
                                 className="form-control"
-                                validators={{
-                                    requerido, minimo: minimo(12), maximo: maximo(50), correoValido
-                                }}
-                            />
-                            <Errors
-                                className="text-danger"
-                                model=".correo"
-                                show="touched"
-                                wrapper="ul"
-                                component={(props) => <MensajeError mensaje={props.children.toString()} />}
-                                messages={{
-                                    requerido: 'El correo no puede estar vacío',
-                                    minimo: 'Tu correo debe tener 12 caracteres como mínimo',
-                                    maximo: 'No te pases! :( Tu correo no puede exceder los 50 caracteres',
-                                    correoValido: 'Tu correo no está en formato correcto. Debe tener este formato: correo@algo.abc'
-                                }}
-
+                                model=".perfil"
+                                id="imgPerfil"
+                                name="perfil"
+                                type="jpg"
                             />
                         </Col>
                     </FormGroup>
 
                     <FormGroup row>
-                        <Label htmlFor="txtTelefono" xs={12}>Teléfono: (Opcional)</Label>
+                        <Label htmlFor="imgPortada" xs={12}>Foto de portada</Label>
                         <Col xs={12}>
-                            <Control.text
-                                model=".telefono"
-                                name="telefono"
-                                id="txtTelefono"
+                            <Control.file
                                 className="form-control"
-                                validators={{
-                                    minimo: minimo(7), maximo: maximo(9), esNumero
-                                }}
-                            />
-                            <Errors
-                                className="text-danger"
-                                model=".telefono"
-                                show="touched"
-                                wrapper="ul"
-                                component={(props) => <MensajeError mensaje={props.children.toString()} />}
-                                messages={{
-                                    minimo: 'Tu teléfono debe tener 7 caracteres como mínimo',
-                                    maximo: 'Tu teléfono debe tener 9 caracteres, como en un celular',
-                                    esNumero: 'El teléfono solo consiste en números'
-                                }}
-
+                                model=".portada"
+                                id="imgPortada"
+                                name="portada"
+                                type="jpg"
                             />
                         </Col>
                     </FormGroup>
-                    <Botonera anteriorPaso={this.props.anteriorPaso} />
+
+                    <FormGroup row>
+                        <Col xs={{ size: 10, offset: 2 }}>
+                            <div className="form-check">
+                                <Label check>
+                                    <Control.checkbox
+                                        model=".acepta"
+                                        name="acepta"
+                                        className="form-check-input"
+                                        validators={{
+                                            marcado
+                                        }} />
+                                    {' '}
+                                    <strong>Estoy de acuerdo con los términos del servicio</strong>
+                                </Label>
+                            </div>
+                        </Col>
+                        <Errors
+                            className="text-danger"
+                            model=".acepta"
+                            wrapper="ul"
+                            show="touched"
+                            component={(props) => <MensajeError mensaje={props.children.toString()} />}
+                            messages={{
+                                marcado: 'Debes aceptar los términos del servicio'
+                            }}
+
+                        />
+                    </FormGroup>
+                    <Botonera pasoActual={4} valores={this.props.valores} anteriorPaso={this.props.anteriorPaso} />
                 </LocalForm>
-            </Col>
+            </Col >
         )
     }
 }

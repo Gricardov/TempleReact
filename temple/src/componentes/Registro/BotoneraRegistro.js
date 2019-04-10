@@ -3,54 +3,53 @@ import { FormGroup, Col, Row, Button, ButtonGroup } from 'reactstrap';
 
 function Botonera(props) {
 
-    return (<>
-        <div className="d-none d-md-block mt-3">
-            <Row>
-                <Col md={{ size: 3, offset: 6 }}>
-                    <ButtonGroup>
-                        <Button color="primary" onClick={() => { props.anteriorPaso() }}><span className="fa fa-angle-left"></span> Anterior</Button>
-                        {props.siguientePaso
+    return (
+
+        <Row className="mt-3 justify-content-end">
+            <ButtonGroup>
+
+                {
+                    props.pasoActual > 1
+                        ?
+                        <>
+                            <Button className="d-md-none" color="primary" onClick={() => { props.anteriorPaso() }}><span className="fa fa-angle-left"></span></Button>
+                            <Button className="d-none d-md-block" color="primary" onClick={() => { props.anteriorPaso() }}><span className="fa fa-angle-left"></span> Anterior</Button>
+                        </>
+                        :
+                        null
+                }
+
+                {
+                    props.pasoActual < props.valores.length
+                        ?
+                        props.siguientePaso
                             ?
-                            <Button onClick={() => props.siguientePaso()} color="primary">Siguiente <span className="fa fa-angle-right"></span></Button>
+                            <>
+                                <Button className="d-md-none" onClick={() => { props.siguientePaso() }} color="primary" ><span className="fa fa-angle-right"></span></Button>
+
+                                <Button className="d-none d-md-block" onClick={() => props.siguientePaso()} color="primary">Siguiente <span className="fa fa-angle-right"></span></Button>
+                            </>
                             :
-                            <Button type="submit" color="primary">Siguiente <span className="fa fa-angle-right"></span></Button>
+                            <>
+                                <Button className="d-md-none" type="submit" color="primary"><span className="fa fa-angle-right"></span></Button>
 
-                        }
-                    </ButtonGroup>
-                </Col>
-                <Col md={{ size: 3 }}>
-                    <ButtonGroup>
-                        <Button color="info">Presentar <span className="fa fa-heart"></span></Button>
-                        <Button color="danger">Cancelar <span className="fa fa-close"></span></Button>
+                                <Button className="d-none d-md-block" type="submit" color="primary">Siguiente <span className="fa fa-angle-right"></span></Button>
+                            </>
+                        :
+                        null
+                }
+                {
+                    props.pasoActual == props.valores.length
+                        ?
+                        <Button onClick={() => props.siguientePaso()} color="info">Presentar </Button>
+                        :
+                        null
+                }
+            </ButtonGroup>
 
-                    </ButtonGroup>
-                </Col>
-            </Row>
-        </div>
+        </Row>
 
-        <div className="d-none d-md-block mt-3">
-            <Row className="d-md-none">
-                <Col xs={6}>
-                    <ButtonGroup>
-                        <Button color="primary"><span className="fa fa-angle-left"></span></Button>
-                        {props.siguientePaso
-                            ?
-                            <Button onClick={() => props.siguientePaso()} color="primary">Siguiente <span className="fa fa-angle-right"></span></Button>
-                            :
-                            <Button type="submit" color="primary">Siguiente <span className="fa fa-angle-right"></span></Button>
-
-                        }
-                    </ButtonGroup>
-                </Col>
-                <Col xs={6}>
-                    <ButtonGroup>
-                        <Button color="info">Presentar</Button>
-                        <Button color="danger"><span className="fa fa-close"></span></Button>
-                    </ButtonGroup>
-                </Col>
-            </Row>
-        </div>
-    </>)
+    )
 
 }
 

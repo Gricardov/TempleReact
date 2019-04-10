@@ -8,7 +8,7 @@ const Encabezado = ({ pasoActual }) => {
 
                 <li className={pasoActual == 1 ? "active" : ""}>
                     <div className="step">
-                        <i className="fa fa-user-circle-o"></i>
+                        <i className="fa fa-user-circle"></i>
                     </div>
                     <div className="caption hidden-xs hidden-sm">Paso <span>1</span>: <span>Datos personales</span></div></li>
                 <li className={pasoActual == 2 ? "active" : ""}>
@@ -18,7 +18,7 @@ const Encabezado = ({ pasoActual }) => {
                     <div className="step"><i className="fa fa-map-marker"></i></div>
                     <div className="caption hidden-xs hidden-sm">Paso <span>3</span>: <span>Ubicación</span></div></li>
                 <li className={pasoActual == 4 ? "active" : ""}>
-                    <div className="step"><i className="fa fa-apple"></i></div>
+                    <div className="step"><i className="fa fa-id-card"></i></div>
                     <div className="caption hidden-xs hidden-sm">Paso <span>4</span>: <span>Perfil</span></div></li>
             </ol>
         </Col>);

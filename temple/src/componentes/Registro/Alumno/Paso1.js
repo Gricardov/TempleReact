@@ -15,7 +15,7 @@ class Paso1 extends Component {
     render() {
         return (
             <Col xs={12}>
-                <LocalForm initialState={this.props.valores} onSubmit={(values) => this.props.siguientePaso(values)}>
+                <LocalForm initialState={this.props.valores[0]} onSubmit={(values, event) => this.props.siguientePaso(values, event)}>
                     <FormGroup row>
                         <Label htmlFor="txtNombres" xs={12}>Nombres</Label>
                         <Col xs={12}>
@@ -225,7 +225,7 @@ class Paso1 extends Component {
                             />
                         </Col>
                     </FormGroup>
-                    <Botonera anteriorPaso={this.props.anteriorPaso} />
+                    <Botonera pasoActual={1} valores={this.props.valores} anteriorPaso={this.props.anteriorPaso} />
                 </LocalForm>
             </Col>
         )

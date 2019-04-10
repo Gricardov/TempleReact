@@ -10,7 +10,7 @@ class Paso2 extends Component {
         super(props);
 
         this.state = ({
-            ...this.props.valores
+            ...this.props.valores[1]
         })
 
         // Para las preferencias
@@ -98,13 +98,13 @@ class Paso2 extends Component {
                             <Button id="btnPreferencia"
                                 color="primary"
                                 block
-                                disabled={this.state.preferencias.length >= this.props.valores.maxPreferencias ? true : false}
+                                disabled={this.state.preferencias.length >= this.props.valores[1].maxPreferencias ? true : false}
                                 onClick={() => { this.agregarPreferencia() }}>
                                 <span className="fa fa-plus"></span> Agregar otro curso
                         </Button>
                         </Col>
                     </FormGroup>
-                    <Botonera anteriorPaso={this.props.anteriorPaso} siguientePaso={this.confirmarCambios} />
+                    <Botonera pasoActual={2} valores={this.props.valores} anteriorPaso={this.props.anteriorPaso} siguientePaso={this.confirmarCambios} />
 
                 </LocalForm>
             </Col>

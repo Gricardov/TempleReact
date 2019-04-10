@@ -5,6 +5,7 @@ import { Fade } from 'react-animation-components';
 import Encabezado from '../EncabezadoRegistro';
 import Botonera from '../BotoneraRegistro';
 import ModalMensaje from '../../Utilidades/ModalMensaje';
+import { FadeTransform } from 'react-animation-components';
 
 //
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -40,12 +41,12 @@ class FormRegistro extends Component {
                 }
                 ,
                 {
-                    usuario: '',
-                    clave: '',
-                    sobreMi: '',
-                    buscando: '',
-                    imgPerfil: '',
-                    imgPortada: '',
+                    usuario: 'arenita',
+                    contrasena: 'alenita',
+                    sobreMi: 'asdasd',
+                    buscando: 'asdasd',
+                    perfil: '',
+                    portada: '',
                     acepta: false
                 }],
             pasoActual: 1,
@@ -65,7 +66,7 @@ class FormRegistro extends Component {
 
     // Para gestionar los pasos
 
-    siguientePaso(valores) {
+    siguientePaso(valores, evento) {
         let pasoActual = this.state.pasoActual;
         let infoPasos = this.state.pasos;
         infoPasos[pasoActual - 1] = { ...infoPasos[pasoActual - 1], ...valores };
@@ -79,6 +80,10 @@ class FormRegistro extends Component {
             })
 
 
+        }
+
+        if (evento) {
+            evento.preventDefault();
         }
 
         //alert(JSON.stringify(this.state))
@@ -113,28 +118,32 @@ class FormRegistro extends Component {
             // Si se ha pasado al siguiente paso, quiere decir que los datos han sido aprobados,
             // por lo tanto, estos deben almacenarse en el state
             case 1:
-                paso = (<Paso1 valores={this.state.pasos[0]} anteriorPaso={this.anteriorPaso} siguientePaso={this.siguientePaso} />)
+                paso = (<Paso1 valores={this.state.pasos} anteriorPaso={this.anteriorPaso} siguientePaso={this.siguientePaso} />)
                 break;
             case 2:
-                paso = (<Paso2 valores={this.state.pasos[1]} anteriorPaso={this.anteriorPaso} siguientePaso={this.siguientePaso}
+                paso = (<Paso2 valores={this.state.pasos} anteriorPaso={this.anteriorPaso} siguientePaso={this.siguientePaso}
                     crearError={this.crearError} />)
                 break;
             case 3:
-                paso = (<Paso3 valores={this.state.pasos[2]} anteriorPaso={this.anteriorPaso} siguientePaso={this.siguientePaso}
+                paso = (<Paso3 valores={this.state.pasos} anteriorPaso={this.anteriorPaso} siguientePaso={this.siguientePaso}
                     crearError={this.crearError} />)
                 break;
             case 4:
-                paso = (<Paso4 valores={this.state.pasos[3]} anteriorPaso={this.anteriorPaso} siguientePaso={this.siguientePaso} />)
+                paso = (<Paso4 valores={this.state.pasos} anteriorPaso={this.anteriorPaso} siguientePaso={this.siguientePaso} />)
                 break;
         }
 
         return (
             <div className="container debajo-barra bloque-contenedor">
-                <Row>
+            <div className="container">
                 <ModalMensaje error={this.state.error} eliminarError={this.eliminarError} />
-                    <Encabezado pasoActual={this.state.pasoActual} />
-                    {paso}
-                </Row>
+                <Encabezado pasoActual={this.state.pasoActual} />
+                <TransitionGroup>
+                    <CSSTransition key={this.state.pasoActual} classNames="registro" timeout={300}>
+                        {paso}
+                    </CSSTransition>
+                </TransitionGroup>
+                </div>
             </div>
         )
 
