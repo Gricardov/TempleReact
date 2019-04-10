@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {FadeTransform,Transform} from 'react-animation-components';
-import * as RUTAS from '../compartido/rutas';
+import * as RUTAS from '../../compartido/rutas';
 import {Link} from 'react-router-dom';
-import LinkButton from '../LinkButton/LinkButton'
+import LinkButton from '../../LinkButton/LinkButton'
 
 class Inicio extends Component {
 

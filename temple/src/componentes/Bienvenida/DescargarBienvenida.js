@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, CardTitle, CardBody, Col, Row, Button } from 'reactstrap';
 import {Link} from 'react-router-dom';
-import * as RUTAS from '../compartido/rutas';
+import * as RUTAS from '../../compartido/rutas';
 
 class Descargar extends Component {
 

@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
-import Barra from './BarraBienvenida';
-import Pie from './PieBienvenida';
+import Barra from '../Bienvenida/BarraBienvenida';
+import Pie from '../Bienvenida/PieBienvenida';
 
-import Inicio from './InicioBienvenida';
-import Descargar from './DescargarBienvenida';
-import Contacto from './ContactoBienvenida';
-import SobreNosotros from './SobreNosotrosBienvenida';
-import Login from './IniciarSesionBienvenida';
-import RegistroAlumno from './RegistroAlumno';
-import RegistroProfesor from './RegistroProfesor';
+import Inicio from '../Bienvenida/InicioBienvenida';
+import Descargar from '../Bienvenida/DescargarBienvenida';
+import Contacto from '../Bienvenida/ContactoBienvenida';
+import SobreNosotros from '../Bienvenida/SobreNosotrosBienvenida';
+import Login from '../Bienvenida/IniciarSesionBienvenida';
+import RegistroAlumno from '../Registro/Alumno/RegistroAlumno';
+import RegistroProfesor from '../Registro/Profesor/RegistroProfesor';
 
-import SwitchDeslizador from './ComponenteSwitchDeslizador';
-import * as RUTAS from '../compartido/rutas';
+import SwitchDeslizador from '../Utilidades/ComponenteSwitchDeslizador';
+import * as RUTAS from '../../compartido/rutas';
 
 import { Route, Redirect, withRouter } from 'react-router-dom';
 
 import {connect} from 'react-redux';
 import {actions} from 'react-redux-form';
 
-import {obtenerLideres, iniciarSesion} from '../redux/CreadorAcciones';
+import {obtenerLideres, iniciarSesion} from '../../redux/CreadorAcciones';
 
 const mapStateToProps=(state)=>{
 

@@ -4,12 +4,18 @@ import { FormGroup, Col, Row, Button, ButtonGroup } from 'reactstrap';
 function Botonera(props) {
 
     return (<>
-        <div className="d-none d-md-block">
-            <FormGroup row>
+        <div className="d-none d-md-block mt-3">
+            <Row>
                 <Col md={{ size: 3, offset: 6 }}>
                     <ButtonGroup>
                         <Button color="primary" onClick={() => { props.anteriorPaso() }}><span className="fa fa-angle-left"></span> Anterior</Button>
-                        <Button type="submit" color="primary">Siguiente <span className="fa fa-angle-right"></span></Button>
+                        {props.siguientePaso
+                            ?
+                            <Button onClick={() => props.siguientePaso()} color="primary">Siguiente <span className="fa fa-angle-right"></span></Button>
+                            :
+                            <Button type="submit" color="primary">Siguiente <span className="fa fa-angle-right"></span></Button>
+
+                        }
                     </ButtonGroup>
                 </Col>
                 <Col md={{ size: 3 }}>
@@ -19,14 +25,21 @@ function Botonera(props) {
 
                     </ButtonGroup>
                 </Col>
-            </FormGroup>
+            </Row>
         </div>
-        <div className="d-md-none">
-            <FormGroup row>
+
+        <div className="d-none d-md-block mt-3">
+            <Row className="d-md-none">
                 <Col xs={6}>
                     <ButtonGroup>
                         <Button color="primary"><span className="fa fa-angle-left"></span></Button>
-                        <Button type="submit" color="primary"><span className="fa fa-angle-right"></span></Button>
+                        {props.siguientePaso
+                            ?
+                            <Button onClick={() => props.siguientePaso()} color="primary">Siguiente <span className="fa fa-angle-right"></span></Button>
+                            :
+                            <Button type="submit" color="primary">Siguiente <span className="fa fa-angle-right"></span></Button>
+
+                        }
                     </ButtonGroup>
                 </Col>
                 <Col xs={6}>
@@ -35,7 +48,7 @@ function Botonera(props) {
                         <Button color="danger"><span className="fa fa-close"></span></Button>
                     </ButtonGroup>
                 </Col>
-            </FormGroup>
+            </Row>
         </div>
     </>)
 

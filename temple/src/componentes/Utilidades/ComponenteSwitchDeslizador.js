@@ -1,7 +1,7 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
-import Slider from '../Deslizador';
-import * as RUTAS from '../compartido/rutas';
+import Slider from '../../Deslizador';
+import * as RUTAS from '../../compartido/rutas';
 
 class DeslizaFuera extends React.Component {
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardBody, Row, Col } from 'reactstrap';
-import { Cargando } from './CargandoComponente';
+import { Cargando } from '../Utilidades/CargandoComponente';
 import {Fade} from 'react-animation-components';
 
 class SobreNosotros extends Component {

@@ -9,8 +9,8 @@ class Mapa extends Component {
         super(props);
         this.state = {
             posicion: {
-                latitud: -12.08632442,
-                longitud: -77.22255707,
+                latitud: this.props.posicion.latitud,
+                longitud: this.props.posicion.longitud,
                 // Para saber si es la ubicación predeterminada o ha cambiado por el navegador del usuario
                 zoom: 14,
                 ubicacionPredeterminada: true,
@@ -21,8 +21,8 @@ class Mapa extends Component {
         }
         this.exitoPosicion = this.exitoPosicion.bind(this);
         this.errorPosicion = this.errorPosicion.bind(this);
-        this.actualizarPosicion=this.actualizarPosicion.bind(this);
-        this.actualizarZoom=this.actualizarZoom.bind(this);
+        this.actualizarPosicion = this.actualizarPosicion.bind(this);
+        this.actualizarZoom = this.actualizarZoom.bind(this);
     }
 
     componentDidMount() {
@@ -74,24 +74,30 @@ class Mapa extends Component {
                 errorUbicacion: false
             }
         })
+        // Le aviso al padre que las coordenadas han cambiado
+        this.props.actualizarCoordenadas({ latitud: this.state.posicion.latitud, longitud: this.state.posicion.longitud })
+
     }
 
-    actualizarPosicion(event){
+    actualizarPosicion(event) {
 
         this.setState({
             posicion: {
                 ...this.state.posicion,
-                latitud:event.target.getLatLng().lat,
-                longitud:event.target.getLatLng().lng,
+                latitud: event.target.getLatLng().lat,
+                longitud: event.target.getLatLng().lng,
                 ubicacionPredeterminada: true
-                
+
             }
         })
+        // Le aviso al padre que las coordenadas han cambiado
+        this.props.actualizarCoordenadas({ latitud: this.state.posicion.latitud, longitud: this.state.posicion.longitud })
+
     }
 
-    actualizarZoom(event){
+    actualizarZoom(event) {
         this.setState({
-            posicion:{
+            posicion: {
                 ...this.state.posicion,
                 zoom: event.target.getZoom()
             }
@@ -116,9 +122,9 @@ class Mapa extends Component {
                     <Map center={posicion} zoom={this.state.posicion.zoom} style={{
                         width: "100%",
                         height: "60vh"
-                    } }
-                    animate={true}
-                    onzoomend={this.actualizarZoom}>
+                    }}
+                        animate={true}
+                        onzoomend={this.actualizarZoom}>
                         <TileLayer
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
@@ -128,10 +134,10 @@ class Mapa extends Component {
                             accessToken='sk.eyJ1IjoiZ3JpY2FyZG92IiwiYSI6ImNqbnphd3FicjAwNHAzcG85bmowaWFyMDUifQ.CxTAN8PiT2jZkldTwukmPg'
                         />
                         <Marker position={posicion}
-                                draggable={true}
-                                ondragend={this.actualizarPosicion}
-                                
-                                >
+                            draggable={true}
+                            ondragend={this.actualizarPosicion}
+
+                        >
                             <Popup>Puedes moverme para especificar tu ubicación</Popup>
                         </Marker>
                     </Map>

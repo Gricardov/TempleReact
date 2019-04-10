@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import * as RUTAS from '../compartido/rutas';
+import * as RUTAS from '../../compartido/rutas';
 
 const Pie = (props) => {
 

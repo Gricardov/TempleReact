@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem } from 'reactstrap';
 import { NavLink, Link } from 'react-router-dom';
 
-import * as RUTAS from '../compartido/rutas';
+import * as RUTAS from '../../compartido/rutas';
 
 class Barra extends Component {
 
