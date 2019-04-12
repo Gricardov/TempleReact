@@ -1,8 +1,73 @@
 import React, { Component } from 'react';
 import { FormGroup, Label, Col, Row, Card, CardBody, Button } from 'reactstrap';
-import { Control, LocalForm, Errors, actions } from 'react-redux-form';
+import { Control, LocalForm, Errors, Field, actions } from 'react-redux-form';
+import { connect } from 'react-redux';
 import Botonera from '../BotoneraRegistro';
 import { Fade } from 'react-animation-components';
+import { URLBase } from '../../../compartido/URLBase';
+//import { consultaUsuarioPorNomUsu } from '../../../redux/CreadorAcciones';
+import SubidorImagen from '../../Utilidades/SubidorImagen';
+
+require('../../../../node_modules/react-dropzone-component/styles/filepicker.css')
+require('../../../../node_modules/dropzone/dist/min/dropzone.min.css')
+/*
+const mapStateToProps = (state) => {
+
+    return {
+        usuario: state.usuario
+    }
+
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    consultaUsuarioPorNomUsu: (nomUsu) => {
+        return true;
+    }
+})
+*/
+async function checkNickname(nomUsu, dispatch) {
+    dispatch(actions.setPending('usuario', true));
+    fetch(URLBase + 'usuario/consulta/porNomUsu/' + nomUsu)
+        .then(response => {
+            if (response.ok) {
+                return response;
+            }
+            else {
+                var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        }, error => {
+            var mensErr = new Error(error.message);
+            throw mensErr;
+        })
+        .then(response => response.json())
+        .then(usuario => {
+            if (usuario && usuario.length == 0) {
+                console.log('disponible')
+                dispatch(actions.setValidity('usuario', {
+                    available: true
+                }));
+            } else {
+                console.log('no disponible')
+                dispatch(actions.setValidity('usuario', {
+                    available: false
+                }));
+            }
+        })
+        .catch(error => {
+            console.log("No se pudo obtener el usuario : " + error.message)
+            dispatch(actions.setValidity('usuario', {
+                available: true
+            }));
+
+        })
+
+    /*res.then(function(r){
+        return false;
+    })*/
+    //dispatch(actions.setPending('usuario', false));
+}
 
 const requerido = (val) => val && val.length;
 const maximo = (tam) => (val) => !(val) || (val.length <= tam);
@@ -11,11 +76,99 @@ const marcado = (val) => val;
 
 class Paso4 extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = ({
+            ...this.props.valores[3]
+        })
+        this.actualizarPerfil = this.actualizarPerfil.bind(this);
+        this.actualizarPortada = this.actualizarPortada.bind(this);
+        // Para confirmar cambios
+        this.confirmarCambios = this.confirmarCambios.bind(this);
+        //this.nomUsuDisponible = this.nomUsuDisponible.bind(this);
+    }
+
+    /*nomUsuDisponible = (val) => {
+        actions.setPending('usuario', true);
+        let res=fetch(URLBase + 'usuario/consulta/porNomUsu/' + val)
+            .then(response => {
+
+                if (response.ok) {
+
+                    return response;
+
+                }
+
+                else {
+
+                    var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
+                    error.response = response;
+                    throw error;
+
+                }
+
+
+            }, error => {
+
+                var mensErr = new Error(error.message);
+                throw mensErr;
+
+            })
+            .then(response => response.json())
+            .then(usuario => {
+                if (usuario.length == 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            })
+            .catch(error => {
+                console.log("No se pudo obtener el usuario : " + error.message)
+                return true;
+            })
+
+            res.then(function(results){
+                actions.setValidity('usuario', {available: results});
+
+                alert(results)
+            })
+
+    };*/
+
+    actualizarPerfil(file) {
+        this.setState({
+            perfil: file
+        })
+    }
+
+    actualizarPortada(file) {
+        this.setState({
+            portada: file
+        })
+    }
+
+    confirmarCambios = (values, event) => {
+
+        // Actualizo el estado
+        this.setState(
+            {
+                ...values,
+                portada:this.state.portada,
+                perfil:this.state.perfil
+            }, () => {
+                // Envío el estado cuando este se ha actualizado       
+                this.props.siguientePaso(this.state, event);
+            }
+        )
+
+
+    }
     render() {
+
         return (
             <Col xs={12}>
                 <LocalForm initialState={this.props.valores[3]}
-                    onSubmit={(values, event) => this.props.siguientePaso(values, event)}
+                    onSubmit={(values, event) => { this.confirmarCambios(values, event) }}
                     encType="multipart/form-data">
                     <FormGroup row>
                         <Label htmlFor="txtNomUsu" xs={12}>Elige un nombre de usuario</Label>
@@ -25,6 +178,9 @@ class Paso4 extends Component {
                                 model=".usuario"
                                 id="txtNomUsu"
                                 name="usuario"
+                                /*asyncValidators={{
+                                    disponible: this.props.consultaUsuarioPorNomUsu
+                                }}*/
                                 validators={{
                                     requerido, minimo: minimo(5), maximo: maximo(15)
                                 }}
@@ -39,7 +195,8 @@ class Paso4 extends Component {
                                     {
                                         requerido: 'Tu nombre de usuario no puede estar vacíos',
                                         minimo: 'Tu nombre de usuario debe tener 5 caracteres como mínimo',
-                                        maximo: '¿Cómo es que tu nombre de usuario va a pasar los 15 caracteres?'
+                                        maximo: '¿Cómo es que tu nombre de usuario va a pasar los 15 caracteres?',
+                                        disponible: 'Ese nombre de usuario no está disponible. Escribe otro'
                                     }
                                 }
                             />
@@ -134,28 +291,16 @@ class Paso4 extends Component {
                     </FormGroup>
 
                     <FormGroup row>
-                        <Label htmlFor="imgPerfil" xs={12}>Foto de perfil</Label>
+                        <Label htmlFor="imgPerfil" xs={12}>Sube una foto de perfil</Label>
                         <Col xs={12}>
-                            <Control.file
-                                className="form-control"
-                                model=".perfil"
-                                id="imgPerfil"
-                                name="perfil"
-                                type="jpg"
-                            />
+                            <SubidorImagen actualizarImagen={(file) => this.actualizarPerfil(file)} />
                         </Col>
                     </FormGroup>
 
                     <FormGroup row>
-                        <Label htmlFor="imgPortada" xs={12}>Foto de portada</Label>
+                        <Label htmlFor="imgPerfil" xs={12}>Sube una foto de perfil</Label>
                         <Col xs={12}>
-                            <Control.file
-                                className="form-control"
-                                model=".portada"
-                                id="imgPortada"
-                                name="portada"
-                                type="jpg"
-                            />
+                            <SubidorImagen actualizarImagen={(file) => this.actualizarPortada(file)} />
                         </Col>
                     </FormGroup>
 
@@ -202,4 +347,5 @@ const MensajeError = (props) => {
 
 }
 
+//export default (connect(mapStateToProps, mapDispatchToProps)(Paso4));
 export default Paso4;

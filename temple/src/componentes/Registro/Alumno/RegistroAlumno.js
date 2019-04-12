@@ -6,6 +6,7 @@ import Encabezado from '../EncabezadoRegistro';
 import Botonera from '../BotoneraRegistro';
 import ModalMensaje from '../../Utilidades/ModalMensaje';
 import { FadeTransform } from 'react-animation-components';
+import { URLBase } from '../../../compartido/URLBase';
 
 //
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -67,11 +68,16 @@ class FormRegistro extends Component {
     // Para gestionar los pasos
 
     siguientePaso(valores, evento) {
+
+        if (evento) {
+            evento.preventDefault();
+        }
+
         let pasoActual = this.state.pasoActual;
         let infoPasos = this.state.pasos;
         infoPasos[pasoActual - 1] = { ...infoPasos[pasoActual - 1], ...valores };
 
-        // Solo si el paso actual es menor que el último, que avance. (Empezamos de 1). Además, que guarde los valores
+        // Solo si el paso actual es menor que el último, que aumente el paso actual. (Empezamos de 1). Además, que guarde los valores
         if (pasoActual < this.state.pasos.length) {
 
             this.setState({
@@ -79,14 +85,58 @@ class FormRegistro extends Component {
                 pasoActual: pasoActual + 1
             })
 
+        }
+        // Cuando alcance el paso final, que guarda los valores y cuando termine, haga el fetch
+        else if (pasoActual == this.state.pasos.length) {
+            this.setState({
+                pasos: infoPasos
+            }, () => {
+                alert(JSON.stringify(this.state))
+                fetch(URLBase + 'usuario/registro', {
 
+                    method: 'POST',
+                    body: JSON.stringify(this.state),
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    credentials: 'same-origin'
+                })
+                    .then(response => {
+
+                        if (response.ok) {
+
+                            return response;
+
+                        }
+
+                        else {
+
+                            var error = new Error('Error ' + response.status +
+                                ': ' + response.statusText);
+                            error.response = response;
+                            throw error;
+
+                        }
+
+                    },
+                        error => {
+                            var errMess = new Error(error.message);
+                            throw errMess;
+
+                        })
+                    .then(response => response.json())
+                    .then(response => alert('Respuesta del servidor: '+JSON.stringify(response)))
+                    .catch(error => {
+                        console.log('Error: ', error.message)
+                        alert('Error: ' + error.message)
+                    })
+            })
         }
 
-        if (evento) {
-            evento.preventDefault();
-        }
+        // 
 
-        //alert(JSON.stringify(this.state))
+
+
 
     }
 
@@ -135,14 +185,14 @@ class FormRegistro extends Component {
 
         return (
             <div className="container debajo-barra bloque-contenedor">
-            <div className="container">
-                <ModalMensaje error={this.state.error} eliminarError={this.eliminarError} />
-                <Encabezado pasoActual={this.state.pasoActual} />
-                <TransitionGroup>
-                    <CSSTransition key={this.state.pasoActual} classNames="registro" timeout={300}>
-                        {paso}
-                    </CSSTransition>
-                </TransitionGroup>
+                <div className="container">
+                    <ModalMensaje error={this.state.error} eliminarError={this.eliminarError} />
+                    <Encabezado pasoActual={this.state.pasoActual} />
+                    <TransitionGroup>
+                        <CSSTransition key={this.state.pasoActual} classNames="registro" timeout={300}>
+                            {paso}
+                        </CSSTransition>
+                    </TransitionGroup>
                 </div>
             </div>
         )

@@ -39,9 +39,6 @@ const mapDispatchToProps=(dispatch)=>({
 
 class Principal extends Component {
 
-    
-
- 
     componentDidMount(){
 
         this.props.obtenerLideres();

@@ -28,7 +28,7 @@ class Preferencias extends Component {
         this.props.modificarPreferencia(indice, {id:null, texto:e.target.value.toString()});
 
         // Luego, hago la consulta
-        return fetch(URLBase + 'registro/consultarCurso/' + e.target.value)
+        return fetch(URLBase + 'curso/consulta/porNombre/' + e.target.value)
             .then(response => {
 
                 if (response.ok) {

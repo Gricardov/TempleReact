@@ -41,7 +41,12 @@ function Botonera(props) {
                 {
                     props.pasoActual == props.valores.length
                         ?
-                        <Button onClick={() => props.siguientePaso()} color="info">Presentar </Button>
+                        props.siguientePaso
+                            ?
+                            <Button onClick={() => props.siguientePaso()} color="info">Presentar </Button>
+                            :
+                            <Button type="submit" color="primary">Presentar</Button>
+
                         :
                         null
                 }

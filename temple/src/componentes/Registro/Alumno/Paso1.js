@@ -12,10 +12,27 @@ const esNumero = (val) => !isNaN(Number(val));
 
 class Paso1 extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = ({
+            ...this.props.valores[0]
+        })
+        this.confirmarCambios = this.confirmarCambios.bind(this);
+    }
+
+    confirmarCambios(values, event) {
+        this.setState({
+            ...values
+        }, () => {
+            this.props.siguientePaso(this.state, event)
+
+        })
+    }
+
     render() {
         return (
             <Col xs={12}>
-                <LocalForm initialState={this.props.valores[0]} onSubmit={(values, event) => this.props.siguientePaso(values, event)}>
+                <LocalForm initialState={this.props.valores[0]} onSubmit={(values, event) => this.confirmarCambios(values, event)}>
                     <FormGroup row>
                         <Label htmlFor="txtNombres" xs={12}>Nombres</Label>
                         <Col xs={12}>
@@ -149,7 +166,7 @@ class Paso1 extends Component {
 
                                         />{' '}
                                         Femenino
-    
+
                 </Label>
                                 </FormGroup>
 
