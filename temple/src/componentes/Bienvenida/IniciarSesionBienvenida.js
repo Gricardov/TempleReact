@@ -1,26 +1,29 @@
 import React, { Component } from 'react';
-import { Alert, Card, CardTitle, CardBody, Button, Label, Col, Row } from 'reactstrap';
+import { Alert, Card, CardTitle, CardBody, Button, Label, Col, Row, Input } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
-import {Fade} from 'react-animation-components';
+import { Fade } from 'react-animation-components';
+import { Formik, Form, Field } from 'formik';
+import { withRouter } from 'react-router-dom';
+import * as RUTAS from '../../compartido/rutas';
 
-const requerido = (val) => val && val.length;
-const maximo = (len) => (val) => !(val) || (val.length <= len);
-const minimo = (len) => (val) => (val) && (val.length >= len);
-
+const vacio = (val) => !val || !val.length;
 
 class Login extends Component {
 
   constructor(props) {
 
     super(props);
+    this.state = {
+      usuario: '',
+      contrasena: '',
+      recordarme: false
+    }
 
     this.iniciarSesion = this.iniciarSesion.bind(this);
   }
 
-  iniciarSesion(valores, evento) {
-
-    evento.preventDefault();
-    this.props.iniciarSesion(valores.usuario, valores.contrasena);
+  iniciarSesion() {
+    this.props.history.push(RUTAS.INICIO_ALUMNO.ruta);
   }
 
   render() {
@@ -64,74 +67,87 @@ class Login extends Component {
                       <CardTitle className="text-center text-muted">
                         <strong>Iniciar sesión en Temple</strong>
                       </CardTitle>
-                      <LocalForm onSubmit={(values, event) => this.iniciarSesion(values, event)}>
+                      <Formik
+                        initialValues={{ ...this.state }}
 
-                        <Row className="form-group">
-                          <Label htmlFor="txtUsuario" xs={12}>Usuario o correo:</Label>
-                          <Col xs={12}>
-                            <Control.text model=".usuario" type="text" name="usuario"
-                              className="form-control" id="txtUsuario"
-                              validators={{
+                        onSubmit={(values, { setSubmitting }) => {
 
-                                requerido, minimo: minimo(4), maximo: maximo(50)
+                          this.setState({
+                            ...values
+                          }, () => {
 
-                              }} />
-                            <Errors
-                              className="text-danger"
-                              model=".usuario"
-                              show="touched"
-                              wrapper="ul"
-                              component={(props) => <MensajeError mensaje={props.children.toString()}/>}
-                              messages={{
-                                requerido: "El usuario no puede estar vacío",
-                                minimo: "Se espera como mínimo 4 caracteres",
-                                maximo: "Se espera como máximo 50 caracteres"
-                              }}
+                            this.iniciarSesion()
 
-                            />
-                          </Col>
-                        </Row>
-                        <Row className="form-group">
-                          <Label htmlFor="txtContrasena" xs={12}>Contraseña:</Label>
-                          <Col xs={12}>
-                            <Control.text model=".contrasena" type="password" name="contrasena"
-                              className="form-control" id="txtContrasena"
-                              validators={{
+                          })
+                        }}
+                        validate={values => {
+                          let errors = {};
 
-                                requerido, maximo: maximo(50)
+                          // Para el usuario
+                          let usuario = values.usuario;
+                          if (vacio(usuario)) {
+                            errors.usuario = 'Usuario requerido'
+                          }
 
-                              }} />
-                            <Errors
-                              className="text-danger"
-                              model=".contrasena"
-                              show="touched"
-                              wrapper="ul"
-                              component={(props) => <MensajeError mensaje={props.children.toString()}/>}
-                              messages={{
-                                requerido: "La contraseña no puede estar vacía",
-                                maximo: "Se espera como máximo 50 caracteres"
-                              }}
+                          // Para la contraseña
+                          let contrasena = values.contrasena;
+                          if (vacio(contrasena)) {
+                            errors.contrasena = 'Contraseña requerida'
+                          }
 
-                            />
-                          </Col>
+                          return errors;
+                        }}
+                      >
+                        {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
 
-                        </Row>
-                        <Row className="form-group">
-                          <Label xs={12}>¿No tienes cuenta? <a href="/"> Inscríbete</a></Label>
+                          <Form>
 
-                        </Row>
-                        <Row className="form-group form-check">
-                          <Label className="form-check-label" xs={12}>
-                            <Control.checkbox model=".recordarme" className="form-check-input" type="checkbox" /> Recordarme en este equipo
+                            <Row className="form-group">
+                              <Label htmlFor="txtUsuario" xs={12}>Usuario: </Label>
+                              <Col xs={12}>
+                                <Input
+                                  type="text"
+                                  tag={Field}
+                                  id="txtUsuario"
+                                  name="usuario"
+
+                                />
+                                {errors.usuario && touched.usuario ? <MensajeError mensaje={errors.usuario} /> : null}
+                              </Col>
+                            </Row>
+                            <Row className="form-group">
+                              <Label htmlFor="txtContrasena" xs={12}>Contraseña: </Label>
+                              <Col xs={12}>
+                                <Input
+                                  type="password"
+                                  tag={Field}
+                                  id="txtContrasena"
+                                  name="contrasena"
+
+                                />
+                                {errors.contrasena && touched.contrasena ? <MensajeError mensaje={errors.contrasena} /> : null}
+
+                              </Col>
+
+                            </Row>
+                            <Row className="form-group">
+                              <Label xs={12}>¿No tienes cuenta? <a href="/"> Inscríbete</a></Label>
+
+                            </Row>
+                            <Row className="form-group form-check">
+                              <Label className="form-check-label" xs={12}>
+                                <Input className="form-check-input" type="checkbox" name="recordarme" /> Recordarme en este equipo
                       </Label>
-                        </Row>
-                        <Row className="form-group">
-                          <Col xs={{ size: 10, offset: 1 }}>
-                            <Button type="submit" color="primary" className="btn btn-block">Ingresar</Button>
-                          </Col>
-                        </Row>
+                            </Row>
+                            <Row className="form-group">
+                              <Col xs={{ size: 10, offset: 1 }}>
+                                <Button type="submit" color="primary" className="btn btn-block">Ingresar</Button>
+                              </Col>
+                            </Row>
 
-                      </LocalForm>
+                          </Form>
+                        )}
+                      </Formik>
                       {alerta}
 
                     </CardBody>
@@ -160,12 +176,12 @@ class Login extends Component {
 
 }
 
-const MensajeError=({mensaje})=>{
+const MensajeError = ({ mensaje }) => {
 
   return (
-      <Fade in><li className="text-danger">{mensaje}</li></Fade>
+    <Fade in><p className="text-danger">{mensaje}</p></Fade>
   );
 
 }
 
-export default Login;
+export default withRouter(Login);

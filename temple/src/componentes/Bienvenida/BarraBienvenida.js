@@ -38,17 +38,16 @@ class Barra extends Component {
                     <div className="container">
 
                         <NavbarBrand className="mr-auto" tag={Link} to={RUTAS.INICIO_BIENVENIDA.ruta}>
-                                    <img src="recursos/imagenes/logo.png" height="30" width="100" alt="logo temple" />
+                            <img src="recursos/imagenes/logo.png" height="30" width="100" alt="logo temple" />
                         </NavbarBrand>
-                        <NavbarToggler onClick={this.permutarColapso}>
+                        <NavbarToggler onClick={this.permutarColapso} />
 
-                        </NavbarToggler>
                         <Collapse isOpen={this.state.abierto} navbar className="row justify-content-end">
 
                             <Nav navbar>
 
                                 <NavItem className="ml-2">
-                                                                        
+
                                     <NavLink className="nav-link" to={RUTAS.INICIO_BIENVENIDA.ruta}>
                                         Inicio
                                 </NavLink>

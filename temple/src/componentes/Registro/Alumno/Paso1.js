@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { FormGroup, Label, Col, Row, Input, FormGroupProps, Card, CardBody, Button } from 'reactstrap';
-import { Control, LocalForm, Errors, actions } from 'react-redux-form';
+import { FormGroup, Label, Col, Row, Input} from 'reactstrap';
 import Botonera from '../BotoneraRegistro';
 import { Fade } from 'react-animation-components';
 import { Formik, Form, Field } from 'formik';
