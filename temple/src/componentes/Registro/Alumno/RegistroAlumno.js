@@ -32,7 +32,7 @@ class FormRegistro extends Component {
                     telefono: '7654321'
                 },
                 {
-                    nivel: '',
+                    nivel: null,
                     preferencias: [{ id: null }],
                     maxPreferencias: 4
                 },

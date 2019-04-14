@@ -7,6 +7,8 @@ import {Lideres} from './reductorLideres';
 import {EstadoSesion} from './reductorSesion';
 import {InicioContacto} from './formularios';
 import {Usuario} from './reductorUsuario';
+import {Niveles} from './reductorNiveles';
+
 export const ReduxStore = () => {
 
     return createStore(
@@ -14,6 +16,7 @@ export const ReduxStore = () => {
                 lideres:Lideres,
                 usuario: Usuario,
                 estadoSesion: EstadoSesion,
+                niveles: Niveles,
                 ...createForms({
                     formContacto: InicioContacto
                 })

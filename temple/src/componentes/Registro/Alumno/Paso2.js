@@ -1,8 +1,28 @@
 import React, { Component } from 'react';
-import { FormGroup, Label, Col, Row, Card, CardBody, Button } from 'reactstrap';
+import { FormGroup, Label, Col, Row, Card, CardBody, Button, Input } from 'reactstrap';
 import { Control, LocalForm, Errors, actions } from 'react-redux-form';
+import { Formik, Form, Field } from 'formik';
+import { consultaNiveles } from '../../../redux/CreadorAcciones';
+import { connect } from 'react-redux';
+
+import Opciones from '../../Utilidades/OpcionesCombo';
 import Botonera from '../BotoneraRegistro';
 import Preferencias from '../ComponentePreferencias';
+
+const mapStateToProps = (state) => {
+
+    return {
+        niveles: state.niveles
+    }
+
+}
+
+const mapDispatchToProps = (dispatch) => ({
+
+    consultaNiveles: () => dispatch(consultaNiveles())
+})
+
+
 
 class Paso2 extends Component {
 
@@ -12,6 +32,9 @@ class Paso2 extends Component {
         this.state = ({
             ...this.props.valores[1]
         })
+
+        // Para llenar el combo de opciones al iniciar
+        this.props.consultaNiveles();
 
         // Para las preferencias
         this.agregarPreferencia = this.agregarPreferencia.bind(this);
@@ -59,7 +82,13 @@ class Paso2 extends Component {
         const condicion = this.state.preferencias.filter((pref) => pref.id)[0]
 
         if (condicion) {
-            this.props.siguientePaso(this.state);
+            this.setState({
+                ...values
+            }, () => {
+
+                this.props.siguientePaso(this.state);
+
+            })
 
         } else {
             this.props.crearError('Debes seleccionar un curso como mínimo')
@@ -72,45 +101,60 @@ class Paso2 extends Component {
         return (
 
             <Col xs={12}>
-                <LocalForm onSubmit={(values) => {
-                    this.confirmarCambios(values)
-                }}>
-                    <FormGroup row>
-                        <Label htmlFor="cboNivel" xs={12}>¿A qué nivel buscas que te enseñen?<small> Puedes cambiar esto después</small></Label>
-                        <Col xs={12}>
-                            <Control.select
-                                className="form-control"
-                                model=".nivel"
-                                id="cboNivel"
-                                name="nivel"
-                            >
-                                <option>Superior (Técnico/Universitario)</option>
-                                <option>Secundaria</option>
-                            </Control.select>
+                <Formik
+                    initialValues={{ ...this.props.valores[0] }}
+                    onSubmit={(values, { setSubmitting }) => {
 
-                        </Col>
-                    </FormGroup>
-                    <Preferencias preferencias={this.state.preferencias} modificarPreferencia={this.modificarPreferencia}
-                        eliminarPreferencia={this.eliminarPreferencia} />
+                        this.confirmarCambios(values);
+                    }}>
+                    {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
 
-                    <FormGroup row>
-                        <Col xs={12}>
-                            <Button id="btnPreferencia"
-                                color="primary"
-                                block
-                                disabled={this.state.preferencias.length >= this.props.valores[1].maxPreferencias ? true : false}
-                                onClick={() => { this.agregarPreferencia() }}>
-                                <span className="fa fa-plus"></span> Agregar otro curso
+                        <Form>
+                            <FormGroup row>
+                                <Col xs={12}>
+                                    <Row className="justify-content-between">
+                                        <Col xs={6}>
+                                            <p>¿A qué nivel buscas que te enseñen?<small> Puedes cambiar esto después</small></p>
+                                        </Col>
+                                        <Col xs={{size:2, offset:4}}>
+                                            <p className='text-warning'>Máximo 4</p>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                                <Col xs={12}>
+                                    <Field
+                                        type="select"
+                                        className="form-control"
+                                        component="select"
+                                        id="cboNivel"
+                                        name="nivel">
+                                        <Opciones opciones={this.props.niveles.niveles} seleccionado={this.state.nivel} />
+                                    </Field>
+
+                                </Col>
+                            </FormGroup>
+                            <Preferencias preferencias={this.state.preferencias} modificarPreferencia={this.modificarPreferencia}
+                                eliminarPreferencia={this.eliminarPreferencia} />
+
+                            <FormGroup row>
+                                <Col xs={12}>
+                                    <Button id="btnPreferencia"
+                                        color="primary"
+                                        block
+                                        disabled={this.state.preferencias.length >= this.props.valores[1].maxPreferencias ? true : false}
+                                        onClick={() => { this.agregarPreferencia() }}>
+                                        <span className="fa fa-plus"></span> Agregar otro curso
                         </Button>
-                        </Col>
-                    </FormGroup>
-                    <Botonera pasoActual={2} valores={this.props.valores} anteriorPaso={this.props.anteriorPaso} siguientePaso={this.confirmarCambios} />
+                                </Col>
+                            </FormGroup>
+                            <Botonera pasoActual={2} valores={this.props.valores} anteriorPaso={this.props.anteriorPaso} />
+                        </Form>)}
+                </Formik>
 
-                </LocalForm>
             </Col>
         )
     }
 }
 
 
-export default Paso2;
+export default connect(mapStateToProps, mapDispatchToProps)(Paso2);

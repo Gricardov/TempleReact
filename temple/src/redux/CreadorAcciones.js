@@ -3,6 +3,52 @@ import { LIDERES } from '../compartido/lideres';
 import { URLBase } from '../compartido/URLBase';
 import { actions } from 'react-redux-form';
 
+export const consultaNiveles = () => (dispatch) => {
+    dispatch(cargandoNiveles());
+
+    fetch(URLBase + 'curso/consulta/niveles/')
+        .then(response => {
+
+            if (response.ok) {
+
+                return response;
+
+            }
+
+            else {
+
+                var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
+                error.response = response;
+                throw error;
+
+            }
+
+        }, error => {
+
+            var mensErr = new Error(error.message);
+            throw mensErr;
+
+        })
+        .then(response => response.json())
+        .then(niveles => {
+            // Lo convierto a un formato que un combox pueda leer
+            const nivelesCombo=[];
+
+            niveles.map((e,i)=>{
+                nivelesCombo.push({texto:e.NOM_NIV, id:e.ID_NIV})
+            })
+
+            dispatch(nivelesObtenidos(nivelesCombo));
+
+        })
+        .catch(error => {
+            console.log("No se pudo obtener los niveles : " + error.message)
+
+            dispatch(errorNiveles(error.message))
+
+        })
+}
+
 export const consultaUsuarioPorNomUsu = (nomUsu) => (dispatch) => {
     console.log('cons ' + nomUsu)
     dispatch(cargandoUsuario());
@@ -118,6 +164,22 @@ export const iniciarSesion = (usuario, contrasena) => (dispatch) => {
 }
 
 // Eventos llamados indirectamente
+
+// Niveles
+export const cargandoNiveles = () => ({
+    type: Acciones.CARGANDO_NIVELES
+})
+
+export const nivelesObtenidos = (niveles) => ({
+    type: Acciones.NIVELES_OBTENIDOS,
+    payload: niveles
+})
+
+export const errorNiveles = (mensErr) => ({
+    type: Acciones.ERROR_NIVELES,
+    payload: mensErr
+
+})
 
 // Usuario
 export const cargandoUsuario = () => ({
