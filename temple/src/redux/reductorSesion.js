@@ -1,6 +1,6 @@
 import * as Acciones from './Acciones';
 
-export const EstadoSesion=(state={
+export const Sesion=(state={
 
     estaCargando:false,
     mensError:null,

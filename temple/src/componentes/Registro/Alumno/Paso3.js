@@ -33,10 +33,12 @@ class Paso3 extends Component {
 
     render() {
         return (
+            <Row>
             <Col xs={12}>
                 <Mapa posicion={{latitud: this.state.latitud, longitud: this.state.longitud}} actualizarCoordenadas={(coords) => this.actualizarCoordenadas(coords)} />
                 <Botonera pasoActual={3} valores={this.props.valores} anteriorPaso={this.props.anteriorPaso} siguientePaso={this.confirmarCambios} />
             </Col>
+            </Row>
         )
     }
 }

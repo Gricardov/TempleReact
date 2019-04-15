@@ -3,6 +3,7 @@ import { LIDERES } from '../compartido/lideres';
 import { URLBase } from '../compartido/URLBase';
 import { actions } from 'react-redux-form';
 
+// Niveles
 export const consultaNiveles = () => (dispatch) => {
     dispatch(cargandoNiveles());
 
@@ -32,10 +33,10 @@ export const consultaNiveles = () => (dispatch) => {
         .then(response => response.json())
         .then(niveles => {
             // Lo convierto a un formato que un combox pueda leer
-            const nivelesCombo=[];
+            const nivelesCombo = [];
 
-            niveles.map((e,i)=>{
-                nivelesCombo.push({texto:e.NOM_NIV, id:e.ID_NIV})
+            niveles.map((e, i) => {
+                nivelesCombo.push({ texto: e.NOM_NIV, id: e.ID_NIV })
             })
 
             dispatch(nivelesObtenidos(nivelesCombo));
@@ -49,63 +50,10 @@ export const consultaNiveles = () => (dispatch) => {
         })
 }
 
-export const consultaUsuarioPorNomUsu = (nomUsu) => (dispatch) => {
-    console.log('cons ' + nomUsu)
-    dispatch(cargandoUsuario());
-
-    fetch(URLBase + 'usuario/consulta/porNomUsu/' + nomUsu)
-        .then(response => {
-
-            if (response.ok) {
-
-                return response;
-
-            }
-
-            else {
-
-                var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
-                error.response = response;
-                throw error;
-
-            }
-
-        }, error => {
-
-            var mensErr = new Error(error.message);
-            throw mensErr;
-
-        })
-        .then(response => response.json())
-        .then(usuario => {
-            dispatch(usuarioObtenido(usuario));
-
-        })
-        .catch(error => {
-            console.log("No se pudo obtener el usuario : " + error.message)
-
-            dispatch(errorUsuario(error.message))
-
-        })
-}
-
-// Métodos llamados desde la clase principal
-
-export const obtenerLideres = () => (dispatch) => {
-
-    dispatch(cargandoLideres());
-
-    setTimeout(() => {
-
-        dispatch(lideresObtenidos(LIDERES))
-
-    }, 2000);
-
-}
-
+// Sesión usuario
 export const iniciarSesion = (usuario, contrasena) => (dispatch) => {
 
-    dispatch(iniciandoSesion());
+    /*dispatch(iniciandoSesion());
 
     const logueo = {
 
@@ -158,8 +106,76 @@ export const iniciarSesion = (usuario, contrasena) => (dispatch) => {
             console.log("Sesión no iniciada : " + error.message)
             dispatch(sesionNoIniciada(error.message))
 
-        })
+        })*/
+    dispatch(sesionIniciada({
+        id: '1', nombres: 'Mila', apPat: 'Luna', apMat: 'Luna',
+        perfil: 'https://firebasestorage.googleapis.com/v0/b/templereact.appspot.com/o/mila.jpg?alt=media&token=f8d41e8a-7cdc-4503-9abd-eb675671a84c',
+        portada: 'https://firebasestorage.googleapis.com/v0/b/templereact.appspot.com/o/IMG_20181128_134718.jpg?alt=media&token=cc498d4e-b10f-44ea-a0d6-cd59407fc62e'
+    }));
 
+
+}
+
+export const cerrarSesion = () => (dispatch) => {
+
+    
+    dispatch(sesionNoIniciada('Cerrado correctamente'));
+
+
+}
+
+// Usuario
+export const consultaUsuarioPorNomUsu = (nomUsu) => (dispatch) => {
+
+    dispatch(cargandoUsuario());
+
+    fetch(URLBase + 'usuario/consulta/porNomUsu/' + nomUsu)
+        .then(response => {
+
+            if (response.ok) {
+
+                return response;
+
+            }
+
+            else {
+
+                var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
+                error.response = response;
+                throw error;
+
+            }
+
+        }, error => {
+
+            var mensErr = new Error(error.message);
+            throw mensErr;
+
+        })
+        .then(response => response.json())
+        .then(usuario => {
+            dispatch(usuarioObtenido(usuario));
+
+        })
+        .catch(error => {
+            console.log("No se pudo obtener el usuario : " + error.message)
+
+            dispatch(errorUsuario(error.message))
+
+        })
+}
+
+// Líderes
+
+export const obtenerLideres = () => (dispatch) => {
+
+    dispatch(cargandoLideres());
+
+    setTimeout(() => {
+
+        dispatch(lideresObtenidos(LIDERES))
+
+    }, 2000);
 
 }
 
@@ -218,7 +234,7 @@ export const errorLideres = (mensErr) => ({
 
 });
 
-// Iniciar sesión
+// Sesión
 export const iniciandoSesion = () => ({
 
     type: Acciones.INICIANDO_SESION,

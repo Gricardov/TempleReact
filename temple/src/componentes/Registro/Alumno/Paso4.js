@@ -166,6 +166,7 @@ class Paso4 extends Component {
     render() {
 
         return (
+            <Row>
             <Col xs={12}>
                 <LocalForm initialState={this.props.valores[3]}
                     onSubmit={(values, event) => { this.confirmarCambios(values, event) }}
@@ -335,6 +336,7 @@ class Paso4 extends Component {
                     <Botonera pasoActual={4} valores={this.props.valores} anteriorPaso={this.props.anteriorPaso} />
                 </LocalForm>
             </Col >
+            </Row>
         )
     }
 }

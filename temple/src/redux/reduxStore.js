@@ -4,7 +4,7 @@ import logger from 'redux-logger';
 import {createForms} from 'react-redux-form';
 
 import {Lideres} from './reductorLideres';
-import {EstadoSesion} from './reductorSesion';
+import {Sesion} from './reductorSesion';
 import {InicioContacto} from './formularios';
 import {Usuario} from './reductorUsuario';
 import {Niveles} from './reductorNiveles';
@@ -15,7 +15,7 @@ export const ReduxStore = () => {
             combineReducers({
                 lideres:Lideres,
                 usuario: Usuario,
-                estadoSesion: EstadoSesion,
+                sesion: Sesion,
                 niveles: Niveles,
                 ...createForms({
                     formContacto: InicioContacto

@@ -4,8 +4,26 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Fade } from 'react-animation-components';
 import { Formik, Form, Field } from 'formik';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { iniciarSesion } from '../../redux/CreadorAcciones';
+
 import * as RUTAS from '../../compartido/rutas';
 
+const mapStateToProps = (state) => {
+
+  return {
+
+    sesion: state.sesion
+  }
+
+}
+
+const mapDispatchToProps = (dispatch) => ({
+
+  iniciarSesion: (usuario, contrasena) => dispatch(iniciarSesion(usuario, contrasena))
+})
+
+// Validador
 const vacio = (val) => !val || !val.length;
 
 class Login extends Component {
@@ -22,8 +40,23 @@ class Login extends Component {
     this.iniciarSesion = this.iniciarSesion.bind(this);
   }
 
-  iniciarSesion() {
-    this.props.history.push(RUTAS.INICIO_ALUMNO.ruta);
+  componentDidUpdate(prevProps, prevState) {
+
+    if (prevProps.sesion.usuario != this.props.sesion.usuario) {
+
+      // Si la sesión se ha iniciado correctamente, que redireccione
+      if (this.props.sesion.usuario) {
+        //alert(JSON.stringify(this.props.sesion.usuario))
+        this.props.history.push(RUTAS.INICIO_ALUMNO.ruta);
+      }
+    }
+  }
+
+  iniciarSesion(usuario, contrasena) {
+
+    // Indico que inicie sesión
+    this.props.iniciarSesion(usuario, contrasena);
+
   }
 
   render() {
@@ -76,7 +109,7 @@ class Login extends Component {
                             ...values
                           }, () => {
 
-                            this.iniciarSesion()
+                            this.iniciarSesion(values.usuario, values.contrasena)
 
                           })
                         }}
@@ -184,4 +217,4 @@ const MensajeError = ({ mensaje }) => {
 
 }
 
-export default withRouter(Login);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

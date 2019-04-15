@@ -107,16 +107,25 @@ class Mapa extends Component {
     render() {
 
         const posicion = [this.state.posicion.latitud, this.state.posicion.longitud]
-        const mapa = (
+        return (
             <>
                 <Row className="justify-content-between">
-                    <div>
+                    <Col xs={6}>
                         <p>Puedes mover el marcador para establecer tu ubicación exacta. </p>
-                    </div>
-                    <div>
-                        <p className={this.state.posicion.solicitandoUbicacion ? 'text-warning' : this.state.posicion.errorUbicacion ? 'text-danger' : 'text-success'}>{this.state.posicion.mensaje}
+                    </Col>
+                    <Col xs={6}>
+                        <p className={this.state.posicion.solicitandoUbicacion
+                            ?
+                            'float-right text-warning'
+                            :
+                            this.state.posicion.errorUbicacion
+                                ?
+                                'float-right text-danger'
+                                :
+                                'float-right text-success'}>
+                            {this.state.posicion.mensaje}
                         </p>
-                    </div>
+                    </Col>
                 </Row>
                 <Row>
                     <Map center={posicion} zoom={this.state.posicion.zoom} style={{
@@ -144,7 +153,6 @@ class Mapa extends Component {
                 </Row>
             </>
         );
-        return mapa;
     }
 }
 export default Mapa

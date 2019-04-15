@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem } from 'reactstrap';
+import {
+    Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, UncontrolledDropdown, DropdownToggle,
+    DropdownMenu, DropdownItem
+} from 'reactstrap';
 import { NavLink, Link } from 'react-router-dom';
 
 import * as RUTAS from '../../compartido/rutas';
@@ -30,7 +33,6 @@ class BarraUsuario extends Component {
     }
 
     render() {
-
         return (
             <>
                 <Navbar dark expand="md" className="fixed-top sombra-barra">
@@ -40,43 +42,92 @@ class BarraUsuario extends Component {
                         <NavbarBrand className="mr-auto" tag={Link} to={RUTAS.INICIO_BIENVENIDA.ruta}>
                             <img src="recursos/imagenes/logo.png" height="30" width="100" alt="logo temple" />
                         </NavbarBrand>
-                        <NavbarToggler onClick={this.permutarColapso}/>
+                        <NavbarToggler onClick={this.permutarColapso} />
 
-                            <Collapse isOpen={this.state.abierto} navbar className="row justify-content-end">
+                        <Collapse isOpen={this.state.abierto} navbar className="row justify-content-end">
 
-                                <Nav navbar>
+                            <Nav navbar>
 
-                                    <NavItem className="ml-2">
+                                <NavItem className="ml-2">
 
-                                        <NavLink className="nav-link" to={RUTAS.INICIO_BIENVENIDA.ruta}>
-                                            Inicio
-                                </NavLink>
+                                    <NavLink className="nav-link" to={RUTAS.INICIO_BIENVENIDA.ruta}>
+                                        <img className='img-barra-usuario mr-2' alt="img-barra-usuario" src={this.props.usuario.perfil}/>
+                                        {' '}
+                                        {this.props.usuario.nombres}
+                                        {' '}
+                                        {this.props.usuario.apPat}
+                                    </NavLink>
+                                </NavItem>
 
-                                    </NavItem>
-                                    <NavItem className="ml-2">
-                                        <NavLink className="nav-link" to={RUTAS.DESCARGAR_BIENVENIDA.ruta}>
-                                            Descargar
-                                </NavLink>
+                                <UncontrolledDropdown nav inNavbar>
+                                    <DropdownToggle nav>
+                                        <span className="fa fa-bell-o"/>
+                </DropdownToggle>
+                                    <DropdownMenu right>
+                                        <DropdownItem>
+                                            Notificación 1
+                  </DropdownItem>
+                                        <DropdownItem>
+                                            Notificación 2
+                  </DropdownItem>
+                                        <DropdownItem divider />
+                                        <DropdownItem>
+                                            Reset
+                  </DropdownItem>
+                                    </DropdownMenu>
+                                </UncontrolledDropdown>
 
-                                    </NavItem>
-                                    <NavItem className="ml-2">
-                                        <NavLink className="nav-link" to={RUTAS.INICIAR_SESION_BIENVENIDA.ruta}>
-                                            Iniciar sesión
-                                </NavLink>
+                                <UncontrolledDropdown nav inNavbar>
+                                    <DropdownToggle nav>
+                                    <span className="fa fa-envelope-o"/>
 
-                                    </NavItem>
-                                </Nav>
+                </DropdownToggle>
+                                    <DropdownMenu right>
+                                        <DropdownItem>
+                                            Mensaje 1
+                  </DropdownItem>
+                                        <DropdownItem>
+                                            Mensaje 2
+                  </DropdownItem>
+                                        <DropdownItem divider />
+                                        <DropdownItem>
+                                            Reset
+                  </DropdownItem>
+                                    </DropdownMenu>
+                                </UncontrolledDropdown>
 
-                            </Collapse>
+                                <UncontrolledDropdown nav inNavbar>
+                                    <DropdownToggle nav>
+                                    <span className="fa fa-caret-down"/>
+
+                </DropdownToggle>
+                                    <DropdownMenu right>
+                                        <DropdownItem>
+                                            Opción 1
+                  </DropdownItem>
+                                        <DropdownItem>
+                                            Opción 2
+                  </DropdownItem>
+                                        <DropdownItem divider />
+                                        <DropdownItem>
+                                            Salir
+                  </DropdownItem>
+                                    </DropdownMenu>
+                                </UncontrolledDropdown>
+
+
+                            </Nav>
+
+                        </Collapse>
                     </div>
                 </Navbar>
             </>
 
-                );
-        
-            }
-        
-        
-        }
-        
-export default BarraUsuario
+        );
+
+    }
+
+
+}
+
+export default BarraUsuario;

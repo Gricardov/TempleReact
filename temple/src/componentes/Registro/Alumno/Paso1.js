@@ -33,6 +33,7 @@ class Paso1 extends Component {
 
     render() {
         return (
+            <Row>
             <Col xs={12}>
 
                 <Formik
@@ -240,6 +241,7 @@ class Paso1 extends Component {
                 </Formik>
 
             </Col>
+            </Row>
 
         )
     }
