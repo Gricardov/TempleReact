@@ -49,7 +49,7 @@ class InicioAlumno extends Component {
                         <Input type="text" placeholder="Por ejemplo: Java, SQL Server, MySQL" />
                     </Col>
                 </Row>
-                <Row>
+                <Row className="mb-3">
                     <Col xs={6}>
                         <a href="#">Búsqueda avanzada</a>
                     </Col>

@@ -173,6 +173,89 @@ height: 25px;
 
 /*Estilos de la caja de búsqueda principal de cursos (Inicio alumno)*/
 
+/*Estilo de las tarjetas de perfil*/
+.tarjeta-perfil{
+    max-width: 250px;
+    background-color: #FFF;
+    border-radius: 5px;
+    box-shadow: 0px 0px 25px rgba(0,0,0,0.1);
+    overflow: hidden;
+    position: relative;
+    margin: 10px auto;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.tarjeta-perfil .contenedor-img-portada{
+  height: 120px;
+  width: auto;
+}
+
+.contenedor-img-portada .img{
+  transition: all 0.25s linear;
+  height: 100%;
+  width: 100%;
+}
+
+.tarjeta-perfil .contenedor-img-perfil{
+  position: absolute;
+  height: 100px;
+    left: 0px;
+    right: 0px;
+    z-index: 10;
+    top: 60px;
+    transition: all 0.25s linear;
+    transform-style: preserve-3d;
+}
+
+.contenedor-img-perfil .img{
+  height: 100px;
+    margin: auto;
+    border-radius: 50%;
+    border: 5px solid #FFF;
+    box-shadow: 0px 0px 5px rgba(0,0,0);
+}
+
+.tarjeta-perfil .contenido-perfil{
+  position: relative;
+    padding: 10px;
+    background-color: #FFF;
+}
+
+.tarjeta-perfil .nombre-perfil{
+  margin-top: 40px;
+  font-size: 18px;
+    font-weight: bold;
+    color: #021830;
+}
+
+.tarjeta-perfil .titulo-perfil{
+  color: #777;
+  font-size: 12px;
+  margin: 0px;
+}
+
+.tarjeta-perfil .descripcion-perfil{
+  color: #777;
+  font-size: 12px;
+  padding: 5px;
+}
+
+.tarjeta-perfil .resumen-perfil{
+  padding-top: 10px;
+}
+
+.resumen-perfil p{
+  font-size: 10px;
+    font-weight: 600;
+    color: #777;
+    margin-bottom: 8px;
+}
+
+.resumen-perfil h5{
+  color: #273751;
+    font-weight: bold;
+}
 
 /*Pie de página*/
 
