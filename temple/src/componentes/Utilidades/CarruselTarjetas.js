@@ -53,35 +53,27 @@ class Carrusel extends Component {
         };
 
         return (
+
             <Slider {...settings}>
-                <div>
                     <TarjetaPerfil />
 
-                </div>
-                <div>
                     <TarjetaPerfil />
 
-                </div>
-                <div>
+               
                     <TarjetaPerfil />
 
-                </div>
-                <div>
+               
                     <TarjetaPerfil />
 
-                </div>
-                <div>
+               
                     <TarjetaPerfil />
 
-                </div>
-                <div>
+               
                     <TarjetaPerfil />
 
-                </div>
-                <div>
+               
                     <TarjetaPerfil />
 
-                </div>
             </Slider>
         );
     }

@@ -27,7 +27,7 @@ class InicioAlumno extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tipoVista:1
+            tipoVista: 1
         };
 
 
@@ -44,7 +44,7 @@ class InicioAlumno extends Component {
                         <MensajeAnimado texto={`Hola ${this.props.sesion.usuario.nombres}! ¿Qué deseas aprender hoy?`} />
                     </Col>
                 </Row>
-                <Row className="mb-4">
+                <Row className="mb-3">
                     <Col xs={12}>
                         <Input type="text" placeholder="Por ejemplo: Java, SQL Server, MySQL" />
                     </Col>
@@ -66,6 +66,30 @@ class InicioAlumno extends Component {
                         </label>
                     </Col>
                 </Row>
+                <Row className="mb-4">
+                    <Col xs={12}>
+                        <MensajeAnimado texto={'Recomendados para ti - Nivel secundaria: '} />
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col xs={12}>
+                        <h4 className="text-muted">Biología</h4>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col xs={12}>
+                        <Carrusel />
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col xs={12}>
+                        <h4 className="text-muted">Matemáticas</h4>
+                    </Col>
+                </Row>
+
                 <Row>
                     <Col xs={12}>
                         <Carrusel />
@@ -82,17 +106,17 @@ const MensajeAnimado = (props) => {
 
     const animado = [...props.texto].map((letra, i) => {
         return (
-                <FadeTransform in key={i} className="d-inline" transformProps={{exitTransform:'delay(1.0) translateY(-100%)'}}>
-                    <h2 className="d-inline text-muted text-center">{letra}</h2>
-                </FadeTransform>
+            <FadeTransform in key={i} className="d-inline" transformProps={{ exitTransform: 'delay(1.0) translateY(-100%)' }}>
+                <h3 className="d-inline text-muted text-center">{letra}</h3>
+            </FadeTransform>
         )
     })
 
     return (
         <div className="text-center">
-        {animado}
+            {animado}
         </div>
-        );
+    );
 
 }
 

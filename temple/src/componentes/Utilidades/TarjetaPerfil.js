@@ -28,22 +28,22 @@ class TarjetaPerfil extends Component {
                         @Cora
                     </div>
                     <div className="descripcion-perfil">
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.
+                        Especialista en dejar corazones rotos y nunca volver a hablarte.
                 </div>
                     <Row>
                         <Col xs={4}>
                             <div className="resumen-perfil">
-                                <p>TWEETS</p><h5>1300</h5>
+                                <p>Ternura</p><h5>1300</h5>
                             </div>
                         </Col>
                         <Col xs={4}>
                             <div className="resumen-perfil">
-                                <p>FOLLOWERS</p><h5>250</h5>
+                                <p>Belleza</p><h5>250</h5>
                             </div>
                         </Col>
                         <Col xs={4}>
                             <div className="resumen-perfil">
-                                <p>FOLLOWING</p><h5>168</h5>
+                                <p>Seguidores</p><h5>168</h5>
                             </div>
                         </Col>
                     </Row>
