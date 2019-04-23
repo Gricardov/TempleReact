@@ -11,7 +11,7 @@ import Login from '../Bienvenida/IniciarSesionBienvenida';
 import RegistroAlumno from '../Registro/Alumno/RegistroAlumno';
 import RegistroProfesor from '../Registro/Profesor/RegistroProfesor';
 import InicioAlumno from '../Usuario/Alumno/InicioAlumno';
-
+import PerfilProfesorAlumno from '../Usuario/Alumno/PerfilProfesorAlumno';
 import SwitchDeslizador from '../Utilidades/ComponenteSwitchDeslizador';
 import * as RUTAS from '../../compartido/rutas';
 
@@ -60,6 +60,8 @@ class Principal extends Component {
                     <SwitchDeslizador>   
                     <Route exact path="/" component={InicioAlumno} />
                     <Route path={RUTAS.INICIO_ALUMNO.ruta} component={InicioAlumno} />
+                    <Route path={RUTAS.PERFIL_PROFESOR_ALUMNO.ruta} component={PerfilProfesorAlumno} />
+
                     </SwitchDeslizador>   
                     </>                
                     :     
@@ -67,7 +69,8 @@ class Principal extends Component {
                     <Barra />                              
                     <SwitchDeslizador>   
                     <Route exact path="/" component={Inicio} />
-                    <Route path={RUTAS.INICIO_BIENVENIDA.ruta} component={Inicio} />
+                    {'// Cambiar luego'}
+                    <Route path={RUTAS.INICIO_BIENVENIDA.ruta} component={PerfilProfesorAlumno} />
                     <Route path={RUTAS.DESCARGAR_BIENVENIDA.ruta} component={Descargar} />
                     <Route path={RUTAS.INICIAR_SESION_BIENVENIDA.ruta} component={Login} />
 
