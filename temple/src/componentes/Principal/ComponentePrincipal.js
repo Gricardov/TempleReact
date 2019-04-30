@@ -46,7 +46,6 @@ class Principal extends Component {
 
     }
 
-
     render() {
        
         return (
@@ -69,8 +68,8 @@ class Principal extends Component {
                     <Barra />                              
                     <SwitchDeslizador>   
                     <Route exact path="/" component={Inicio} />
-                    {'// Cambiar luego'}
-                    <Route path={RUTAS.INICIO_BIENVENIDA.ruta} component={Inicio} />
+                    {'// Cambiar ruta para pruebas'}
+                    <Route path={RUTAS.INICIO_BIENVENIDA.ruta} component={PerfilProfesorAlumno} />
                     <Route path={RUTAS.DESCARGAR_BIENVENIDA.ruta} component={Descargar} />
                     <Route path={RUTAS.INICIAR_SESION_BIENVENIDA.ruta} component={Login} />
 
