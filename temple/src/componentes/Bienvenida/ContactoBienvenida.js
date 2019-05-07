@@ -141,7 +141,7 @@ class Contacto extends Component {
                         </Form>
                     </div>
                     <div className="col-md-3 d-none d-md-block">
-                        <img src="recursos/imagenes/alenita.jpg" alt="la-arenita" width="100%" height="50%" />
+                        <img src="recursos/imagenes/mila.jpg" alt="registro" width="100%" height="50%" />
                     </div>
                 </div>
 
