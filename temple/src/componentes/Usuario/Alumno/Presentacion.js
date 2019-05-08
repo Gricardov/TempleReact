@@ -10,7 +10,7 @@ class Presentacion extends Component {
 
     render() {
         return (
-            <div id="mainArea" className="quickFade delayFive">
+            <div id="mainArea" className="quickFade">
                 <section>
                     <article>
                         <div className="sectionTitle">

@@ -43,9 +43,7 @@ class Pestana extends Component {
                     {
                         this.state.pestanaVisible == 1
                             ?
-                            <div>
                                 <Presentación />
-                            </div>
                             :
                             this.state.pestanaVisible == 2
                                 ?
