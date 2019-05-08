@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Presentación from '../Usuario/Alumno/Presentacion';
 
 class Pestana extends Component {
     constructor(props) {
@@ -43,7 +44,7 @@ class Pestana extends Component {
                         this.state.pestanaVisible == 1
                             ?
                             <div>
-                                Presentación
+                                <Presentación />
                             </div>
                             :
                             this.state.pestanaVisible == 2
