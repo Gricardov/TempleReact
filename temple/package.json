@@ -8,6 +8,7 @@
     "formik": "^1.5.2",
     "google-maps-react": "^2.0.2",
     "ibm-watson": "^4.1.0",
+    "jquery": "^3.4.1",
     "leaflet": "^1.4.0",
     "prop-types": "15.6.0",
     "react": "^16.8.2",

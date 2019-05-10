@@ -12,6 +12,7 @@ import RegistroAlumno from '../Registro/Alumno/RegistroAlumno';
 import RegistroProfesor from '../Registro/Profesor/RegistroProfesor';
 import InicioAlumno from '../Usuario/Alumno/InicioAlumno';
 import PerfilProfesorAlumno from '../Usuario/Alumno/PerfilProfesorAlumno';
+import Asistente from '../Utilidades/AsistenteComponente';
 import SwitchDeslizador from '../Utilidades/ComponenteSwitchDeslizador';
 import * as RUTAS from '../../compartido/rutas';
 
@@ -56,17 +57,16 @@ class Principal extends Component {
                     ?
                     <>
                     <BarraUsuario usuario={this.props.sesion.usuario} />                              
-                    <SwitchDeslizador>   
+                    <SwitchDeslizador>
                     <Route exact path="/" component={InicioAlumno} />
                     <Route path={RUTAS.INICIO_ALUMNO.ruta} component={InicioAlumno} />
                     <Route path={RUTAS.PERFIL_PROFESOR_ALUMNO.ruta} component={PerfilProfesorAlumno} />
-
-                    </SwitchDeslizador>   
+                    </SwitchDeslizador>  
                     </>                
                     :     
                     <>
-                    <Barra />                              
-                    <SwitchDeslizador>   
+                    <Barra />
+                    <SwitchDeslizador>  
                     <Route exact path="/" component={Inicio} />
                     {'// Cambiar ruta para pruebas'}
                     <Route path={RUTAS.INICIO_BIENVENIDA.ruta} component={PerfilProfesorAlumno} />
@@ -89,6 +89,8 @@ class Principal extends Component {
 
                     <Redirect to={RUTAS.INICIO_BIENVENIDA.ruta} component={Inicio} />
                     </SwitchDeslizador>
+                    <Asistente />                      
+
                     </>
                 }  
 
