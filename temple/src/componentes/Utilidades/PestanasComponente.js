@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Presentación from '../Usuario/Alumno/Presentacion';
+import Cursos from '../Usuario/Alumno/Cursos';
+import Horarios from '../Usuario/Alumno/Horarios';
+import Ubicación from '../Usuario/Alumno/Ubicacion';
 
 class Pestana extends Component {
     constructor(props) {
@@ -47,9 +50,11 @@ class Pestana extends Component {
                             :
                             this.state.pestanaVisible == 2
                                 ?
-                                <div>
-                                    Cursos
-                                </div>
+                                    <Cursos cursos={[{id:'1',nombre:'Matemáticas',descripcion:'Curso 1'},
+                                    {id:'2',nombre:'Inglés',descripcion:'Curso 2'},
+                                    {id:'3',nombre:'Francés',descripcion:'Curso 3'},
+                                    {id:'4',nombre:'Alemán',descripcion:'Curso 4'},
+                                    {id:'5',nombre:'Español',descripcion:'Curso 5'}]}/>
                                 :
                                 this.state.pestanaVisible == 3
                                     ?

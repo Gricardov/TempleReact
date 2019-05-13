@@ -707,7 +707,42 @@ label.panel-label:hover {
     animation-duration: 0.5s;
     animation-timing-function: ease-in;
 }
-  
+
+/*Pestaña cursos*/
+
+.enlace-pestana-curso {
+  display: block;
+        background-color: inherit;
+        color: black;
+        padding: 22px 16px;
+        width: 100%;
+        border: none;
+        outline: none;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 17px;
+}
+
+
+      /* Change background color of buttons on hover */
+      .enlace-pestana-curso:hover {
+          background-color: #ddd;
+      }
+
+   
+
+/* Style the tab content */
+.contenido-pestana-curso {
+  padding: 0px 12px;
+  border: 1px solid #ccc;
+  height: 500px;
+}
+
+/*Pestaña horarios*/
+
+/*Pestaña ubicación*/
+
 /*Pie de página*/
 
 .pie-bienvenida{

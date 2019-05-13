@@ -47,27 +47,27 @@ class Asistente extends Component {
     render() {
         return (
             <Row>
-                <div class="panel panel-chat">
-                    <div class="panel-heading">
-                        <a href="#" class="chatMinimize" onclick="return false"><span>Asistente virtual</span></a>
-                        <a href="#" class="chatClose" onclick="return false"><i class="glyphicon glyphicon-remove"></i></a>
-                        <div class="clearFix"></div>
+                <div className="panel panel-chat">
+                    <div className="panel-heading">
+                        <a href="#" className="chatMinimize"><span>Asistente virtual</span></a>
+                        <a href="#" className="chatClose"><i className="glyphicon glyphicon-remove"></i></a>
+                        <div className="clearFix"></div>
                     </div>
-                    <div class="panel-body">
-                        <div class="messageMe">
+                    <div className="panel-body">
+                        <div className="messageMe">
                             <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" alt="" />
                             <span>Hola! Soy tu asistente ¿En qué te puedo ayudar?</span>
-                            <div class="clearFix"></div>
+                            <div className="clearFix"></div>
                         </div>
-                        <div class="messageHer">
+                        <div className="messageHer">
                             <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" alt="" />
                             <span>Quiero saber más...</span>
-                            <div class="clearFix"></div>
+                            <div className="clearFix"></div>
                         </div>
                         
-                        <div class="clearFix"></div>
+                        <div className="clearFix"></div>
                     </div>
-                    <div class="panel-footer">
+                    <div className="panel-footer">
                         <textarea name="textMessage" cols="0" rows="0"></textarea>
                     </div>
                 </div>

@@ -14,7 +14,7 @@ class Presentacion extends Component {
             <div id="mainArea" className="quickFade">
                 <Row className="mt-4">
                         <Col xs={3} className="sectionTitle">
-                            <h1>Personal Profile</h1>
+                            <h1>Presentación</h1>
                         </Col>
 
                         <Col xs={9} className="sectionContent">
@@ -24,18 +24,18 @@ class Presentacion extends Component {
 
                 <Row className="mt-4">
                     <Col xs={3} className="sectionTitle">
-                        <h1>Work Experience</h1>
+                        <h1>Experiencia laboral</h1>
                     </Col>
 
                     <Col xs={9} className="sectionContent">
                         <article>
-                            <h2>Job Title at Company</h2>
+                            <h2>Presidente en Mila S.A.</h2>
                             <p className="subDetails">April 2011 - Present</p>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim. Vestibulum bibendum mattis dignissim. Proin id sapien quis libero interdum porttitor.</p>
                         </article>
 
                         <article>
-                            <h2>Job Title at Company</h2>
+                            <h2>Community Manager en Cora S.A.C.</h2>
                             <p className="subDetails">Janruary 2007 - March 2011</p>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim. Vestibulum bibendum mattis dignissim. Proin id sapien quis libero interdum porttitor.</p>
                         </article>
@@ -51,7 +51,7 @@ class Presentacion extends Component {
 
                 <Row className="mt-4">
                     <Col xs={3} className="sectionTitle">
-                        <h1>Key Skills</h1>
+                        <h1>Habilidades clave</h1>
                     </Col>
 
                     <Col xs={9} className="sectionContent">
@@ -70,18 +70,18 @@ class Presentacion extends Component {
 
                 <Row className="mt-4">
                     <Col xs={3} className="sectionTitle">
-                        <h1>Education</h1>
+                        <h1>Educación</h1>
                     </Col>
 
                     <Col xs={3} className="sectionContent">
                         <article>
-                            <h2>College/University</h2>
+                            <h2>Universidad</h2>
                             <p className="subDetails">Qualification</p>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim.</p>
                         </article>
 
                         <article>
-                            <h2>College/University</h2>
+                            <h2>Colegio</h2>
                             <p className="subDetails">Qualification</p>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim.</p>
                         </article>
