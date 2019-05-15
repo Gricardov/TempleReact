@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Mapa from './../../Utilidades/ComponenteMapa';
 
 class Ubicacion extends Component {
     constructor(props){
@@ -10,7 +11,7 @@ class Ubicacion extends Component {
 
     render(){
         return(
-            null
+            <Mapa posicion={this.props.posicion} soloMuestra={true}/>
         )
     }
 

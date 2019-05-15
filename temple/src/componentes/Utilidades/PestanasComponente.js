@@ -24,20 +24,20 @@ class Pestana extends Component {
             <>
                 <div>
                     <ul id="tabs-list" className="row">
-                        <li id="li-for-panel-1" className="col-3" onClick={() => { this.mostrarPestana(1) }}>
-                            <label className="panel-label" id="pstPresentacion"
-                                htmlFor="panel-1-ctrl">Presentación</label>
+                        <li id="li-for-panel-1" className="col-3">
+                            <label className="panel-label" id="pstPresentacion" onClick={() => { this.mostrarPestana(1) }}
+                               htmlFor="panel-1-ctrl">Presentación</label>
                         </li>
-                        <li id="li-for-panel-2" className="col-3" onClick={() => { this.mostrarPestana(2) }}>
-                            <label className="panel-label" id="pstCursos"
+                        <li id="li-for-panel-2" className="col-3">
+                            <label className="panel-label" id="pstCursos" onClick={() => { this.mostrarPestana(2) }}
                                 htmlFor="panel-2-ctrl">Cursos</label>
                         </li>
-                        <li id="li-for-panel-3" className="col-3" onClick={() => { this.mostrarPestana(3) }}>
-                            <label className="panel-label" id="pstHorarios"
+                        <li id="li-for-panel-3" className="col-3">
+                            <label className="panel-label" id="pstHorarios" onClick={() => { this.mostrarPestana(3) }}
                                 htmlFor="panel-3-ctrl">Horarios</label>
                         </li>
-                        <li id="li-for-panel-4" className="col-3" onClick={() => { this.mostrarPestana(4) }}>
-                            <label className="panel-label" id="pstUbicacion"
+                        <li id="li-for-panel-4" className="col-3">
+                            <label className="panel-label" id="pstUbicacion" onClick={() => { this.mostrarPestana(4) }}
                                 htmlFor="panel-4-ctrl">Ubicación</label>
                         </li>
                     </ul>
@@ -63,7 +63,7 @@ class Pestana extends Component {
                                     </div>
                                     :
                                     <div>
-                                        Ubicación
+                                        <Ubicación posicion={{latitud:0,longitud:0}}/>
                                     </div>
                     }
                 </div>

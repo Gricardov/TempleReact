@@ -592,6 +592,7 @@ label.panel-label:hover {
   #close-nav-label {
     display: none;
   }
+  
 
 /*Pestaña presentación*/
 
@@ -601,7 +602,7 @@ label.panel-label:hover {
 
 .sectionTitle h1 {
 	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
-	font-style: italic;
+	font-style: bold;
 	font-size: 1.5em;
 	color: #2f7caf;
 }
@@ -736,10 +737,16 @@ label.panel-label:hover {
 .contenido-pestana-curso {
   padding: 0px 12px;
   border: 1px solid #ccc;
-  height: 500px;
+  height: auto;
 }
 
 /*Pestaña horarios*/
+
+.calendario {
+  max-height: 1000px;
+  overflow:auto;
+  margin: 5px;
+}
 
 /*Pestaña ubicación*/
 

@@ -27,26 +27,29 @@ class Mapa extends Component {
 
     componentDidMount() {
 
-        // Establezco el mensaje
-        this.setState({
-            posicion: {
-                ...this.state.posicion,
-                mensaje: 'Solicitando geolocalización...',
-                solicitandoUbicacion: true
-            }
-        })
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(this.exitoPosicion, this.errorPosicion)
-        } else {
+        // Si el mapa solo muestra coordenadas, ya no solicita ubicación
+        if (!this.props.soloMuestra) {
+            // Establezco el mensaje
             this.setState({
                 posicion: {
                     ...this.state.posicion,
-                    mensaje: 'Este navegador no soporta ubicación automática',
-                    solicitandoUbicacion: false,
-                    errorUbicacion: true
+                    mensaje: 'Solicitando geolocalización...',
+                    solicitandoUbicacion: true
                 }
             })
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(this.exitoPosicion, this.errorPosicion)
+            } else {
+                this.setState({
+                    posicion: {
+                        ...this.state.posicion,
+                        mensaje: 'Este navegador no soporta ubicación automática',
+                        solicitandoUbicacion: false,
+                        errorUbicacion: true
+                    }
+                })
+            }
         }
     }
 
@@ -75,8 +78,9 @@ class Mapa extends Component {
             }
         })
         // Le aviso al padre que las coordenadas han cambiado
-        this.props.actualizarCoordenadas({ latitud: this.state.posicion.latitud, longitud: this.state.posicion.longitud })
-
+        if (this.props.actualizarCoordenadas) {
+            this.props.actualizarCoordenadas({ latitud: this.state.posicion.latitud, longitud: this.state.posicion.longitud })
+        }
     }
 
     actualizarPosicion(event) {
@@ -91,8 +95,10 @@ class Mapa extends Component {
             }
         })
         // Le aviso al padre que las coordenadas han cambiado
-        this.props.actualizarCoordenadas({ latitud: this.state.posicion.latitud, longitud: this.state.posicion.longitud })
+        if (this.props.actualizarCoordenadas) {
 
+            this.props.actualizarCoordenadas({ latitud: this.state.posicion.latitud, longitud: this.state.posicion.longitud })
+        }
     }
 
     actualizarZoom(event) {
@@ -106,7 +112,8 @@ class Mapa extends Component {
 
     render() {
 
-        const posicion = [this.state.posicion.latitud, this.state.posicion.longitud]
+        const posicion = [this.state.posicion.latitud, this.state.posicion.longitud];
+        
         return (
             <>
                 <Row className="justify-content-between">
@@ -142,12 +149,19 @@ class Mapa extends Component {
                             format='jpg70'
                             accessToken='sk.eyJ1IjoiZ3JpY2FyZG92IiwiYSI6ImNqbnphd3FicjAwNHAzcG85bmowaWFyMDUifQ.CxTAN8PiT2jZkldTwukmPg'
                         />
-                        <Marker position={posicion}
-                            draggable={true}
+                        <Marker position={posicion||[this.props.posicion.latitud,this.props.posicion.longitud]}
+                            draggable={this.props.soloMuestra ? false : true}
                             ondragend={this.actualizarPosicion}
 
                         >
-                            <Popup>Puedes moverme para especificar tu ubicación</Popup>
+                            <Popup>{
+                                this.props.soloMuestra
+                                    ?
+                                    "Ubicación del profesor"
+                                    :
+                                    "Puedes moverme para especificar tu ubicación"
+                            }
+                            </Popup>
                         </Marker>
                     </Map>
                 </Row>
