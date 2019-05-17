@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import Pestanas from '../../Utilidades/PestanasComponente';
+import ModalEntradaMensaje from '../../Utilidades/ModalEntradaMensaje';
 
 class PerfilProfesorAlumno extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            modalMensajeAbierto:false
         };
     }
 
@@ -19,14 +20,19 @@ class PerfilProfesorAlumno extends Component {
                     </figure>
                     <div className="estadisticas-perfil">
                         <ul>
-                            <li>13    <span>Projects</span></li>
-                            <li>1,354 <span>Commits</span></li>
-                            <li>32    <span>Following</span></li>
-                            <li>324   <span>Followers</span></li>
+                            <li>13    <span>Horas de experiencia</span></li>
+                            <li>4 <span>Cursos</span></li>
+                            <li>5    <span>Prestigio</span></li>
+                            <li>324   <span>Seguidores</span></li>
                         </ul>
-                        <a href="#" className="follow">
-                            Mensaje
-    </a>
+                        <div className="float-right">
+                        <a href="#" className="follow ml-3">
+                            Contratar
+                        </a>
+                        <a href="#" className="follow" onClick={()=>{ this.setState({modalMensajeAbierto:true})}}>
+                            Consultar
+                        </a>
+                        </div>
                     </div>
                     <h1 className="nombres-perfil">Mila Luna <small>@Cora</small></h1>
                 </div>
@@ -40,7 +46,8 @@ class PerfilProfesorAlumno extends Component {
                 </div>
                 <div className="container">
                     <Pestanas/>
-                </div>                
+                </div> 
+                <ModalEntradaMensaje encabezado="Enviar mensaje" abierto={this.state.modalMensajeAbierto}/>              
             </div>
         )
     }

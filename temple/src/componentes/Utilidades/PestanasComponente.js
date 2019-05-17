@@ -59,7 +59,7 @@ class Pestana extends Component {
                                 this.state.pestanaVisible == 3
                                     ?
                                     <div>
-                                        Horarios
+                                        <Horarios eventos={[{id:0,title:'Disponible',start:new Date("May 16, 2019 23:00:00:00"),end:new Date("May 16, 2019 23:40:00:00"),editable:false,color:'green'}]}/>
                                     </div>
                                     :
                                     <div>
