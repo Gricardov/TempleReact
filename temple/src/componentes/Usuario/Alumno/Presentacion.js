@@ -11,23 +11,23 @@ class Presentacion extends Component {
 
     render() {
         return (
-            <div id="mainArea" className="quickFade">
-                <Row className="mt-4">
-                        <Col xs={3} className="sectionTitle">
+            <div className="quickFade tarjeta-seccion">
+                <Row className="mb-4">
+                        <Col xs={12} className="sectionTitle">
                             <h1>Presentación</h1>
                         </Col>
 
-                        <Col xs={9} className="sectionContent">
+                        <Col xs={12} className="sectionContent">
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dolor metus, interdum at scelerisque in, porta at lacus. Maecenas dapibus luctus cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim. Vestibulum bibendum mattis dignissim. Proin id sapien quis libero interdum porttitor.</p>
                         </Col>
                 </Row>
 
-                <Row className="mt-4">
-                    <Col xs={3} className="sectionTitle">
+                <Row className="mb-4">
+                    <Col xs={12} className="sectionTitle">
                         <h1>Experiencia laboral</h1>
                     </Col>
 
-                    <Col xs={9} className="sectionContent">
+                    <Col xs={12} className="sectionContent">
                         <article>
                             <h2>Presidente en Mila S.A.</h2>
                             <p className="subDetails">April 2011 - Present</p>
@@ -49,12 +49,12 @@ class Presentacion extends Component {
                 </Row>
 
 
-                <Row className="mt-4">
-                    <Col xs={3} className="sectionTitle">
+                <Row className="mb-4">
+                    <Col xs={12} className="sectionTitle">
                         <h1>Habilidades clave</h1>
                     </Col>
 
-                    <Col xs={9} className="sectionContent">
+                    <Col xs={12} className="sectionContent">
                         <ul className="keySkills">
                             <li>A Key Skill</li>
                             <li>A Key Skill</li>
@@ -68,12 +68,12 @@ class Presentacion extends Component {
                     </Col>
                 </Row>
 
-                <Row className="mt-4">
-                    <Col xs={3} className="sectionTitle">
+                <Row className="mb-4">
+                    <Col xs={12} className="sectionTitle">
                         <h1>Educación</h1>
                     </Col>
 
-                    <Col xs={3} className="sectionContent">
+                    <Col xs={12} className="sectionContent">
                         <article>
                             <h2>Universidad</h2>
                             <p className="subDetails">Qualification</p>
