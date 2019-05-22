@@ -7,7 +7,7 @@ import Resenas from '../Alumno/Resenas';
 
 import { Row, Col } from 'reactstrap';
 
-class PerfilProfesorAlumno extends Component {
+class MiPerfil extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,7 +20,7 @@ class PerfilProfesorAlumno extends Component {
             <div className="perfil-debajo-barra">
                 <Row className="contenedor-portada-perfil">
                     <img src="http://4.bp.blogspot.com/-pUDTYSbW7qc/UubgtKShOSI/AAAAAAAAALI/qggus3wtkxI/s1600/mu%25C3%25B1eco+de+caja+mirando+corazones.jpg" />
-                    <figure className="foto-perfil" style={{ backgroundImage: 'url("https://firebasestorage.googleapis.com/v0/b/templereact.appspot.com/o/mila.jpg?alt=media&token=f8d41e8a-7cdc-4503-9abd-eb675671a84c")' }}>
+                    <figure className="foto-perfil" style={{ backgroundImage: `url(${this.props.usuario.IMG_PER})` }}>
 
                     </figure>
                     <div className="estadisticas-perfil">
@@ -39,7 +39,7 @@ class PerfilProfesorAlumno extends Component {
                         </a>
                         </div>
                     </div>
-                    <h1 className="nombres-perfil">Mila Luna <small>@CorazonDeMelon</small></h1>
+                    <h1 className="nombres-perfil">{this.props.usuario.NOM_USU} {this.props.usuario.APA_USU} {this.props.usuario.AMA_USU}<small>@CorazonDeMelon</small></h1>
                 </Row>
                 <Row className="contenedor-resumen tarjeta-seccion">
                     <Col xs={12}>
@@ -91,4 +91,4 @@ class PerfilProfesorAlumno extends Component {
 
 }
 
-export default PerfilProfesorAlumno;
+export default MiPerfil;

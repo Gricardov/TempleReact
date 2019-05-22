@@ -50,12 +50,12 @@ class BarraUsuario extends Component {
 
                                 <NavItem className="ml-2">
 
-                                    <NavLink className="nav-link" to={RUTAS.INICIO_BIENVENIDA.ruta}>
-                                        <img className='img-barra-usuario mr-2' alt="img-barra-usuario" src={this.props.usuario.perfil}/>
+                                    <NavLink className="nav-link" to={RUTAS.MI_PERFIL.ruta}>
+                                        <img className='img-barra-usuario mr-2' alt="img-barra-usuario" src={this.props.usuario.IMG_PER}/>
                                         {' '}
-                                        {this.props.usuario.nombres}
+                                        {this.props.usuario.NOM_USU}
                                         {' '}
-                                        {this.props.usuario.apPat}
+                                        {this.props.usuario.APA_USU}
                                     </NavLink>
                                 </NavItem>
 

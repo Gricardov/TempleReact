@@ -45,7 +45,7 @@ class Cursos extends Component {
                         </Row>
                         <Row className="mt-4">
                             <Col xs={5} className="sectionTitle">
-                                <h1>Horas de experiencia</h1>
+                                <h1 className="titulo-curso">Horas de experiencia</h1>
                             </Col>
 
                             <Col xs={7} className="sectionContent">
@@ -54,7 +54,7 @@ class Cursos extends Component {
                         </Row>
                         <Row className="mt-4">
                             <Col xs={5} className="sectionTitle">
-                                <h1>Descripción</h1>
+                                <h1 className="titulo-curso">Descripción</h1>
                             </Col>
 
                             <Col xs={7} className="sectionContent">
@@ -63,7 +63,7 @@ class Cursos extends Component {
                         </Row>
                         <Row className="mt-4">
                             <Col xs={5} className="sectionTitle">
-                                <h1>Nivel</h1>
+                                <h1 className="titulo-curso">Nivel</h1>
                             </Col>
 
                             <Col xs={7} className="sectionContent">
@@ -76,7 +76,7 @@ class Cursos extends Component {
 
                         <Row className="mt-4">
                             <Col xs={5} className="sectionTitle">
-                                <h1>Temas</h1>
+                                <h1 className="titulo-curso">Temas</h1>
                             </Col>
 
                             <Col xs={7} className="sectionContent">
@@ -90,7 +90,7 @@ class Cursos extends Component {
 
                         <Row className="mt-4">
                             <Col xs={5} className="sectionTitle">
-                                <h1>Modalidades</h1>
+                                <h1 className="titulo-curso">Modalidades</h1>
                             </Col>
 
                             <Col xs={7} className="sectionContent">
@@ -105,7 +105,7 @@ class Cursos extends Component {
 
                         <Row className="mt-4">
                             <Col xs={5} className="sectionTitle">
-                                <h1>Precio por hora</h1>
+                                <h1 className="titulo-curso">Precio por hora</h1>
                             </Col>
 
                             <Col xs={7} className="sectionContent">

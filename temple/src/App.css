@@ -1,3 +1,10 @@
+body p {
+  font-family: "Lato", sans-serif;
+  line-height: 30px;
+  color: #758690;
+  margin: 0;
+}
+
 /*Le da una sombrita bien sabrosona a la barra*/
 .sombra-barra{
   -webkit-box-shadow: 0px -8px 15px 10px rgba(0,0,0,0.5);
@@ -402,8 +409,8 @@ div .estadisticas-perfil a.follow.followed {
 }
 
 .contenedor-resumen {
-  margin-top: 80px;
-  margin-bottom: 50px;
+  margin: 80px 15px 20px; 
+ 
 }
 
 .contenedor-resumen .titulo h6 {
@@ -416,8 +423,8 @@ div .estadisticas-perfil a.follow.followed {
 
 }
 
-/*Badges o logros*/
-.badge {
+/*Logros*/
+.logro {
   position: relative;
   margin: 1.5em 3em;
   width: 4em;
@@ -427,7 +434,7 @@ div .estadisticas-perfil a.follow.followed {
   top: 0;
   transition: all 0.2s ease;
 }
-.badge:before, .badge:after {
+.logro:before, .logro:after {
   position: absolute;
   width: inherit;
   height: inherit;
@@ -440,18 +447,18 @@ div .estadisticas-perfil a.follow.followed {
   bottom: 0;
   margin: auto;
 }
-.badge:before {
+.logro:before {
   transform: rotate(60deg);
 }
-.badge:after {
+.logro:after {
   transform: rotate(-60deg);
 }
-.badge:hover {
+.logro:hover {
   top: -4px;
 }
-.badge .circle {
-  width: 50px;
-  height: 50px;
+.logro .circle {
+  width: 60px;
+  height: 60px;
   position: absolute;
   background: #fff;
   z-index: 10;
@@ -462,15 +469,16 @@ div .estadisticas-perfil a.follow.followed {
   bottom: 0;
   margin: auto;
 }
-.badge .circle i.fa {
+.logro .circle i.fa {
   font-size: 2em;
-  margin-top: 8px;
+  margin-top: 15px;
+  margin-left: 14px;
 }
-.badge .font {
+.logro .font {
   display: inline-block;
   margin-top: 1em;
 }
-.badge .ribbon {
+.logro .ribbon {
   position: absolute;
   border-radius: 4px;
   padding: 3px 5px 4px;
@@ -704,17 +712,22 @@ label.panel-label:hover {
     box-shadow: 0px 0px 30px 0px rgba(0, 36, 90, 0.1);
     order: 1;
     flex: 0 0 23%;
-    padding: 20px 30px 30px;
+    padding: 20px 30px 10px;
 
 }
 
 /*Sección presentación*/
 
-.sectionTitle h1 {
-	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
-	font-style: bold;
-	font-size: 1.5em;
-	color: #2f7caf;
+.me_tittle {
+  padding-top: 22px;
+}
+
+.categories_tittle {
+  font: 700 20px/1 "Lato", sans-serif;
+  text-transform: uppercase;
+  border-bottom: 2px solid #2b394f;
+  padding-bottom: 8px;
+  color: #7b8aa3;
 }
 
 .sectionContent h2 {
@@ -920,7 +933,7 @@ background-color:rgb(204, 14, 0);
   border-radius: 50%;
 }
 
-.post .post_content .author_area .like_user .like_img img {
+.like_img img {
   border-radius: 50%;
   height: 50px;
   width: 50px;
@@ -1065,9 +1078,6 @@ background-color:rgb(204, 14, 0);
   border-radius: 5px;
 }
 
-
-
-
 /*Pestaña cursos*/
 
 .enlace-pestana-curso {
@@ -1100,6 +1110,18 @@ background-color:rgb(204, 14, 0);
   height: auto;
 }
 
+.titulo-seccion{
+  font: 700 20px/1 "Lato", sans-serif;
+  text-transform: uppercase;
+  color: #7b8aa3;
+}
+
+.titulo-curso{
+  font: 700 20px/1 "Lato", sans-serif;
+  text-transform: uppercase;
+  color: #7b8aa3;
+}
+
 /*Pestaña horarios*/
 
 .calendario {
@@ -1109,6 +1131,41 @@ background-color:rgb(204, 14, 0);
 }
 
 /*Pestaña ubicación*/
+
+
+/*Sección reseñas*/
+.popular_posts {
+  padding-top: 0px;
+}
+.popular_posts .popular_item {
+  padding-top: 20px;
+  margin-bottom: 7px;
+}
+.popular_posts .popular_item .p_img {
+  padding: 0;
+}
+.popular_posts .popular_item .p_content {
+  padding: 0;
+}
+.popular_posts .popular_item .p_content a {
+  display: block;
+  font: 400 16px/24px "Lato", sans-serif;
+  color: #263843;
+  margin-top: -16px;
+}
+.popular_posts .popular_item .p_content a:hover, .min_container .section_row .right_side_bar .right_sidebar_iner .popular_posts .popular_item .p_content a:focus {
+  color: #ff7043;
+}
+.popular_posts .popular_item .p_content a span {
+  color: #ff7043;
+}
+.popular_posts .popular_item .p_content .black_text {
+  font: 400 14px/1 "Lato", sans-serif;
+  padding-top: 8px;
+  display: block;
+  color: #758690;
+}
+
 
 /*Pie de página*/
 

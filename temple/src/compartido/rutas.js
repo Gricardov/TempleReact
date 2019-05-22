@@ -9,13 +9,15 @@ export const PREGUNTAS_FRECUENTES_BIENVENIDA={id:7,ruta:"/bienvenida"};
 export const REGISTRO_PROFESOR_BIENVENIDA={id:8,ruta:"/registroProfesor"};
 export const REGISTRO_ALUMNO_BIENVENIDA={id:9,ruta:"/registroAlumno"};
 export const INICIO_ALUMNO={id:10,ruta:"/inicioAlumno"};
-export const PERFIL_PROFESOR_ALUMNO={id:1,ruta:"/perfilProfesor"};
+export const PERFIL_PROFESOR_ALUMNO={id:11,ruta:"/perfilProfesor"};
+export const MI_PERFIL={id:12,ruta:"/miPerfil"};
+
 
 
 export const ARREGLO_RUTAS=[INICIO_BIENVENIDA,DESCARGAR_BIENVENIDA,INICIAR_SESION_BIENVENIDA,
     CONTACTO_BIENVENIDA,SOBRE_NOSOTROS_BIENVENIDA,MISION_VISION_BIENVENIDA,TERMINOS_USO_BIENVENIDA,
     PREGUNTAS_FRECUENTES_BIENVENIDA,REGISTRO_PROFESOR_BIENVENIDA,REGISTRO_ALUMNO_BIENVENIDA,INICIO_ALUMNO,
-PERFIL_PROFESOR_ALUMNO];
+PERFIL_PROFESOR_ALUMNO,MI_PERFIL];
 
 export const deslizarDerecha=(rutaDesde, rutaHasta)=>{
 

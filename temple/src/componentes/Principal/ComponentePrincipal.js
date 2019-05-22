@@ -12,6 +12,7 @@ import RegistroAlumno from '../Registro/Alumno/RegistroAlumno';
 import RegistroProfesor from '../Registro/Profesor/RegistroProfesor';
 import InicioAlumno from '../Usuario/Alumno/InicioAlumno';
 import PerfilProfesorAlumno from '../Usuario/Alumno/PerfilProfesorAlumno';
+import MiPerfil from '../Usuario/Alumno/MiPerfil';
 import Asistente from '../Utilidades/AsistenteComponente';
 import SwitchDeslizador from '../Utilidades/ComponenteSwitchDeslizador';
 import * as RUTAS from '../../compartido/rutas';
@@ -33,7 +34,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-
+    iniciarSesion: (usuario,contrasena) => dispatch(iniciarSesion(usuario,contrasena)),
     obtenerLideres: () => dispatch(obtenerLideres()),
     reiniciarFormContacto: () => dispatch(actions.reset('formContacto'))
 })
@@ -43,7 +44,6 @@ class Principal extends Component {
     componentDidMount() {
 
         this.props.obtenerLideres();
-
 
     }
 
@@ -61,7 +61,9 @@ class Principal extends Component {
                     <Route exact path="/" component={InicioAlumno} />
                     <Route path={RUTAS.INICIO_ALUMNO.ruta} component={InicioAlumno} />
                     <Route path={RUTAS.PERFIL_PROFESOR_ALUMNO.ruta} component={PerfilProfesorAlumno} />
-                    </SwitchDeslizador>  
+                    <Route path={RUTAS.MI_PERFIL.ruta} component={()=>
+                        <MiPerfil usuario={this.props.sesion.usuario}/>} />
+                    </SwitchDeslizador>
                     </>                
                     :     
                     <>
@@ -69,9 +71,11 @@ class Principal extends Component {
                     <SwitchDeslizador>  
                     <Route exact path="/" component={Inicio} />
                     {'// Cambiar ruta para pruebas'}
-                    <Route path={RUTAS.INICIO_BIENVENIDA.ruta} component={PerfilProfesorAlumno} />
+                    <Route path={RUTAS.INICIO_BIENVENIDA.ruta} component={Inicio} />
                     <Route path={RUTAS.DESCARGAR_BIENVENIDA.ruta} component={Descargar} />
-                    <Route path={RUTAS.INICIAR_SESION_BIENVENIDA.ruta} component={Login} />
+                    <Route path={RUTAS.INICIAR_SESION_BIENVENIDA.ruta} component={()=>
+                    <Login iniciarSesion={this.props.iniciarSesion} />
+                    } />
 
                     <Route path={RUTAS.CONTACTO_BIENVENIDA.ruta} component={() =>
 

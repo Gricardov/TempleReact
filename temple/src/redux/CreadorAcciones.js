@@ -53,19 +53,19 @@ export const consultaNiveles = () => (dispatch) => {
 // Sesión usuario
 export const iniciarSesion = (usuario, contrasena) => (dispatch) => {
 
-    /*dispatch(iniciandoSesion());
+    dispatch(iniciandoSesion());
 
-    const logueo = {
-
-        login: usuario,
-        contrasena: contrasena
-
+    const datos = {
+        datos: {
+            login: usuario,
+            contrasena: contrasena
+        }
     }
 
-    return fetch(URLBase + 'api/login', {
+    return fetch(URLBase + 'usuario/login/', {
 
         method: 'POST',
-        body: JSON.stringify(logueo),
+        body: JSON.stringify(datos),
         headers: {
 
             'Content-type': 'application/json'
@@ -99,26 +99,26 @@ export const iniciarSesion = (usuario, contrasena) => (dispatch) => {
         })
         .then(response => response.json())
         .then(usuario => {
-            dispatch(sesionIniciada(usuario));
+
+            if (Object.keys(usuario).length === 0) {
+                console.log("Sesión no iniciada : Datos incorrectos")
+                dispatch(sesionNoIniciada("Datos incorrectos"))
+            } else {
+                dispatch(sesionIniciada(usuario));
+            }
+
+
 
         })
         .catch(error => {
             console.log("Sesión no iniciada : " + error.message)
             dispatch(sesionNoIniciada(error.message))
 
-        })*/
-    dispatch(sesionIniciada({
-        id: '1', nombres: 'Mila', apPat: 'Luna', apMat: 'Luna',
-        perfil: 'https://firebasestorage.googleapis.com/v0/b/templereact.appspot.com/o/mila.jpg?alt=media&token=f8d41e8a-7cdc-4503-9abd-eb675671a84c',
-        portada: 'https://firebasestorage.googleapis.com/v0/b/templereact.appspot.com/o/IMG_20181128_134718.jpg?alt=media&token=cc498d4e-b10f-44ea-a0d6-cd59407fc62e'
-    }));
-
-
+        })
 }
 
 export const cerrarSesion = () => (dispatch) => {
 
-    
     dispatch(sesionNoIniciada('Cerrado correctamente'));
 
 

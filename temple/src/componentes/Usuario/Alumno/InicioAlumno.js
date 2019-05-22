@@ -33,15 +33,18 @@ class InicioAlumno extends Component {
 
 
     }
-
+/*dispatch(sesionIniciada({
+        id: '1', nombres: 'Mila', apPat: 'Luna', apMat: 'Luna',
+        perfil: 'https://firebasestorage.googleapis.com/v0/b/templereact.appspot.com/o/mila.jpg?alt=media&token=f8d41e8a-7cdc-4503-9abd-eb675671a84c',
+        portada: 'https://firebasestorage.googleapis.com/v0/b/templereact.appspot.com/o/IMG_20181128_134718.jpg?alt=media&token=cc498d4e-b10f-44ea-a0d6-cd59407fc62e'
+    }));*/
     render() {
-
         return (
             <div className="container debajo-barra bloque-contenedor">
 
                 <Row className="mb-4">
                     <Col xs={12}>
-                        <MensajeAnimado texto={`Hola ${this.props.sesion.usuario.nombres}! ¿Qué deseas aprender hoy?`} />
+                        <MensajeAnimado texto={`Hola ${this.props.sesion.usuario.NOM_USU}! ¿Qué deseas aprender hoy?`} />
                     </Col>
                 </Row>
                 <Row className="mb-3">

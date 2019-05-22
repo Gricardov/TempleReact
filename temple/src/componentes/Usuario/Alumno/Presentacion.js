@@ -14,7 +14,7 @@ class Presentacion extends Component {
             <div className="quickFade tarjeta-seccion">
                 <Row className="mb-4">
                         <Col xs={12} className="sectionTitle">
-                            <h1>Presentación</h1>
+                        <h3 className="categories_tittle me_tittle">Sobre mí</h3>
                         </Col>
 
                         <Col xs={12} className="sectionContent">
@@ -24,7 +24,7 @@ class Presentacion extends Component {
 
                 <Row className="mb-4">
                     <Col xs={12} className="sectionTitle">
-                        <h1>Experiencia laboral</h1>
+                    <h3 className="categories_tittle">Experiencia laboral</h3>
                     </Col>
 
                     <Col xs={12} className="sectionContent">
@@ -51,7 +51,7 @@ class Presentacion extends Component {
 
                 <Row className="mb-4">
                     <Col xs={12} className="sectionTitle">
-                        <h1>Habilidades clave</h1>
+                    <h3 className="categories_tittle">Habilidades clave</h3>
                     </Col>
 
                     <Col xs={12} className="sectionContent">
@@ -70,7 +70,7 @@ class Presentacion extends Component {
 
                 <Row className="mb-4">
                     <Col xs={12} className="sectionTitle">
-                        <h1>Educación</h1>
+                    <h3 className="categories_tittle">Educación</h3>
                     </Col>
 
                     <Col xs={12} className="sectionContent">
