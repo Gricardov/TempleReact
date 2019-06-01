@@ -106,7 +106,7 @@ export const iniciarSesion = (usuario, contrasena) => (dispatch) => {
             } else {
                 dispatch(sesionIniciada(usuario));
             }
-
+//
 
 
         })
