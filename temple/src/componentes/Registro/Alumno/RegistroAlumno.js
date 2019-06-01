@@ -23,12 +23,12 @@ class FormRegistro extends Component {
         this.state = {
             pasos: [
                 {
-                    nombres: 'mila',
-                    apPat: 'luna',
+                    nombres: 'elvis',
+                    apPat: 'crespo',
                     apMat: 'luna',
                     edad: '23',
                     genero: '1',
-                    correo: 'mila@gmail.com',
+                    correo: 'elviscrespo@gmail.com',
                     telefono: '7654321'
                 },
                 {
@@ -42,10 +42,9 @@ class FormRegistro extends Component {
                 }
                 ,
                 {
-                    usuario: 'arenita',
-                    contrasena: 'alenita',
-                    sobreMi: 'asdasd',
-                    buscando: 'asdasd',
+                    usuario: 'elviscrespo',
+                    contrasena: 'elviscrespo',
+                    sobreMi: 'asdasdasdasd',
                     perfil: '',
                     portada: '',
                     acepta: false

@@ -1,78 +1,21 @@
 import React, { Component } from 'react';
-import { FormGroup, Label, Col, Row, Card, CardBody, Button } from 'reactstrap';
-import { Control, LocalForm, Errors, Field, actions } from 'react-redux-form';
+import { FormGroup, Label, Col, Row, Input, Card, CardBody, Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import Botonera from '../BotoneraRegistro';
 import { Fade } from 'react-animation-components';
 import { URLBase } from '../../../compartido/URLBase';
+import { Formik, Form, Field } from 'formik';
 //import { consultaUsuarioPorNomUsu } from '../../../redux/CreadorAcciones';
 import SubidorImagen from '../../Utilidades/SubidorImagen';
 
 require('../../../../node_modules/react-dropzone-component/styles/filepicker.css')
 require('../../../../node_modules/dropzone/dist/min/dropzone.min.css')
-/*
-const mapStateToProps = (state) => {
 
-    return {
-        usuario: state.usuario
-    }
-
-}
-
-const mapDispatchToProps = (dispatch) => ({
-    consultaUsuarioPorNomUsu: (nomUsu) => {
-        return true;
-    }
-})
-*/
-async function checkNickname(nomUsu, dispatch) {
-    dispatch(actions.setPending('usuario', true));
-    fetch(URLBase + 'usuario/consulta/porNomUsu/' + nomUsu)
-        .then(response => {
-            if (response.ok) {
-                return response;
-            }
-            else {
-                var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
-                error.response = response;
-                throw error;
-            }
-        }, error => {
-            var mensErr = new Error(error.message);
-            throw mensErr;
-        })
-        .then(response => response.json())
-        .then(usuario => {
-            if (usuario && usuario.length == 0) {
-                console.log('disponible')
-                dispatch(actions.setValidity('usuario', {
-                    available: true
-                }));
-            } else {
-                console.log('no disponible')
-                dispatch(actions.setValidity('usuario', {
-                    available: false
-                }));
-            }
-        })
-        .catch(error => {
-            console.log("No se pudo obtener el usuario : " + error.message)
-            dispatch(actions.setValidity('usuario', {
-                available: true
-            }));
-
-        })
-
-    /*res.then(function(r){
-        return false;
-    })*/
-    //dispatch(actions.setPending('usuario', false));
-}
-
-const requerido = (val) => val && val.length;
-const maximo = (tam) => (val) => !(val) || (val.length <= tam);
-const minimo = (tam) => (val) => (val) && (val.length >= tam);
-const marcado = (val) => val;
+const vacio = (val) => !val || !val.length;
+const maximo = (val, tam) => !(val) || (val.length <= tam);
+const minimo = (val, tam) => (val) && (val.length >= tam);
+const correoValido = (val) => /^[A-Z0-9a-z._%+-]+@[A-Z0-9.-]+\.[A-Za-z]{2,4}$/i.test(val);
+const esNumero = (val) => !isNaN(Number(val));
 
 class Paso4 extends Component {
 
@@ -85,55 +28,9 @@ class Paso4 extends Component {
         this.actualizarPortada = this.actualizarPortada.bind(this);
         // Para confirmar cambios
         this.confirmarCambios = this.confirmarCambios.bind(this);
-        //this.nomUsuDisponible = this.nomUsuDisponible.bind(this);
     }
 
-    /*nomUsuDisponible = (val) => {
-        actions.setPending('usuario', true);
-        let res=fetch(URLBase + 'usuario/consulta/porNomUsu/' + val)
-            .then(response => {
 
-                if (response.ok) {
-
-                    return response;
-
-                }
-
-                else {
-
-                    var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
-                    error.response = response;
-                    throw error;
-
-                }
-
-
-            }, error => {
-
-                var mensErr = new Error(error.message);
-                throw mensErr;
-
-            })
-            .then(response => response.json())
-            .then(usuario => {
-                if (usuario.length == 0) {
-                    return true;
-                } else {
-                    return false;
-                }
-            })
-            .catch(error => {
-                console.log("No se pudo obtener el usuario : " + error.message)
-                return true;
-            })
-
-            res.then(function(results){
-                actions.setValidity('usuario', {available: results});
-
-                alert(results)
-            })
-
-    };*/
 
     actualizarPerfil(file) {
         this.setState({
@@ -153,8 +50,8 @@ class Paso4 extends Component {
         this.setState(
             {
                 ...values,
-                portada:this.state.portada,
-                perfil:this.state.perfil
+                portada: this.state.portada,
+                perfil: this.state.perfil
             }, () => {
                 // Envío el estado cuando este se ha actualizado       
                 this.props.siguientePaso(this.state, event);
@@ -163,179 +60,132 @@ class Paso4 extends Component {
 
 
     }
+
     render() {
 
         return (
             <Row>
-            <Col xs={12}>
-                <LocalForm initialState={this.props.valores[3]}
-                    onSubmit={(values, event) => { this.confirmarCambios(values, event) }}
-                    encType="multipart/form-data">
-                    <FormGroup row>
-                        <Label htmlFor="txtNomUsu" xs={12}>Elige un nombre de usuario</Label>
-                        <Col xs={12}>
-                            <Control.text
-                                className="form-control"
-                                model=".usuario"
-                                id="txtNomUsu"
-                                name="usuario"
-                                /*asyncValidators={{
-                                    disponible: this.props.consultaUsuarioPorNomUsu
-                                }}*/
-                                validators={{
-                                    requerido, minimo: minimo(5), maximo: maximo(15)
-                                }}
-                            />
-                            <Errors
-                                className="text-danger"
-                                model=".usuario"
-                                show="touched"
-                                wrapper="ul"
-                                component={(props) => <MensajeError mensaje={props.children.toString()} />}
-                                messages={
-                                    {
-                                        requerido: 'Tu nombre de usuario no puede estar vacíos',
-                                        minimo: 'Tu nombre de usuario debe tener 5 caracteres como mínimo',
-                                        maximo: '¿Cómo es que tu nombre de usuario va a pasar los 15 caracteres?',
-                                        disponible: 'Ese nombre de usuario no está disponible. Escribe otro'
-                                    }
+                <Col xs={12}>
+                    <Formik initialValues={{ ...this.props.valores[3] }}
+                        onSubmit={(values, { setSubmitting }) => {
+
+                            this.setState({
+                                ...values
+                            }, () => {
+
+                                this.props.confirmarCambios(this.state)
+
+                            })
+                        }}
+                        
+                        validate={values => {
+                            let errors = {};
+
+                            // Para usuario
+                            let usuario = values.usuario;
+                            if (vacio(usuario)) {
+                                errors.usuario = 'Nombre de usuario requerido'
+                            } else if (!minimo(usuario, 8)) {
+                                errors.usuario = 'El nombre de usuario debe tener 8 caracteres como mínimo'
+                            } else if (!maximo(usuario, 50)) {
+                                errors.usuario = 'El nombre de usuario no puede pasar los 50 caracteres'
+                            }
+
+                            // Para la contrasena
+                            let contrasena = values.contrasena;
+                            if (vacio(contrasena)) {
+                                errors.contrasena = 'Contraseña requerida'
+                            } else if (!minimo(contrasena, 8)) {
+                                errors.contrasena = 'La contraseña debe tener 8 caracteres como mínimo'
+                            } else if (!maximo(contrasena, 50)) {
+                                errors.contrasena = 'La contraseña no puede pasar los 50 caracteres'
+                            }
+
+                            // Para sobre mi
+                            let sobreMi = values.sobreMi;
+                            if (!vacio(sobreMi)) {
+                                if (!minimo(sobreMi, 10)) {
+                                    errors.sobreMi = 'Tu descripción debe tener 10 caracteres como mínimo'
+                                } else if (!maximo(sobreMi, 500)) {
+                                    errors.sobreMi = 'Tu descripción no puede pasar los 500 caracteres'
                                 }
-                            />
-                        </Col>
-                    </FormGroup>
+                            }
+                            // Para el checkbox
+                            let acepta = values.acepta;
+                            if (acepta) {
+                                errors.acepta = "Debes aceptar las condiciones"
+                            }
+                            return errors;
+                        }}
 
-                    <FormGroup row>
-                        <Label htmlFor="txtContrasena" xs={12}>Elige una contraseña</Label>
-                        <Col xs={12}>
-                            <Control.password
-                                className="form-control"
-                                model=".contrasena"
-                                id="txtContrasena"
-                                name="contrasena"
-                                validators={{
-                                    requerido, minimo: minimo(8), maximo: maximo(50)
-                                }}
-                            />
-                            <Errors
-                                className="text-danger"
-                                model=".contrasena"
-                                show="touched"
-                                wrapper="ul"
-                                component={(props) => <MensajeError mensaje={props.children.toString()} />}
-                                messages={
-                                    {
-                                        requerido: 'Debes escribir una contraseña',
-                                        minimo: 'Tu contraseña debe tener 8 caracteres como mínimo',
-                                        maximo: 'Excelente contraseña! Pero solo soportamos 50 caracteres como máximo'
-                                    }
-                                }
-                            />
-                        </Col>
-                    </FormGroup>
+                    >
+                        {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+                            <Form>
+                                <FormGroup row>
+                                    <Label htmlFor="txtUsuario" xs={12}>Elige un nombre de usuario</Label>
+                                    <Col xs={12}>
+                                        <Input
+                                            type="text"
+                                            tag={Field}
+                                            id="txtUsuario"
+                                            name="usuario"
+                                        />
+                                        {errors.usuario && touched.usuario ? <MensajeError mensaje={errors.usuario} /> : null}
+                                    </Col>
+                                </FormGroup>
 
-                    <FormGroup row>
-                        <Label htmlFor="txtSobreMi" xs={12}>¿Cómo te describes a ti mismo(a)?</Label>
-                        <Col xs={12}>
-                            <Control.textarea
-                                className="form-control"
-                                model=".sobreMi"
-                                id="txtSobreMi"
-                                name="sobreMi"
-                                rows="5"
-                                cols="12"
-                                validators={{
-                                    maximo: maximo(500)
-                                }}
-                            />
-                            <Errors
-                                className="text-danger"
-                                model=".sobreMi"
-                                show="touched"
-                                wrapper="ul"
-                                component={(props) => <MensajeError mensaje={props.children.toString()} />}
-                                messages={
-                                    {
-                                        maximo: 'Tu descripción no puede exceder los 500 caracteres :('
-                                    }
-                                }
-                            />
-                        </Col>
-                    </FormGroup>
+                                <FormGroup row>
+                                    <Label htmlFor="txtSobreMi" xs={12}>Escribe una breve descripción de ti</Label>
+                                    <Col xs={12}>
+                                        <Input
+                                            type="textarea"
+                                            tag={Field}
+                                            id="txtSobreMi"
+                                            name="sobreMi"
+                                        />
+                                        {errors.sobreMi && touched.sobreMi ? <MensajeError mensaje={errors.sobreMi} /> : null}
 
-                    <FormGroup row>
-                        <Label htmlFor="txtBuscando" xs={12}>¿Cómo es tu profesor ideal?</Label>
-                        <Col xs={12}>
-                            <Control.textarea
-                                className="form-control"
-                                model=".buscando"
-                                id="txtBuscando"
-                                name="buscando"
-                                rows="5"
-                                cols="12"
-                                validators={{
-                                    maximo: maximo(500)
-                                }}
-                            />
-                            <Errors
-                                className="text-danger"
-                                model=".buscando"
-                                show="touched"
-                                wrapper="ul"
-                                component={(props) => <MensajeError mensaje={props.children.toString()} />}
-                                messages={
-                                    {
-                                        maximo: 'Tu profesor ideal no puede exceder los 500 caracteres :('
-                                    }
-                                }
-                            />
-                        </Col>
-                    </FormGroup>
+                                    </Col>
+                                </FormGroup>
+                                
+                                <FormGroup row>
+                                    <Label htmlFor="imgPerfil" xs={12}>Sube una foto de perfil</Label>
+                                    <Col xs={12}>
+                                        <SubidorImagen actualizarImagen={(file) => this.actualizarPerfil(file)} />
+                                    </Col>
+                                </FormGroup>
 
-                    <FormGroup row>
-                        <Label htmlFor="imgPerfil" xs={12}>Sube una foto de perfil</Label>
-                        <Col xs={12}>
-                            <SubidorImagen actualizarImagen={(file) => this.actualizarPerfil(file)} />
-                        </Col>
-                    </FormGroup>
+                                <FormGroup row>
+                                    <Label htmlFor="imgPerfil" xs={12}>Sube una foto de perfil</Label>
+                                    <Col xs={12}>
+                                        <SubidorImagen actualizarImagen={(file) => this.actualizarPortada(file)} />
+                                    </Col>
+                                </FormGroup>
 
-                    <FormGroup row>
-                        <Label htmlFor="imgPerfil" xs={12}>Sube una foto de perfil</Label>
-                        <Col xs={12}>
-                            <SubidorImagen actualizarImagen={(file) => this.actualizarPortada(file)} />
-                        </Col>
-                    </FormGroup>
+                                <FormGroup row>
+                                    <Col xs={{ size: 10, offset: 2 }}>
+                                        <div className="form-check">
+                                            <Label check>
 
-                    <FormGroup row>
-                        <Col xs={{ size: 10, offset: 2 }}>
-                            <div className="form-check">
-                                <Label check>
-                                    <Control.checkbox
-                                        model=".acepta"
-                                        name="acepta"
-                                        className="form-check-input"
-                                        validators={{
-                                            marcado
-                                        }} />
-                                    {' '}
-                                    <strong>Estoy de acuerdo con los términos del servicio</strong>
-                                </Label>
-                            </div>
-                        </Col>
-                        <Errors
-                            className="text-danger"
-                            model=".acepta"
-                            wrapper="ul"
-                            show="touched"
-                            component={(props) => <MensajeError mensaje={props.children.toString()} />}
-                            messages={{
-                                marcado: 'Debes aceptar los términos del servicio'
-                            }}
+                                                <Input 
+                                                    type="checkbox"
+                                                    tag={Field}
+                                                    id="chkAcepta"
+                                                    name="acepta"
+                                                    />
+                                                {' '}
+                                                <strong>Estoy de acuerdo con los términos del servicio</strong>
+                                            </Label>
+                                        </div>
+                                    </Col>
+                                    {errors.acepta && touched.acepta ? <MensajeError mensaje={errors.acepta} /> : null}
 
-                        />
-                    </FormGroup>
-                    <Botonera pasoActual={4} valores={this.props.valores} anteriorPaso={this.props.anteriorPaso} />
-                </LocalForm>
-            </Col >
+                                </FormGroup>
+                                <Botonera pasoActual={4} valores={this.props.valores} anteriorPaso={this.props.anteriorPaso} />
+                            </Form>
+                        )}
+                    </Formik>
+                </Col >
             </Row>
         )
     }
