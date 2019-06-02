@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormGroup, Label, Col, Row, Card, CardBody, Button } from 'reactstrap';
 import { Control, LocalForm, Errors, actions } from 'react-redux-form';
 import { Fade } from 'react-animation-components';
-import Encabezado from '../EncabezadoRegistro';
+import Encabezado from './EncabezadoRegistro';
 import Botonera from '../BotoneraRegistro';
 import ModalMensaje from '../../Utilidades/ModalMensaje';
 import { FadeTransform } from 'react-animation-components';
@@ -29,7 +29,8 @@ class FormRegistro extends Component {
                     edad: '23',
                     genero: '1',
                     correo: 'elviscrespo@gmail.com',
-                    telefono: '7654321'
+                    telefono: '7654321',
+                    dni: '78945612'
                 },
                 {
                     nivel: null,

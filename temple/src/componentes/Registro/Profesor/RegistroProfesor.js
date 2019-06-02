@@ -1,75 +1,204 @@
 import React, { Component } from 'react';
-import { Col, Row } from 'reactstrap';
+import { FormGroup, Label, Col, Row, Card, CardBody, Button } from 'reactstrap';
+import { Control, LocalForm, Errors, actions } from 'react-redux-form';
+import { Fade } from 'react-animation-components';
+import Encabezado from './EncabezadoRegistro';
+import Botonera from '../BotoneraRegistro';
+import ModalMensaje from '../../Utilidades/ModalMensaje';
+import { FadeTransform } from 'react-animation-components';
+import { URLBase } from '../../../compartido/URLBase';
 
-class RegistroProfesor extends Component {
+//
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
+import Paso1 from './Paso1';
+import Paso2 from './Paso2';
+import Paso3 from './Paso3';
+import Paso4 from './Paso4';
+
+class FormRegistro extends Component {
     constructor(props) {
 
         super(props);
         this.state = {
+            pasos: [
+                {
+                    nombres: 'profeelvis',
+                    apPat: 'profecrespo',
+                    apMat: 'profeluna',
+                    edad: '28',
+                    genero: '1',
+                    correo: 'profeelviscrespo@gmail.com',
+                    telefono: '7654321',
+                    dni: '74811547'
+                },
+                {
+                    nivel: null,
+                    preferencias: [{ idCurso: null }],
+                    maxPreferencias: 4
+                },
+                {
+                    latitud: -12.08632442,
+                    longitud: -77.22255707
+                }
+                ,
+                {
+                    usuario: 'profeelviscrespo',
+                    contrasena: 'profeelviscrespo',
+                    sobreMi: 'profeasdasdasdasd',
+                    perfil: '',
+                    portada: '',
+                    acepta: false
+                }],
             pasoActual: 1,
-            pasosTotales: 4
+            error: null
         }
+
+        // Para gestionar los pasos
         this.siguientePaso = this.siguientePaso.bind(this);
         this.anteriorPaso = this.anteriorPaso.bind(this);
+
+        // Para gestionar los errores
+
+        this.crearError = this.crearError.bind(this);
+        this.eliminarError = this.eliminarError.bind(this);
+
     }
 
-    siguientePaso() {
+    // Para gestionar los pasos
 
-        let paso = this.state.pasoActual;
+    siguientePaso(valores, evento) {
 
-        // Solo si el paso actual es menor que el último, que avance. (Empezamos de 1)
-        if (paso < this.state.pasosTotales) {
+        if (evento) {
+            evento.preventDefault();
+        }
+
+        let pasoActual = this.state.pasoActual;
+        let infoPasos = this.state.pasos;
+        infoPasos[pasoActual - 1] = { ...infoPasos[pasoActual - 1], ...valores };
+
+        // Solo si el paso actual es menor que el último, que aumente el paso actual. (Empezamos de 1). Además, que guarde los valores
+        if (pasoActual < this.state.pasos.length) {
 
             this.setState({
-                pasoActual: paso + 1
+                pasos: infoPasos,
+                pasoActual: pasoActual + 1
             })
 
         }
+        // Cuando alcance el paso final, que guarda los valores y cuando termine, haga el fetch
+        else if (pasoActual == this.state.pasos.length) {
+            this.setState({
+                pasos: infoPasos
+            }, () => {
+                alert(JSON.stringify(this.state))
+                fetch(URLBase + 'usuario/registro', {
+
+                    method: 'POST',
+                    body: JSON.stringify(this.state),
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    credentials: 'same-origin'
+                })
+                    .then(response => {
+
+                        if (response.ok) {
+
+                            return response;
+
+                        }
+
+                        else {
+
+                            var error = new Error('Error ' + response.status +
+                                ': ' + response.statusText);
+                            error.response = response;
+                            throw error;
+
+                        }
+
+                    },
+                        error => {
+                            var errMess = new Error(error.message);
+                            throw errMess;
+
+                        })
+                    .then(response => response.json())
+                    .then(response => alert('Respuesta del servidor: '+JSON.stringify(response)))
+                    .catch(error => {
+                        console.log('Error: ', error.message)
+                        alert('Error: ' + error.message)
+                    })
+            })
+        }
+
+        // 
+
+
+
 
     }
 
     anteriorPaso() {
+        let pasoActual = this.state.pasoActual;
 
-        let paso = this.state.pasoActual;
-
-        if (paso > 1) {
+        if (pasoActual > 1) {
             this.setState({
-                pasoActual: paso - 1
+                pasoActual: pasoActual - 1,
             })
         }
 
     }
 
+    // Para los errores
+
+    crearError = (mensaje) => {
+        this.setState({ error: mensaje })
+    }
+
+    eliminarError = () => {
+        this.setState({ error: null })
+    }
+
     render() {
+
+        let paso = null;
+        switch (this.state.pasoActual) {
+            // Si se ha pasado al siguiente paso, quiere decir que los datos han sido aprobados,
+            // por lo tanto, estos deben almacenarse en el state
+            case 1:
+                paso = (<Paso1 valores={this.state.pasos} anteriorPaso={this.anteriorPaso} siguientePaso={this.siguientePaso} />)
+                break;
+            case 2:
+                paso = (<Paso2 valores={this.state.pasos} anteriorPaso={this.anteriorPaso} siguientePaso={this.siguientePaso}
+                    crearError={this.crearError} />)
+                break;
+            case 3:
+                paso = (<Paso3 valores={this.state.pasos} anteriorPaso={this.anteriorPaso} siguientePaso={this.siguientePaso}
+                    crearError={this.crearError} />)
+                break;
+            case 4:
+                paso = (<Paso4 valores={this.state.pasos} anteriorPaso={this.anteriorPaso} siguientePaso={this.siguientePaso} />)
+                break;
+        }
+
         return (
             <div className="container debajo-barra bloque-contenedor">
-                <Row>
-                    <Col xs={12}>
-                        <Encabezado />
-                    </Col>
-                </Row>
+                <div className="container">
+                    <ModalMensaje error={this.state.error} eliminarError={this.eliminarError} />
+                    <Encabezado pasoActual={this.state.pasoActual} />
+                    <TransitionGroup>
+                        <CSSTransition key={this.state.pasoActual} classNames="registro" timeout={300}>
+                            {paso}
+                        </CSSTransition>
+                    </TransitionGroup>
+                </div>
             </div>
         )
+
     }
 
 }
 
-const Encabezado = () => {
-
-    return (
-        <ol className="step-indicator">
-            <li className="active">
-                <div className="step">
-                    <i className="fa fa-user-circle-o"></i>
-                </div>
-                <div className="caption hidden-xs hidden-sm">Step <span>1</span>: <span>Personal</span></div></li>
-            <li className=""><div className="step"><i className="fa fa-th-list"></i></div>
-                <div className="caption hidden-xs hidden-sm">Step <span>2</span>: <span>Details</span></div></li>
-            <li className=""><div className="step"><i className="fa fa-paper-plane"></i></div>
-                <div className="caption hidden-xs hidden-sm">Step <span>3</span>: <span>Send</span></div></li>
-        </ol>
-    );
-
-}
-export default RegistroProfesor;
+export default FormRegistro;

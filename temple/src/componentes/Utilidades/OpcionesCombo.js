@@ -4,7 +4,7 @@ const Opciones = (props) => {
 
     const opciones=props.opciones.map((e,i)=>{
         return(
-            <option key={i} value={e.id} selected={e.id==props.seleccionado}>{e.texto}</option>
+            <option key={i} value={e.id} defaultValue={e.id==props.seleccionado}>{e.texto}</option>
         )
     })
 

@@ -14,7 +14,7 @@ const Encabezado = ({ pasoActual }) => {
                         <div className="caption hidden-xs hidden-sm">Paso <span>1</span>: <span>Datos personales</span></div></li>
                     <li className={pasoActual == 2 ? "active" : ""}>
                         <div className="step"><i className="fa fa-th-list"></i></div>
-                        <div className="caption hidden-xs hidden-sm">Paso <span>2</span>: <span>Preferencias</span></div></li>
+                        <div className="caption hidden-xs hidden-sm">Paso <span>2</span>: <span>Preferencias de enseñanza</span></div></li>
                     <li className={pasoActual == 3 ? "active" : ""}>
                         <div className="step"><i className="fa fa-map-marker"></i></div>
                         <div className="caption hidden-xs hidden-sm">Paso <span>3</span>: <span>Ubicación</span></div></li>

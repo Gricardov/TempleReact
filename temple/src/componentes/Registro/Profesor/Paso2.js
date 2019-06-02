@@ -5,9 +5,9 @@ import { Formik, Form, Field } from 'formik';
 import { consultaNiveles } from '../../../redux/CreadorAcciones';
 import { connect } from 'react-redux';
 
-import Opciones from '../../Utilidades/OpcionesCombo';
 import Botonera from '../BotoneraRegistro';
-import Preferencias from './ComponentePreferencias';
+import Preferencias from '../Alumno/ComponentePreferencias';
+import SelectorMultiple from '../../Utilidades/SelectorMultiple';
 
 const mapStateToProps = (state) => {
 
@@ -102,7 +102,6 @@ class Paso2 extends Component {
             <Row>
                 <Col xs={12}>
                     <Formik
-                        
                         onSubmit={(values, { setSubmitting }) => {
 
                             this.confirmarCambios(values);
@@ -114,7 +113,7 @@ class Paso2 extends Component {
                                     <Col xs={12}>
                                         <Row>
                                             <Col>
-                                                <p>¿A qué nivel buscas que te enseñen?<small> Puedes cambiar esto después</small></p>
+                                                <p>¿A qué niveles académicos enseñas?<small> (Selecciona varios con CTRL)</small></p>
                                             </Col>
                                             <Col>
                                                 <p className='float-right text-warning'>Máximo 4</p>
@@ -122,14 +121,8 @@ class Paso2 extends Component {
                                         </Row>
                                     </Col>
                                     <Col xs={12}>
-                                        <Field
-                                            type="select"
-                                            className="form-control"
-                                            component="select"
-                                            id="cboNivel"
-                                            name="nivel">
-                                            <Opciones opciones={this.props.niveles.niveles} seleccionado={this.state.nivel} />
-                                        </Field>
+
+                                        <SelectorMultiple opciones={this.props.niveles.niveles} seleccionado={this.state.nivel}/>
 
                                     </Col>
                                 </FormGroup>

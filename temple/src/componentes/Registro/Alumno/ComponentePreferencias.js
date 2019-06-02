@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, CardBody, Label, Col, Row, FormGroup, Alert, Button, Container } from 'reactstrap';
 import { Control } from 'react-redux-form';
-import { URLBase } from '../../compartido/URLBase';
+import { URLBase } from '../../../compartido/URLBase';
 import { Input } from 'reactstrap';
 
 class Preferencias extends Component {
