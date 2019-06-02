@@ -8,7 +8,7 @@ import {Sesion} from './reductorSesion';
 import {InicioContacto} from './formularios';
 import {Usuario} from './reductorUsuario';
 import {Niveles} from './reductorNiveles';
-
+import {Modalidades} from './reductorModalidades';
 export const ReduxStore = () => {
 
     return createStore(
@@ -17,6 +17,7 @@ export const ReduxStore = () => {
                 usuario: Usuario,
                 sesion: Sesion,
                 niveles: Niveles,
+                modalidades: Modalidades,
                 ...createForms({
                     formContacto: InicioContacto
                 })

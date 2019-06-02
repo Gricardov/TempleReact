@@ -64,7 +64,7 @@ class Paso2 extends Component {
         if (condicion) {
             this.props.crearError('Ya has registrado el curso ' + condicion.texto);
         } else {
-            preferencias[indice] = preferencia;
+            preferencias[indice] = {...preferencias[indice],...preferencia};
         }
         this.setState({ preferencias: preferencias })
     }

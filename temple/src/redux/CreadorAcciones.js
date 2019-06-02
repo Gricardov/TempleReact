@@ -50,6 +50,46 @@ export const consultaNiveles = () => (dispatch) => {
         })
 }
 
+// Modalidades
+export const consultaModalidades = () => (dispatch) => {
+    dispatch(cargandoModalidades());
+
+    fetch(URLBase + 'curso/consulta/modalidades/')
+        .then(response => {
+
+            if (response.ok) {
+                return response;
+
+            }
+
+            else {
+
+                var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
+                error.response = response;
+                throw error;
+
+            }
+
+        }, error => {
+
+            var mensErr = new Error(error.message);
+            throw mensErr;
+
+        })
+        .then(response => response.json())
+        .then(modalidades => {
+            
+            dispatch(modalidadesObtenidas(modalidades));
+
+        })
+        .catch(error => {
+            console.log("No se pudo obtener las modalidades : " + error.message)
+
+            dispatch(errorModalidades(error.message))
+
+        })
+}
+
 // Sesión usuario
 export const iniciarSesion = (usuario, contrasena) => (dispatch) => {
 
@@ -193,6 +233,22 @@ export const nivelesObtenidos = (niveles) => ({
 
 export const errorNiveles = (mensErr) => ({
     type: Acciones.ERROR_NIVELES,
+    payload: mensErr
+
+})
+
+// Modalidades
+export const cargandoModalidades = () => ({
+    type: Acciones.CARGANDO_MODALIDADES
+})
+
+export const modalidadesObtenidas = (modalidades) => ({
+    type: Acciones.MODALIDADES_OBTENIDAS,
+    payload: modalidades
+})
+
+export const errorModalidades = (mensErr) => ({
+    type: Acciones.ERROR_MODALIDADES,
     payload: mensErr
 
 })

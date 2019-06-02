@@ -137,9 +137,9 @@ class Paso4 extends Component {
                                 <FormGroup row>
                                     <Label htmlFor="txtSobreMi" xs={12}>Escribe una breve descripción de ti</Label>
                                     <Col xs={12}>
-                                        <Input
-                                            type="textarea"
-                                            tag={Field}
+                                        <Field
+                                            component="textarea"
+                                            className="form-control"
                                             id="txtSobreMi"
                                             name="sobreMi"
                                         />

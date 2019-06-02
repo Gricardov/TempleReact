@@ -2,24 +2,25 @@ import React, { Component } from 'react';
 import { FormGroup, Label, Col, Row, Card, CardBody, Button, Input } from 'reactstrap';
 import { Control, LocalForm, Errors, actions } from 'react-redux-form';
 import { Formik, Form, Field } from 'formik';
-import { consultaNiveles } from '../../../redux/CreadorAcciones';
+import { consultaNiveles, consultaModalidades } from '../../../redux/CreadorAcciones';
 import { connect } from 'react-redux';
 
 import Botonera from '../BotoneraRegistro';
-import Preferencias from '../Alumno/ComponentePreferencias';
-import SelectorMultiple from '../../Utilidades/SelectorMultiple';
+import Preferencias from './ComponentePreferencias';
 
 const mapStateToProps = (state) => {
 
     return {
-        niveles: state.niveles
+        niveles: state.niveles,
+        modalidades: state.modalidades
     }
 
 }
 
 const mapDispatchToProps = (dispatch) => ({
 
-    consultaNiveles: () => dispatch(consultaNiveles())
+    consultaNiveles: () => dispatch(consultaNiveles()),
+    consultaModalidades: () => dispatch(consultaModalidades())
 })
 
 
@@ -35,6 +36,7 @@ class Paso2 extends Component {
 
         // Para llenar el combo de opciones al iniciar
         this.props.consultaNiveles();
+        this.props.consultaModalidades();
 
         // Para las preferencias
         this.agregarPreferencia = this.agregarPreferencia.bind(this);
@@ -51,7 +53,7 @@ class Paso2 extends Component {
     agregarPreferencia = () => {
 
         let preferencias = this.state.preferencias;
-        preferencias.push({ id: null, texto: '' })
+        preferencias.push({ niveles: [], idCurso: null, textoCurso: '', silabo: '', modalidades: [], etiquetas: [] })
         this.setState({ preferencias: preferencias })
     }
 
@@ -59,14 +61,14 @@ class Paso2 extends Component {
         let preferencias = this.state.preferencias;
 
         // Primero, verifico que no haya repetidos
-        const condicion = preferencias.filter((pref) => pref.id && pref.id == preferencia.id)[0]
+        const condicion = preferencias.filter((pref) => pref.idCurso && pref.idCurso == preferencia.idCurso)[0]
 
         if (condicion) {
-            this.props.crearError('Ya has registrado el curso ' + condicion.texto);
+            this.props.crearError('Ya has registrado el curso ' + condicion.textoCurso);
         } else {
-            preferencias[indice] = preferencia;
+            preferencias[indice] = { ...preferencias[indice], ...preferencia };
         }
-        this.setState({ preferencias: preferencias })
+        this.setState({ preferencias: preferencias }, () => { /*alert(JSON.stringify(this.state.preferencias))*/ })
     }
 
     eliminarPreferencia = (indice) => {
@@ -109,25 +111,9 @@ class Paso2 extends Component {
                         {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
 
                             <Form>
-                                <FormGroup row>
-                                    <Col xs={12}>
-                                        <Row>
-                                            <Col>
-                                                <p>¿A qué niveles académicos enseñas?<small> (Selecciona varios con CTRL)</small></p>
-                                            </Col>
-                                            <Col>
-                                                <p className='float-right text-warning'>Máximo 4</p>
-                                            </Col>
-                                        </Row>
-                                    </Col>
-                                    <Col xs={12}>
 
-                                        <SelectorMultiple opciones={this.props.niveles.niveles} seleccionado={this.state.nivel}/>
-
-                                    </Col>
-                                </FormGroup>
                                 <Preferencias preferencias={this.state.preferencias} modificarPreferencia={this.modificarPreferencia}
-                                    eliminarPreferencia={this.eliminarPreferencia} />
+                                    eliminarPreferencia={this.eliminarPreferencia} niveles={this.props.niveles.niveles} modalidades={this.props.modalidades.modalidades}/>
 
                                 <FormGroup row>
                                     <Col xs={12}>
@@ -136,7 +122,7 @@ class Paso2 extends Component {
                                             block
                                             disabled={this.state.preferencias.length >= this.props.valores[1].maxPreferencias ? true : false}
                                             onClick={() => { this.agregarPreferencia() }}>
-                                            <span className="fa fa-plus"></span> Agregar otro curso
+                                            <span className="fa fa-plus"></span> Agregar otra preferencia
                         </Button>
                                     </Col>
                                 </FormGroup>

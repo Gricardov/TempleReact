@@ -4,6 +4,9 @@ import { Control } from 'react-redux-form';
 import { URLBase } from '../../../compartido/URLBase';
 import { Input } from 'reactstrap';
 
+import SelectorMultiple from '../../Utilidades/SelectorMultiple';
+import ModalidadPrecio from './ModalidadPrecio';
+
 class Preferencias extends Component {
 
     constructor(props) {
@@ -25,7 +28,7 @@ class Preferencias extends Component {
     manejarCambio(e, indice) {
 
         // Actualizo la preferencia
-        this.props.modificarPreferencia(indice, { id: null, texto: e.target.value.toString() });
+        this.props.modificarPreferencia(indice, { idCurso: null, textoCurso: e.target.value.toString() });
 
         // Luego, hago la consulta
         return fetch(URLBase + 'curso/consulta/porNombre/' + e.target.value)
@@ -73,40 +76,58 @@ class Preferencias extends Component {
                     <CardBody>
                         <Row key={i}>
 
-                            {i > 0 ?
-                                <Col xs={12}>
-                                    <Row>
-                                        <Label xs={11}>¿Qué otro curso deseas priorizar?</Label>
+                            <Col xs={12}>
+                                <Row>
+                                    <Col xs={11}>
+                                        <p>¿A qué niveles académicos enseñas?<small> (Selecciona varios con CTRL)</small></p>
+                                    </Col>
+                                    {i > 0 ?
                                         <Col xs={1}>
                                             <button type="button" className="close" aria-label="Close" onClick={() => this.props.eliminarPreferencia(i)}>
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </Col>
-                                    </Row>
-                                </Col>
-                                :
-                                <Label xs={12}>¿Qué cursos priorizamos para ti? (Selecciona máximo 4) <small>
-                                    Puedes editar estos cursos luego</small></Label>
-
-                            }
+                                        :
+                                        null
+                                    }
+                                </Row>
+                            </Col>
 
                             <Col xs={12}>
-                                {e.id ?
+
+                                <SelectorMultiple opciones={this.props.niveles} seleccionado={this.state.nivel}
+                                    agregarSeleccion={(seleccion) => {
+                                        this.props.modificarPreferencia(i, { niveles: seleccion });
+
+                                    }} />
+
+                            </Col>
+
+
+                            <Col xs={12} className="mt-4">
+                                <Row>
+                                    <Label xs={11}>¿Qué curso enseñas para es(os) nivel(es) académic(os)?</Label>
+                                </Row>
+                            </Col>
+
+
+                            <Col xs={12}>
+                                {e.idCurso ?
                                     <Pastilla modificarPreferencia={this.props.modificarPreferencia} indice={i}
-                                        texto={e.texto} />
+                                        texto={e.textoCurso} />
                                     :
                                     <Input
                                         type="text"
                                         className="form-control"
                                         placeholder="Por ejemplo: Java, SQL Server, MySQL"
                                         autoComplete="off"
-                                        value={e.texto ? e.texto : ''}
+                                        value={e.textoCurso ? e.textoCurso : ''}
                                         onChange={(e) => this.manejarCambio(e, i)}
                                     />
                                 }
                             </Col>
 
-                            {e.id ?
+                            {e.idCurso ?
                                 null
                                 :
                                 i == this.state.indiceBusqueda ?
@@ -115,17 +136,37 @@ class Preferencias extends Component {
                                     :
                                     null
                             }
+
+                            <Col xs={12} className="mt-4">
+                                <Row>
+                                    <Label xs={11}>¿Qué temas enseñas para ese curso?</Label>
+                                </Row>
+                            </Col>
+
+                            <Col xs={12} sm={6}>
+                                <Input
+                                    type="textarea"
+                                    className="form-control"
+
+                                />
+                            </Col>
+                            
+                            <Col xs={12} sm={6}>
+                                <ModalidadPrecio modificarPreferencia={this.props.modificarPreferencia} indice={i} modalidades={this.props.modalidades}/>
+                            </Col>
+
                         </Row>
                     </CardBody>
 
                 </Card>
+
             );
         })
         return (
             <>
+                <h3>Agregar preferencias</h3>
                 {preferencias}
             </>
-
         )
     }
 
@@ -138,7 +179,7 @@ const Pastilla = (props) => {
                 {props.texto}
             </Col>
             <Col xs={1}>
-                <span className="enlace-boton" onClick={() => { props.modificarPreferencia(props.indice, { id: null, texto: props.texto }) }}>
+                <span className="enlace-boton" onClick={() => { props.modificarPreferencia(props.indice, { idCurso: null, textoCurso: props.texto }) }}>
                     Editar
                 </span>
             </Col>
@@ -152,7 +193,7 @@ const Sugerencias = (props) => {
     const options = props.resultados.map((e, i) => (
         <div key={e.ID_CUR} onClick={() => {
 
-            props.modificarPreferencia(props.indice, { id: e.ID_CUR, texto: e.NOM_CUR })
+            props.modificarPreferencia(props.indice, { idCurso: e.ID_CUR, textoCurso: e.NOM_CUR })
         }}>
             <strong>{e.NOM_CUR}</strong> - Perteneciente a la categoría Ciencias de la computación
             <br />

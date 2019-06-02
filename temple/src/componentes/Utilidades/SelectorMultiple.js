@@ -8,39 +8,33 @@ class SelectorMultiple extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            
-        }
-
-    }
-
-    componentDidMount() {
-
-        // Si el mapa solo muestra coordenadas, ya no solicita ubicación
-
-    }
-
-    actualizarPosicion(event) {
-
-        this.setState({
-
-        })
         this.agregarSeleccion = this.agregarSeleccion.bind(this);
+
+
     }
 
     agregarSeleccion(event) {
+        let seleccionados=[];
+        let seleccionado;
+        for (let i = 0, len = event.target.options.length; i < len; i++) {
+            seleccionado = event.target.options[i];
+    
+            if (seleccionado.selected) {
+                seleccionados.push(seleccionado.value);
+            }
+        }
 
+        this.props.agregarSeleccion(seleccionados);
     }
 
     render() {
 
-
         return (
 
-            <Input
+            <Input onChange={(event)=>this.agregarSeleccion(event)}
                 type="select"
                 component="select"
-                multiple >
+                multiple>
                 <Opciones opciones={this.props.opciones} seleccionado={1} />
             </Input>
 

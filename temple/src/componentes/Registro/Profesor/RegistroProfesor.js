@@ -33,7 +33,6 @@ class FormRegistro extends Component {
                     dni: '74811547'
                 },
                 {
-                    nivel: null,
                     preferencias: [{ idCurso: null }],
                     maxPreferencias: 4
                 },
@@ -132,11 +131,6 @@ class FormRegistro extends Component {
                     })
             })
         }
-
-        // 
-
-
-
 
     }
 
