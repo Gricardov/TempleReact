@@ -99,6 +99,7 @@ class Preferencias extends Component {
                             <Col xs={12}>
 
                                 <SelectorMultiple opciones={this.props.niveles} seleccionado={this.state.nivel}
+
                                     modificarPreferencia={(seleccion) => {
                                         this.props.modificarPreferencia(i, { niveles: seleccion });
 
@@ -107,40 +108,41 @@ class Preferencias extends Component {
                             </Col>
 
 
-                            <Col xs={12} className="mt-4">
+                            <Col xs={12} className="mt-3">
                                 <Row>
-                                    <Label xs={11}>¿Qué curso enseñas para es(os) nivel(es) académic(os)?</Label>
+                                    <Label xs={12}>¿Qué curso enseñas para es(os) nivel(es) académic(os)?</Label>
+                                    <Col xs={12}>
+                                        {e.idCurso ?
+                                            <Pastilla modificarPreferencia={this.props.modificarPreferencia} indice={i}
+                                                texto={e.textoCurso} />
+                                            :
+                                            <Input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Por ejemplo: Java, SQL Server, MySQL"
+                                                autoComplete="off"
+                                                value={e.textoCurso ? e.textoCurso : ''}
+                                                onChange={(e) => this.manejarCambio(e, i)}
+                                            />
+                                        }
+                                    </Col>
+
+                                    {e.idCurso ?
+                                        null
+                                        :
+                                        i == this.state.indiceBusqueda ?
+                                            <Sugerencias resultados={this.state.resultados}
+                                                modificarPreferencia={this.props.modificarPreferencia} indice={i} />
+                                            :
+                                            null
+                                    }
                                 </Row>
                             </Col>
 
 
-                            <Col xs={12}>
-                                {e.idCurso ?
-                                    <Pastilla modificarPreferencia={this.props.modificarPreferencia} indice={i}
-                                        texto={e.textoCurso} />
-                                    :
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Por ejemplo: Java, SQL Server, MySQL"
-                                        autoComplete="off"
-                                        value={e.textoCurso ? e.textoCurso : ''}
-                                        onChange={(e) => this.manejarCambio(e, i)}
-                                    />
-                                }
-                            </Col>
 
-                            {e.idCurso ?
-                                null
-                                :
-                                i == this.state.indiceBusqueda ?
-                                    <Sugerencias resultados={this.state.resultados}
-                                        modificarPreferencia={this.props.modificarPreferencia} indice={i} />
-                                    :
-                                    null
-                            }
 
-                            <Col xs={12} lg={6} className="mt-4">
+                            <Col xs={12} lg={6} className="mt-3">
                                 <Row>
                                     <Label xs={12}>¿Qué temas enseñas para ese curso?</Label>
                                     <Col xs={12}>
@@ -156,25 +158,33 @@ class Preferencias extends Component {
                                 </Row>
                             </Col>
 
-                            <Col xs={12} lg={6} className="mt-4">
+                            <Col xs={12} lg={6} className="mt-3">
                                 <ModalidadPrecio modificarPreferencia={
-                                    (modalidades)=>this.props.modificarPreferencia(i,{modalidades:modalidades})
-                                
+                                    (modalidades) => this.props.modificarPreferencia(i, { modalidades: modalidades })
+
                                 }
-                                                 modalidades={this.props.modalidades}
-                                                 seleccionados={this.props.preferencias[i].modalidades} />
+                                    modalidades={this.props.modalidades}
+                                    seleccionados={this.props.preferencias[i].modalidades} />
                             </Col>
 
-                            <Col xs={12} className="mt-4">
+                            <Col xs={12} className="mt-3">
+                                <Row>
+                                    <Label xs={12}>Agrega etiquetas para tu curso</Label>
+                                    <Col xs={12}>
+                                        <TagsInput value={this.props.preferencias[i].etiquetas}
+                                            inputProps={
+                                                {
+                                                    className: 'react-tagsinput-input',
+                                                    placeholder: 'Presiona enter para agregar'
+                                                  }
+                                            }
+                                            onChange={(etiquetas) => {
 
-                                <TagsInput value={["et1", "et2"]}
-                                    onChange={(etiquetas) => {
+                                                this.props.modificarPreferencia(i, { etiquetas: etiquetas })
 
-                                        this.props.modificarPreferencia(i, { etiquetas: etiquetas })
-
-                                    }} />
-
-
+                                            }} />
+                                    </Col>
+                                </Row>
 
                             </Col>
 

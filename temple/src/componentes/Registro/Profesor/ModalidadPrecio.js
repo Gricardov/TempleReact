@@ -36,7 +36,7 @@ class ModalidadPrecio extends Component {
         // Si no, que lo elimine (Solo si existe)
         else {
             let indiceModalidad = this.state.modalidades.findIndex(modalidad => modalidad.idMod === idMod);
-            if (indiceModalidad!=-1) {
+            if (indiceModalidad != -1) {
                 modalidades.splice(indiceModalidad, 1);
 
             }
@@ -46,7 +46,7 @@ class ModalidadPrecio extends Component {
         this.setState({
             modalidades: modalidades
         }, () => { this.props.modificarPreferencia(this.state.modalidades); });
-        
+
     }
 
     render() {
@@ -54,8 +54,14 @@ class ModalidadPrecio extends Component {
         // Para que solo se pinten los seleccionados
         let seleccionados = this.props.seleccionados;
 
+        //alert('seleccionados: '+JSON.stringify(seleccionados)+' modalidades: '+JSON.stringify(this.props.modalidades));
+
+
         const menu = this.props.modalidades.map((modalidad, indice) => {
-            // For every dish, I'm going to return a layout for the dish
+
+            // Esto permite verificar si el id coincide con el arreglo recibido. Así, se puede mostrar activado/desactivado
+            let seleccionado = seleccionados.filter(sel => sel.idMod == modalidad.ID_MOD)[0];
+
             return (
 
                 <Col xs={12} key={modalidad.ID_MOD}>
@@ -70,12 +76,7 @@ class ModalidadPrecio extends Component {
                         </Col>
                         <Col xs={7} className="p-1">
                             <Input type="text" placeholder="Precio hora (S/.)" disabled={
-
-                                    seleccionados[indice]
-                                    ?
-                                    seleccionados[indice].idMod != modalidad.ID_MOD
-                                    :
-                                    true
+                                !seleccionado
                             } />
                         </Col>
                     </Row>
