@@ -24,7 +24,7 @@ class SelectorMultiple extends Component {
             }
         }
 
-        this.props.agregarSeleccion(seleccionados);
+        this.props.modificarPreferencia(seleccionados);
     }
 
     render() {

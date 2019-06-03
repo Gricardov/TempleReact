@@ -6,6 +6,9 @@ import { Input } from 'reactstrap';
 
 import SelectorMultiple from '../../Utilidades/SelectorMultiple';
 import ModalidadPrecio from './ModalidadPrecio';
+import TagsInput from 'react-tagsinput';
+
+import 'react-tagsinput/react-tagsinput.css';
 
 class Preferencias extends Component {
 
@@ -57,7 +60,7 @@ class Preferencias extends Component {
             })
             .then(response => response.json())
             .then(res => {
-                this.setState({ resultados: res, indiceBusqueda: indice })
+                this.setState({ resultados: res, indiceBusqueda: indice });
 
             })
             .catch(error => {
@@ -96,7 +99,7 @@ class Preferencias extends Component {
                             <Col xs={12}>
 
                                 <SelectorMultiple opciones={this.props.niveles} seleccionado={this.state.nivel}
-                                    agregarSeleccion={(seleccion) => {
+                                    modificarPreferencia={(seleccion) => {
                                         this.props.modificarPreferencia(i, { niveles: seleccion });
 
                                     }} />
@@ -137,22 +140,42 @@ class Preferencias extends Component {
                                     null
                             }
 
-                            <Col xs={12} className="mt-4">
+                            <Col xs={12} lg={6} className="mt-4">
                                 <Row>
-                                    <Label xs={11}>¿Qué temas enseñas para ese curso?</Label>
+                                    <Label xs={12}>¿Qué temas enseñas para ese curso?</Label>
+                                    <Col xs={12}>
+
+                                        <Input
+                                            type="textarea"
+                                            className="form-control"
+                                            rows="3"
+
+                                        />
+                                    </Col>
+
                                 </Row>
                             </Col>
 
-                            <Col xs={12} sm={6}>
-                                <Input
-                                    type="textarea"
-                                    className="form-control"
-
-                                />
+                            <Col xs={12} lg={6} className="mt-4">
+                                <ModalidadPrecio modificarPreferencia={
+                                    (modalidades)=>this.props.modificarPreferencia(i,{modalidades:modalidades})
+                                
+                                }
+                                                 modalidades={this.props.modalidades}
+                                                 seleccionados={this.props.preferencias[i].modalidades} />
                             </Col>
-                            
-                            <Col xs={12} sm={6}>
-                                <ModalidadPrecio modificarPreferencia={this.props.modificarPreferencia} indice={i} modalidades={this.props.modalidades}/>
+
+                            <Col xs={12} className="mt-4">
+
+                                <TagsInput value={["et1", "et2"]}
+                                    onChange={(etiquetas) => {
+
+                                        this.props.modificarPreferencia(i, { etiquetas: etiquetas })
+
+                                    }} />
+
+
+
                             </Col>
 
                         </Row>

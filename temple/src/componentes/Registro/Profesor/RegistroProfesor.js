@@ -33,7 +33,7 @@ class FormRegistro extends Component {
                     dni: '74811547'
                 },
                 {
-                    preferencias: [{ idCurso: null }],
+                    preferencias: [{ niveles:[], idCurso: null, silabo:'',modalidades:[], etiquetas:[] }],
                     maxPreferencias: 4
                 },
                 {
