@@ -33,7 +33,7 @@ class Paso4 extends Component {
         this.confirmarCambios = this.confirmarCambios.bind(this);
     }
 
-
+    // <3 <3
 
     actualizarPerfil(file) {
         this.setState({
