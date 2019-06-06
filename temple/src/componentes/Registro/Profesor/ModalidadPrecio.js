@@ -11,12 +11,13 @@ class ModalidadPrecio extends Component {
         this.state = {
             modalidades: []
         }
-        this.modificarModalidadPrecio = this.modificarModalidadPrecio.bind(this);
-
+        this.modificarModalidad = this.modificarModalidad.bind(this);
+        this.modificarPrecio = this.modificarPrecio.bind(this);
 
     }
 
-    modificarModalidadPrecio(idMod, event) {
+    // Esto sirve para activar y desactivar las casillas; a la vez modificar el arreglo del registro
+    modificarModalidad(idMod, event) {
 
         // Primero, verifico si ya se ha seleccionado uno con el mismo id
         let modalidades = this.state.modalidades;
@@ -28,7 +29,7 @@ class ModalidadPrecio extends Component {
             // Solo lo va a agregar si no existe
             if (!modalidad) {
 
-                modalidades.push({ idMod: idMod, preMod: 12 });
+                modalidades.push({ idMod: idMod, preMod: 0 });
 
             }
 
@@ -41,6 +42,21 @@ class ModalidadPrecio extends Component {
 
             }
         }
+
+        // Establezco el nuevo estado y llamo al callback
+        this.setState({
+            modalidades: modalidades
+        }, () => { this.props.modificarPreferencia(this.state.modalidades); });
+
+    }
+
+    // Esto modifica los precios según idMod
+    modificarPrecio(idMod, precio) {
+
+        let modalidades = this.state.modalidades;
+
+        let indiceModalidad = this.state.modalidades.findIndex(modalidad => modalidad.idMod === idMod);
+        modalidades[indiceModalidad] = { idMod: idMod, preMod: precio };
 
         // Establezco el nuevo estado y llamo al callback
         this.setState({
@@ -69,15 +85,20 @@ class ModalidadPrecio extends Component {
                         <Col xs={5} className="pt-1">
                             <FormGroup check>
                                 <Label check>
-                                    <Input type="checkbox" onChange={(event) => { this.modificarModalidadPrecio(modalidad.ID_MOD, event) }} />{' '}
+                                    <Input type="checkbox"
+                                    checked={seleccionado?true:false}
+                                        onChange={(event) => { this.modificarModalidad(modalidad.ID_MOD, event); }}
+                                    />{' '}
                                     {modalidad.NOM_MON}
                                 </Label>
                             </FormGroup>
                         </Col>
                         <Col xs={7} className="p-1">
-                            <Input type="text" placeholder="Precio hora (S/.)" disabled={
+                            <Input type="text" value={seleccionado?seleccionado.preMod:""} placeholder="Precio hora (S/.)" disabled={
                                 !seleccionado
-                            } />
+                            }
+                                onChange={(event) => { this.modificarPrecio(modalidad.ID_MOD, event.target.value) }}
+                            />
                         </Col>
                     </Row>
                 </Col>
@@ -89,7 +110,7 @@ class ModalidadPrecio extends Component {
 
             <Row>
 
-                <Label xs={12}>Ingreses sus modalidades y precios</Label>
+                <Label xs={12}>Ingresa tus modalidades y precios</Label>
                 {menu}
             </Row>
 

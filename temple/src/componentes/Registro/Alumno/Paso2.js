@@ -77,7 +77,6 @@ class Paso2 extends Component {
 
     // Para confirmar cambios
     confirmarCambios = (values) => {
-
         // Verifico que por lo menos haya una preferencia
         const condicion = this.state.preferencias.filter((pref) => pref.id)[0]
 
@@ -128,7 +127,7 @@ class Paso2 extends Component {
                                             component="select"
                                             id="cboNivel"
                                             name="nivel">
-                                            <Opciones opciones={this.props.niveles.niveles} seleccionado={this.state.nivel} />
+                                            <Opciones opciones={this.props.niveles.niveles} seleccionados={[this.state.nivel]} />
                                         </Field>
 
                                     </Col>

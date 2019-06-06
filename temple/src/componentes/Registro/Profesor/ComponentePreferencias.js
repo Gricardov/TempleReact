@@ -7,6 +7,8 @@ import { Input } from 'reactstrap';
 import SelectorMultiple from '../../Utilidades/SelectorMultiple';
 import ModalidadPrecio from './ModalidadPrecio';
 import TagsInput from 'react-tagsinput';
+import Cargando from '../../Utilidades/CargandoComponente';
+import Sugerencias from '../../Utilidades/SugerenciasBusqueda';
 
 import 'react-tagsinput/react-tagsinput.css';
 
@@ -98,7 +100,7 @@ class Preferencias extends Component {
 
                             <Col xs={12}>
 
-                                <SelectorMultiple opciones={this.props.niveles} seleccionado={this.state.nivel}
+                                <SelectorMultiple opciones={this.props.niveles} seleccionados={this.props.preferencias[i].niveles}
 
                                     modificarPreferencia={(seleccion) => {
                                         this.props.modificarPreferencia(i, { niveles: seleccion });
@@ -132,7 +134,19 @@ class Preferencias extends Component {
                                         :
                                         i == this.state.indiceBusqueda ?
                                             <Sugerencias resultados={this.state.resultados}
-                                                modificarPreferencia={this.props.modificarPreferencia} indice={i} />
+                                                modificarPreferencia={
+                                                    (indice, preferencia) => {
+
+                                                        // Antes de llamar al padre, hago una modificación en el
+                                                        // atributo id para que sea idCurso
+
+                                                        let prefAux={};
+                                                        prefAux.idCurso = preferencia.id;
+                                                        prefAux.textoCurso = preferencia.texto;
+
+                                                        this.props.modificarPreferencia(indice,prefAux);
+                                                    }
+                                                } indice={i} />
                                             :
                                             null
                                     }
@@ -151,7 +165,10 @@ class Preferencias extends Component {
                                             type="textarea"
                                             className="form-control"
                                             rows="3"
-
+                                            value={this.props.preferencias[i].silabo}
+                                            onChange={(e) => {
+                                                this.props.modificarPreferencia(i, { silabo: e.target.value })
+                                            }}
                                         />
                                     </Col>
 
@@ -159,12 +176,20 @@ class Preferencias extends Component {
                             </Col>
 
                             <Col xs={12} lg={6} className="mt-3">
-                                <ModalidadPrecio modificarPreferencia={
-                                    (modalidades) => this.props.modificarPreferencia(i, { modalidades: modalidades })
+                                {
+                                    this.props.modalidades.estaCargando
+                                        ?
+                                        <Cargando mensaje="Cargando modalidades..." />
+                                        :
+                                        <ModalidadPrecio modificarPreferencia={
+                                            (modalidades) => this.props.modificarPreferencia(i, { modalidades: modalidades })
+
+                                        }
+                                            modalidades={this.props.modalidades.modalidades}
+                                            seleccionados={this.props.preferencias[i].modalidades} />
+
 
                                 }
-                                    modalidades={this.props.modalidades}
-                                    seleccionados={this.props.preferencias[i].modalidades} />
                             </Col>
 
                             <Col xs={12} className="mt-3">
@@ -176,7 +201,7 @@ class Preferencias extends Component {
                                                 {
                                                     className: 'react-tagsinput-input',
                                                     placeholder: 'Presiona enter para agregar'
-                                                  }
+                                                }
                                             }
                                             onChange={(etiquetas) => {
 
@@ -219,24 +244,6 @@ const Pastilla = (props) => {
         </Row>
 
     </Alert>)
-}
-
-const Sugerencias = (props) => {
-
-    const options = props.resultados.map((e, i) => (
-        <div key={e.ID_CUR} onClick={() => {
-
-            props.modificarPreferencia(props.indice, { idCurso: e.ID_CUR, textoCurso: e.NOM_CUR })
-        }}>
-            <strong>{e.NOM_CUR}</strong> - Perteneciente a la categoría Ciencias de la computación
-            <br />
-            Relacionados:{' '}
-            <span className="badge badge-pill badge-primary">ruby</span>{' '}
-            <span className="badge badge-pill badge-success">sql</span>{' '}
-            <span className="badge badge-pill badge-info">sarita</span>
-        </div>
-    ))
-    return <div className="autocomplete-items">{options}</div>
 }
 
 export default Preferencias;

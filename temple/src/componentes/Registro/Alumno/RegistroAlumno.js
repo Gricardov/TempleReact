@@ -33,7 +33,7 @@ class FormRegistro extends Component {
                     dni: '78945612'
                 },
                 {
-                    nivel: null,
+                    nivel: {},
                     preferencias: [{ id: null }],
                     maxPreferencias: 4
                 },
@@ -72,7 +72,6 @@ class FormRegistro extends Component {
         if (evento) {
             evento.preventDefault();
         }
-
         let pasoActual = this.state.pasoActual;
         let infoPasos = this.state.pasos;
         infoPasos[pasoActual - 1] = { ...infoPasos[pasoActual - 1], ...valores };

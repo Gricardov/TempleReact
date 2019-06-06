@@ -58,9 +58,12 @@ class Paso2 extends Component {
     }
 
     modificarPreferencia = (indice, preferencia) => {
+
+        //alert(JSON.stringify(preferencia))
+
         let preferencias = this.state.preferencias;
 
-        // Primero, verifico que no haya repetidos
+        // Primero, verifico que no haya repetidos. Aquí, llega un id y no un idCurso, pero es lo mismo
         const condicion = preferencias.filter((pref) => pref.idCurso && pref.idCurso == preferencia.idCurso)[0]
 
         if (condicion) {
@@ -68,7 +71,7 @@ class Paso2 extends Component {
         } else {
             preferencias[indice] = { ...preferencias[indice], ...preferencia };
         }
-        this.setState({ preferencias: preferencias }, () => { /*alert(JSON.stringify(this.state.preferencias))*/ })
+        this.setState({ preferencias: preferencias })
     }
 
     eliminarPreferencia = (indice) => {
@@ -81,7 +84,7 @@ class Paso2 extends Component {
     confirmarCambios = (values) => {
 
         // Verifico que por lo menos haya una preferencia
-        const condicion = this.state.preferencias.filter((pref) => pref.id)[0]
+        const condicion = this.state.preferencias.filter((pref) => pref.idCurso)[0]
 
         if (condicion) {
             this.setState({
@@ -113,7 +116,7 @@ class Paso2 extends Component {
                             <Form>
 
                                 <Preferencias preferencias={this.state.preferencias} modificarPreferencia={this.modificarPreferencia}
-                                    eliminarPreferencia={this.eliminarPreferencia} niveles={this.props.niveles.niveles} modalidades={this.props.modalidades.modalidades}/>
+                                    eliminarPreferencia={this.eliminarPreferencia} niveles={this.props.niveles.niveles} modalidades={this.props.modalidades}/>
 
                                 <FormGroup row>
                                     <Col xs={12}>

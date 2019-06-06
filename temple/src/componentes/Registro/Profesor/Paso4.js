@@ -7,6 +7,7 @@ import { URLBase } from '../../../compartido/URLBase';
 import { Formik, Form, Field } from 'formik';
 //import { consultaUsuarioPorNomUsu } from '../../../redux/CreadorAcciones';
 import SubidorImagen from '../../Utilidades/SubidorImagen';
+import SubidorDocumento from '../../Utilidades/SubidorDocumento';
 
 require('../../../../node_modules/react-dropzone-component/styles/filepicker.css')
 require('../../../../node_modules/dropzone/dist/min/dropzone.min.css')
@@ -26,6 +27,8 @@ class Paso4 extends Component {
         })
         this.actualizarPerfil = this.actualizarPerfil.bind(this);
         this.actualizarPortada = this.actualizarPortada.bind(this);
+        this.actualizarArchivo = this.actualizarArchivo.bind(this);
+
         // Para confirmar cambios
         this.confirmarCambios = this.confirmarCambios.bind(this);
     }
@@ -44,14 +47,20 @@ class Paso4 extends Component {
         })
     }
 
-    confirmarCambios = (values, event) => {
+    actualizarArchivo(file){
+        this.setState({
+            cv: file
+        })
+    }
 
+    confirmarCambios = (values, event) => {
         // Actualizo el estado
         this.setState(
             {
                 ...values,
                 portada: this.state.portada,
-                perfil: this.state.perfil
+                perfil: this.state.perfil,
+                cv: this.state.cv
             }, () => {
                 // Envío el estado cuando este se ha actualizado       
                 this.props.siguientePaso(this.state, event);
@@ -69,15 +78,10 @@ class Paso4 extends Component {
                     <Formik initialValues={{ ...this.props.valores[3] }}
                         onSubmit={(values, { setSubmitting }) => {
 
-                            this.setState({
-                                ...values
-                            }, () => {
+                            this.confirmarCambios(values);
 
-                                this.confirmarCambios(this.state)
-
-                            })
                         }}
-                        
+
                         validate={values => {
                             let errors = {};
 
@@ -135,11 +139,65 @@ class Paso4 extends Component {
                                 </FormGroup>
 
                                 <FormGroup row>
-                                    <Label htmlFor="txtSobreMi" xs={12}>Escribe una breve descripción de ti</Label>
+                                    <Label htmlFor="txtContrasena" xs={12}>Elige una contraseña</Label>
                                     <Col xs={12}>
                                         <Input
-                                            type="textarea"
+                                            type="password"
                                             tag={Field}
+                                            id="txtContrasena"
+                                            name="contrasena"
+                                        />
+                                        {errors.contrasena && touched.contrasena ? <MensajeError mensaje={errors.contrasena} /> : null}
+                                    </Col>
+                                </FormGroup>
+
+                                <FormGroup row>
+                                    <Label htmlFor="txtEspecialidad" xs={12}>Escribe brevemente en qué te especializas</Label>
+                                    <Col xs={12}>
+                                        <Input
+                                            type="text"
+                                            tag={Field}
+                                            id="txtEspecialidad"
+                                            name="especialidad"
+                                        />
+                                        {errors.especialidad && touched.especialidad ? <MensajeError mensaje={errors.especialidad} /> : null}
+                                    </Col>
+                                </FormGroup>
+
+                                <FormGroup row>
+                                    <Label htmlFor="txtExpLab" xs={12}>¿Cuál es tu experiencia laboral?</Label>
+                                    <Col xs={12}>
+                                        <Field
+                                            component="textarea"
+                                            className="form-control"
+                                            id="txtExpLab"
+                                            name="expLab"
+                                        />
+                                        {errors.expLab && touched.expLab ? <MensajeError mensaje={errors.expLab} /> : null}
+
+                                    </Col>
+                                </FormGroup>
+
+                                <FormGroup row>
+                                    <Label htmlFor="txtHabCla" xs={12}>¿Cuáles son sus habilidades clave?</Label>
+                                    <Col xs={12}>
+                                        <Field
+                                            component="textarea"
+                                            className="form-control"
+                                            id="txtHabCla"
+                                            name="habCla"
+                                        />
+                                        {errors.habCla && touched.habCla ? <MensajeError mensaje={errors.habCla} /> : null}
+
+                                    </Col>
+                                </FormGroup>
+
+                                <FormGroup row>
+                                    <Label htmlFor="txtSobreMi" xs={12}>Escribe una breve descripción de ti</Label>
+                                    <Col xs={12}>
+                                        <Field
+                                            component="textarea"
+                                            className="form-control"
                                             id="txtSobreMi"
                                             name="sobreMi"
                                         />
@@ -147,7 +205,15 @@ class Paso4 extends Component {
 
                                     </Col>
                                 </FormGroup>
-                                
+
+                                <FormGroup row>
+                                    <Label htmlFor="docCv" xs={12}>Sube tu currículum vitae</Label>
+                                    <Col xs={12}>
+                                        <SubidorDocumento actualizarArchivo={(file) => this.actualizarArchivo(file)} />
+                                    </Col>
+                                </FormGroup>
+
+
                                 <FormGroup row>
                                     <Label htmlFor="imgPerfil" xs={12}>Sube una foto de perfil</Label>
                                     <Col xs={12}>
@@ -156,7 +222,7 @@ class Paso4 extends Component {
                                 </FormGroup>
 
                                 <FormGroup row>
-                                    <Label htmlFor="imgPerfil" xs={12}>Sube una foto de perfil</Label>
+                                    <Label htmlFor="imgPortada" xs={12}>Sube una foto de portada</Label>
                                     <Col xs={12}>
                                         <SubidorImagen actualizarImagen={(file) => this.actualizarPortada(file)} />
                                     </Col>
@@ -167,12 +233,12 @@ class Paso4 extends Component {
                                         <div className="form-check">
                                             <Label check>
 
-                                                <Input 
+                                                <Input
                                                     type="checkbox"
                                                     tag={Field}
                                                     id="chkAcepta"
                                                     name="acepta"
-                                                    />
+                                                />
                                                 {' '}
                                                 <strong>Estoy de acuerdo con los términos del servicio</strong>
                                             </Label>

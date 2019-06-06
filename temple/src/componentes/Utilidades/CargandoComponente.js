@@ -1,12 +1,15 @@
 import React from 'react';
+import {Row,Col} from 'reactstrap';
 
-export const Cargando=()=>{
+export const Cargando=(props)=>{
 
     return(
-        <div className="col-4">
+        <Row className="justify-content-center">
         <span className="fa fa-spinner fa-pulse fa-3x fa-fw text-primary"></span>
-        <p>Cargando . . .</p>
-        </div>
+        <p>{props.mensaje}</p>
+        </Row>
     )
 
 }
+
+export default Cargando;

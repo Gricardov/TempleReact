@@ -35,7 +35,7 @@ class SelectorMultiple extends Component {
                 type="select"
                 component="select"
                 multiple>
-                <Opciones opciones={this.props.opciones} seleccionado={1} />
+                <Opciones opciones={this.props.opciones} seleccionados={this.props.seleccionados} />
             </Input>
 
         );

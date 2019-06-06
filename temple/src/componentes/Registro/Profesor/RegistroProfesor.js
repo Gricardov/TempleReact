@@ -33,7 +33,7 @@ class FormRegistro extends Component {
                     dni: '74811547'
                 },
                 {
-                    preferencias: [{ niveles:[], idCurso: null, silabo:'',modalidades:[], etiquetas:[] }],
+                    preferencias: [{ niveles:[], idCurso: null, textoCurso:'', silabo:'',modalidades:[], etiquetas:[] }],
                     maxPreferencias: 4
                 },
                 {
@@ -44,7 +44,11 @@ class FormRegistro extends Component {
                 {
                     usuario: 'profeelviscrespo',
                     contrasena: 'profeelviscrespo',
+                    especialidad:'miEspecialidad',
                     sobreMi: 'profeasdasdasdasd',
+                    expLab: 'expLab',
+                    habCla:'habCla',
+                    cv:'',
                     perfil: '',
                     portada: '',
                     acepta: false
@@ -78,7 +82,6 @@ class FormRegistro extends Component {
 
         // Solo si el paso actual es menor que el último, que aumente el paso actual. (Empezamos de 1). Además, que guarde los valores
         if (pasoActual < this.state.pasos.length) {
-
             this.setState({
                 pasos: infoPasos,
                 pasoActual: pasoActual + 1

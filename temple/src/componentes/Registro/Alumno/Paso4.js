@@ -36,6 +36,7 @@ class Paso4 extends Component {
         this.setState({
             perfil: file
         })
+        
     }
 
     actualizarPortada(file) {
@@ -45,7 +46,6 @@ class Paso4 extends Component {
     }
 
     confirmarCambios = (values, event) => {
-
         // Actualizo el estado
         this.setState(
             {
@@ -53,7 +53,8 @@ class Paso4 extends Component {
                 portada: this.state.portada,
                 perfil: this.state.perfil
             }, () => {
-                // Envío el estado cuando este se ha actualizado       
+                
+                // Envío el estado cuando este se ha actualizado      
                 this.props.siguientePaso(this.state, event);
             }
         )
@@ -68,14 +69,9 @@ class Paso4 extends Component {
                 <Col xs={12}>
                     <Formik initialValues={{ ...this.props.valores[3] }}
                         onSubmit={(values, { setSubmitting }) => {
+                                
+                                this.confirmarCambios(values)
 
-                            this.setState({
-                                ...values
-                            }, () => {
-
-                                this.confirmarCambios(this.state)
-
-                            })
                         }}
                         
                         validate={values => {
@@ -135,6 +131,19 @@ class Paso4 extends Component {
                                 </FormGroup>
 
                                 <FormGroup row>
+                                    <Label htmlFor="txtContrasena" xs={12}>Elige una contraseña</Label>
+                                    <Col xs={12}>
+                                        <Input
+                                            type="password"
+                                            tag={Field}
+                                            id="txtContrasena"
+                                            name="contrasena"
+                                        />
+                                        {errors.contrasena && touched.contrasena ? <MensajeError mensaje={errors.contrasena} /> : null}
+                                    </Col>
+                                </FormGroup>
+
+                                <FormGroup row>
                                     <Label htmlFor="txtSobreMi" xs={12}>Escribe una breve descripción de ti</Label>
                                     <Col xs={12}>
                                         <Field
@@ -156,7 +165,7 @@ class Paso4 extends Component {
                                 </FormGroup>
 
                                 <FormGroup row>
-                                    <Label htmlFor="imgPerfil" xs={12}>Sube una foto de perfil</Label>
+                                    <Label htmlFor="imgPortada" xs={12}>Sube una foto de portada</Label>
                                     <Col xs={12}>
                                         <SubidorImagen actualizarImagen={(file) => this.actualizarPortada(file)} />
                                     </Col>
