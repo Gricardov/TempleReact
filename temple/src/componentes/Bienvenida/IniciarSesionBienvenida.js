@@ -7,6 +7,8 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { iniciarSesion } from '../../redux/CreadorAcciones';
 
+import Cargando from '../Utilidades/CargandoComponente';
+
 import * as RUTAS from '../../compartido/rutas';
 
 const mapStateToProps = (state) => {
@@ -41,7 +43,7 @@ class Login extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-
+    //alert(JSON.stringify(this.props))
     if (prevProps.sesion.usuario != this.props.sesion.usuario) {
 
       // Si la sesión se ha iniciado correctamente, que redireccione
@@ -60,27 +62,6 @@ class Login extends Component {
   }
 
   render() {
-
-    let alerta = null;
-
-    if (this.props.estaCargando) {
-
-      alerta = <Alert color="info">Cargando . . .</Alert>;
-
-    }
-
-    else if (this.props.mensError) {
-
-      alerta = <Alert color="danger">{this.props.mensError}</Alert>;
-
-    }
-
-    else if (this.props.usuario) {
-
-      alerta = <Alert color="primary">{JSON.stringify(this.props.usuario)}</Alert>;
-
-
-    }
 
     return (
       <>
@@ -172,6 +153,21 @@ class Login extends Component {
                                 <Input className="form-check-input" type="checkbox" name="recordarme" /> Recordarme en este equipo
                       </Label>
                             </Row>
+                            <Row>
+                              <Col xs={12}>
+                                {
+                                  this.props.sesion.estaCargando
+                                    ?
+                                    <Cargando mensaje="Iniciando sesión..." />
+                                    :
+                                    this.props.sesion.mensError
+                                      ?
+                                      <ResultadoLogin mensaje={this.props.sesion.mensError} />
+                                      :
+                                      null
+                                }
+                              </Col>
+                            </Row>
                             <Row className="form-group">
                               <Col xs={{ size: 10, offset: 1 }}>
                                 <Button type="submit" color="primary" className="btn btn-block">Ingresar</Button>
@@ -180,10 +176,10 @@ class Login extends Component {
 
                           </Form>
                         )}
-                      </Formik>
-                      {alerta}
 
+                      </Formik>
                     </CardBody>
+
 
                   </Col>
 
@@ -207,6 +203,10 @@ class Login extends Component {
 
   }
 
+}
+
+const ResultadoLogin = ({ mensaje }) => {
+  return (<Fade in><Alert color="danger">{mensaje}</Alert></Fade>)
 }
 
 const MensajeError = ({ mensaje }) => {

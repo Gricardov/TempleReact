@@ -40,8 +40,7 @@ class FormRegistro extends Component {
                 {
                     latitud: -12.08632442,
                     longitud: -77.22255707
-                }
-                ,
+                },
                 {
                     usuario: 'profeelviscrespo',
                     contrasena: 'profeelviscrespo',
