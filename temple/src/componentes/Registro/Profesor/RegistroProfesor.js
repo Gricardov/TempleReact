@@ -30,7 +30,8 @@ class FormRegistro extends Component {
                     genero: '1',
                     correo: 'profeelviscrespo@gmail.com',
                     telefono: '7654321',
-                    dni: '74811547'
+                    dni: '74811547',
+                    rol: 1
                 },
                 {
                     preferencias: [{ niveles:[], idCurso: null, textoCurso:'', silabo:'',modalidades:[], etiquetas:[] }],

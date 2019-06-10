@@ -12,7 +12,8 @@ class SubidorImagen extends Component {
                 postUrl: 'no-url'
             },
             manejadoresEventos:{
-                addedfile: (file) => this.props.actualizarImagen(file)
+                addedfile: (file) => this.props.actualizarImagen(file),
+                removedfile: (file) => this.props.actualizarImagen({})
             },
             configuracionDjs:{
                 autoProcessQueue: false,
@@ -22,7 +23,8 @@ class SubidorImagen extends Component {
                 dictInvalidFileType: 'No puedes subir este tipo de archivo',
                 dictDefaultMessage:'Sube o arrastra una imagen',
                 dictRemoveFile: 'Cancelar subida',
-                dictMaxFilesExceeded: 'Solo puedes subir una imagen'
+                dictMaxFilesExceeded: 'Solo puedes subir una imagen',
+                minFileSize: 1
             }
         }
     }

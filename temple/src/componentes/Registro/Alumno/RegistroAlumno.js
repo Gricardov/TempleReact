@@ -30,7 +30,8 @@ class FormRegistro extends Component {
                     genero: '1',
                     correo: 'elviscrespo@gmail.com',
                     telefono: '7654321',
-                    dni: '78945612'
+                    dni: '78945612',
+                    rol: 2
                 },
                 {
                     nivel: {},

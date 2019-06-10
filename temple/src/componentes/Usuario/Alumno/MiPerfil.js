@@ -19,7 +19,7 @@ class MiPerfil extends Component {
         return (
             <div className="perfil-debajo-barra">
                 <Row className="contenedor-portada-perfil">
-                    <img src="http://4.bp.blogspot.com/-pUDTYSbW7qc/UubgtKShOSI/AAAAAAAAALI/qggus3wtkxI/s1600/mu%25C3%25B1eco+de+caja+mirando+corazones.jpg" />
+                    <img src={this.props.usuario.IMG_POR} />
                     <figure className="foto-perfil" style={{ backgroundImage: `url(${this.props.usuario.IMG_PER})` }}>
 
                     </figure>
