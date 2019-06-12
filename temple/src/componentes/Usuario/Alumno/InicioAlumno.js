@@ -6,7 +6,8 @@ import { cerrarSesion } from '../../../redux/CreadorAcciones';
 import { Input } from 'reactstrap';
 import { FadeTransform } from 'react-animation-components';
 import Carrusel from '../../Utilidades/CarruselTarjetas';
-
+import Sugerencias from '../../Utilidades/SugerenciasBusqueda';
+import { URLBase } from '../../../compartido/URLBase';
 import * as RUTAS from '../../../compartido/rutas';
 
 const mapStateToProps = (state) => {
@@ -27,11 +28,68 @@ class InicioAlumno extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tipoVista: 1
+            tipoVista: 1,
+            consulta: '',
+            resultados: [],
+            cursoSeleccionado: null
         };
 
+        this.manejarCambio = this.manejarCambio.bind(this);
+
+    }
+
+    manejarCambio(evento) {
+
+        let cursoSeleccionado = this.state.cursoSeleccionado;
+
+        if (cursoSeleccionado) {
+            if (evento.target.value.toString() !== cursoSeleccionado.NOM_CUR) {
+                this.setState({
+                    cursoSeleccionado: null
+                })
+            }
+
+        }
 
 
+        // Actualizo la consulta
+        this.setState({
+            consulta: evento.target.value.toString()
+        })
+
+        // Luego, hago la consulta
+        return fetch(URLBase + 'curso/consulta/porNombre/' + evento.target.value)
+            .then(response => {
+
+                if (response.ok) {
+
+                    return response;
+
+                }
+
+                else {
+
+                    var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
+                    error.response = response;
+                    throw error;
+
+                }
+
+
+            }, error => {
+
+                var mensErr = new Error(error.message);
+                throw mensErr;
+
+            })
+            .then(response => response.json())
+            .then(res => {
+                this.setState({ resultados: res })
+
+            })
+            .catch(error => {
+                console.log("Error : " + error.message)
+            })
     }
 
     render() {
@@ -40,14 +98,37 @@ class InicioAlumno extends Component {
 
                 <Row className="mb-4">
                     <Col xs={12}>
-                        <MensajeAnimado texto={`Hola ${this.props.sesion.usuario.NOM_USU}! ¿Qué deseas aprender hoy?`} />
+
+                        <Row className="mb-4">
+                            <Col xs={12}>
+                                <MensajeAnimado texto={`Hola ${this.props.sesion.usuario.NOM_USU}! ¿Qué deseas aprender hoy?`} />
+                            </Col>
+                        </Row>
+
+                        <Input
+                            type="text"
+                            className="form-control"
+                            placeholder="Por ejemplo: Java, SQL Server, MySQL"
+                            autoComplete="off"
+                            value={this.state.consulta}
+                            onChange={(e) => this.manejarCambio(e)}
+                        />
+
+
+                        {
+                            this.state.cursoSeleccionado
+                                ?
+                                null
+                                :
+                                <Sugerencias resultados={this.state.resultados}
+                                    modificarPreferencia={(i, curso) => {
+                                        this.setState({ cursoSeleccionado: curso, consulta: curso.texto})
+                                    }} indice={-1} />
+                        }
+
                     </Col>
                 </Row>
-                <Row className="mb-3">
-                    <Col xs={12}>
-                        <Input type="text" placeholder="Por ejemplo: Java, SQL Server, MySQL" />
-                    </Col>
-                </Row>
+
                 <Row className="mb-3">
                     <Col xs={6}>
                         <a href="#">Búsqueda avanzada</a>
