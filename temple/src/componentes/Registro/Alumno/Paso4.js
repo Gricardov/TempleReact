@@ -195,6 +195,8 @@ class Paso4 extends Component {
                         )}
                     </Formik>
                 </Col >
+
+
             </Row>
         )
     }

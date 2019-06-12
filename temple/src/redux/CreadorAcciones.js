@@ -152,9 +152,61 @@ export const iniciarSesion = (usuario, contrasena) => (dispatch) => {
         })
         .catch(error => {
             console.log("Sesión no iniciada : " + error.message)
-            dispatch(sesionNoIniciada(error.message))
+            dispatch(sesionNoIniciada(error.message));
 
         })
+}
+
+// Registro usuario
+
+export const registrarUsuario = (usuario) => (dispatch) => {
+
+    dispatch(registrandoUsuario());
+
+    //alert(JSON.stringify('registrando datos: '+JSON.stringify(usuario)))
+                fetch(URLBase + 'usuario/registro', {
+
+                    method: 'POST',
+                    body: JSON.stringify(usuario),
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    credentials: 'same-origin'
+                })
+                    .then(response => {
+
+                        if (response.ok) {
+
+                            return response;
+
+                        }
+
+                        else {
+
+                            var error = new Error('Error ' + response.status +
+                                ': ' + response.statusText);
+                            error.response = response;
+                            throw error;
+
+                        }
+
+                    },
+                        error => {
+                            var errMess = new Error(error.message);
+                            throw errMess;
+
+                        })
+                    .then(response => response.json())
+                    .then(mensaje => {
+                        dispatch(usuarioRegistrado(mensaje));
+
+                    })
+                    .catch(error => {
+                        dispatch(usuarioNoRegistrado(error));
+                        console.log('Error: ', error.message)
+                        alert('Error: ' + error.message)
+                    })
+
 }
 
 export const cerrarSesion = () => (dispatch) => {
@@ -221,7 +273,24 @@ export const obtenerLideres = () => (dispatch) => {
 
 // Eventos llamados indirectamente
 
+// Registro
+
+export const registrandoUsuario = () => ({
+    type: Acciones.CARGANDO_REGISTRO_USUARIO
+})
+
+export const usuarioNoRegistrado = (error) => ({
+    type: Acciones.ERROR_REGISTRO_USUARIO,
+    payload: error
+})
+
+export const usuarioRegistrado = (mensaje) => ({
+    type: Acciones.REGISTRO_USUARIO_EXITOSO,
+    payload: mensaje
+})
+
 // Niveles
+
 export const cargandoNiveles = () => ({
     type: Acciones.CARGANDO_NIVELES
 })

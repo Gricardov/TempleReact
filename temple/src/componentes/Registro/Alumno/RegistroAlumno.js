@@ -7,14 +7,28 @@ import Botonera from '../BotoneraRegistro';
 import ModalMensaje from '../../Utilidades/ModalMensaje';
 import { FadeTransform } from 'react-animation-components';
 import { URLBase } from '../../../compartido/URLBase';
-
-//
+import { registrarUsuario } from '../../../redux/CreadorAcciones';
+import { connect } from 'react-redux';
+import ModalCargandoMensaje from '../../Utilidades/ModalCargandoMensaje';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import Paso1 from './Paso1';
 import Paso2 from './Paso2';
 import Paso3 from './Paso3';
 import Paso4 from './Paso4';
+
+const mapStateToProps = (state) => {
+
+    return {
+        registro: state.registro
+    }
+
+}
+
+const mapDispatchToProps = (dispatch) => ({
+
+    registrarUsuario: (usuario) => dispatch(registrarUsuario(usuario))
+})
 
 class FormRegistro extends Component {
     constructor(props) {
@@ -52,7 +66,8 @@ class FormRegistro extends Component {
                     acepta: false
                 }],
             pasoActual: 1,
-            error: null
+            error: null,
+            modalAbierto: false
         }
 
         // Para gestionar los pasos
@@ -89,47 +104,10 @@ class FormRegistro extends Component {
         // Cuando alcance el paso final, que guarda los valores y cuando termine, haga el fetch
         else if (pasoActual == this.state.pasos.length) {
             this.setState({
-                pasos: infoPasos
+                pasos: infoPasos,
+                modalAbierto: true
             }, () => {
-                alert(JSON.stringify(this.state))
-                fetch(URLBase + 'usuario/registro', {
-
-                    method: 'POST',
-                    body: JSON.stringify(this.state),
-                    headers: {
-                        'Content-type': 'application/json'
-                    },
-                    credentials: 'same-origin'
-                })
-                    .then(response => {
-
-                        if (response.ok) {
-
-                            return response;
-
-                        }
-
-                        else {
-
-                            var error = new Error('Error ' + response.status +
-                                ': ' + response.statusText);
-                            error.response = response;
-                            throw error;
-
-                        }
-
-                    },
-                        error => {
-                            var errMess = new Error(error.message);
-                            throw errMess;
-
-                        })
-                    .then(response => response.json())
-                    .then(response => alert('Respuesta del servidor: '+JSON.stringify(response)))
-                    .catch(error => {
-                        console.log('Error: ', error.message)
-                        alert('Error: ' + error.message)
-                    })
+                this.props.registrarUsuario(this.state);
             })
         }
 
@@ -179,8 +157,11 @@ class FormRegistro extends Component {
                     crearError={this.crearError} />)
                 break;
             case 4:
-                paso = (<Paso4 valores={this.state.pasos} anteriorPaso={this.anteriorPaso} siguientePaso={this.siguientePaso} />)
+                paso = (<Paso4 valores={this.state.pasos} anteriorPaso={this.anteriorPaso}
+                    siguientePaso={this.siguientePaso}
+                />)
                 break;
+
         }
 
         return (
@@ -193,6 +174,15 @@ class FormRegistro extends Component {
                             {paso}
                         </CSSTransition>
                     </TransitionGroup>
+                    <ModalCargandoMensaje
+                        modalAbierto={this.state.modalAbierto}
+                        estaCargando={this.props.registro.estaCargando}
+                        mensaje={this.props.registro.mensaje}
+                        cerrarModal={() => {
+                            this.setState({
+                                modalAbierto: false
+                            })
+                        }} />
                 </div>
             </div>
         )
@@ -201,4 +191,4 @@ class FormRegistro extends Component {
 
 }
 
-export default FormRegistro;
+export default connect(mapStateToProps, mapDispatchToProps)(FormRegistro);
