@@ -6,6 +6,7 @@ import { cerrarSesion } from '../../../redux/CreadorAcciones';
 import { Input } from 'reactstrap';
 import { FadeTransform } from 'react-animation-components';
 import Carrusel from '../../Utilidades/CarruselTarjetas';
+import Cuadrícula from '../../Utilidades/CuadriculaTarjetas';
 import Sugerencias from '../../Utilidades/SugerenciasBusqueda';
 import { URLBase } from '../../../compartido/URLBase';
 import * as RUTAS from '../../../compartido/rutas';
@@ -146,6 +147,15 @@ class InicioAlumno extends Component {
                         </label>
                     </Col>
                 </Row>
+
+                <Row className="mb-4">
+                    <Col xs={12}>
+                        <MensajeAnimado texto={'Resultado búsqueda: '} />
+                    </Col>
+                </Row>
+
+                <Cuadrícula columnas={4} tarjetas={[1,2,3,4,5,6,7,8,9]}/>
+
                 <Row className="mb-4">
                     <Col xs={12}>
                         <MensajeAnimado texto={'Recomendados para ti - Nivel secundaria: '} />
