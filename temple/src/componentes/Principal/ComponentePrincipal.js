@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Barra from '../Bienvenida/BarraBienvenida';
 import BarraUsuario from '../Usuario/BarraUsuario';
 import Pie from '../Bienvenida/PieBienvenida';
-
+//
 import Inicio from '../Bienvenida/InicioBienvenida';
 import Descargar from '../Bienvenida/DescargarBienvenida';
 import Contacto from '../Bienvenida/ContactoBienvenida';
