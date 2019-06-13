@@ -4,6 +4,7 @@ import { NavLink, Link } from 'react-router-dom';
 
 import * as RUTAS from '../../compartido/rutas';
 //
+//
 class Barra extends Component {
 
     constructor(props) {
