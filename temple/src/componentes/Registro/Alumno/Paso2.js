@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormGroup, Label, Col, Row, Card, CardBody, Button, Input } from 'reactstrap';
 import { Control, LocalForm, Errors, actions } from 'react-redux-form';
 import { Formik, Form, Field } from 'formik';
-import { consultaNiveles } from '../../../redux/CreadorAcciones';
+import { consultaNiveles,consultaCursosPorNombre } from '../../../redux/CreadorAcciones';
 import { connect } from 'react-redux';
 
 import Opciones from '../../Utilidades/OpcionesCombo';
@@ -12,14 +12,17 @@ import Preferencias from './ComponentePreferencias';
 const mapStateToProps = (state) => {
 
     return {
-        niveles: state.niveles
+        niveles: state.niveles,
+        cursos: state.cursos
     }
 
 }
 
 const mapDispatchToProps = (dispatch) => ({
 
-    consultaNiveles: () => dispatch(consultaNiveles())
+    consultaNiveles: () => dispatch(consultaNiveles()),
+    consultaCursosPorNombre: (nomCur) => dispatch(consultaCursosPorNombre(nomCur))
+
 })
 
 
@@ -133,7 +136,9 @@ class Paso2 extends Component {
                                     </Col>
                                 </FormGroup>
                                 <Preferencias preferencias={this.state.preferencias} modificarPreferencia={this.modificarPreferencia}
-                                    eliminarPreferencia={this.eliminarPreferencia} />
+                                    eliminarPreferencia={this.eliminarPreferencia} consultaCursosPorNombre={this.props.consultaCursosPorNombre}
+                                    resultados={this.props.cursos.cursos} cargandoResultados={this.props.cursos.estaCargando} errorResultados={this.props.cursos.mensError}
+                                    />
 
                                 <FormGroup row>
                                     <Col xs={12}>

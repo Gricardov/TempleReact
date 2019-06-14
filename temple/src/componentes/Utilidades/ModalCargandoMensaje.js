@@ -21,7 +21,7 @@ class ModalMensaje extends Component {
                         ?
                             <CargandoComponente mensaje="Cargando..."/>
                         :
-                            <p>{this.props.mensaje.mensaje}</p>
+                            <p>{this.props.mensaje}</p>
                     }
                 </ModalBody>
                 <ModalFooter>

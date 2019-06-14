@@ -2,7 +2,7 @@ import * as Acciones from './Acciones';
 
 export const Registro = (state={
 
-    estaCargando:true,
+    estaCargando:false,
     mensaje:null
 
 }, action)=>{

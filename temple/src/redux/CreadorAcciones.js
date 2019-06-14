@@ -78,7 +78,7 @@ export const consultaModalidades = () => (dispatch) => {
         })
         .then(response => response.json())
         .then(modalidades => {
-            
+
             dispatch(modalidadesObtenidas(modalidades));
 
         })
@@ -146,7 +146,7 @@ export const iniciarSesion = (usuario, contrasena) => (dispatch) => {
             } else {
                 dispatch(sesionIniciada(usuario));
             }
-//
+            //
 
 
         })
@@ -162,50 +162,48 @@ export const iniciarSesion = (usuario, contrasena) => (dispatch) => {
 export const registrarUsuario = (usuario) => (dispatch) => {
 
     dispatch(registrandoUsuario());
+    fetch(URLBase + 'usuario/registro', {
 
-    //alert(JSON.stringify('registrando datos: '+JSON.stringify(usuario)))
-                fetch(URLBase + 'usuario/registro', {
+        method: 'POST',
+        body: JSON.stringify(usuario),
+        headers: {
+            'Content-type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+        .then(response => {
 
-                    method: 'POST',
-                    body: JSON.stringify(usuario),
-                    headers: {
-                        'Content-type': 'application/json'
-                    },
-                    credentials: 'same-origin'
-                })
-                    .then(response => {
+            if (response.ok) {
 
-                        if (response.ok) {
+                return response;
 
-                            return response;
+            }
 
-                        }
+            else {
 
-                        else {
+                var error = new Error('Error ' + response.status +
+                    ': ' + response.statusText);
+                error.response = response;
+                throw error;
 
-                            var error = new Error('Error ' + response.status +
-                                ': ' + response.statusText);
-                            error.response = response;
-                            throw error;
+            }
 
-                        }
+        },
+            error => {
+                var errMess = new Error(error.message);
+                throw errMess;
 
-                    },
-                        error => {
-                            var errMess = new Error(error.message);
-                            throw errMess;
+            })
+        .then(response => response.json())
+        .then(mensaje => {
+            dispatch(usuarioRegistrado(mensaje));
 
-                        })
-                    .then(response => response.json())
-                    .then(mensaje => {
-                        dispatch(usuarioRegistrado(mensaje));
-
-                    })
-                    .catch(error => {
-                        dispatch(usuarioNoRegistrado(error));
-                        console.log('Error: ', error.message)
-                        alert('Error: ' + error.message)
-                    })
+        })
+        .catch(error => {
+            dispatch(usuarioNoRegistrado(error));
+            console.log('Error: ', error.message)
+            alert('Error: ' + error.message)
+        })
 
 }
 
@@ -257,8 +255,156 @@ export const consultaUsuarioPorNomUsu = (nomUsu) => (dispatch) => {
         })
 }
 
-// Líderes
+// Cursos
+export const consultaCursosPorNombre = (nomCur) => (dispatch) => {
 
+    dispatch(cargandoCursos());
+
+    fetch(URLBase + 'curso/consulta/porNombre/' + nomCur)
+        .then(response => {
+
+            if (response.ok) {
+
+                return response;
+
+            }
+
+            else {
+
+                var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
+                error.response = response;
+                throw error;
+
+            }
+
+
+        }, error => {
+
+            var mensErr = new Error(error.message);
+            throw mensErr;
+
+        })
+        .then(response => response.json())
+        .then(cursos => {
+            dispatch(cursosObtenidos(cursos));
+
+        })
+        .catch(error => {
+            console.log("Error : " + error.message);
+            dispatch(errorCursos(error.message));
+        })
+}
+
+// Búsqueda profesores
+export const consultaProfesoresPorIdCurso = (idCur, idNiv) => (dispatch) => {
+
+    dispatch(cargandoProfesoresBusqueda());
+
+    const datos = {
+        datos: {
+            idCur: idCur,
+            idNiv: idNiv
+        }
+    }
+
+    fetch(URLBase + 'usuario/profesor/consulta/porIdCurso', {
+
+        method: 'POST',
+        body: JSON.stringify(datos),
+        headers: {
+            'Content-type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+        .then(response => {
+
+            if (response.ok) {
+
+                return response;
+
+            }
+
+            else {
+
+                var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
+                error.response = response;
+                throw error;
+
+            }
+
+
+        }, error => {
+
+            var mensErr = new Error(error.message);
+            throw mensErr;
+
+        })
+        .then(response => response.json())
+        .then(profesores => {
+            dispatch(profesoresObtenidosBusqueda(profesores));
+
+        })
+        .catch(error => {
+            console.log("Error : " + error.message);
+            dispatch(errorProfesoresBusqueda(error.message));
+        })
+}
+
+export const consultaProfesoresPorNombreCurso = (nomCur, idNiv) => (dispatch) => {
+
+    dispatch(cargandoProfesoresBusqueda());
+
+    const datos = {
+        datos: {
+            nomCur: nomCur,
+            idNiv: idNiv
+        }
+    }
+
+    fetch(URLBase + 'usuario/profesor/consulta/porNombreCurso', {
+
+        method: 'POST',
+        body: JSON.stringify(datos),
+        headers: {
+            'Content-type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+        .then(response => {
+
+            if (response.ok) {
+
+                return response;
+
+            }
+
+            else {
+
+                var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
+                error.response = response;
+                throw error;
+
+            }
+
+
+        }, error => {
+
+            var mensErr = new Error(error.message);
+            throw mensErr;
+
+        })
+        .then(response => response.json())
+        .then(profesores => {
+            dispatch(profesoresObtenidosBusqueda(profesores));
+
+        })
+        .catch(error => {
+            console.log("Error : " + error.message);
+            dispatch(errorProfesoresBusqueda(error.message));
+        })
+}
+
+// Líderes
 export const obtenerLideres = () => (dispatch) => {
 
     dispatch(cargandoLideres());
@@ -334,6 +480,38 @@ export const usuarioObtenido = (usuario) => ({
 
 export const errorUsuario = (mensErr) => ({
     type: Acciones.ERROR_USUARIO,
+    payload: mensErr
+
+})
+
+// Cursos
+export const cargandoCursos = () => ({
+    type: Acciones.CARGANDO_CURSOS
+})
+
+export const cursosObtenidos = (cursos) => ({
+    type: Acciones.CURSOS_OBTENIDOS,
+    payload: cursos
+})
+
+export const errorCursos = (mensErr) => ({
+    type: Acciones.ERROR_CURSOS,
+    payload: mensErr
+
+})
+
+// Profesores búsqueda
+export const cargandoProfesoresBusqueda = () => ({
+    type: Acciones.CARGANDO_PROFESORES_BUSQUEDA
+})
+
+export const profesoresObtenidosBusqueda = (profesores) => ({
+    type: Acciones.PROFESORES_OBTENIDOS_BUSQUEDA,
+    payload: profesores
+})
+
+export const errorProfesoresBusqueda = (mensErr) => ({
+    type: Acciones.ERROR_PROFESORES_BUSQUEDA,
     payload: mensErr
 
 })

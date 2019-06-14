@@ -18,14 +18,14 @@ class Cuadricula extends Component {
     render() {
         const columnas = this.props.columnas;
 
-        const tarjetas = this.props.tarjetas.map((e, i) => {
+        const tarjetas = this.props.resultados.map((e, i) => {
 
             // Divido 12 entre el número de columnas indicadas para que bootstrap pueda mostrarlo en cuadrícula
             let cociente = Math.floor(12 / columnas);
             return (
-                    <Col key={i} xs={cociente}>
-                        <TarjetaPerfil />
-                    </Col>
+                <Col key={i} xs={cociente}>
+                    <TarjetaPerfil imgPerfil={e.imgPer} imgPortada={e.imgPor} />
+                </Col>
 
             )
         });
@@ -33,7 +33,7 @@ class Cuadricula extends Component {
 
         return (
             <Row className="mb-4">
-                    {tarjetas}
+                {tarjetas}
             </Row>
         );
     }

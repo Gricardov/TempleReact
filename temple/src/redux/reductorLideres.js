@@ -2,7 +2,7 @@ import * as Acciones from './Acciones';
 
 export const Lideres = (state={
 
-    estaCargando:true,
+    estaCargando:false,
     mensError:null,
     lideres:[]
 

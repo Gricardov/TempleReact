@@ -177,7 +177,7 @@ class FormRegistro extends Component {
                     <ModalCargandoMensaje
                         modalAbierto={this.state.modalAbierto}
                         estaCargando={this.props.registro.estaCargando}
-                        mensaje={this.props.registro.mensaje}
+                        mensaje={this.props.registro.mensaje?this.props.registro.mensaje.mensaje:''}
                         cerrarModal={() => {
                             this.setState({
                                 modalAbierto: false

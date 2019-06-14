@@ -15,7 +15,6 @@ class Preferencias extends Component {
         // textos posicionados en las cajas
         this.state = {
             consulta: '',
-            resultados: [],
             indiceBusqueda: 0
         }
         this.manejarCambio = this.manejarCambio.bind(this);
@@ -28,39 +27,9 @@ class Preferencias extends Component {
         // Actualizo la preferencia
         this.props.modificarPreferencia(indice, { id: null, texto: e.target.value.toString() });
 
-        // Luego, hago la consulta
-        return fetch(URLBase + 'curso/consulta/porNombre/' + e.target.value)
-            .then(response => {
+        this.props.consultaCursosPorNombre(e.target.value);
 
-                if (response.ok) {
-
-                    return response;
-
-                }
-
-                else {
-
-                    var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
-                    error.response = response;
-                    throw error;
-
-                }
-
-
-            }, error => {
-
-                var mensErr = new Error(error.message);
-                throw mensErr;
-
-            })
-            .then(response => response.json())
-            .then(res => {
-                this.setState({ resultados: res, indiceBusqueda: indice })
-
-            })
-            .catch(error => {
-                console.log("Error : " + error.message)
-            })
+        this.setState({ indiceBusqueda: indice });
     }
 
     render() {
@@ -111,8 +80,13 @@ class Preferencias extends Component {
                                 null
                                 :
                                 i == this.state.indiceBusqueda ?
-                                    <Sugerencias resultados={this.state.resultados}
-                                        modificarPreferencia={this.props.modificarPreferencia} indice={i} />
+                                    <Sugerencias resultados={this.props.resultados}
+                                        cargandoResultados={this.props.cargandoResultados}
+                                        errorResultados={this.props.errorResultados}
+                                        modificarPreferencia={
+                                            (preferencia) => {
+                                                this.props.modificarPreferencia(i, preferencia)
+                                            }} />
                                     :
                                     null
                             }

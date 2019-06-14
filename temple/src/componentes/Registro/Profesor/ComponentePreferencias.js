@@ -22,7 +22,6 @@ class Preferencias extends Component {
         // textos posicionados en las cajas
         this.state = {
             consulta: '',
-            resultados: [],
             indiceBusqueda: 0
         }
         this.manejarCambio = this.manejarCambio.bind(this);
@@ -35,39 +34,9 @@ class Preferencias extends Component {
         // Actualizo la preferencia
         this.props.modificarPreferencia(indice, { idCurso: null, textoCurso: e.target.value.toString() });
 
-        // Luego, hago la consulta
-        return fetch(URLBase + 'curso/consulta/porNombre/' + e.target.value)
-            .then(response => {
+        this.props.consultaCursosPorNombre(e.target.value);
 
-                if (response.ok) {
-
-                    return response;
-
-                }
-
-                else {
-
-                    var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
-                    error.response = response;
-                    throw error;
-
-                }
-
-
-            }, error => {
-
-                var mensErr = new Error(error.message);
-                throw mensErr;
-
-            })
-            .then(response => response.json())
-            .then(res => {
-                this.setState({ resultados: res, indiceBusqueda: indice });
-
-            })
-            .catch(error => {
-                console.log("Error : " + error.message)
-            })
+        this.setState({indiceBusqueda:indice})
     }
 
     render() {
@@ -133,9 +102,11 @@ class Preferencias extends Component {
                                         null
                                         :
                                         i == this.state.indiceBusqueda ?
-                                            <Sugerencias resultados={this.state.resultados}
+                                            <Sugerencias resultados={this.props.resultadosCursos}
+                                            cargandoResultados={this.props.cargandoResultadosCursos}
+                                            errorResultados={this.props.errorResultadosCursos}
                                                 modificarPreferencia={
-                                                    (indice, preferencia) => {
+                                                    (preferencia) => {
 
                                                         // Antes de llamar al padre, hago una modificación en el
                                                         // atributo id para que sea idCurso
@@ -144,7 +115,7 @@ class Preferencias extends Component {
                                                         prefAux.idCurso = preferencia.id;
                                                         prefAux.textoCurso = preferencia.texto;
 
-                                                        this.props.modificarPreferencia(indice,prefAux);
+                                                        this.props.modificarPreferencia(i,prefAux);
                                                     }
                                                 } indice={i} />
                                             :

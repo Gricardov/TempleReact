@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormGroup, Label, Col, Row, Card, CardBody, Button, Input } from 'reactstrap';
 import { Control, LocalForm, Errors, actions } from 'react-redux-form';
 import { Formik, Form, Field } from 'formik';
-import { consultaNiveles, consultaModalidades } from '../../../redux/CreadorAcciones';
+import { consultaNiveles, consultaModalidades,consultaCursosPorNombre } from '../../../redux/CreadorAcciones';
 import { connect } from 'react-redux';
 
 import Botonera from '../BotoneraRegistro';
@@ -12,7 +12,8 @@ const mapStateToProps = (state) => {
 
     return {
         niveles: state.niveles,
-        modalidades: state.modalidades
+        modalidades: state.modalidades,
+        cursos: state.cursos
     }
 
 }
@@ -20,7 +21,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
 
     consultaNiveles: () => dispatch(consultaNiveles()),
-    consultaModalidades: () => dispatch(consultaModalidades())
+    consultaModalidades: () => dispatch(consultaModalidades()),
+    consultaCursosPorNombre: (nomCur) => dispatch(consultaCursosPorNombre(nomCur))
 })
 
 
@@ -116,7 +118,11 @@ class Paso2 extends Component {
                             <Form>
 
                                 <Preferencias preferencias={this.state.preferencias} modificarPreferencia={this.modificarPreferencia}
-                                    eliminarPreferencia={this.eliminarPreferencia} niveles={this.props.niveles.niveles} modalidades={this.props.modalidades}/>
+                                    eliminarPreferencia={this.eliminarPreferencia} niveles={this.props.niveles.niveles} modalidades={this.props.modalidades}
+                                    consultaCursosPorNombre={this.props.consultaCursosPorNombre}
+                                    resultadosCursos={this.props.cursos.cursos} 
+                                    cargandoResultadosCursos={this.props.cursos.estaCargando}
+                                    errorResultadosCursos={this.props.cursos.mensError}/>
 
                                 <FormGroup row>
                                     <Col xs={12}>

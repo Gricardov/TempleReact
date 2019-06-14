@@ -10,6 +10,8 @@ import {Usuario} from './reductorUsuario';
 import {Niveles} from './reductorNiveles';
 import {Modalidades} from './reductorModalidades';
 import {Registro} from './reductorRegistro';
+import {Cursos} from './reductorCursos';
+import {ProfesoresBusqueda} from './reductorBusquedaProfesor';
 
 export const ReduxStore = () => {
 
@@ -21,6 +23,8 @@ export const ReduxStore = () => {
                 niveles: Niveles,
                 modalidades: Modalidades,
                 registro: Registro,
+                cursos: Cursos,
+                profesoresBusqueda:ProfesoresBusqueda,           
                 ...createForms({
                     formContacto: InicioContacto
                 })

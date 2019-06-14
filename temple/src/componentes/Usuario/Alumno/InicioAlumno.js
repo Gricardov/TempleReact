@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Col, Row } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { cerrarSesion } from '../../../redux/CreadorAcciones';
+import { cerrarSesion, consultaCursosPorNombre, consultaProfesoresPorIdCurso, consultaProfesoresPorNombreCurso } from '../../../redux/CreadorAcciones';
 import { Input } from 'reactstrap';
 import { FadeTransform } from 'react-animation-components';
 import Carrusel from '../../Utilidades/CarruselTarjetas';
@@ -14,15 +14,19 @@ import * as RUTAS from '../../../compartido/rutas';
 const mapStateToProps = (state) => {
 
     return {
-
-        sesion: state.sesion
+        sesion: state.sesion,
+        cursos: state.cursos,
+        profesoresBusqueda: state.profesoresBusqueda
     }
 
 }
 
 const mapDispatchToProps = (dispatch) => ({
 
-    cerrarSesion: () => dispatch(cerrarSesion())
+    cerrarSesion: () => dispatch(cerrarSesion()),
+    consultaCursosPorNombre: (nomCur) => dispatch(consultaCursosPorNombre(nomCur)),
+    consultaProfesoresPorIdCurso: (idCur, idNiv) => dispatch(consultaProfesoresPorIdCurso(idCur, idNiv)),
+    consultaProfesoresPorNombreCurso: (nomCur, idNiv) => dispatch(consultaProfesoresPorNombreCurso(nomCur, idNiv))
 })
 
 class InicioAlumno extends Component {
@@ -31,7 +35,6 @@ class InicioAlumno extends Component {
         this.state = {
             tipoVista: 1,
             consulta: '',
-            resultados: [],
             cursoSeleccionado: null
         };
 
@@ -51,46 +54,23 @@ class InicioAlumno extends Component {
             }
 
         }
-
-
         // Actualizo la consulta
         this.setState({
             consulta: evento.target.value.toString()
+        }, () => {
+
+            // Obtengo las sugerencias de cursos
+            this.props.consultaCursosPorNombre(this.state.consulta);
+
+            // Después, busco por id o por nombre de curso
+            if (cursoSeleccionado) {
+                this.props.consultaProfesoresPorIdCurso(this.state.cursoSeleccionado.ID_CUR, 1);
+            } else {
+                this.props.consultaProfesoresPorNombreCurso(this.state.consulta);
+
+            }
+
         })
-
-        // Luego, hago la consulta
-        return fetch(URLBase + 'curso/consulta/porNombre/' + evento.target.value)
-            .then(response => {
-
-                if (response.ok) {
-
-                    return response;
-
-                }
-
-                else {
-
-                    var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
-                    error.response = response;
-                    throw error;
-
-                }
-
-
-            }, error => {
-
-                var mensErr = new Error(error.message);
-                throw mensErr;
-
-            })
-            .then(response => response.json())
-            .then(res => {
-                this.setState({ resultados: res })
-
-            })
-            .catch(error => {
-                console.log("Error : " + error.message)
-            })
     }
 
     render() {
@@ -121,10 +101,10 @@ class InicioAlumno extends Component {
                                 ?
                                 null
                                 :
-                                <Sugerencias resultados={this.state.resultados}
-                                    modificarPreferencia={(i, curso) => {
-                                        this.setState({ cursoSeleccionado: curso, consulta: curso.texto})
-                                    }} indice={-1} />
+                                <Sugerencias resultados={this.props.cursos.cursos}
+                                    modificarPreferencia={(curso) => {
+                                        this.setState({ cursoSeleccionado: curso, consulta: curso.texto })
+                                    }} />
                         }
 
                     </Col>
@@ -154,7 +134,10 @@ class InicioAlumno extends Component {
                     </Col>
                 </Row>
 
-                <Cuadrícula columnas={4} tarjetas={[1,2,3,4,5,6,7,8,9]}/>
+                <Cuadrícula columnas={4}
+                    resultados={this.props.profesoresBusqueda.profesores}
+                    cargandoResultados={this.props.profesoresBusqueda.estaCargando}
+                    errorResultados={this.props.profesoresBusqueda.mensError} />
 
                 <Row className="mb-4">
                     <Col xs={12}>

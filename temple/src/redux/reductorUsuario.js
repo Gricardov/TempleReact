@@ -2,7 +2,7 @@ import * as Acciones from './Acciones';
 
 export const Usuario = (state={
 
-    estaCargando:true,
+    estaCargando:false,
     mensError:null,
     usuario:{}
 
