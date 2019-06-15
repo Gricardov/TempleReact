@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Alert } from 'reactstrap';
 import Slider from "react-slick";
 import TarjetaPerfil from './TarjetaPerfil';
+import { Fade } from 'react-animation-components';
 
 require('../../../node_modules/slick-carousel/slick/slick.css');
 require('../../../node_modules/slick-carousel/slick/slick-theme.css');
@@ -17,14 +18,14 @@ class Cuadricula extends Component {
 
     render() {
         const columnas = this.props.columnas;
-
         const tarjetas = this.props.resultados.map((e, i) => {
-
             // Divido 12 entre el número de columnas indicadas para que bootstrap pueda mostrarlo en cuadrícula
             let cociente = Math.floor(12 / columnas);
             return (
                 <Col key={i} xs={cociente}>
-                    <TarjetaPerfil imgPerfil={e.imgPer} imgPortada={e.imgPor} />
+                    <Fade in>
+                        <TarjetaPerfil datos={e} />
+                    </Fade>
                 </Col>
 
             )
@@ -33,7 +34,23 @@ class Cuadricula extends Component {
 
         return (
             <Row className="mb-4">
-                {tarjetas}
+                <Col xs={12}>
+                    <Fade in><h4 className="text-muted">Resultados de búsqueda para <b>"{this.props.consulta}":</b></h4></Fade>
+                </Col>
+
+                {this.props.resultados.length <= 0
+                    ?
+                    <Col xs={12}>
+                        <Fade in><Alert color="warning">No se encontraron coincidencias :(</Alert></Fade>
+                    </Col>
+                    :
+                    null
+                }
+                <Col xs={12}>
+                    <Row>
+                        {tarjetas}
+                    </Row>
+                </Col>
             </Row>
         );
     }

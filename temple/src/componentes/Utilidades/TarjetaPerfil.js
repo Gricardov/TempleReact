@@ -16,37 +16,37 @@ class TarjetaPerfil extends Component {
             <Link className="enlace-pie" to={RUTAS.PERFIL_PROFESOR_ALUMNO.ruta}>
                 <div className="tarjeta-perfil text-center">
                     <div className="contenedor-img-portada">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/templereact.appspot.com/o/IMG_20181128_134718.jpg?alt=media&token=cc498d4e-b10f-44ea-a0d6-cd59407fc62e"
+                        <img src={this.props.datos.imgPor}
                             className="img img-responsive" />
                     </div>
                     <div className="contenedor-img-perfil">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/templereact.appspot.com/o/mila.jpg?alt=media&token=f8d41e8a-7cdc-4503-9abd-eb675671a84c"
+                        <img src={this.props.datos.imgPer}
                             className="img img-responsive" />
                     </div>
                     <div className="contenido-perfil">
                         <div className="nombre-perfil">
-                            Mila Luna
+                            {this.props.datos.nomUsu} {this.props.datos.apaUsu}
                     </div>
                         <div className="titulo-perfil">
-                            @Cora
+                            @{this.props.datos.logUsu}
                     </div>
                         <div className="descripcion-perfil">
-                            Especialista en dejar corazones rotos y nunca volver a hablarte.
+                            {this.props.datos.especialidad}
                 </div>
                         <Row>
                             <Col xs={4}>
                                 <div className="resumen-perfil">
-                                    <p>Ternura</p><h5>1300</h5>
+                                    <p>Experiencia</p><h5>{this.props.datos.experiencia}</h5>
                                 </div>
                             </Col>
                             <Col xs={4}>
                                 <div className="resumen-perfil">
-                                    <p>Belleza</p><h5>250</h5>
+                                    <p>Prestigio</p><h5>{this.props.datos.prestigio}</h5>
                                 </div>
                             </Col>
                             <Col xs={4}>
                                 <div className="resumen-perfil">
-                                    <p>Seguidores</p><h5>168</h5>
+                                    <p>Seguidores</p><h5>{this.props.datos.seguidores}</h5>
                                 </div>
                             </Col>
                         </Row>

@@ -52,7 +52,7 @@ class Carrusel extends Component {
             ]
         };
 
-        return (
+        /*return (
 
             <Slider {...settings}>
                     <TarjetaPerfil />
@@ -75,7 +75,7 @@ class Carrusel extends Component {
                     <TarjetaPerfil />
 
             </Slider>
-        );
+        );*/ return (null);
     }
 
 }

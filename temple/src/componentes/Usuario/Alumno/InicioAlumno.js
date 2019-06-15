@@ -44,29 +44,32 @@ class InicioAlumno extends Component {
 
     manejarCambio(evento) {
 
-        let cursoSeleccionado = this.state.cursoSeleccionado;
+        let consulta = evento.target.value.toString().trimLeft();
 
-        if (cursoSeleccionado) {
-            if (evento.target.value.toString() !== cursoSeleccionado.NOM_CUR) {
+        // Si hay ya un curso seleccionado, que verifique si la consulta es igual o difiere
+        if (this.state.cursoSeleccionado) {
+            if (consulta !== this.state.cursoSeleccionado.NOM_CUR) {
                 this.setState({
                     cursoSeleccionado: null
                 })
             }
 
         }
-        // Actualizo la consulta
-        this.setState({
-            consulta: evento.target.value.toString()
-        }, () => {
 
+        // Pase lo que pase, actualizo la consulta
+        this.setState({
+            consulta: consulta
+        }, () => {
+            // La profesora más guapa, inteligente y admirable del instituto
+            // A professora mais velha, inteligente e admiravle do instituto <3
             // Obtengo las sugerencias de cursos
             this.props.consultaCursosPorNombre(this.state.consulta);
 
             // Después, busco por id o por nombre de curso
-            if (cursoSeleccionado) {
+            if (this.state.cursoSeleccionado) {
                 this.props.consultaProfesoresPorIdCurso(this.state.cursoSeleccionado.ID_CUR, 1);
             } else {
-                this.props.consultaProfesoresPorNombreCurso(this.state.consulta);
+                this.props.consultaProfesoresPorNombreCurso(this.state.consulta, 1);
 
             }
 
@@ -74,6 +77,18 @@ class InicioAlumno extends Component {
     }
 
     render() {
+
+        const preferencias = this.props.sesion.usuario.preferencias.map((e, i) => {
+            return (
+                <Row className="mb-2">
+                    <Col xs={12}>
+                        <MensajeAnimado texto={"Curso: " + e.nomCur + " Nivel: " + e.nomNiv} />
+                    </Col>
+
+                </Row>
+            )
+        })
+
         return (
             <div className="container debajo-barra bloque-contenedor">
 
@@ -128,46 +143,18 @@ class InicioAlumno extends Component {
                     </Col>
                 </Row>
 
-                <Row className="mb-4">
-                    <Col xs={12}>
-                        <MensajeAnimado texto={'Resultado búsqueda: '} />
-                    </Col>
-                </Row>
-
-                <Cuadrícula columnas={4}
+               <Cuadrícula columnas={4}
                     resultados={this.props.profesoresBusqueda.profesores}
                     cargandoResultados={this.props.profesoresBusqueda.estaCargando}
-                    errorResultados={this.props.profesoresBusqueda.mensError} />
-
-                <Row className="mb-4">
+                    errorResultados={this.props.profesoresBusqueda.mensError}
+                    consulta={this.state.consulta} />
+                
+                <Row className="mb-2">
                     <Col xs={12}>
-                        <MensajeAnimado texto={'Recomendados para ti - Nivel secundaria: '} />
+                        <h4 className="text-muted">Recomendados para ti: </h4>
                     </Col>
                 </Row>
-
-                <Row>
-                    <Col xs={12}>
-                        <h4 className="text-muted">Biología</h4>
-                    </Col>
-                </Row>
-
-                <Row>
-                    <Col xs={12}>
-                        <Carrusel />
-                    </Col>
-                </Row>
-
-                <Row>
-                    <Col xs={12}>
-                        <h4 className="text-muted">Matemáticas</h4>
-                    </Col>
-                </Row>
-
-                <Row>
-                    <Col xs={12}>
-                        <Carrusel />
-                    </Col>
-                </Row>
+                {preferencias}
 
             </div>
         )
