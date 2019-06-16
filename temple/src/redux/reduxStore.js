@@ -12,6 +12,7 @@ import {Modalidades} from './reductorModalidades';
 import {Registro} from './reductorRegistro';
 import {Cursos} from './reductorCursos';
 import {ProfesoresBusqueda} from './reductorBusquedaProfesor';
+import {PerfilProfesor} from './reductorPerfilProfesor';
 
 export const ReduxStore = () => {
 
@@ -24,7 +25,8 @@ export const ReduxStore = () => {
                 modalidades: Modalidades,
                 registro: Registro,
                 cursos: Cursos,
-                profesoresBusqueda:ProfesoresBusqueda,           
+                profesoresBusqueda:ProfesoresBusqueda,
+                PerfilProfesor: PerfilProfesor,          
                 ...createForms({
                     formContacto: InicioContacto
                 })
