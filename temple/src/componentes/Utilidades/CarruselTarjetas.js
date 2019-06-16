@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Slider from "react-slick";
 import TarjetaPerfil from './TarjetaPerfil';
+import { Alert } from 'reactstrap';
+import { Fade } from 'react-animation-components';
 
 require('../../../node_modules/slick-carousel/slick/slick.css');
 require('../../../node_modules/slick-carousel/slick/slick-theme.css');
@@ -11,8 +13,6 @@ class Carrusel extends Component {
         this.state = {
 
         };
-        //header='https://firebasestorage.googleapis.com/v0/b/templereact.appspot.com/o/IMG_20181128_134718.jpg?alt=media&token=cc498d4e-b10f-44ea-a0d6-cd59407fc62e'
-        //avatar='https://firebasestorage.googleapis.com/v0/b/templereact.appspot.com/o/mila.jpg?alt=media&token=f8d41e8a-7cdc-4503-9abd-eb675671a84c'
 
     }
 
@@ -21,7 +21,7 @@ class Carrusel extends Component {
             className: 'center',
             centerMode: false,
             infinite: false,
-            speed: 500,
+            speed: 200,
             slidesToShow: 4,
             slidesToScroll: 1,
             responsive: [
@@ -52,30 +52,24 @@ class Carrusel extends Component {
             ]
         };
 
-        /*return (
+        const tarjetas = this.props.resultados.map((e, i) => {
+            return (
+                <TarjetaPerfil datos={e} key={i} />
+            )
+        });
 
-            <Slider {...settings}>
-                    <TarjetaPerfil />
+        return (
 
-                    <TarjetaPerfil />
+            this.props.resultados.length>0
 
-               
-                    <TarjetaPerfil />
+                ?
+                <Slider {...settings}>
+                    {tarjetas}
 
-               
-                    <TarjetaPerfil />
-
-               
-                    <TarjetaPerfil />
-
-               
-                    <TarjetaPerfil />
-
-               
-                    <TarjetaPerfil />
-
-            </Slider>
-        );*/ return (null);
+                </Slider>
+                :
+                <Fade in><Alert color="warning">No hay profesores recomendados :(</Alert></Fade>
+        );
     }
 
 }

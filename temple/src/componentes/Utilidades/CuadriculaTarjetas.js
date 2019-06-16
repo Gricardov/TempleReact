@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Row, Col, Alert } from 'reactstrap';
-import Slider from "react-slick";
 import TarjetaPerfil from './TarjetaPerfil';
 import { Fade } from 'react-animation-components';
 
@@ -34,18 +33,29 @@ class Cuadricula extends Component {
 
         return (
             <Row className="mb-4">
-                <Col xs={12}>
-                    <Fade in><h4 className="text-muted">Resultados de búsqueda para <b>"{this.props.consulta}":</b></h4></Fade>
-                </Col>
+                {
+                    this.props.consulta
+                        ?
+                        <Col xs={12}>
+                            <Fade in><h4 className="text-muted">Resultados de búsqueda para <b>"{this.props.consulta}":</b></h4></Fade>
+                        </Col>
+                        :
+                        null
+                }
 
                 {this.props.resultados.length <= 0
                     ?
-                    <Col xs={12}>
-                        <Fade in><Alert color="warning">No se encontraron coincidencias :(</Alert></Fade>
-                    </Col>
-                    :
-                    null
+                    this.props.consulta
+                        ?
+                        <Col xs={12}>
+                            <Fade in><Alert color="warning">No se encontraron coincidencias :(</Alert></Fade>
+                        </Col>
+
+                        :
+                        null
+                    : null
                 }
+
                 <Col xs={12}>
                     <Row>
                         {tarjetas}

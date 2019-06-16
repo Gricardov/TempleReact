@@ -79,10 +79,16 @@ class InicioAlumno extends Component {
     render() {
 
         const preferencias = this.props.sesion.usuario.preferencias.map((e, i) => {
+
+
             return (
-                <Row className="mb-2">
+                <Row className="mb-3" key={i}>
                     <Col xs={12}>
-                        <MensajeAnimado texto={"Curso: " + e.nomCur + " Nivel: " + e.nomNiv} />
+                        <h5 className="text-muted">Curso <span className="badge badge-pill badge-danger">{e.nomCur}</span>{' '}
+                            Nivel <span className="badge badge-pill badge-info">{e.nomNiv}</span>{' '}</h5>
+                    </Col>
+                    <Col xs={12}>
+                        <Carrusel resultados={e.profesores}/>
                     </Col>
 
                 </Row>
@@ -109,14 +115,14 @@ class InicioAlumno extends Component {
                             value={this.state.consulta}
                             onChange={(e) => this.manejarCambio(e)}
                         />
-
-
                         {
                             this.state.cursoSeleccionado
                                 ?
                                 null
                                 :
                                 <Sugerencias resultados={this.props.cursos.cursos}
+                                    cargandoResultados={this.props.cursos.estaCargando}
+                                    errorResultados={this.props.errorResultados}
                                     modificarPreferencia={(curso) => {
                                         this.setState({ cursoSeleccionado: curso, consulta: curso.texto })
                                     }} />
@@ -125,7 +131,7 @@ class InicioAlumno extends Component {
                     </Col>
                 </Row>
 
-                <Row className="mb-3">
+                <Row>
                     <Col xs={6}>
                         <a href="#">Búsqueda avanzada</a>
                     </Col>
@@ -143,12 +149,12 @@ class InicioAlumno extends Component {
                     </Col>
                 </Row>
 
-               <Cuadrícula columnas={4}
+                <Cuadrícula columnas={4}
                     resultados={this.props.profesoresBusqueda.profesores}
                     cargandoResultados={this.props.profesoresBusqueda.estaCargando}
                     errorResultados={this.props.profesoresBusqueda.mensError}
                     consulta={this.state.consulta} />
-                
+
                 <Row className="mb-2">
                     <Col xs={12}>
                         <h4 className="text-muted">Recomendados para ti: </h4>
