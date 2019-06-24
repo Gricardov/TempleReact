@@ -5,30 +5,54 @@ class Cursos extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            idContenidoVisible: 1
+            idContenidoVisible: 1,
+            idModalidadSeleccionada: -1
         };
         this.mostrarContenido = this.mostrarContenido.bind(this);
     }
 
-    mostrarContenido(id) {
-        this.setState({ idContenidoVisible: id });
+    mostrarContenido(idCur) {
+        this.setState({ idContenidoVisible: idCur });
     }
 
     render() {
-
+        // Esto es el objeto preferencias, aquí llamado cursos
         const cursos = this.props.cursos.map((curso) => {
 
             return (
-                <button className="enlace-pestana-curso" style={curso.id == this.state.idContenidoVisible ?
+                <button className="enlace-pestana-curso" style={curso.idCur == this.state.idContenidoVisible ?
                     { backgroundColor: "rgb(167, 167, 167)" } : {}}
-                    key={curso.id} onClick={() => { this.mostrarContenido(curso.id) }}>
-                    {curso.nombre}
+                    key={curso.idCur} onClick={() => { this.mostrarContenido(curso.idCur) }}>
+                    {curso.nomCur}
                 </button>
             )
         });
 
         // Muestra el contenido seleccionado
-        const cursoSeleccionado = this.props.cursos.filter((curso) => curso.id == this.state.idContenidoVisible)[0];
+        const cursoSeleccionado = this.props.cursos.filter((curso) => curso.idCur == this.state.idContenidoVisible)[0];
+
+        // Obtengo los niveles
+        const niveles = cursoSeleccionado.niveles.map((e, i) => {
+            return (
+                <li>{e.nomNiv}</li>
+
+            )
+        })
+
+        // Obtengo las modalidades
+        const modalidades = cursoSeleccionado.modalidades.map((e, i) => {
+            return (
+                <option value={e.idMod}>{e.nomMod}</option>
+
+            )
+        })
+
+        // Obtengo la modalidad seleccionada para obtener el precio por hora
+        const modalidadSeleccionada = cursoSeleccionado.modalidades.filter((modalidad) => modalidad.idMod == this.state.idModalidadSeleccionada)[0]
+        let precioHora = "Seleccione una modalidad"
+        if (modalidadSeleccionada) {
+            precioHora = "S/. "+modalidadSeleccionada.precioHora;
+        }
 
         return (
             <div id="mainArea" className="quickFade">
@@ -40,7 +64,7 @@ class Cursos extends Component {
                     <Col xs={8} className="contenido-pestana-curso">
                         <Row className="mt-3">
                             <Col xs={12} className="sectionTitle">
-                                <h3 className="text-center">{cursoSeleccionado.nombre}</h3>
+                                <h3 className="text-center">{cursoSeleccionado.nomCur}</h3>
                             </Col>
                         </Row>
                         <Row className="mt-4">
@@ -49,7 +73,7 @@ class Cursos extends Component {
                             </Col>
 
                             <Col xs={7} className="sectionContent">
-                                <p>4</p>
+                                <p>{cursoSeleccionado.horExp}</p>
                             </Col>
                         </Row>
                         <Row className="mt-4">
@@ -58,18 +82,17 @@ class Cursos extends Component {
                             </Col>
 
                             <Col xs={7} className="sectionContent">
-                                <p>{cursoSeleccionado.descripcion}</p>
+                                <p>{cursoSeleccionado.desCur}</p>
                             </Col>
                         </Row>
                         <Row className="mt-4">
                             <Col xs={5} className="sectionTitle">
-                                <h1 className="titulo-curso">Nivel</h1>
+                                <h1 className="titulo-curso">Niveles</h1>
                             </Col>
 
                             <Col xs={7} className="sectionContent">
                                 <ul>
-                                    <li>Secundaria</li>
-                                    <li>Universtario</li>
+                                    {niveles}
                                 </ul>
                             </Col>
                         </Row>
@@ -80,11 +103,7 @@ class Cursos extends Component {
                             </Col>
 
                             <Col xs={7} className="sectionContent">
-                                <ul>
-                                    <li>Teoría de exponentes</li>
-                                    <li>Derivadas</li>
-                                    <li>Integrales</li>
-                                </ul>
+                                <p>{cursoSeleccionado.silabo}</p>
                             </Col>
                         </Row>
 
@@ -94,11 +113,9 @@ class Cursos extends Component {
                             </Col>
 
                             <Col xs={7} className="sectionContent">
-                                <Input type="select">
-                                    <option>Personalizado (mi lugar)</option>
-                                    <option>Personalizado (local del profesor)</option>
-                                    <option>Grupal (mi lugar)</option>
-                                    <option>Grupal (local del profesor)</option>
+                                <Input type="select"
+                                    onChange={(e) => { this.setState({ idModalidadSeleccionada: e.target.value }) }}>
+                                    {modalidades}
                                 </Input>
                             </Col>
                         </Row>
@@ -109,7 +126,7 @@ class Cursos extends Component {
                             </Col>
 
                             <Col xs={7} className="sectionContent">
-                                <p>S/. 12.50</p>
+                                <p>{precioHora}</p>
                             </Col>
                         </Row>
                     </Col>

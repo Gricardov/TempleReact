@@ -15,6 +15,7 @@ import PerfilProfesorAlumno from '../Usuario/Alumno/PerfilProfesorAlumno';
 import MiPerfil from '../Usuario/Alumno/MiPerfil';
 import Asistente from '../Utilidades/AsistenteComponente';
 import SwitchDeslizador from '../Utilidades/ComponenteSwitchDeslizador';
+import CubiertaMensaje from '../Utilidades/CubiertaMensaje';
 import * as RUTAS from '../../compartido/rutas';
 
 import { Route, Redirect, withRouter } from 'react-router-dom';
@@ -28,13 +29,14 @@ const mapStateToProps = (state) => {
 
     return {
         sesion: state.sesion,
-        lideres: state.lideres
+        lideres: state.lideres,
+        perfilProfesor: state.perfilProfesor
     }
 
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    iniciarSesion: (usuario,contrasena) => dispatch(iniciarSesion(usuario,contrasena)),
+    iniciarSesion: (usuario, contrasena) => dispatch(iniciarSesion(usuario, contrasena)),
     obtenerLideres: () => dispatch(obtenerLideres()),
     reiniciarFormContacto: () => dispatch(actions.reset('formContacto'))
 })
@@ -48,55 +50,60 @@ class Principal extends Component {
     }
 
     render() {
-       
+
         return (
             <>
 
                 {
                     this.props.sesion.usuario
-                    ?
-                    <>
-                    <BarraUsuario usuario={this.props.sesion.usuario} />                              
-                    <SwitchDeslizador>
-                    <Route exact path="/" component={InicioAlumno} />
-                    <Route path={RUTAS.INICIO_ALUMNO.ruta} component={InicioAlumno} />
-                    <Route path={RUTAS.PERFIL_PROFESOR_ALUMNO.ruta} component={PerfilProfesorAlumno} />
-                    <Route path={RUTAS.MI_PERFIL.ruta} component={()=>
-                        <MiPerfil usuario={this.props.sesion.usuario}/>} />
-                    </SwitchDeslizador>
-                    </>                
-                    :     
-                    <>
-                    <Barra />
-                    <SwitchDeslizador>  
-                    <Route exact path="/" component={Inicio} />
-                    {'// Cambiar ruta para pruebas'}
-                    <Route path={RUTAS.INICIO_BIENVENIDA.ruta} component={Inicio} />
-                    <Route path={RUTAS.DESCARGAR_BIENVENIDA.ruta} component={Descargar} />
-                    <Route path={RUTAS.INICIAR_SESION_BIENVENIDA.ruta} component={()=>
-                    <Login iniciarSesion={this.props.iniciarSesion} />
-                    } />
+                        ?
+                        <>
+                            <BarraUsuario usuario={this.props.sesion.usuario} />
+                            <SwitchDeslizador>
+                                <Route exact path="/" component={InicioAlumno} />
+                                <Route path={RUTAS.INICIO_ALUMNO.ruta} component={InicioAlumno} />
+                                <Route path={RUTAS.PERFIL_PROFESOR_ALUMNO.ruta} component={() =>
+                                    <PerfilProfesorAlumno perfil={this.props.perfilProfesor.perfil}
+                                        estaCargando={this.props.perfilProfesor.estaCargando}
+                                        mensError={this.props.perfilProfesor.mensError} />} />
+                                <Route path={RUTAS.MI_PERFIL.ruta} component={() =>
+                                    <MiPerfil usuario={this.props.sesion.usuario} />} />
+                            </SwitchDeslizador>
+                            <CubiertaMensaje mensError={this.props.perfilProfesor.mensError}
+                                estaCargando={this.props.perfilProfesor.estaCargando} mensaje="Cargando perfil..." />
+                        </>
+                        :
+                        <>
+                            <Barra />
+                            <SwitchDeslizador>
+                                <Route exact path="/" component={Inicio} />
+                                {'// Cambiar ruta para pruebas'}
+                                <Route path={RUTAS.INICIO_BIENVENIDA.ruta} component={Inicio} />
+                                <Route path={RUTAS.DESCARGAR_BIENVENIDA.ruta} component={Descargar} />
+                                <Route path={RUTAS.INICIAR_SESION_BIENVENIDA.ruta} component={() =>
+                                    <Login iniciarSesion={this.props.iniciarSesion} />
+                                } />
 
-                    <Route path={RUTAS.CONTACTO_BIENVENIDA.ruta} component={() =>
+                                <Route path={RUTAS.CONTACTO_BIENVENIDA.ruta} component={() =>
 
-                        <Contacto reiniciarForm={this.props.reiniciarFormContacto} />
+                                    <Contacto reiniciarForm={this.props.reiniciarFormContacto} />
 
-                    } />
-                    <Route path={RUTAS.SOBRE_NOSOTROS_BIENVENIDA.ruta} component={() =>
+                                } />
+                                <Route path={RUTAS.SOBRE_NOSOTROS_BIENVENIDA.ruta} component={() =>
 
-                        <SobreNosotros lideres={this.props.lideres.lideres}
-                            estaCargando={this.props.lideres.estaCargando}
-                            mensError={this.props.lideres.mensError} />} />
+                                    <SobreNosotros lideres={this.props.lideres.lideres}
+                                        estaCargando={this.props.lideres.estaCargando}
+                                        mensError={this.props.lideres.mensError} />} />
 
-                    <Route path={RUTAS.REGISTRO_PROFESOR_BIENVENIDA.ruta} component={RegistroProfesor} />
-                    <Route path={RUTAS.REGISTRO_ALUMNO_BIENVENIDA.ruta} component={RegistroAlumno} />
+                                <Route path={RUTAS.REGISTRO_PROFESOR_BIENVENIDA.ruta} component={RegistroProfesor} />
+                                <Route path={RUTAS.REGISTRO_ALUMNO_BIENVENIDA.ruta} component={RegistroAlumno} />
 
-                    <Redirect to={RUTAS.INICIO_BIENVENIDA.ruta} component={Inicio} />
-                    </SwitchDeslizador>
-                    <Asistente />                      
+                                <Redirect to={RUTAS.INICIO_BIENVENIDA.ruta} component={Inicio} />
+                            </SwitchDeslizador>
+                            <Asistente />
 
-                    </>
-                }  
+                        </>
+                }
 
                 <Pie />
 

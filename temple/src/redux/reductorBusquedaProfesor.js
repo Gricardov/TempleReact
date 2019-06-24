@@ -7,7 +7,6 @@ export const ProfesoresBusqueda = (state={
     profesores:[]
 
 }, action)=>{
-
     switch (action.type){
 
         case Acciones.PROFESORES_OBTENIDOS_BUSQUEDA:

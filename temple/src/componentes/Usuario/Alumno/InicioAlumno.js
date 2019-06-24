@@ -77,7 +77,7 @@ class InicioAlumno extends Component {
     }
 
     render() {
-
+        console.log(JSON.stringify(this.props.profesoresBusqueda))
         const preferencias = this.props.sesion.usuario.preferencias.map((e, i) => {
 
 

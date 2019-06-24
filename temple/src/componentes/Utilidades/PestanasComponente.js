@@ -46,15 +46,11 @@ class Pestana extends Component {
                     {
                         this.state.pestanaVisible == 1
                                 ?
-                                <Publicaciones />
+                                <Publicaciones publicaciones={this.props.publicaciones} perfil={this.props.perfil}/>
                                 :
                             this.state.pestanaVisible == 2
                                 ?
-                                    <Cursos cursos={[{id:'1',nombre:'Matemáticas',descripcion:'Curso 1'},
-                                    {id:'2',nombre:'Inglés',descripcion:'Curso 2'},
-                                    {id:'3',nombre:'Francés',descripcion:'Curso 3'},
-                                    {id:'4',nombre:'Alemán',descripcion:'Curso 4'},
-                                    {id:'5',nombre:'Español',descripcion:'Curso 5'}]}/>
+                                    <Cursos cursos={this.props.preferencias}/>
                                 :
                                 this.state.pestanaVisible == 3
                                     ?
@@ -63,7 +59,7 @@ class Pestana extends Component {
                                     </div>
                                     :
                                     <div>
-                                        <Ubicación posicion={{latitud:0,longitud:0}}/>
+                                        <Ubicación posicion={this.props.ubicacion}/>
                                     </div>
                     }
                 </div>

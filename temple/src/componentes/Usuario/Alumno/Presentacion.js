@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Col,Row} from 'reactstrap';
+import { Col, Row } from 'reactstrap';
 
 class Presentacion extends Component {
     constructor(props) {
@@ -13,37 +13,26 @@ class Presentacion extends Component {
         return (
             <div className="quickFade tarjeta-seccion">
                 <Row className="mb-4">
-                        <Col xs={12} className="sectionTitle">
+                    <Col xs={12} className="sectionTitle">
                         <h3 className="categories_tittle me_tittle">Sobre mí</h3>
-                        </Col>
+                    </Col>
 
-                        <Col xs={12} className="sectionContent">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dolor metus, interdum at scelerisque in, porta at lacus. Maecenas dapibus luctus cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim. Vestibulum bibendum mattis dignissim. Proin id sapien quis libero interdum porttitor.</p>
-                        </Col>
+                    <Col xs={12} className="sectionContent">
+                        <p>{this.props.sobreMi}</p>
+                    </Col>
                 </Row>
 
                 <Row className="mb-4">
                     <Col xs={12} className="sectionTitle">
-                    <h3 className="categories_tittle">Experiencia laboral</h3>
+                        <h3 className="categories_tittle">Experiencia laboral</h3>
                     </Col>
 
                     <Col xs={12} className="sectionContent">
-                        <article>
-                            <h2>Presidente en Mila S.A.</h2>
-                            <p className="subDetails">April 2011 - Present</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim. Vestibulum bibendum mattis dignissim. Proin id sapien quis libero interdum porttitor.</p>
-                        </article>
 
                         <article>
-                            <h2>Community Manager en Cora S.A.C.</h2>
-                            <p className="subDetails">Janruary 2007 - March 2011</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim. Vestibulum bibendum mattis dignissim. Proin id sapien quis libero interdum porttitor.</p>
-                        </article>
-
-                        <article>
-                            <h2>Job Title at Company</h2>
-                            <p className="subDetails">October 2004 - December 2006</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim. Vestibulum bibendum mattis dignissim. Proin id sapien quis libero interdum porttitor.</p>
+                            <h2>Ha trabajado</h2>
+                            <p className="subDetails">En periodo</p>
+                            <p>{this.props.expLab}</p>
                         </article>
                     </Col>
                 </Row>
@@ -51,42 +40,15 @@ class Presentacion extends Component {
 
                 <Row className="mb-4">
                     <Col xs={12} className="sectionTitle">
-                    <h3 className="categories_tittle">Habilidades clave</h3>
+                        <h3 className="categories_tittle">Habilidades clave</h3>
                     </Col>
 
                     <Col xs={12} className="sectionContent">
-                        <ul className="keySkills">
-                            <li>A Key Skill</li>
-                            <li>A Key Skill</li>
-                            <li>A Key Skill</li>
-                            <li>A Key Skill</li>
-                            <li>A Key Skill</li>
-                            <li>A Key Skill</li>
-                            <li>A Key Skill</li>
-                            <li>A Key Skill</li>
-                        </ul>
+                        <p>{this.props.habCla}</p>
                     </Col>
                 </Row>
 
-                <Row className="mb-4">
-                    <Col xs={12} className="sectionTitle">
-                    <h3 className="categories_tittle">Educación</h3>
-                    </Col>
 
-                    <Col xs={12} className="sectionContent">
-                        <article>
-                            <h2>Universidad</h2>
-                            <p className="subDetails">Qualification</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim.</p>
-                        </article>
-
-                        <article>
-                            <h2>Colegio</h2>
-                            <p className="subDetails">Qualification</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim.</p>
-                        </article>
-                    </Col>
-                </Row>
 
             </div>
         )

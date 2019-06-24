@@ -25,7 +25,7 @@ class ModalMensaje extends Component {
                     }
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={() => this.props.cerrarModal()}>Listo</Button>{' '}
+                   <Button color="primary" onClick={() => this.props.cerrarModal()}>Listo</Button>{' '}
                 </ModalFooter>
             </Modal>
         );

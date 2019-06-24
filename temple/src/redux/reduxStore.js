@@ -25,8 +25,8 @@ export const ReduxStore = () => {
                 modalidades: Modalidades,
                 registro: Registro,
                 cursos: Cursos,
-                profesoresBusqueda:ProfesoresBusqueda,
-                PerfilProfesor: PerfilProfesor,          
+                profesoresBusqueda: ProfesoresBusqueda,
+                perfilProfesor: PerfilProfesor,          
                 ...createForms({
                     formContacto: InicioContacto
                 })
