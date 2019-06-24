@@ -6,7 +6,6 @@ import Encabezado from './EncabezadoRegistro';
 import Botonera from '../BotoneraRegistro';
 import ModalMensaje from '../../Utilidades/ModalMensaje';
 import { FadeTransform } from 'react-animation-components';
-import { URLBase } from '../../../compartido/URLBase';
 import { registrarUsuario } from '../../../redux/CreadorAcciones';
 import { connect } from 'react-redux';
 import ModalCargandoMensaje from '../../Utilidades/ModalCargandoMensaje';
@@ -108,6 +107,7 @@ class FormRegistro extends Component {
                 modalAbierto: true
             }, () => {
                 this.props.registrarUsuario(this.state);
+                alert(JSON.stringify(this.state))
             })
         }
 
@@ -177,7 +177,8 @@ class FormRegistro extends Component {
                     <ModalCargandoMensaje
                         modalAbierto={this.state.modalAbierto}
                         estaCargando={this.props.registro.estaCargando}
-                        mensaje={this.props.registro.mensaje?this.props.registro.mensaje.mensaje:''}
+                        mensaje={this.props.registro.resultado ? this.props.registro.resultado.mensaje : ''}
+                        estado={this.props.registro.resultado ? this.props.registro.resultado.estado : 0}
                         cerrarModal={() => {
                             this.setState({
                                 modalAbierto: false

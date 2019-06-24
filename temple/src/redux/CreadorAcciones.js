@@ -161,7 +161,8 @@ export const iniciarSesion = (usuario, contrasena) => (dispatch) => {
 export const registrarUsuario = (usuario) => (dispatch) => {
 
     dispatch(registrandoUsuario());
-    fetch(URLBase + 'usuario/registro', {
+    // Se hace una validación para verificar si es alumno o profesor
+    fetch(URLBase + (usuario.pasos[0].rol == 1 ? "profesor/registro" : "alumno/registro"), {
 
         method: 'POST',
         body: JSON.stringify(usuario),
@@ -194,8 +195,8 @@ export const registrarUsuario = (usuario) => (dispatch) => {
 
             })
         .then(response => response.json())
-        .then(mensaje => {
-            dispatch(usuarioRegistrado(mensaje));
+        .then(resultado => {
+            dispatch(usuarioRegistrado(resultado));
 
         })
         .catch(error => {
@@ -205,6 +206,8 @@ export const registrarUsuario = (usuario) => (dispatch) => {
         })
 
 }
+
+
 
 export const cerrarSesion = () => (dispatch) => {
 
@@ -482,9 +485,9 @@ export const usuarioNoRegistrado = (error) => ({
     payload: error
 })
 
-export const usuarioRegistrado = (mensaje) => ({
+export const usuarioRegistrado = (resultado) => ({
     type: Acciones.REGISTRO_USUARIO_EXITOSO,
-    payload: mensaje
+    payload: resultado
 })
 
 // Niveles

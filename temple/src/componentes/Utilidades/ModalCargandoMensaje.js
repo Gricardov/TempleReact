@@ -21,7 +21,17 @@ class ModalMensaje extends Component {
                         ?
                             <CargandoComponente mensaje="Cargando..."/>
                         :
-                            <p>{this.props.mensaje}</p>
+                            <p>{this.props.mensaje} {
+                                this.props.estado==1
+                                ?
+                                <i className="fa fa-check-circle"></i>
+                                :
+                                this.props.estado==-1
+                                ?
+                                <i className="fa fa-exclamation-triangle"></i>
+                                :            
+                                null
+                            }</p>
                     }
                 </ModalBody>
                 <ModalFooter>
