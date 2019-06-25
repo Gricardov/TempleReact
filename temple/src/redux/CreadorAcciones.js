@@ -406,9 +406,9 @@ export const consultaProfesoresPorNombreCurso = (nomCur, idNiv) => (dispatch) =>
         })
 }
 
-// Perfil profesor
-export const obtenerPerfilProfesor = (codUsu) => (dispatch) => {
-    dispatch(cargandoPerfilProfesor());
+// Perfil
+export const obtenerPerfil = (codUsu, tipo) => (dispatch) => {
+    dispatch(cargandoPerfil());
 
     const datos = {
         datos: {
@@ -416,7 +416,7 @@ export const obtenerPerfilProfesor = (codUsu) => (dispatch) => {
         }
     }
 
-    fetch(URLBase + 'usuario/profesor/consulta/perfil', {
+    fetch(URLBase + (tipo==1?'usuario/profesor/consulta/perfil':'usuario/alumno/consulta/perfil'), {
 
         method: 'POST',
         body: JSON.stringify(datos),
@@ -450,14 +450,16 @@ export const obtenerPerfilProfesor = (codUsu) => (dispatch) => {
         })
         .then(response => response.json())
         .then(perfil => {
-            dispatch(perfilProfesorObtenido(perfil));
+            dispatch(perfilObtenido(perfil));
 
         })
         .catch(error => {
             console.log("Error : " + error.message);
-            dispatch(errorPerfilProfesor(error.message));
+            dispatch(errorPerfil(error.message));
         })
 }
+
+
 
 // Líderes
 export const obtenerLideres = () => (dispatch) => {
@@ -571,18 +573,18 @@ export const errorProfesoresBusqueda = (mensErr) => ({
 
 })
 
-// Perfil profesor
-export const cargandoPerfilProfesor = () => ({
-    type: Acciones.CARGANDO_PERFIL_PROFESOR
+// Perfil
+export const cargandoPerfil = () => ({
+    type: Acciones.CARGANDO_PERFIL
 })
 
-export const perfilProfesorObtenido = (perfil) => ({
-    type: Acciones.PERFIL_PROFESOR_OBTENIDO,
+export const perfilObtenido = (perfil) => ({
+    type: Acciones.PERFIL_OBTENIDO,
     payload: perfil
 })
 
-export const errorPerfilProfesor = (mensErr) => ({
-    type: Acciones.ERROR_PERFIL_PROFESOR,
+export const errorPerfil = (mensErr) => ({
+    type: Acciones.ERROR_PERFIL,
     payload: mensErr
 
 })

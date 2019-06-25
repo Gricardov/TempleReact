@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Pestanas from '../../Utilidades/PestanasComponente';
+import Pestanas from '../../Utilidades/PestanasPerfilComponente';
 import ModalEntradaMensaje from '../../Utilidades/ModalEntradaMensaje';
 import Presentacion from '../Alumno/Presentacion';
 import Resenas from '../Alumno/Resenas';
@@ -16,7 +16,6 @@ class PerfilProfesorAlumno extends Component {
     }
 
     render() {
-
         const perfil=this.props.perfil;
 
         return (

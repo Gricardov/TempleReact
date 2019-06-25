@@ -30,7 +30,7 @@ const mapStateToProps = (state) => {
     return {
         sesion: state.sesion,
         lideres: state.lideres,
-        perfilProfesor: state.perfilProfesor
+        perfil: state.perfil
     }
 
 }
@@ -62,15 +62,16 @@ class Principal extends Component {
                             <SwitchDeslizador>
                                 <Route exact path="/" component={InicioAlumno} />
                                 <Route path={RUTAS.INICIO_ALUMNO.ruta} component={InicioAlumno} />
-                                <Route path={RUTAS.PERFIL_PROFESOR_ALUMNO.ruta} component={() =>
-                                    <PerfilProfesorAlumno perfil={this.props.perfilProfesor.perfil}
-                                        estaCargando={this.props.perfilProfesor.estaCargando}
-                                        mensError={this.props.perfilProfesor.mensError} />} />
                                 <Route path={RUTAS.MI_PERFIL.ruta} component={() =>
                                     <MiPerfil usuario={this.props.sesion.usuario} />} />
+                                <Route path={RUTAS.PERFIL_PROFESOR_ALUMNO.ruta} component={() =>
+                                    <PerfilProfesorAlumno perfil={this.props.perfil.perfil}
+                                        estaCargando={this.props.perfil.estaCargando}
+                                        mensError={this.props.perfil.mensError} />} />
+
                             </SwitchDeslizador>
-                            <CubiertaMensaje mensError={this.props.perfilProfesor.mensError}
-                                estaCargando={this.props.perfilProfesor.estaCargando} mensaje="Cargando perfil..." />
+                            <CubiertaMensaje mensError={this.props.perfil.mensError}
+                                estaCargando={this.props.perfil.estaCargando} mensaje="Cargando perfil..." />
                         </>
                         :
                         <>

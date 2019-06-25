@@ -107,7 +107,6 @@ class FormRegistro extends Component {
                 modalAbierto: true
             }, () => {
                 this.props.registrarUsuario(this.state);
-                alert(JSON.stringify(this.state))
             })
         }
 

@@ -4,8 +4,24 @@ import {
     DropdownMenu, DropdownItem
 } from 'reactstrap';
 import { NavLink, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { obtenerPerfil } from '../../redux/CreadorAcciones';
 
 import * as RUTAS from '../../compartido/rutas';
+
+const mapStateToProps = (state) => {
+
+    return {
+
+    }
+
+}
+
+const mapDispatchToProps = (dispatch) => ({
+
+    obtenerPerfil: (codUsu, tipoUsu) => dispatch(obtenerPerfil(codUsu,tipoUsu))
+})
 
 class BarraUsuario extends Component {
 
@@ -50,8 +66,8 @@ class BarraUsuario extends Component {
 
                                 <NavItem className="ml-2">
 
-                                    <NavLink className="nav-link" to={RUTAS.MI_PERFIL.ruta}>
-                                        <img className='img-barra-usuario mr-2' alt="img-barra-usuario" src={this.props.usuario.IMG_PER}/>
+                                    <NavLink className="nav-link" to={RUTAS.MI_PERFIL.ruta} onClick={() => { this.props.obtenerPerfil(this.props.usuario.COD_USU,this.props.usuario.ID_ROL) }}>
+                                        <img className='img-barra-usuario mr-2' alt="img-barra-usuario" src={this.props.usuario.IMG_PER} />
                                         {' '}
                                         {this.props.usuario.NOM_USU}
                                         {' '}
@@ -61,8 +77,8 @@ class BarraUsuario extends Component {
 
                                 <UncontrolledDropdown nav inNavbar>
                                     <DropdownToggle nav>
-                                        <span className="fa fa-bell-o"/>
-                </DropdownToggle>
+                                        <span className="fa fa-bell-o" />
+                                    </DropdownToggle>
                                     <DropdownMenu right>
                                         <DropdownItem>
                                             Notificación 1
@@ -79,9 +95,9 @@ class BarraUsuario extends Component {
 
                                 <UncontrolledDropdown nav inNavbar>
                                     <DropdownToggle nav>
-                                    <span className="fa fa-envelope-o"/>
+                                        <span className="fa fa-envelope-o" />
 
-                </DropdownToggle>
+                                    </DropdownToggle>
                                     <DropdownMenu right>
                                         <DropdownItem>
                                             Mensaje 1
@@ -98,9 +114,9 @@ class BarraUsuario extends Component {
 
                                 <UncontrolledDropdown nav inNavbar>
                                     <DropdownToggle nav>
-                                    <span className="fa fa-caret-down"/>
+                                        <span className="fa fa-caret-down" />
 
-                </DropdownToggle>
+                                    </DropdownToggle>
                                     <DropdownMenu right>
                                         <DropdownItem>
                                             Opción 1
@@ -130,4 +146,4 @@ class BarraUsuario extends Component {
 
 }
 
-export default BarraUsuario;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BarraUsuario));
