@@ -536,8 +536,27 @@ div .estadisticas-perfil a.follow.followed {
             box-shadow: none;
             -webkit-box-shadow: none;
         }
-        
+             
+        .rcw-message > .rcw-response {
+          background-color: #3498db;
+          color: white;
+        }
 
+        .rcw-message-text p {
+          color: white;
+        }
+
+        .rcw-client {
+          background-color: #009688 !important;
+        }
+
+        .rcw-header {
+          background-color: rgb(4, 3, 7) !important;
+        }
+        .rcw-launcher {
+          background-color: rgb(4, 3, 7) !important;
+        }
+        
 /*Pestañas del perfil*/
 
 .seccion-pestanas-cursos{

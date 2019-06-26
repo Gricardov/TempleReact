@@ -86,8 +86,8 @@ class PerfilProfesorAlumno extends Component {
                                     </Col>
                                     <Col xs={6}>
                                         <Pestanas ubicacion={{latitud:perfil.latitud, longitud:perfil.longitud}}
-                                        publicaciones={perfil.publicaciones} horarios={perfil.horarios}
-                                        preferencias={perfil.preferencias} perfil={perfil}/>
+                                        publicaciones={perfil.publicaciones||[]} horarios={perfil.horarios||[]}
+                                        preferencias={perfil.preferencias||[]} perfil={perfil}/>
                                     </Col>
                                     <Col xs={3}>
                                         <Resenas resenas={perfil.resenas}/>

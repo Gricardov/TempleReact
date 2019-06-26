@@ -31,10 +31,10 @@ class Publicaciones extends Component {
                             <Col xs={4} className="author">
                                 <Row>
                                     <Col xs={3} className="media_left">
-                                        <img src={this.props.perfil.imgPer} />
+                                        <img src={e.imgPer||this.props.perfil.imgPer} />
                                     </Col>
                                     <Col xs={9} className="media_body">
-                                        <a href="#">{this.props.perfil.nomUsu} {this.props.perfil.apaUsu} {this.props.perfil.amaUsu}</a>
+                                        <a href="#">{e.nomUsu||this.props.perfil.nomUsu} {e.apaUsu||this.props.perfil.apaUsu} {e.amaUsu||this.props.perfil.amaUsu}</a>
                                         <span>{e.fecha}</span>
                                     </Col>
 

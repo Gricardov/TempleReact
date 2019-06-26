@@ -39,19 +39,22 @@ class Cursos extends Component {
             )
         })
 
+        const modalidades = {};
         // Obtengo las modalidades
-        const modalidades = cursoSeleccionado.modalidades.map((e, i) => {
-            return (
-                <option value={e.idMod}>{e.nomMod}</option>
+        if (cursoSeleccionado.modalidades) {
 
-            )
-        })
+            const modalidades = cursoSeleccionado.modalidades.map((e, i) => {
+                return (
+                    <option value={e.idMod}>{e.nomMod}</option>
 
+                )
+            })
+        }
         // Obtengo la modalidad seleccionada para obtener el precio por hora
         const modalidadSeleccionada = cursoSeleccionado.modalidades.filter((modalidad) => modalidad.idMod == this.state.idModalidadSeleccionada)[0]
         let precioHora = "Seleccione una modalidad"
         if (modalidadSeleccionada) {
-            precioHora = "S/. "+modalidadSeleccionada.precioHora;
+            precioHora = "S/. " + modalidadSeleccionada.precioHora;
         }
 
         return (

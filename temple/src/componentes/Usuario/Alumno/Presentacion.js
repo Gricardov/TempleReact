@@ -21,33 +21,40 @@ class Presentacion extends Component {
                         <p>{this.props.sobreMi}</p>
                     </Col>
                 </Row>
+                {this.props.expLab
+                    ?
+                    <Row className="mb-4">
+                        <Col xs={12} className="sectionTitle">
+                            <h3 className="categories_tittle">Experiencia laboral</h3>
+                        </Col>
 
-                <Row className="mb-4">
-                    <Col xs={12} className="sectionTitle">
-                        <h3 className="categories_tittle">Experiencia laboral</h3>
-                    </Col>
+                        <Col xs={12} className="sectionContent">
 
-                    <Col xs={12} className="sectionContent">
+                            <article>
+                                <h2>Ha trabajado</h2>
+                                <p className="subDetails">En periodo</p>
+                                <p>{this.props.expLab}</p>
+                            </article>
+                        </Col>
+                    </Row>
+                    :
+                    null}
 
-                        <article>
-                            <h2>Ha trabajado</h2>
-                            <p className="subDetails">En periodo</p>
-                            <p>{this.props.expLab}</p>
-                        </article>
-                    </Col>
-                </Row>
+                {this.props.habCla
+                    ?
 
+                    <Row className="mb-4">
+                        <Col xs={12} className="sectionTitle">
+                            <h3 className="categories_tittle">Habilidades clave</h3>
+                        </Col>
 
-                <Row className="mb-4">
-                    <Col xs={12} className="sectionTitle">
-                        <h3 className="categories_tittle">Habilidades clave</h3>
-                    </Col>
-
-                    <Col xs={12} className="sectionContent">
-                        <p>{this.props.habCla}</p>
-                    </Col>
-                </Row>
-
+                        <Col xs={12} className="sectionContent">
+                            <p>{this.props.habCla}</p>
+                        </Col>
+                    </Row>
+                    :
+                    null
+                }
 
 
             </div>

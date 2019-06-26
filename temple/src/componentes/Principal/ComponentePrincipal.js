@@ -63,13 +63,16 @@ class Principal extends Component {
                                 <Route exact path="/" component={InicioAlumno} />
                                 <Route path={RUTAS.INICIO_ALUMNO.ruta} component={InicioAlumno} />
                                 <Route path={RUTAS.MI_PERFIL.ruta} component={() =>
-                                    <MiPerfil usuario={this.props.sesion.usuario} />} />
+                                    <MiPerfil perfil={this.props.perfil.perfil}
+                                        estaCargando={this.props.perfil.estaCargando}
+                                        mensError={this.props.perfil.mensError} />} />
                                 <Route path={RUTAS.PERFIL_PROFESOR_ALUMNO.ruta} component={() =>
                                     <PerfilProfesorAlumno perfil={this.props.perfil.perfil}
                                         estaCargando={this.props.perfil.estaCargando}
                                         mensError={this.props.perfil.mensError} />} />
 
                             </SwitchDeslizador>
+                            <Asistente usuario={this.props.sesion.usuario} />
                             <CubiertaMensaje mensError={this.props.perfil.mensError}
                                 estaCargando={this.props.perfil.estaCargando} mensaje="Cargando perfil..." />
                         </>

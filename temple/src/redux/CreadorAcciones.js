@@ -459,7 +459,60 @@ export const obtenerPerfil = (codUsu, tipo) => (dispatch) => {
         })
 }
 
+// ChatBot
+export const enviarMensajeChatBot = (mensaje, codUsu) => (dispatch) => {
 
+    dispatch(enviandoMensajeChatBot());
+
+    const datos = {
+        datos: {
+            mensaje: mensaje
+        }
+    }
+
+    fetch(URLBase + 'chatbot/conversar', {
+
+        method: 'POST',
+        body: JSON.stringify(datos),
+        headers: {
+            'Content-type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+        .then(response => {
+
+            if (response.ok) {
+
+                return response;
+
+            }
+
+            else {
+
+                var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
+                error.response = response;
+                throw error;
+
+            }
+
+
+        }, error => {
+
+            var mensErr = new Error(error.message);
+            throw mensErr;
+
+        })
+        .then(response => response.json())
+        .then(respuesta => {
+            dispatch(respuestaRecibidaChatBot(respuesta));
+
+        })
+        .catch(error => {
+            console.log("Error : " + error.message);
+            dispatch(errorMensajeChatBot(error.message));
+        })
+
+}
 
 // Líderes
 export const obtenerLideres = () => (dispatch) => {
@@ -631,3 +684,17 @@ export const sesionNoIniciada = (mensErr) => ({
     payload: mensErr
 
 });
+
+export const enviandoMensajeChatBot = () => ({
+    type: Acciones.ENVIANDO_MENSAJE_CHATBOT
+})
+
+export const respuestaRecibidaChatBot = (respuesta) => ({
+    type: Acciones.RESPUESTA_RECIBIDA_CHATBOT,
+    payload: respuesta
+})
+
+export const errorMensajeChatBot = (mensErr)=> ({
+    type: Acciones.ERROR_MENSAJE_CHATBOT,
+    payload: mensErr
+})

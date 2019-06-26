@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import Principal from './componentes/Principal/ComponentePrincipal';
-import './App.css';
 import {Provider} from 'react-redux';
 import {ReduxStore} from './redux/reduxStore';
 
