@@ -31,30 +31,35 @@ class Cursos extends Component {
         // Muestra el contenido seleccionado
         const cursoSeleccionado = this.props.cursos.filter((curso) => curso.idCur == this.state.idContenidoVisible)[0];
 
-        // Obtengo los niveles
-        const niveles = cursoSeleccionado.niveles.map((e, i) => {
-            return (
-                <li>{e.nomNiv}</li>
+        let niveles = [];
+        let modalidades = [];
 
-            )
-        })
+        let precioHora = "";
+        let modalidadSeleccionada = {};
 
-        const modalidades = {};
-        // Obtengo las modalidades
-        if (cursoSeleccionado.modalidades) {
+        if (cursoSeleccionado) {
 
-            const modalidades = cursoSeleccionado.modalidades.map((e, i) => {
+            // Obtengo los niveles
+            niveles = cursoSeleccionado.niveles.map((e, i) => {
                 return (
-                    <option value={e.idMod}>{e.nomMod}</option>
+                    <li key={i}>{e.nomNiv}</li>
 
                 )
             })
-        }
-        // Obtengo la modalidad seleccionada para obtener el precio por hora
-        const modalidadSeleccionada = cursoSeleccionado.modalidades.filter((modalidad) => modalidad.idMod == this.state.idModalidadSeleccionada)[0]
-        let precioHora = "Seleccione una modalidad"
-        if (modalidadSeleccionada) {
-            precioHora = "S/. " + modalidadSeleccionada.precioHora;
+
+            modalidades = cursoSeleccionado.modalidades.map((e, i) => {
+                return (
+                    <option key={i} value={e.idMod}>{e.nomMod}</option>
+
+                )
+            })
+
+            // Obtengo la modalidad seleccionada para obtener el precio por hora
+            modalidadSeleccionada = cursoSeleccionado.modalidades.filter((modalidad) => modalidad.idMod == this.state.idModalidadSeleccionada)[0]
+            precioHora = "Seleccione una modalidad"
+            if (modalidadSeleccionada) {
+                precioHora = "S/. " + modalidadSeleccionada.precioHora;
+            }
         }
 
         return (
