@@ -8,6 +8,8 @@ import { FadeTransform } from 'react-animation-components';
 import Carrusel from '../../Utilidades/CarruselTarjetas';
 import Cuadrícula from '../../Utilidades/CuadriculaTarjetas';
 import Sugerencias from '../../Utilidades/SugerenciasBusqueda';
+import MapaMultiple from '../../Utilidades/ComponenteMapaMultiple';
+import { Fade } from 'react-animation-components';
 import { URLBase } from '../../../compartido/URLBase';
 import * as RUTAS from '../../../compartido/rutas';
 
@@ -39,7 +41,7 @@ class InicioAlumno extends Component {
         };
 
         this.manejarCambio = this.manejarCambio.bind(this);
-
+        this.cambiarVista = this.cambiarVista.bind(this);
     }
 
     manejarCambio(evento) {
@@ -76,8 +78,19 @@ class InicioAlumno extends Component {
         })
     }
 
+    cambiarVista(evento) {
+        if (evento.target.checked) {
+            this.setState({
+                tipoVista: 2
+            })
+        } else {
+            this.setState({
+                tipoVista: 1
+            })
+        }
+    }
+
     render() {
-        console.log(JSON.stringify(this.props.profesoresBusqueda))
         const preferencias = this.props.sesion.usuario.preferencias.map((e, i) => {
 
 
@@ -88,7 +101,7 @@ class InicioAlumno extends Component {
                             Nivel <span className="badge badge-pill badge-info">{e.nomNiv}</span>{' '}</h5>
                     </Col>
                     <Col xs={12}>
-                        <Carrusel resultados={e.profesores}/>
+                        <Carrusel resultados={e.profesores} />
                     </Col>
 
                 </Row>
@@ -132,28 +145,54 @@ class InicioAlumno extends Component {
                 </Row>
 
                 <Row>
-                    <Col xs={6}>
+                    <Col xs={5}>
                         <a href="#">Búsqueda avanzada</a>
                     </Col>
-                    <Col xs={6}>
+                    <Col xs={7}>
                         <label className="float-right label">
                             <div className="toggle">
-                                <input className="toggle-state" type="checkbox" name="check" value="check" />
+                                <input className="toggle-state" type="checkbox" name="check" value="check" onChange={this.cambiarVista} />
                                 <div className="toggle-inner">
                                     <div className="indicator"></div>
                                 </div>
                                 <div className="active-bg"></div>
                             </div>
-                            <div className="label-text">Cuadrícula</div>
+                            <div className="label-text">{
+                                this.state.tipoVista == 1
+                                    ?
+                                    "Cuadrícula"
+                                    :
+                                    "Mapa"
+                            }</div>
                         </label>
                     </Col>
                 </Row>
 
-                <Cuadrícula columnas={4}
-                    resultados={this.props.profesoresBusqueda.profesores}
-                    cargandoResultados={this.props.profesoresBusqueda.estaCargando}
-                    errorResultados={this.props.profesoresBusqueda.mensError}
-                    consulta={this.state.consulta} />
+                <Row>
+                    {
+                        this.state.consulta
+                            ?
+                            <Col xs={12}>
+                                <Fade in><h4 className="text-muted">Resultados de búsqueda para <b>"{this.state.consulta}":</b></h4></Fade>
+                            </Col>
+                            :
+                            null
+                    }
+                </Row>
+
+                {
+                    this.state.tipoVista == 1
+                        ?
+                        <Cuadrícula columnas={4}
+                            resultados={this.props.profesoresBusqueda.profesores}
+                            cargandoResultados={this.props.profesoresBusqueda.estaCargando}
+                            errorResultados={this.props.profesoresBusqueda.mensError}
+                            consulta={this.state.consulta} />
+                        :
+                        <MapaMultiple resultados={this.props.profesoresBusqueda.profesores}/>
+                }
+
+
 
                 <Row className="mb-2">
                     <Col xs={12}>

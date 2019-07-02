@@ -30,37 +30,42 @@ class Cuadricula extends Component {
             )
         });
 
-
         return (
             <Row className="mb-4">
-                {
-                    this.props.consulta
-                        ?
-                        <Col xs={12}>
-                            <Fade in><h4 className="text-muted">Resultados de búsqueda para <b>"{this.props.consulta}":</b></h4></Fade>
-                        </Col>
-                        :
-                        null
-                }
 
-                {this.props.resultados.length <= 0
+                {this.props.resultados.length == 0
                     ?
-                    this.props.consulta
-                        ?
-                        <Col xs={12}>
-                            <Fade in><Alert color="warning">No se encontraron coincidencias :(</Alert></Fade>
-                        </Col>
+                    <Col xs={12}>
 
-                        :
-                        null
-                    : null
+                        {
+                            this.props.consulta
+                                ?
+                                <Fade in>
+                                    <Alert color="warning">
+                                        No se encontraron coincidencias :(
+                                </Alert>
+                                </Fade>
+                                :
+                                <Fade in>
+                                    <Alert color="primary">
+                                        Ingrese un término de búsqueda
+                                </Alert>
+                                </Fade>
+                        }
+
+
+                    </Col>
+                    :
+                    <Col xs={12}>
+                        <Row>
+                            {tarjetas}
+                        </Row>
+                    </Col>
+
+
                 }
 
-                <Col xs={12}>
-                    <Row>
-                        {tarjetas}
-                    </Row>
-                </Col>
+
             </Row>
         );
     }

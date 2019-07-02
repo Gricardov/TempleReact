@@ -50,7 +50,6 @@ class Principal extends Component {
     }
 
     render() {
-
         return (
             <>
 
