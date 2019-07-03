@@ -24,7 +24,7 @@ import { Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
 
-import { obtenerLideres, iniciarSesion, seleccionarPestanaPerfilContrato, establecerPasoContrato } from '../../redux/CreadorAcciones';
+import { obtenerLideres, iniciarSesion, seleccionarPestanaPerfilContrato, establecerPasoContrato, registrarContrato } from '../../redux/CreadorAcciones';
 
 const mapStateToProps = (state) => {
 
@@ -32,7 +32,9 @@ const mapStateToProps = (state) => {
         sesion: state.sesion,
         lideres: state.lideres,
         perfil: state.perfil,
-        contrato: state.contrato
+        contrato: state.contrato,
+        registroContrato: state.registroContrato
+
     }
 
 }
@@ -42,7 +44,9 @@ const mapDispatchToProps = (dispatch) => ({
     obtenerLideres: () => dispatch(obtenerLideres()),
     reiniciarFormContacto: () => dispatch(actions.reset('formContacto')),
     seleccionarPestanaPerfilContrato: (numPestana) => dispatch(seleccionarPestanaPerfilContrato(numPestana)),
-    establecerPasoContrato: (numPaso) => dispatch(establecerPasoContrato(numPaso))
+    establecerPasoContrato: (numPaso) => dispatch(establecerPasoContrato(numPaso)),
+    registrarContrato: (codAlu, codProf, fecIni, fecFin, idCur, idMod) => dispatch(registrarContrato(codAlu, codProf, fecIni, fecFin, idCur, idMod))
+
 })
 
 class Principal extends Component {
@@ -78,7 +82,10 @@ class Principal extends Component {
                                         mensError={this.props.perfil.mensError}
                                         seleccionarPestanaPerfilContrato={this.props.seleccionarPestanaPerfilContrato}
                                         establecerPasoContrato={this.props.establecerPasoContrato}
-                                        contrato={this.props.contrato} />} />
+                                        contrato={this.props.contrato}
+                                        registroContrato={this.props.registroContrato}
+                                        registrarContrato={this.props.registrarContrato}
+                                         />} />
 
                             </SwitchDeslizador>
                             <Asistente usuario={this.props.sesion.usuario} />

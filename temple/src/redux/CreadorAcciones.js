@@ -416,7 +416,7 @@ export const obtenerPerfil = (codUsu, tipo) => (dispatch) => {
         }
     }
 
-    fetch(URLBase + (tipo==1?'usuario/profesor/consulta/perfil':'usuario/alumno/consulta/perfil'), {
+    fetch(URLBase + (tipo == 1 ? 'usuario/profesor/consulta/perfil' : 'usuario/alumno/consulta/perfil'), {
 
         method: 'POST',
         body: JSON.stringify(datos),
@@ -459,7 +459,7 @@ export const obtenerPerfil = (codUsu, tipo) => (dispatch) => {
         })
 }
 
-// Pestanas de selección de contrato
+// Pestanas de selección de contrato (local)
 export const seleccionarPestanaPerfilContrato = (numPestana) => (dispatch) => {
     dispatch(pestanaPerfilContrato(numPestana));
 }
@@ -470,6 +470,65 @@ export const establecerPasoContrato = (numPaso) => (dispatch) => {
 
 export const establecerDatosContrato = (datos) => (dispatch) => {
     dispatch(datosContrato(datos));
+
+}
+
+// Registro contrato
+export const registrarContrato = (codAlu, codProf, fecIni, fecFin, idCur, idMod) => (dispatch) => {
+    dispatch(registrandoContrato());
+
+    const datos = {
+        datos: {
+            codAlu: codAlu,
+            codProf: codProf,
+            fecIni: fecIni,
+            fecFin: fecFin,
+            idCur: idCur,
+            idMod: idMod
+        }
+    }
+
+    fetch(URLBase + 'contrato/registro', {
+
+        method: 'POST',
+        body: JSON.stringify(datos),
+        headers: {
+            'Content-type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+        .then(response => {
+
+            if (response.ok) {
+
+                return response;
+
+            }
+
+            else {
+
+                var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
+                error.response = response;
+                throw error;
+
+            }
+
+
+        }, error => {
+
+            var mensErr = new Error(error.message);
+            throw mensErr;
+
+        })
+        .then(response => response.json())
+        .then(respuesta => {
+            dispatch(contratoRegistrado(respuesta));
+
+        })
+        .catch(error => {
+            console.log("Error : " + error.message);
+            dispatch(errorRegistroContrato(error.message));
+        })
 }
 
 // ChatBot
@@ -671,6 +730,27 @@ export const datosContrato = (datos) => ({
     payload: datos
 })
 
+// Registro contrato
+export const registrandoContrato = () => ({
+
+    type: Acciones.REGISTRANDO_CONTRATO,
+
+});
+
+export const contratoRegistrado = (resultado) => ({
+
+    type: Acciones.CONTRATO_REGISTRADO,
+    payload: resultado
+
+});
+
+export const errorRegistroContrato = (mensErr) => ({
+
+    type: Acciones.ERROR_REGISTRO_CONTRATO,
+    payload: mensErr
+
+});
+
 // Líderes
 export const cargandoLideres = () => ({
 
@@ -721,7 +801,7 @@ export const respuestaRecibidaChatBot = (respuesta) => ({
     payload: respuesta
 })
 
-export const errorMensajeChatBot = (mensErr)=> ({
+export const errorMensajeChatBot = (mensErr) => ({
     type: Acciones.ERROR_MENSAJE_CHATBOT,
     payload: mensErr
 })

@@ -3,20 +3,22 @@ import Pestanas from '../../Utilidades/PestanasPerfilComponente';
 import Presentacion from '../Alumno/Presentacion';
 import Resenas from '../Alumno/Resenas';
 import CubiertaContrato from '../../Utilidades/CubiertaContrato';
+import ModalCargandoMensaje from '../../Utilidades/ModalCargandoMensaje';
 import { Row, Col } from 'reactstrap';
 
 class PerfilProfesorAlumno extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            idCursoSeleccionado:-1,
-            idModalidadSeleccionada:-1,
-            horarioSeleccionado:{}
+            idCursoSeleccionado: -1,
+            idModalidadSeleccionada: -1,
+            horarioSeleccionado: {},
+            modalAbierto: false
         };
         this.iniciarContrato = this.iniciarContrato.bind(this);
-        this.establecerIdCurso=this.establecerIdCurso.bind(this);
-        this.establecerIdModalidad=this.establecerIdModalidad.bind(this);
-        this.establecerHorario=this.establecerHorario.bind(this);
+        this.establecerIdCurso = this.establecerIdCurso.bind(this);
+        this.establecerIdModalidad = this.establecerIdModalidad.bind(this);
+        this.establecerHorario = this.establecerHorario.bind(this);
     }
 
     iniciarContrato() {
@@ -28,34 +30,43 @@ class PerfilProfesorAlumno extends Component {
 
     }
 
-    establecerIdCurso(idCur){
+    establecerIdCurso(idCur) {
         this.setState({
-            idCursoSeleccionado:idCur
+            idCursoSeleccionado: idCur
         })
     }
 
-    establecerIdModalidad(idMod){
+    establecerIdModalidad(idMod) {
         this.setState({
-            idModalidadSeleccionada:idMod
+            idModalidadSeleccionada: idMod
         })
     }
 
-    establecerHorario(horario){
+    establecerHorario(horario) {
         this.setState({
-            horarioSeleccionado:horario
+            horarioSeleccionado: horario
         })
     }
-    componentDidUpdate(){
-        if (this.props.contrato.pasoActual==3){
-            alert(JSON.stringify(this.props.usuario.COD_USU+" "+this.props.perfil.codUsu))
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.contrato.pasoActual == 3) {
+            this.props.establecerPasoContrato(-1);
+            this.props.registrarContrato(this.props.usuario.COD_USU, this.props.perfil.codUsu,
+                this.state.horarioSeleccionado.inicio, this.state.horarioSeleccionado.fin,
+                this.state.idCursoSeleccionado, this.state.idModalidadSeleccionada);
+            this.setState({ modalAbierto: true })
+
         }
         // this.props.perfil.codUsu
         // this.props.usuario.COD_USU
+        /*
+        this.props.registrarContrato(this.props.usuario.COD_USU, this.props.perfil.codUsu,
+                this.state.horarioSeleccionado.inicio, this.state.horarioSeleccionado.fin,
+                this.state.idCursoSeleccionado, this.state.idModalidadSeleccionada);
+        */
     }
     render() {
         const perfil = this.props.perfil;
         return (
-
             <>
                 {
                     this.props.estaCargando
@@ -126,7 +137,7 @@ class PerfilProfesorAlumno extends Component {
                                             establecerIdCurso={this.establecerIdCurso}
                                             establecerIdModalidad={this.establecerIdModalidad}
                                             establecerHorario={this.establecerHorario}
-                                            />
+                                        />
                                     </Col>
                                     <Col xs={3}>
                                         <Resenas resenas={perfil.resenas} />
@@ -134,10 +145,23 @@ class PerfilProfesorAlumno extends Component {
 
                                 </Row>
                             </div>
+
+                            <ModalCargandoMensaje
+                                modalAbierto={this.state.modalAbierto}
+                                estaCargando={this.props.registroContrato.estaCargando}
+                                mensaje={this.props.registroContrato.resultado ? this.props.registroContrato.resultado.mensaje : ''}
+                                estado={this.props.registroContrato.resultado ? this.props.registroContrato.resultado.estado : 0}
+                                cerrarModal={() => {
+                                    this.setState({
+                                        modalAbierto: false
+                                    })
+                                }} />
+
                             <CubiertaContrato pasoActual={this.props.contrato.pasoActual}
-                            seleccionarPestanaPerfilContrato={this.props.seleccionarPestanaPerfilContrato}
-                            establecerPasoContrato={this.props.establecerPasoContrato}
+                                seleccionarPestanaPerfilContrato={this.props.seleccionarPestanaPerfilContrato}
+                                establecerPasoContrato={this.props.establecerPasoContrato}
                             />
+
                         </div>
                 }
 

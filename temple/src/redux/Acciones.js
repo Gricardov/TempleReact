@@ -38,14 +38,19 @@ export const PERFIL_OBTENIDO='PERFIL_OBTENIDO';
 export const CARGANDO_PERFIL='CARGANDO_PERFIL';
 export const ERROR_PERFIL='ERROR_PERFIL';
 
-// Pestana perfil contrato
+// Pestana perfil contrato (local)
 export const SELECCIONAR_PESTANA_PERFIL_CONTRATO='SELECCIONAR_PESTANA_PERFIL_CONTRATO';
 
-// Pasos contrato
+// Pasos contrato (local)
 export const ESTABLECER_PASO_CONTRATO='ESTABLECER_PASO_CONTRATO';
 
-// Contrato
+// Contrato (local)
 export const ESTABLECER_DATOS_CONTRATO='ESTABLECER_DATOS_CONTRATO';
+
+// Registro contrato
+export const REGISTRANDO_CONTRATO='REGISTRANDO_CONTRATO';
+export const CONTRATO_REGISTRADO='CONTRATO_REGISTRADO';
+export const ERROR_REGISTRO_CONTRATO='ERROR_REGISTRO_CONTRATO';
 
 // Inicio sesión
 export const INICIANDO_SESION='INICIANDO_SESION';
