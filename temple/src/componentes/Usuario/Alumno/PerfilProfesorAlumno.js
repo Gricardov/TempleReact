@@ -145,17 +145,17 @@ class PerfilProfesorAlumno extends Component {
 
                                 </Row>
                             </div>
-
-                            <ModalCargandoMensaje
-                                modalAbierto={this.state.modalAbierto}
-                                estaCargando={this.props.registroContrato.estaCargando}
-                                mensaje={this.props.registroContrato.resultado ? this.props.registroContrato.resultado.mensaje : ''}
-                                estado={this.props.registroContrato.resultado ? this.props.registroContrato.resultado.estado : 0}
-                                cerrarModal={() => {
-                                    this.setState({
-                                        modalAbierto: false
-                                    })
-                                }} />
+                            {/*
+                                this.props.registroContrato.estaCargando
+                                    ?
+                                    null
+                                    :
+                                    this.props.registroContrato.resultado
+                                        ?
+                                        alert(JSON.stringify("Contrato registrado n.n!"))
+                                        :
+                                        null*/
+                            }
 
                             <CubiertaContrato pasoActual={this.props.contrato.pasoActual}
                                 seleccionarPestanaPerfilContrato={this.props.seleccionarPestanaPerfilContrato}

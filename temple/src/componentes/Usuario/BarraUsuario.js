@@ -119,10 +119,10 @@ class BarraUsuario extends Component {
                                     </DropdownToggle>
                                     <DropdownMenu right>
                                         <DropdownItem>
-                                            Opción 1
+                                            Configuración
                   </DropdownItem>
                                         <DropdownItem>
-                                            Opción 2
+                                            Ayuda
                   </DropdownItem>
                                         <DropdownItem divider />
                                         <DropdownItem>

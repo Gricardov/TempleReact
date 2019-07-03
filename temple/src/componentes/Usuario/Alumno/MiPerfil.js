@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Pestanas from '../../Utilidades/PestanasPerfilComponente';
 import ModalEntradaMensaje from '../../Utilidades/ModalEntradaMensaje';
 import Presentacion from '../Alumno/Presentacion';
-import Resenas from '../Alumno/Resenas';
-
+import Citas from '../Alumno/Citas';
+import Publicaciones from '../Alumno/Publicaciones';
 import { Row, Col } from 'reactstrap';
 
 class MiPerfil extends Component {
@@ -16,7 +16,6 @@ class MiPerfil extends Component {
 
     render() {
         const perfil = this.props.perfil;
-        
         return (
             <div className="perfil-debajo-barra">
                 <Row className="contenedor-portada-perfil">
@@ -70,16 +69,20 @@ class MiPerfil extends Component {
                         </Col>
 
                         <Col xs={6}>
-                            <Pestanas ubicacion={{ latitud: perfil.latitud, longitud: perfil.longitud }}
-                                publicaciones={perfil.publicaciones||[]} horarios={{}}
-                                preferencias={[]} perfil={perfil} />
-                        </Col>
 
+                            <div className="p-4" style={{ zIndex: '999999', position: 'relative' }}>
+                                <Publicaciones publicaciones={perfil.publicaciones} perfil={perfil} />
+                            </div>
+
+                        </Col>
+                        <Col xs={3}>
+                            <Citas citas={perfil.contratos} />
+                        </Col>
                     </Row>
                 </div>
-                <ModalEntradaMensaje encabezado="Enviar mensaje" abierto={this.state.modalMensajeAbierto} />
             </div>
         )
+
     }
 
 }

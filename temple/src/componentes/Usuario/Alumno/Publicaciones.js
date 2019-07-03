@@ -18,7 +18,11 @@ class Publicaciones extends Component {
 
     render() {
 
-        const publicaciones = this.props.publicaciones.map((e, i) => {
+        let publicaciones=[];
+
+        if (this.props.publicaciones){
+
+        publicaciones = this.props.publicaciones.map((e, i) => {
             return (
                 <div className="post profile_post quickFade" key={i}>
                     <div className="post_content">
@@ -103,6 +107,7 @@ class Publicaciones extends Component {
                 </div>
             )
         })
+    }
 
         return (
             <>
