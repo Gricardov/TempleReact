@@ -326,8 +326,7 @@ div .estadisticas-perfil {
   
   /* Generated Gradient */
   background:black;
-  opacity: 0.5;
-  z-index: 0;
+  opacity: 0.8;
 }
 
 div .estadisticas-perfil ul {
@@ -400,6 +399,35 @@ div .estadisticas-perfil a.follow.followed {
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.btn-social{
+  border: none;
+  color: white;
+  padding: 5px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  margin-right: 10px;
+}
+
+.btn-social-azul
+{
+  background-color: rgb(34, 108, 218);
+}
+
+.btn-social-verde
+{
+  background-color: rgb(29, 145, 25);
+}
+
+.btn-social-rojo
+{
+  background-color: rgb(211, 43, 43);
 }
 
 .contenedor-portada-perfil>h1 {
@@ -741,6 +769,7 @@ label.panel-label:hover {
 }
 
 .quickFade {
+
     -webkit-animation-name: reset, fade-in;
     -webkit-animation-duration: 0.5s;
     -webkit-animation-timing-function: ease-in;
@@ -1306,7 +1335,7 @@ hr {
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0,0.5);
-  z-index: 1031;
+  z-index: 99999;
   cursor: pointer;
   -webkit-animation: fadein 0.5s; /* Safari, Chrome and Opera > 12.1 */
        -moz-animation: fadein 0.5s; /* Firefox < 16 */
@@ -1318,6 +1347,17 @@ hr {
 .texto-cubierta-mensaje{
   position: absolute;
   top: 50%;
+  left: 50%;
+  font-size: 25px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: white;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+}
+
+.texto-cubierta-contrato{
+  position: absolute;
+  top: 30%;
   left: 50%;
   font-size: 25px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;

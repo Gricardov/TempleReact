@@ -6,12 +6,12 @@ require('moment/locale/es.js');
 let moment = require('moment');
 
 let colorEvento = {
-  'color-1':"rgb(61, 255, 142)",
-  "color-2":"rgb(51, 129, 255)"
+  'color-1': "rgb(61, 255, 142)",
+  "color-2": "rgb(51, 129, 255)"
 }
 
 let colorSeleccionado = {
-  "color-2":"rgb(51, 129, 255)"
+  "color-2": "rgb(51, 129, 255)"
 }
 
 // Le quito 5 horas porque estoy en UTC -5
@@ -32,7 +32,7 @@ class Horario extends Component {
       eventos: []
     }
     this.agregarEvento = this.agregarEvento.bind(this)
-    this.editarEvento=this.editarEvento.bind(this)
+    this.editarEvento = this.editarEvento.bind(this)
     this.editarItem = this.editarItem.bind(this)
     this.seleccionarRango = this.seleccionarRango.bind(this)
     this.seleccionarCelda = this.seleccionarCelda.bind(this)
@@ -43,17 +43,31 @@ class Horario extends Component {
     this.abrirModal = this.abrirModal.bind(this)
 
   }
-  agregarEvento (items , newItems){
+  agregarEvento(items, newItems) {
+    const inicio = items[0].startDateTime;
+    const fin = items[0].endDateTime;
 
-    let eventos=[];
-    eventos=this.state.eventos;
+    const fechaInicio = new Date(inicio);
+    const fechaFin = new Date(fin);
+
+    const fechaInicioLocal=fechaInicio.setHours(fechaInicio.getHours()-5);
+    const fechaFinLocal=fechaFin.setHours(fechaFin.getHours()-5);
+
+    this.props.establecerHorario(
+      {
+        inicio: moment(fechaInicioLocal).utc().format('YYYY-MM-DD HH:mm:ss'),
+        fin: moment(fechaFinLocal).utc().format('YYYY-MM-DD HH:mm:ss')
+      })
+
+    let eventos = [];
+    eventos = this.state.eventos;
     // Le debes quitar 5 horas
-    this.setState({showModal:false ,selected:[] , eventos: [...eventos,...items]});
+    this.setState({ showModal: false, selected: [], eventos: [...eventos, ...items] });
     this.cerrarModal();
   }
 
-  editarEvento (items , item){
-    this.setState({showModal:false ,selected:[] , eventos:items});
+  editarEvento(items, item) {
+    this.setState({ showModal: false, selected: [], eventos: items });
     this.cerrarModal();
   }
   seleccionarRango(selected) {
@@ -61,7 +75,7 @@ class Horario extends Component {
     this.setState({ selected: selected, showCtrl: true })
     this.abrirModal();
   }
-  editarItem(item,openModal) {
+  editarItem(item, openModal) {
     if (item && openModal === true) {
       this.setState({ selected: [item] })
       return this.abrirModal();
@@ -101,7 +115,7 @@ class Horario extends Component {
     // Transformo los eventos al formato requerido
     let eventos = [];
     if (this.props.eventos) {
-         this.props.eventos.map((e, i) => {
+      this.props.eventos.map((e, i) => {
 
         let momentoInicio = moment(e.fecIni);
         let momentoFin = moment(e.fecFin);
@@ -133,7 +147,7 @@ class Horario extends Component {
     }
 
     return (
-      <>
+      <div style={{ zIndex: '999999', position: 'relative' }}>
         <ReactAgenda
           minDate={now}
           maxDate={new Date(now.getFullYear(), now.getMonth() + 3)}
@@ -170,7 +184,7 @@ class Horario extends Component {
               </div>
             </Modal> : ''
         }
-      </>
+      </div>
     )
   }
 

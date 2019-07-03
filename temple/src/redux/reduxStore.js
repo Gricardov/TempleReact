@@ -13,10 +13,11 @@ import {Registro} from './reductorRegistro';
 import {Cursos} from './reductorCursos';
 import {ProfesoresBusqueda} from './reductorBusquedaProfesor';
 import {Perfil} from './reductorPerfil';
+import {Contrato} from './reductorContrato';
 import {ChatBot} from './reductorChatBot';
 
 export const ReduxStore = () => {
-
+    
     return createStore(
             combineReducers({
                 lideres:Lideres,
@@ -28,6 +29,7 @@ export const ReduxStore = () => {
                 cursos: Cursos,
                 profesoresBusqueda: ProfesoresBusqueda,
                 perfil: Perfil,
+                contrato: Contrato,
                 chatBot: ChatBot,
                 ...createForms({
                     formContacto: InicioContacto

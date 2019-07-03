@@ -5,7 +5,7 @@ class Cursos extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            idContenidoVisible: 1,
+            idContenidoVisible: this.props.cursos[0].idCur,
             idModalidadSeleccionada: -1
         };
         this.mostrarContenido = this.mostrarContenido.bind(this);
@@ -17,20 +17,27 @@ class Cursos extends Component {
 
     render() {
         // Esto es el objeto preferencias, aquí llamado cursos
-        const cursos = this.props.cursos.map((curso) => {
+        let cursos = [];
 
-            return (
-                <button className="enlace-pestana-curso" style={curso.idCur == this.state.idContenidoVisible ?
-                    { backgroundColor: "rgb(167, 167, 167)" } : {}}
-                    key={curso.idCur} onClick={() => { this.mostrarContenido(curso.idCur) }}>
-                    {curso.nomCur}
-                </button>
-            )
-        });
+        // Esto se encarga de las pestañas
+        if (this.props.cursos) {
+            cursos = this.props.cursos.map((curso, i) => {
 
-        // Muestra el contenido seleccionado
-        const cursoSeleccionado = this.props.cursos.filter((curso) => curso.idCur == this.state.idContenidoVisible)[0];
+                return (
+                    <button className="enlace-pestana-curso" style={curso.idCur == this.state.idContenidoVisible ?
+                        { backgroundColor: "rgb(167, 167, 167)" } : {}}
+                        key={curso.idCur} onClick={() => { 
+                            this.props.establecerIdCurso(curso.idCur);
+                            this.mostrarContenido(curso.idCur);
+                             }}>
+                        {curso.nomCur}
+                    </button>
+                )
+            });
+        }
 
+        // Muestra el contenido seleccionado de manera predeterminada
+        const cursoSeleccionado = this.props.cursos.filter(curso=>curso.idCur==this.state.idContenidoVisible)[0];
         let niveles = [];
         let modalidades = [];
 
@@ -63,7 +70,7 @@ class Cursos extends Component {
         }
 
         return (
-            <div id="mainArea" className="quickFade">
+            <div id="mainArea" className="quickFade" >
 
                 <Row className="mt-4">
                     <Col xs={4} className="contenedor-pestanas-cursos" id="pestanasCursos">
@@ -72,7 +79,12 @@ class Cursos extends Component {
                     <Col xs={8} className="contenido-pestana-curso">
                         <Row className="mt-3">
                             <Col xs={12} className="sectionTitle">
-                                <h3 className="text-center">{cursoSeleccionado.nomCur}</h3>
+                                {cursoSeleccionado
+                                    ?
+                                    <h3 className="text-center">{cursoSeleccionado.nomCur}</h3>
+                                    :
+                                    null
+                                }
                             </Col>
                         </Row>
                         <Row className="mt-4">
@@ -81,7 +93,12 @@ class Cursos extends Component {
                             </Col>
 
                             <Col xs={7} className="sectionContent">
-                                <p>{cursoSeleccionado.horExp}</p>
+                                {cursoSeleccionado
+                                    ?
+                                    <p>{cursoSeleccionado.horExp}</p>
+                                    :
+                                    null
+                                }
                             </Col>
                         </Row>
                         <Row className="mt-4">
@@ -90,7 +107,13 @@ class Cursos extends Component {
                             </Col>
 
                             <Col xs={7} className="sectionContent">
-                                <p>{cursoSeleccionado.desCur}</p>
+                                {
+                                    cursoSeleccionado
+                                        ?
+                                        <p>{cursoSeleccionado.desCur}</p>
+                                        :
+                                        null
+                                }
                             </Col>
                         </Row>
                         <Row className="mt-4">
@@ -111,7 +134,13 @@ class Cursos extends Component {
                             </Col>
 
                             <Col xs={7} className="sectionContent">
-                                <p>{cursoSeleccionado.silabo}</p>
+                                {
+                                    cursoSeleccionado
+                                        ?
+                                        <p>{cursoSeleccionado.silabo}</p>
+                                        :
+                                        null
+                                }
                             </Col>
                         </Row>
 
@@ -122,7 +151,9 @@ class Cursos extends Component {
 
                             <Col xs={7} className="sectionContent">
                                 <Input type="select"
-                                    onChange={(e) => { this.setState({ idModalidadSeleccionada: e.target.value }) }}>
+                                    onChange={(e) => { 
+                                        this.props.establecerIdModalidad(e.target.value)
+                                        this.setState({ idModalidadSeleccionada: e.target.value }) }}>
                                     {modalidades}
                                 </Input>
                             </Col>

@@ -459,6 +459,19 @@ export const obtenerPerfil = (codUsu, tipo) => (dispatch) => {
         })
 }
 
+// Pestanas de selección de contrato
+export const seleccionarPestanaPerfilContrato = (numPestana) => (dispatch) => {
+    dispatch(pestanaPerfilContrato(numPestana));
+}
+
+export const establecerPasoContrato = (numPaso) => (dispatch) => {
+    dispatch(pasoContrato(numPaso));
+}
+
+export const establecerDatosContrato = (datos) => (dispatch) => {
+    dispatch(datosContrato(datos));
+}
+
 // ChatBot
 export const enviarMensajeChatBot = (mensaje, codUsu) => (dispatch) => {
 
@@ -642,7 +655,21 @@ export const errorPerfil = (mensErr) => ({
 
 })
 
+// Selección de pestanas de contrato
+export const pestanaPerfilContrato = (numPestana) => ({
+    type: Acciones.SELECCIONAR_PESTANA_PERFIL_CONTRATO,
+    payload: numPestana
+})
 
+export const pasoContrato = (numPaso) => ({
+    type: Acciones.ESTABLECER_PASO_CONTRATO,
+    payload: numPaso
+})
+
+export const datosContrato = (datos) => ({
+    type: Acciones.ESTABLECER_DATOS_CONTRATO,
+    payload: datos
+})
 
 // Líderes
 export const cargandoLideres = () => ({

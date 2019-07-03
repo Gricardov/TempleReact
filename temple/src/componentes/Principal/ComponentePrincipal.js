@@ -16,6 +16,7 @@ import MiPerfil from '../Usuario/Alumno/MiPerfil';
 import Asistente from '../Utilidades/AsistenteComponente';
 import SwitchDeslizador from '../Utilidades/ComponenteSwitchDeslizador';
 import CubiertaMensaje from '../Utilidades/CubiertaMensaje';
+import CubiertaContrato from '../Utilidades/CubiertaContrato';
 import * as RUTAS from '../../compartido/rutas';
 
 import { Route, Redirect, withRouter } from 'react-router-dom';
@@ -23,14 +24,15 @@ import { Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
 
-import { obtenerLideres, iniciarSesion } from '../../redux/CreadorAcciones';
+import { obtenerLideres, iniciarSesion, seleccionarPestanaPerfilContrato, establecerPasoContrato } from '../../redux/CreadorAcciones';
 
 const mapStateToProps = (state) => {
 
     return {
         sesion: state.sesion,
         lideres: state.lideres,
-        perfil: state.perfil
+        perfil: state.perfil,
+        contrato: state.contrato
     }
 
 }
@@ -38,7 +40,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     iniciarSesion: (usuario, contrasena) => dispatch(iniciarSesion(usuario, contrasena)),
     obtenerLideres: () => dispatch(obtenerLideres()),
-    reiniciarFormContacto: () => dispatch(actions.reset('formContacto'))
+    reiniciarFormContacto: () => dispatch(actions.reset('formContacto')),
+    seleccionarPestanaPerfilContrato: (numPestana) => dispatch(seleccionarPestanaPerfilContrato(numPestana)),
+    establecerPasoContrato: (numPaso) => dispatch(establecerPasoContrato(numPaso))
 })
 
 class Principal extends Component {
@@ -62,18 +66,25 @@ class Principal extends Component {
                                 <Route exact path="/" component={InicioAlumno} />
                                 <Route path={RUTAS.INICIO_ALUMNO.ruta} component={InicioAlumno} />
                                 <Route path={RUTAS.MI_PERFIL.ruta} component={() =>
-                                    <MiPerfil perfil={this.props.perfil.perfil}
+                                    <MiPerfil
+                                        perfil={this.props.perfil.perfil}
                                         estaCargando={this.props.perfil.estaCargando}
                                         mensError={this.props.perfil.mensError} />} />
                                 <Route path={RUTAS.PERFIL_PROFESOR_ALUMNO.ruta} component={() =>
-                                    <PerfilProfesorAlumno perfil={this.props.perfil.perfil}
+                                    <PerfilProfesorAlumno
+                                        perfil={this.props.perfil.perfil}
+                                        usuario={this.props.sesion.usuario}
                                         estaCargando={this.props.perfil.estaCargando}
-                                        mensError={this.props.perfil.mensError} />} />
+                                        mensError={this.props.perfil.mensError}
+                                        seleccionarPestanaPerfilContrato={this.props.seleccionarPestanaPerfilContrato}
+                                        establecerPasoContrato={this.props.establecerPasoContrato}
+                                        contrato={this.props.contrato} />} />
 
                             </SwitchDeslizador>
                             <Asistente usuario={this.props.sesion.usuario} />
                             <CubiertaMensaje mensError={this.props.perfil.mensError}
                                 estaCargando={this.props.perfil.estaCargando} mensaje="Cargando perfil..." />
+
                         </>
                         :
                         <>

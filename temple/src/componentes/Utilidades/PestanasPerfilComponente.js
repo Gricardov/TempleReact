@@ -3,20 +3,33 @@ import Publicaciones from '../Usuario/Alumno/Publicaciones';
 import Cursos from '../Usuario/Alumno/Cursos';
 import Horarios from '../Usuario/Alumno/Horarios';
 import Ubicación from '../Usuario/Alumno/Ubicacion';
+import { seleccionarPestanaPerfilContrato } from '../../redux/CreadorAcciones';
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => {
+
+    return {
+        contrato: state.contrato
+    }
+
+}
+
+const mapDispatchToProps = (dispatch) => ({
+
+    seleccionarPestanaPerfilContrato: (numPestana) => dispatch(seleccionarPestanaPerfilContrato(numPestana))
+})
 
 class Pestana extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pestanaVisible: 1
+
         };
         this.mostrarPestana = this.mostrarPestana.bind(this);
     }
 
     mostrarPestana(numero) {
-        this.setState({
-            pestanaVisible: numero
-        })
+        this.props.seleccionarPestanaPerfilContrato(numero)
     }
 
     render() {
@@ -26,7 +39,7 @@ class Pestana extends Component {
                     <ul id="tabs-list" className="row">
                         <li id="li-for-panel-1" className="col-3">
                             <label className="panel-label" id="pstPublicaciones" onClick={() => { this.mostrarPestana(1) }}
-                               htmlFor="panel-1-ctrl">Publicaciones</label>
+                                htmlFor="panel-1-ctrl">Publicaciones</label>
                         </li>
                         <li id="li-for-panel-2" className="col-3">
                             <label className="panel-label" id="pstCursos" onClick={() => { this.mostrarPestana(2) }}
@@ -42,26 +55,23 @@ class Pestana extends Component {
                         </li>
                     </ul>
                 </div>
-                <div className="p-4">
+                <div className="p-4" style={{ zIndex: '999999', position: 'relative' }}>
                     {
-                        this.state.pestanaVisible == 1
+                        this.props.contrato.seleccionada == 1
+                            ?
+                            <Publicaciones publicaciones={this.props.publicaciones} perfil={this.props.perfil} />
+                            :
+                            this.props.contrato.seleccionada == 2
                                 ?
-                                <Publicaciones publicaciones={this.props.publicaciones} perfil={this.props.perfil}/>
+                                <Cursos cursos={this.props.preferencias} pasoActual={this.props.pasoActual}
+                                    establecerIdCurso={this.props.establecerIdCurso}
+                                    establecerIdModalidad={this.props.establecerIdModalidad} />
                                 :
-                            this.state.pestanaVisible == 2
-                                ?
-                                    <Cursos cursos={this.props.preferencias}/>
-                                :
-                                this.state.pestanaVisible == 3
+                                this.props.contrato.seleccionada == 3
                                     ?
-                                    <div>
-
-                                        <Horarios eventos={this.props.horarios}/>
-                                    </div>
+                                    <Horarios eventos={this.props.horarios} establecerHorario={this.props.establecerHorario}/>
                                     :
-                                    <div>
-                                        <Ubicación posicion={this.props.ubicacion}/>
-                                    </div>
+                                    <Ubicación posicion={this.props.ubicacion} />
                     }
                 </div>
             </div>
@@ -70,4 +80,4 @@ class Pestana extends Component {
 
 }
 
-export default Pestana;
+export default connect(mapStateToProps, mapDispatchToProps)(Pestana)

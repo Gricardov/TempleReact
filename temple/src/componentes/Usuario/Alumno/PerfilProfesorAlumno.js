@@ -1,23 +1,59 @@
 import React, { Component } from 'react';
 import Pestanas from '../../Utilidades/PestanasPerfilComponente';
-import ModalEntradaMensaje from '../../Utilidades/ModalEntradaMensaje';
 import Presentacion from '../Alumno/Presentacion';
 import Resenas from '../Alumno/Resenas';
-
+import CubiertaContrato from '../../Utilidades/CubiertaContrato';
 import { Row, Col } from 'reactstrap';
-import { perfilProfesorObtenido } from '../../../redux/CreadorAcciones';
 
 class PerfilProfesorAlumno extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            modalMensajeAbierto: false,
+            idCursoSeleccionado:-1,
+            idModalidadSeleccionada:-1,
+            horarioSeleccionado:{}
         };
+        this.iniciarContrato = this.iniciarContrato.bind(this);
+        this.establecerIdCurso=this.establecerIdCurso.bind(this);
+        this.establecerIdModalidad=this.establecerIdModalidad.bind(this);
+        this.establecerHorario=this.establecerHorario.bind(this);
     }
 
-    render() {
-        const perfil=this.props.perfil;
+    iniciarContrato() {
+        // Selecciona la pestaña 2
+        this.props.seleccionarPestanaPerfilContrato(2);
 
+        // Establece que se encuentra en el primer paso del contrato
+        this.props.establecerPasoContrato(1);
+
+    }
+
+    establecerIdCurso(idCur){
+        this.setState({
+            idCursoSeleccionado:idCur
+        })
+    }
+
+    establecerIdModalidad(idMod){
+        this.setState({
+            idModalidadSeleccionada:idMod
+        })
+    }
+
+    establecerHorario(horario){
+        this.setState({
+            horarioSeleccionado:horario
+        })
+    }
+    componentDidUpdate(){
+        if (this.props.contrato.pasoActual==3){
+            alert(JSON.stringify(this.props.usuario.COD_USU+" "+this.props.perfil.codUsu))
+        }
+        // this.props.perfil.codUsu
+        // this.props.usuario.COD_USU
+    }
+    render() {
+        const perfil = this.props.perfil;
         return (
 
             <>
@@ -40,12 +76,10 @@ class PerfilProfesorAlumno extends Component {
                                         <li>{perfil.seguidores}<span>Seguidores</span></li>
                                     </ul>
                                     <div className="float-right">
-                                        <a href="#" className="follow ml-3">
-                                            Contratar
-                        </a>
-                                        <a href="#" className="follow" onClick={() => { this.setState({ modalMensajeAbierto: true }) }}>
-                                            Consultar
-                        </a>
+                                        <button className="btn-social btn-social-azul" onClick={() => this.iniciarContrato()}>
+                                            Contratar</button>
+                                        <button className="btn-social btn-social-azul">
+                                            Consultar</button>
                                     </div>
                                 </div>
                                 <h1 className="nombres-perfil">{perfil.nomUsu} {perfil.apaUsu} {perfil.amaUsu} <small>@{perfil.logUsu}</small></h1>
@@ -82,20 +116,28 @@ class PerfilProfesorAlumno extends Component {
                             <div className="container-fluid">
                                 <Row>
                                     <Col xs={3}>
-                                        <Presentacion sobreMi={perfil.sobreMi} expLab={perfil.expLab} habCla={perfil.habCla}/>
+                                        <Presentacion sobreMi={perfil.sobreMi} expLab={perfil.expLab} habCla={perfil.habCla} />
                                     </Col>
                                     <Col xs={6}>
-                                        <Pestanas ubicacion={{latitud:perfil.latitud, longitud:perfil.longitud}}
-                                        publicaciones={perfil.publicaciones||[]} horarios={perfil.horarios||[]}
-                                        preferencias={perfil.preferencias||[]} perfil={perfil}/>
+                                        <Pestanas ubicacion={{ latitud: perfil.latitud, longitud: perfil.longitud }}
+                                            publicaciones={perfil.publicaciones || []} horarios={perfil.horarios || []}
+                                            preferencias={perfil.preferencias || []} perfil={perfil}
+                                            pasoActual={this.props.contrato.pasoActual}
+                                            establecerIdCurso={this.establecerIdCurso}
+                                            establecerIdModalidad={this.establecerIdModalidad}
+                                            establecerHorario={this.establecerHorario}
+                                            />
                                     </Col>
                                     <Col xs={3}>
-                                        <Resenas resenas={perfil.resenas}/>
+                                        <Resenas resenas={perfil.resenas} />
                                     </Col>
 
                                 </Row>
                             </div>
-                            <ModalEntradaMensaje encabezado="Enviar mensaje" abierto={this.state.modalMensajeAbierto} />
+                            <CubiertaContrato pasoActual={this.props.contrato.pasoActual}
+                            seleccionarPestanaPerfilContrato={this.props.seleccionarPestanaPerfilContrato}
+                            establecerPasoContrato={this.props.establecerPasoContrato}
+                            />
                         </div>
                 }
 

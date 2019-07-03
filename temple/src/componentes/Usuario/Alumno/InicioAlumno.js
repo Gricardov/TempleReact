@@ -10,8 +10,6 @@ import Cuadrícula from '../../Utilidades/CuadriculaTarjetas';
 import Sugerencias from '../../Utilidades/SugerenciasBusqueda';
 import MapaMultiple from '../../Utilidades/ComponenteMapaMultiple';
 import { Fade } from 'react-animation-components';
-import { URLBase } from '../../../compartido/URLBase';
-import * as RUTAS from '../../../compartido/rutas';
 
 const mapStateToProps = (state) => {
 
