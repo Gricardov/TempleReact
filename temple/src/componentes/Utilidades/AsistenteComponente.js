@@ -46,7 +46,11 @@ class Asistente extends Component {
         if (this.props.chatBot.respuesta.output) {
 
             // Aplico un truquito para mostrar la tarjeta del profesor Aliaga :v
-            let respuesta = this.props.chatBot.respuesta.output.text[0];
+
+            // Obtengo un mensaje de todas las posibilidades
+            var respuesta = this.props.chatBot.respuesta.output.text[Math.floor(Math.random() * this.props.chatBot.respuesta.output.text.length)];
+
+            //let respuesta = this.props.chatBot.respuesta.output.text[0];
 
             let codigoAliaga = "-a7cb733c42ac5";
 

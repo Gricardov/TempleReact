@@ -1504,6 +1504,10 @@ hr {
   }
 }
 
+.modal-backdrop.show{
+  display: none !important;
+}
+
 /*Media queries*/
 
 /*telefonitos*/
