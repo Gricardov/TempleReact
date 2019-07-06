@@ -89,7 +89,7 @@ class ModalidadPrecio extends Component {
                                     checked={seleccionado?true:false}
                                         onChange={(event) => { this.modificarModalidad(modalidad.ID_MOD, event); }}
                                     />{' '}
-                                    {modalidad.NOM_MON}
+                                    {modalidad.NOM_MOD}
                                 </Label>
                             </FormGroup>
                         </Col>
