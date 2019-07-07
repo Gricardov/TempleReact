@@ -38,6 +38,12 @@ body p {
 
 }
 
+/*Para las publicaciones del perfil*/
+
+.cuerpo-publicador-publicacion{
+  
+}
+
 /*Los bloques laterales de la página de inicio*/
 .bloque-lateral{
 
@@ -1524,24 +1530,8 @@ hr {
   
 }
 
-.entrada-publicacion{
-  position: relative;
-}
 
-.entrada-publicacion:after {
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 50%;
-	width: 0;
-	height: 0;
-	border: 17px solid transparent;
-	border-right-color: #c0c0c0;
-	border-left: 0;
-	border-top: 0;
-	margin-top: -8.5px;
-	margin-left: -17px;
-}
+
 
 /*Media queries*/
 

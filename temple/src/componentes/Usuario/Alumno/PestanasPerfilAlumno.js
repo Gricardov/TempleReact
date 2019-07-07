@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Publicaciones from './Publicaciones';
+import Publicaciones from '../../Utilidades/PublicacionesComponente';
 import Cursos from './Cursos';
 import Horarios from './Horarios';
 import Ubicación from './Ubicacion';

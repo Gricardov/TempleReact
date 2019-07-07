@@ -3,7 +3,7 @@ import Pestanas from './PestanasPerfilAlumno';
 import ModalEntradaMensaje from '../../Utilidades/ModalEntradaMensaje';
 import Presentacion from '../Alumno/Presentacion';
 import Citas from '../Alumno/Citas';
-import Publicaciones from '../Alumno/Publicaciones';
+import Publicaciones from '../../Utilidades/PublicacionesComponente';
 import { Row, Col } from 'reactstrap';
 
 class MiPerfil extends Component {
