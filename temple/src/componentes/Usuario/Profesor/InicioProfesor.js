@@ -3,7 +3,7 @@ import { Col, Row } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { cerrarSesion } from '../../../redux/CreadorAcciones';
-import { Input } from 'reactstrap';
+import { Button } from 'reactstrap';
 import { FadeTransform } from 'react-animation-components';
 import Carrusel from '../../Utilidades/CarruselTarjetas';
 import Cuadrícula from '../../Utilidades/CuadriculaTarjetas';
@@ -91,6 +91,31 @@ class InicioProfesor extends Component {
                     </Col>
                 </Row>
 
+                <Row className="mb-4">
+                    <Col xs={9}>
+                        <Row>
+                            <Col xs={2}>
+                                <div class="contenedor-img-circular">
+                                    <img class="img-circular" src={this.props.sesion.usuario.IMG_PER} />
+                                </div>
+                            </Col>
+                            <Col xs={10}>
+                                <textarea cols="150" rows="2" className="form-control entrada-publicacion"
+                                    style={{ resize: 'none' }} placeholder="Haz una publicación" />
+                            </Col>
+
+                        </Row>
+
+                        <Row className="mt-2">
+                            <Col xs={{offset:8, size:4}}>
+                                <Button color="primary" block>Publicar</Button>
+                            </Col>
+                        </Row>
+                        
+                    </Col>
+                    <Col xs={3}>
+                    </Col>
+                </Row>
 
 
 

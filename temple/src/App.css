@@ -1508,6 +1508,41 @@ hr {
   display: none !important;
 }
 
+/*Para que las imágenes tengan forma circularr*/
+.contenedor-img-circular {
+  border-radius: 50%;
+  border: 1px solid;
+  width: 60px;
+  height: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+.img-circular{
+  max-width:100%;
+  height:100%;
+  
+}
+
+.entrada-publicacion{
+  position: relative;
+}
+
+.entrada-publicacion:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 17px solid transparent;
+	border-right-color: #c0c0c0;
+	border-left: 0;
+	border-top: 0;
+	margin-top: -8.5px;
+	margin-left: -17px;
+}
+
 /*Media queries*/
 
 /*telefonitos*/
