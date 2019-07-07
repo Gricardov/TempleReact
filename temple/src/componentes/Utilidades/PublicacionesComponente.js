@@ -25,7 +25,7 @@ class Publicaciones extends Component {
             publicaciones = this.props.publicaciones.map((e, i) => {
                 return (
 
-                    <Card className="mt-4">
+                    <Card key={i} className="mb-4">
                         <CardHeader>
                             <Row>
                                 <Col xs={12}>

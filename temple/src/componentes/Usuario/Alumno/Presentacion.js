@@ -21,6 +21,7 @@ class Presentacion extends Component {
                         <p>{this.props.sobreMi}</p>
                     </Col>
                 </Row>
+                <hr />
                 {this.props.expLab
                     ?
                     <Row className="mb-4">
@@ -39,7 +40,7 @@ class Presentacion extends Component {
                     </Row>
                     :
                     null}
-
+                <hr />
                 {this.props.habCla
                     ?
 

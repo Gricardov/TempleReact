@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Input } from 'reactstrap';
+import { Row, Col, Input, Card } from 'reactstrap';
 let moment = require('moment');
 
 class Citas extends Component {
@@ -17,19 +17,25 @@ class Citas extends Component {
 
         citas = this.props.citas.map((e, i) => {
             return (
+                
+                <div>
                 <Row className="valign-wrapper popular_item" key={e.idCon}>
-                    <Col xs={3} className="p_img">
-                            <img src={e.imgPer} alt="img-resena" className="circle responsive-img" />
+                    <Col xs={3} md={12} className="p_img text-center mb-3">
+                        <img src={e.imgPer} alt="img-resena" className="circle responsive-img" />
                     </Col>
-                    <Col xs={9} className="p_content">
-                        <a href="#">{e.nomProf} {e.apaProf} {e.amaProf}</a>
-                        <span>Curso: {e.nomCur}</span><br/>
-                        <span>Modalidad: {e.nomMod}</span><br/>
-                        <span>Estado: {e.nomEst}</span><br/>
-                        <span className="black_text">Desde: {moment(e.fecIni).utc().format('HH:mm:ss DD-MM-YYYY')}{' '} 
-                        hasta: {moment(e.fecFin).utc().format('HH:mm:ss DD-MM-YYYY')}</span>
+                    <Col xs={9} md={12} className="p_content">
+                        <span><b>Profesor:</b> {e.nomProf} {e.apaProf} {e.amaProf}</span><br />
+                        <span><b>Curso:</b> {e.nomCur}</span><br />
+                        <span><b>Modalidad:</b> {e.nomMod}</span><br />
+                        <span><b>Estado:</b> {e.nomEst}</span><br />
+                        <span><b>Desde:</b> {moment(e.fecIni).utc().format('HH:mm:ss DD-MM-YYYY')}</span><br />
+                        <span><b>Hasta:</b> {moment(e.fecFin).utc().format('HH:mm:ss DD-MM-YYYY')}</span>
                     </Col>
+
                 </Row>
+                <hr />
+            </div>
+                
             )
         })
     }

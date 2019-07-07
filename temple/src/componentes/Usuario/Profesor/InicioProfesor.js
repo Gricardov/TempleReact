@@ -10,6 +10,8 @@ import Carrusel from '../../Utilidades/CarruselTarjetas';
 import Cuadrícula from '../../Utilidades/CuadriculaTarjetas';
 import Sugerencias from '../../Utilidades/SugerenciasBusqueda';
 import MapaMultiple from '../../Utilidades/ComponenteMapaMultiple';
+import Citas from './Citas';
+
 import { Fade } from 'react-animation-components';
 
 const mapStateToProps = (state) => {
@@ -44,12 +46,7 @@ class InicioProfesor extends Component {
 
     render() {
         // Necesito las publicaciones y las citas para que se muestren primero
-        let citas = [];
-
-        if (this.props.sesion.contratos) {
-
-        }
-
+        
         return (
             <div className="container debajo-barra bloque-contenedor">
 
@@ -62,12 +59,12 @@ class InicioProfesor extends Component {
                 <Row className="mb-4">
                     <Col xs={9}>
                         <Row>
-                            <Card>
+                            <Card className="mb-3">
                                 <CardBody>
                                     <Row>
                                         <Col xs={2}>
-                                            <div class="contenedor-img-circular">
-                                                <img class="img-circular" src={this.props.sesion.usuario.IMG_PER} />
+                                            <div className="contenedor-img-circular">
+                                                <img className="img-circular" src={this.props.sesion.usuario.IMG_PER} />
                                             </div>
                                         </Col>
                                         <Col xs={10}>
@@ -84,29 +81,26 @@ class InicioProfesor extends Component {
                                     </Row>
                                 </CardBody>
                             </Card>
+                            
                         </Row>
 
                         {this.props.sesion.usuario.publicaciones
                             ?
-                            <Publicaciones publicaciones={this.props.sesion.usuario.publicaciones}/>
+                            <Publicaciones publicaciones={this.props.sesion.usuario.publicaciones} />
                             :
-                            null}
-
+                            null
+                        }
                     </Col>
 
 
 
                     <Col xs={3}>
-                        <Card>
-                            <CardBody>
-                                <h5 className="card-title">Card title</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
-                                <a href="#" className="card-link">Card link</a>
-                                <a href="#" className="card-link">Another link</a>
-                            </CardBody>
-                        </Card>
+                        {this.props.sesion.usuario.contratos
+                            ?
+                            <Citas citas={this.props.sesion.usuario.contratos} />
+                            
+                            :
+                            null}
                     </Col>
                 </Row>
 

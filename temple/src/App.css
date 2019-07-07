@@ -41,7 +41,7 @@ body p {
 /*Para las publicaciones del perfil*/
 
 .cuerpo-publicador-publicacion{
-  
+
 }
 
 /*Los bloques laterales de la página de inicio*/
@@ -1098,25 +1098,25 @@ background-color:rgb(204, 14, 0);
   padding-top: 20px;
   margin-bottom: 7px;
 }
-.popular_posts .popular_item .p_img {
+.p_img {
   padding: 0;
 }
-.popular_posts .popular_item .p_content {
+.p_content {
   padding: 0;
 }
-.popular_posts .popular_item .p_content a {
+.p_content a {
   display: block;
   font: 400 16px/24px "Lato", sans-serif;
   color: #263843;
   margin-top: -16px;
 }
-.popular_posts .popular_item .p_content a:hover, .min_container .section_row .right_side_bar .right_sidebar_iner .popular_posts .popular_item .p_content a:focus {
+.p_content a:hover, .min_container .section_row .right_side_bar .right_sidebar_iner .popular_posts .popular_item .p_content a:focus {
   color: #ff7043;
 }
-.popular_posts .popular_item .p_content a span {
+.p_content a span {
   color: #ff7043;
 }
-.popular_posts .popular_item .p_content .black_text {
+.p_content .black_text {
   font: 400 14px/1 "Lato", sans-serif;
   padding-top: 8px;
   display: block;
@@ -1286,7 +1286,6 @@ hr {
   border: 0;
   height: 1px;
   background: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, 0.5), transparent);
-  background: linear-gradient(left, transparent, rgba(0, 0, 0, 0.5), transparent);
   margin: 35px 0 33px 0;
 }
 
@@ -1530,7 +1529,16 @@ hr {
   
 }
 
+/*Separadores*/
 
+.separador-1 { 
+  border: 0; 
+  height: 1px; 
+  background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0); 
+}
 
 
 /*Media queries*/

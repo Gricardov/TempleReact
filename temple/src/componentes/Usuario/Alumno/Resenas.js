@@ -13,16 +13,20 @@ class Resenas extends Component {
 
         const resenas = this.props.resenas.map((e, i) => {
             return (
-                <Row className="valign-wrapper popular_item" key={e.idRes}>
-                    <Col xs={3} className="p_img">
+                <div>
+                    <Row className="valign-wrapper popular_item" key={e.idRes}>
+                        <Col xs={3} className="p_img">
                             <img src={e.imgPer} alt="img-resena" className="circle responsive-img" />
-                    </Col>
-                    <Col xs={9} className="p_content">
-                        <p style={{marginBottom:"10px"}}>{e.nomUsu} {e.apaUsu} {e.amaUsu}</p>
-                        <a href="#">{e.descripcion} <span>{e.calificacion} estrellas</span></a>
-                        <span className="black_text">{e.fecha}</span>
-                    </Col>
-                </Row>
+                        </Col>
+                        <Col xs={9} className="p_content">
+                            <p>{e.nomUsu} {e.apaUsu} {e.amaUsu} comentó: </p>
+                            <span>{e.descripcion}</span><br/>
+                            <span>{e.calificacion} estrellas</span><br/>
+                            <span className="black_text">{e.fecha}</span>
+                        </Col>
+                    </Row>
+                    <hr />
+                </div>
             )
         })
 
