@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Publicaciones from '../Usuario/Alumno/Publicaciones';
-import Cursos from '../Usuario/Alumno/Cursos';
-import Horarios from '../Usuario/Alumno/Horarios';
-import Ubicación from '../Usuario/Alumno/Ubicacion';
-import { seleccionarPestanaPerfilContrato } from '../../redux/CreadorAcciones';
+import Publicaciones from './Publicaciones';
+import Cursos from './Cursos';
+import Horarios from './Horarios';
+import Ubicación from './Ubicacion';
+import { seleccionarPestanaPerfilContrato } from '../../../redux/CreadorAcciones';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
     seleccionarPestanaPerfilContrato: (numPestana) => dispatch(seleccionarPestanaPerfilContrato(numPestana))
 })
 
-class Pestana extends Component {
+class Pestanas extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -80,4 +80,4 @@ class Pestana extends Component {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Pestana)
+export default connect(mapStateToProps, mapDispatchToProps)(Pestanas)

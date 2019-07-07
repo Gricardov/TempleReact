@@ -46,10 +46,17 @@ class Login extends Component {
     //alert(JSON.stringify(this.props))
     if (prevProps.sesion.usuario != this.props.sesion.usuario) {
 
-      // Si la sesión se ha iniciado correctamente, que redireccione
+      // Si la sesión se ha iniciado correctamente, que pregunte qué tipo de usuario es
       if (this.props.sesion.usuario) {
-        //alert(JSON.stringify(this.props.sesion.usuario))
-        this.props.history.push(RUTAS.INICIO_ALUMNO.ruta);
+
+        if (this.props.sesion.usuario.ID_ROL == 1) {
+          this.props.history.push(RUTAS.INICIO_PROFESOR.ruta);
+
+        } else {
+          this.props.history.push(RUTAS.INICIO_ALUMNO.ruta);
+
+        }
+
       }
     }
   }

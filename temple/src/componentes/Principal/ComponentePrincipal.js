@@ -11,6 +11,7 @@ import Login from '../Bienvenida/IniciarSesionBienvenida';
 import RegistroAlumno from '../Registro/Alumno/RegistroAlumno';
 import RegistroProfesor from '../Registro/Profesor/RegistroProfesor';
 import InicioAlumno from '../Usuario/Alumno/InicioAlumno';
+import InicioProfesor from '../Usuario/Profesor/InicioProfesor';
 import PerfilProfesorAlumno from '../Usuario/Alumno/PerfilProfesorAlumno';
 import MiPerfil from '../Usuario/Alumno/MiPerfil';
 import Asistente from '../Utilidades/AsistenteComponente';
@@ -58,6 +59,9 @@ class Principal extends Component {
     }
 
     render() {
+
+        
+
         return (
             <>
 
@@ -69,6 +73,7 @@ class Principal extends Component {
                             <SwitchDeslizador>
                                 <Route exact path="/" component={InicioAlumno} />
                                 <Route path={RUTAS.INICIO_ALUMNO.ruta} component={InicioAlumno} />
+                                <Route path={RUTAS.INICIO_PROFESOR.ruta} component={InicioProfesor} />
                                 <Route path={RUTAS.MI_PERFIL.ruta} component={() =>
                                     <MiPerfil
                                         perfil={this.props.perfil.perfil}

@@ -89,23 +89,29 @@ class InicioAlumno extends Component {
     }
 
     render() {
-        const preferencias = this.props.sesion.usuario.preferencias.map((e, i) => {
+
+        let preferencias = [];
+
+        if (this.props.sesion.usuario.preferencias) {
+
+            preferencias = this.props.sesion.usuario.preferencias.map((e, i) => {
 
 
-            return (
-                <Row className="mb-3" key={i}>
-                    <Col xs={12}>
-                        <h5 className="text-muted">Curso <span className="badge badge-pill badge-danger">{e.nomCur}</span>{' '}
-                            Nivel <span className="badge badge-pill badge-info">{e.nomNiv}</span>{' '}</h5>
-                    </Col>
-                    <Col xs={12}>
-                        <Carrusel resultados={e.profesores} />
-                    </Col>
+                return (
+                    <Row className="mb-3" key={i}>
+                        <Col xs={12}>
+                            <h5 className="text-muted">Curso <span className="badge badge-pill badge-danger">{e.nomCur}</span>{' '}
+                                Nivel <span className="badge badge-pill badge-info">{e.nomNiv}</span>{' '}</h5>
+                        </Col>
+                        <Col xs={12}>
+                            <Carrusel resultados={e.profesores} />
+                        </Col>
 
-                </Row>
-            )
-        })
-
+                    </Row>
+                )
+            })
+        }
+        
         return (
             <div className="container debajo-barra bloque-contenedor">
 
@@ -187,7 +193,7 @@ class InicioAlumno extends Component {
                             errorResultados={this.props.profesoresBusqueda.mensError}
                             consulta={this.state.consulta} />
                         :
-                        <MapaMultiple resultados={this.props.profesoresBusqueda.profesores}/>
+                        <MapaMultiple resultados={this.props.profesoresBusqueda.profesores} />
                 }
 
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Pestanas from '../../Utilidades/PestanasPerfilComponente';
+import Pestanas from './PestanasPerfilAlumno';
 import ModalEntradaMensaje from '../../Utilidades/ModalEntradaMensaje';
 import Presentacion from '../Alumno/Presentacion';
 import Citas from '../Alumno/Citas';
