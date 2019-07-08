@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Barra from '../Bienvenida/BarraBienvenida';
-import BarraUsuario from '../Usuario/BarraUsuario';
+import BarraUsuario from '../Utilidades/BarraUsuarioComponente';
 import Pie from '../Bienvenida/PieBienvenida';
 //
 import Inicio from '../Bienvenida/InicioBienvenida';
@@ -13,7 +13,8 @@ import RegistroProfesor from '../Registro/Profesor/RegistroProfesor';
 import InicioAlumno from '../Usuario/Alumno/InicioAlumno';
 import InicioProfesor from '../Usuario/Profesor/InicioProfesor';
 import PerfilProfesorAlumno from '../Usuario/Alumno/PerfilProfesorAlumno';
-import MiPerfil from '../Usuario/Alumno/MiPerfil';
+import MiPerfilAlumno from '../Usuario/Alumno/MiPerfil';
+import MiPerfilProfesor from '../Usuario/Profesor/MiPerfil';
 import Asistente from '../Utilidades/AsistenteComponente';
 import SwitchDeslizador from '../Utilidades/ComponenteSwitchDeslizador';
 import CubiertaMensaje from '../Utilidades/CubiertaMensaje';
@@ -60,7 +61,7 @@ class Principal extends Component {
 
     render() {
 
-        
+
 
         return (
             <>
@@ -74,8 +75,13 @@ class Principal extends Component {
                                 <Route exact path="/" component={InicioAlumno} />
                                 <Route path={RUTAS.INICIO_ALUMNO.ruta} component={InicioAlumno} />
                                 <Route path={RUTAS.INICIO_PROFESOR.ruta} component={InicioProfesor} />
-                                <Route path={RUTAS.MI_PERFIL.ruta} component={() =>
-                                    <MiPerfil
+                                <Route path={RUTAS.MI_PERFIL_ALUMNO.ruta} component={() =>
+                                    <MiPerfilAlumno
+                                        perfil={this.props.perfil.perfil}
+                                        estaCargando={this.props.perfil.estaCargando}
+                                        mensError={this.props.perfil.mensError} />} />
+                                <Route path={RUTAS.MI_PERFIL_PROFESOR.ruta} component={() =>
+                                    <MiPerfilProfesor
                                         perfil={this.props.perfil.perfil}
                                         estaCargando={this.props.perfil.estaCargando}
                                         mensError={this.props.perfil.mensError} />} />
@@ -90,7 +96,7 @@ class Principal extends Component {
                                         contrato={this.props.contrato}
                                         registroContrato={this.props.registroContrato}
                                         registrarContrato={this.props.registrarContrato}
-                                         />} />
+                                    />} />
 
                             </SwitchDeslizador>
                             <Asistente usuario={this.props.sesion.usuario} />

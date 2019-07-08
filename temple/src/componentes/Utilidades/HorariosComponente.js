@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
-import Horario from '../../Utilidades/HorarioComponente';
+import Horario from './HorarioComponente';
 
 class Horarios extends Component {
     constructor(props) {

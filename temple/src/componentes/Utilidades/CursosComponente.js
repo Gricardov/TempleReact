@@ -26,10 +26,15 @@ class Cursos extends Component {
                 return (
                     <button className="enlace-pestana-curso" style={curso.idCur == this.state.idContenidoVisible ?
                         { backgroundColor: "rgb(167, 167, 167)" } : {}}
-                        key={curso.idCur} onClick={() => { 
-                            this.props.establecerIdCurso(curso.idCur);
+                        key={curso.idCur} onClick={() => {
+
+                            if (this.props.establecerIdCurso) {
+
+                                this.props.establecerIdCurso(curso.idCur);
+                            }
+
                             this.mostrarContenido(curso.idCur);
-                             }}>
+                        }}>
                         {curso.nomCur}
                     </button>
                 )
@@ -37,7 +42,7 @@ class Cursos extends Component {
         }
 
         // Muestra el contenido seleccionado de manera predeterminada
-        const cursoSeleccionado = this.props.cursos.filter(curso=>curso.idCur==this.state.idContenidoVisible)[0];
+        const cursoSeleccionado = this.props.cursos.filter(curso => curso.idCur == this.state.idContenidoVisible)[0];
         let niveles = [];
         let modalidades = [];
 
@@ -151,9 +156,13 @@ class Cursos extends Component {
 
                             <Col xs={7} className="sectionContent">
                                 <Input type="select"
-                                    onChange={(e) => { 
-                                        this.props.establecerIdModalidad(e.target.value)
-                                        this.setState({ idModalidadSeleccionada: e.target.value }) }}>
+                                    onChange={(e) => {
+
+                                        if (this.props.establecerIdModalidad) {
+                                            this.props.establecerIdModalidad(e.target.value)
+                                        }
+                                        this.setState({ idModalidadSeleccionada: e.target.value })
+                                    }}>
                                     {modalidades}
                                 </Input>
                             </Col>

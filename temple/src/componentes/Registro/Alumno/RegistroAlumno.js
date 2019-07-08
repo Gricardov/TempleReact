@@ -36,14 +36,14 @@ class FormRegistro extends Component {
         this.state = {
             pasos: [
                 {
-                    nombres: 'elvis',
-                    apPat: 'crespo',
-                    apMat: 'luna',
-                    edad: '23',
-                    genero: '1',
-                    correo: 'elviscrespo@gmail.com',
-                    telefono: '7654321',
-                    dni: '78945612',
+                    nombres: '',
+                    apPat: '',
+                    apMat: '',
+                    edad: '',
+                    genero: '',
+                    correo: '',
+                    telefono: '',
+                    dni: '',
                     rol: 2
                 },
                 {
@@ -57,9 +57,9 @@ class FormRegistro extends Component {
                 }
                 ,
                 {
-                    usuario: 'elviscrespo',
-                    contrasena: 'elviscrespo',
-                    sobreMi: 'asdasdasdasd',
+                    usuario: '',
+                    contrasena: '',
+                    sobreMi: '',
                     perfil: '',
                     portada: '',
                     acepta: false

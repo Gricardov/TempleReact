@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Mapa from './../../Utilidades/ComponenteMapa';
+import Mapa from './ComponenteMapa';
 
 class Ubicacion extends Component {
     constructor(props){

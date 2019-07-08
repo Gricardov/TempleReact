@@ -50,15 +50,18 @@ class Horario extends Component {
     const fechaInicio = new Date(inicio);
     const fechaFin = new Date(fin);
 
-    const fechaInicioLocal=fechaInicio.setHours(fechaInicio.getHours()-5);
-    const fechaFinLocal=fechaFin.setHours(fechaFin.getHours()-5);
+    const fechaInicioLocal = fechaInicio.setHours(fechaInicio.getHours() - 5);
+    const fechaFinLocal = fechaFin.setHours(fechaFin.getHours() - 5);
 
-    this.props.establecerHorario(
-      {
-        inicio: moment(fechaInicioLocal).utc().format('YYYY-MM-DD HH:mm:ss'),
-        fin: moment(fechaFinLocal).utc().format('YYYY-MM-DD HH:mm:ss')
-      })
+    if (this.props.establecerHorario) {
 
+      this.props.establecerHorario(
+        {
+          inicio: moment(fechaInicioLocal).utc().format('YYYY-MM-DD HH:mm:ss'),
+          fin: moment(fechaFinLocal).utc().format('YYYY-MM-DD HH:mm:ss')
+        })
+    }
+    
     let eventos = [];
     eventos = this.state.eventos;
     // Le debes quitar 5 horas

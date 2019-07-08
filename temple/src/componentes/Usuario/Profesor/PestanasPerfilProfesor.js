@@ -3,6 +3,7 @@ import Publicaciones from '../../Utilidades/PublicacionesComponente';
 import Cursos from '../../Utilidades/CursosComponente';
 import Horarios from '../../Utilidades/HorariosComponente';
 import Ubicación from '../../Utilidades/UbicacionComponente';
+import Publicador from '../../Utilidades/PublicadorComponente';
 import { seleccionarPestanaPerfilContrato } from '../../../redux/CreadorAcciones';
 import { connect } from 'react-redux';
 
@@ -59,7 +60,10 @@ class Pestanas extends Component {
                     {
                         this.props.contrato.seleccionada == 1
                             ?
+                            <>
+                            <Publicador usuario={{IMG_PER:this.props.perfil.imgPer}} />
                             <Publicaciones publicaciones={this.props.publicaciones} perfil={this.props.perfil} />
+                            </>
                             :
                             this.props.contrato.seleccionada == 2
                                 ?

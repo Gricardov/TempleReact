@@ -20,7 +20,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
 
-    obtenerPerfil: (codUsu, tipoUsu) => dispatch(obtenerPerfil(codUsu,tipoUsu))
+    obtenerPerfil: (codUsu, tipoUsu) => dispatch(obtenerPerfil(codUsu, tipoUsu))
 })
 
 class BarraUsuario extends Component {
@@ -55,7 +55,7 @@ class BarraUsuario extends Component {
 
                     <div className="container">
 
-                        <NavbarBrand className="mr-auto" tag={Link} to={this.props.usuario.ID_ROL==1?RUTAS.INICIO_PROFESOR.ruta:RUTAS.INICIO_ALUMNO.ruta}>
+                        <NavbarBrand className="mr-auto" tag={Link} to={this.props.usuario.ID_ROL == 1 ? RUTAS.INICIO_PROFESOR.ruta : RUTAS.INICIO_ALUMNO.ruta}>
                             <img src="recursos/imagenes/logo.png" height="30" width="100" alt="logo temple" />
                         </NavbarBrand>
                         <NavbarToggler onClick={this.permutarColapso} />
@@ -66,7 +66,8 @@ class BarraUsuario extends Component {
 
                                 <NavItem className="ml-2">
 
-                                    <NavLink className="nav-link" to={RUTAS.MI_PERFIL.ruta} onClick={() => { this.props.obtenerPerfil(this.props.usuario.COD_USU,this.props.usuario.ID_ROL) }}>
+                                    <NavLink className="nav-link" to={this.props.usuario.ID_ROL == 1 ? RUTAS.MI_PERFIL_PROFESOR.ruta : RUTAS.MI_PERFIL_ALUMNO.ruta}
+                                        onClick={() => { this.props.obtenerPerfil(this.props.usuario.COD_USU, this.props.usuario.ID_ROL) }}>
                                         <img className='img-barra-usuario mr-2' alt="img-barra-usuario" src={this.props.usuario.IMG_PER} />
                                         {' '}
                                         {this.props.usuario.NOM_USU}

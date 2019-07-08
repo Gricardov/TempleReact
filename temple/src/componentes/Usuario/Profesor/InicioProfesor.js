@@ -11,6 +11,7 @@ import Cuadrícula from '../../Utilidades/CuadriculaTarjetas';
 import Sugerencias from '../../Utilidades/SugerenciasBusqueda';
 import MapaMultiple from '../../Utilidades/ComponenteMapaMultiple';
 import Citas from './Citas';
+import Publicador from '../../Utilidades/PublicadorComponente';
 
 import { Fade } from 'react-animation-components';
 
@@ -46,7 +47,7 @@ class InicioProfesor extends Component {
 
     render() {
         // Necesito las publicaciones y las citas para que se muestren primero
-        
+
         return (
             <div className="container debajo-barra bloque-contenedor">
 
@@ -58,31 +59,8 @@ class InicioProfesor extends Component {
 
                 <Row className="mb-4">
                     <Col xs={9}>
-                        <Row>
-                            <Card className="mb-3">
-                                <CardBody>
-                                    <Row>
-                                        <Col xs={2}>
-                                            <div className="contenedor-img-circular">
-                                                <img className="img-circular" src={this.props.sesion.usuario.IMG_PER} />
-                                            </div>
-                                        </Col>
-                                        <Col xs={10}>
-                                            <textarea cols="150" rows="2" className="form-control entrada-publicacion"
-                                                style={{ resize: 'none' }} placeholder="Haz una publicación" />
-                                        </Col>
 
-                                    </Row>
-
-                                    <Row className="mt-3">
-                                        <Col xs={{ offset: 8, size: 4 }}>
-                                            <Button color="primary" block>Publicar</Button>
-                                        </Col>
-                                    </Row>
-                                </CardBody>
-                            </Card>
-                            
-                        </Row>
+                        <Publicador usuario={this.props.sesion.usuario} />
 
                         {this.props.sesion.usuario.publicaciones
                             ?
@@ -92,13 +70,10 @@ class InicioProfesor extends Component {
                         }
                     </Col>
 
-
-
                     <Col xs={3}>
                         {this.props.sesion.usuario.contratos
                             ?
                             <Citas citas={this.props.sesion.usuario.contratos} />
-                            
                             :
                             null}
                     </Col>

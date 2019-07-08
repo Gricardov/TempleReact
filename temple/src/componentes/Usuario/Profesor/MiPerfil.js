@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Pestanas from './PestanasPerfilAlumno';
 import ModalEntradaMensaje from '../../Utilidades/ModalEntradaMensaje';
 import Presentacion from '../../Utilidades/PresentacionComponente';
-import Citas from '../Alumno/Citas';
+import Pestanas from './PestanasPerfilProfesor';
+import Resenas from '../../Utilidades/ResenasComponente';
 import Publicaciones from '../../Utilidades/PublicacionesComponente';
 import { Row, Col } from 'reactstrap';
 
@@ -65,25 +65,19 @@ class MiPerfil extends Component {
                 <div className="container-fluid">
                     <Row>
                         <Col xs={3}>
-                            <Presentacion sobreMi={perfil.sobreMi} />
+                            <Presentacion sobreMi={perfil.sobreMi} expLab={perfil.expLab} habCla={perfil.habCla} />
                         </Col>
 
                         <Col xs={6}>
 
-                            <div className="quickFade tarjeta-seccion" style={{ zIndex: '999999', position: 'relative' }}>
-                                <Row className="mb-4">
-                                    <Col xs={12} className="sectionTitle">
-                                        <h3 className="categories_tittle me_tittle">Publicaciones de mis profesores</h3>
-                                    </Col>
-                                    <Col xs={12} className="mt-4">
-                                    <Publicaciones publicaciones={perfil.publicaciones} perfil={perfil} />
-                                    </Col>
-                                </Row>
-                            </div>
+                            <Pestanas ubicacion={{ latitud: perfil.latitud, longitud: perfil.longitud }}
+                                publicaciones={perfil.publicaciones || []} horarios={perfil.horarios || []}
+                                preferencias={perfil.preferencias || []} perfil={perfil}
+                            />
 
                         </Col>
                         <Col xs={3}>
-                            <Citas citas={perfil.contratos} />
+                            <Resenas resenas={perfil.resenas} />
                         </Col>
                     </Row>
                 </div>

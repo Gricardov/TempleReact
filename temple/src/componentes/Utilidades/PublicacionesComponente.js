@@ -19,7 +19,7 @@ class Publicaciones extends Component {
     render() {
 
         let publicaciones = [];
-        
+
         if (this.props.publicaciones) {
 
             publicaciones = this.props.publicaciones.map((e, i) => {

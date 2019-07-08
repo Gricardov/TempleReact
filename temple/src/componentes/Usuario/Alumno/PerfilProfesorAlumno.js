@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Pestanas from './PestanasPerfilAlumno';
-import Presentacion from '../Alumno/Presentacion';
-import Resenas from '../Alumno/Resenas';
+import Presentacion from '../../Utilidades/PresentacionComponente';
+import Resenas from '../../Utilidades/ResenasComponente';
 import CubiertaContrato from '../../Utilidades/CubiertaContrato';
 import ModalCargandoMensaje from '../../Utilidades/ModalCargandoMensaje';
 import { Row, Col } from 'reactstrap';

@@ -187,7 +187,6 @@ class Login extends Component {
                       </Formik>
                     </CardBody>
 
-
                   </Col>
 
                   <Col xs={12} md={5} className="d-none d-md-block">
