@@ -6,7 +6,6 @@ import { Formik, Form, Field } from 'formik';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { iniciarSesion } from '../../redux/CreadorAcciones';
-
 import Cargando from '../Utilidades/CargandoComponente';
 
 import * as RUTAS from '../../compartido/rutas';

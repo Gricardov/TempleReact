@@ -61,8 +61,10 @@ class Pestanas extends Component {
                         this.props.contrato.seleccionada == 1
                             ?
                             <>
-                            <Publicador usuario={{IMG_PER:this.props.perfil.imgPer}} />
-                            <Publicaciones publicaciones={this.props.publicaciones} perfil={this.props.perfil} />
+                                <Publicador usuario={{ IMG_PER: this.props.perfil.imgPer, COD_USU: this.props.perfil.codUsu }}
+                                    registrarPublicacion={this.props.registrarPublicacion}
+                                    registroPublicacion={this.props.registroPublicacion} />
+                                <Publicaciones publicaciones={this.props.publicaciones} perfil={this.props.perfil} />
                             </>
                             :
                             this.props.contrato.seleccionada == 2
@@ -73,7 +75,7 @@ class Pestanas extends Component {
                                 :
                                 this.props.contrato.seleccionada == 3
                                     ?
-                                    <Horarios eventos={this.props.horarios} establecerHorario={this.props.establecerHorario}/>
+                                    <Horarios eventos={this.props.horarios} establecerHorario={this.props.establecerHorario} />
                                     :
                                     <Ubicación posicion={this.props.ubicacion} />
                     }

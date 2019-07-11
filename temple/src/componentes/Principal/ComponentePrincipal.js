@@ -26,7 +26,10 @@ import { Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
 
-import { obtenerLideres, iniciarSesion, seleccionarPestanaPerfilContrato, establecerPasoContrato, registrarContrato } from '../../redux/CreadorAcciones';
+import {
+    obtenerLideres, iniciarSesion, seleccionarPestanaPerfilContrato,
+    establecerPasoContrato, registrarContrato, registrarPublicacion
+} from '../../redux/CreadorAcciones';
 
 const mapStateToProps = (state) => {
 
@@ -35,7 +38,8 @@ const mapStateToProps = (state) => {
         lideres: state.lideres,
         perfil: state.perfil,
         contrato: state.contrato,
-        registroContrato: state.registroContrato
+        registroContrato: state.registroContrato,
+        registroPublicacion: state.registroPublicacion
 
     }
 
@@ -47,7 +51,8 @@ const mapDispatchToProps = (dispatch) => ({
     reiniciarFormContacto: () => dispatch(actions.reset('formContacto')),
     seleccionarPestanaPerfilContrato: (numPestana) => dispatch(seleccionarPestanaPerfilContrato(numPestana)),
     establecerPasoContrato: (numPaso) => dispatch(establecerPasoContrato(numPaso)),
-    registrarContrato: (codAlu, codProf, fecIni, fecFin, idCur, idMod) => dispatch(registrarContrato(codAlu, codProf, fecIni, fecFin, idCur, idMod))
+    registrarContrato: (codAlu, codProf, fecIni, fecFin, idCur, idMod) => dispatch(registrarContrato(codAlu, codProf, fecIni, fecFin, idCur, idMod)),
+    registrarPublicacion: (codProf, titPub, desPub, idPriv) => dispatch(registrarPublicacion(codProf, titPub, desPub, idPriv))
 
 })
 
@@ -61,8 +66,6 @@ class Principal extends Component {
 
     render() {
 
-
-
         return (
             <>
 
@@ -74,7 +77,12 @@ class Principal extends Component {
                             <SwitchDeslizador>
                                 <Route exact path="/" component={InicioAlumno} />
                                 <Route path={RUTAS.INICIO_ALUMNO.ruta} component={InicioAlumno} />
-                                <Route path={RUTAS.INICIO_PROFESOR.ruta} component={InicioProfesor} />
+                                <Route path={RUTAS.INICIO_PROFESOR.ruta} component={() =>
+                                    <InicioProfesor
+                                        sesion={this.props.sesion}
+                                        registroPublicacion={this.props.registroPublicacion}
+                                        registrarPublicacion={this.props.registrarPublicacion}
+                                    />} />
                                 <Route path={RUTAS.MI_PERFIL_ALUMNO.ruta} component={() =>
                                     <MiPerfilAlumno
                                         perfil={this.props.perfil.perfil}
@@ -84,7 +92,9 @@ class Principal extends Component {
                                     <MiPerfilProfesor
                                         perfil={this.props.perfil.perfil}
                                         estaCargando={this.props.perfil.estaCargando}
-                                        mensError={this.props.perfil.mensError} />} />
+                                        mensError={this.props.perfil.mensError}
+                                        registroPublicacion={this.props.registroPublicacion}
+                                        registrarPublicacion={this.props.registrarPublicacion} />} />
                                 <Route path={RUTAS.PERFIL_PROFESOR_ALUMNO.ruta} component={() =>
                                     <PerfilProfesorAlumno
                                         perfil={this.props.perfil.perfil}

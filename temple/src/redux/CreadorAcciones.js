@@ -531,6 +531,63 @@ export const registrarContrato = (codAlu, codProf, fecIni, fecFin, idCur, idMod)
         })
 }
 
+// Registro publicacion
+export const registrarPublicacion = (codUsu, titPub, desPub, idPriv) => (dispatch) => {
+    dispatch(registrandoPublicacion());
+
+    const datos = {
+        datos: {
+            codUsu: codUsu,
+            titPub: titPub,
+            desPub: desPub,
+            idPriv: idPriv
+        }
+    }
+
+    fetch(URLBase + 'publicacion/registro', {
+
+        method: 'POST',
+        body: JSON.stringify(datos),
+        headers: {
+            'Content-type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+        .then(response => {
+
+            if (response.ok) {
+
+                return response;
+
+            }
+
+            else {
+
+                var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
+                error.response = response;
+                throw error;
+
+            }
+
+
+        }, error => {
+
+            var mensErr = new Error(error.message);
+            throw mensErr;
+
+        })
+        .then(response => response.json())
+        .then(respuesta => {
+
+            dispatch(publicacionRegistrada(respuesta));
+
+        })
+        .catch(error => {
+            console.log("Error : " + error.message);
+            dispatch(errorRegistroPublicacion(error.message));
+        })
+}
+
 // ChatBot
 export const enviarMensajeChatBot = (mensaje, codUsu) => (dispatch) => {
 
@@ -747,6 +804,27 @@ export const contratoRegistrado = (resultado) => ({
 export const errorRegistroContrato = (mensErr) => ({
 
     type: Acciones.ERROR_REGISTRO_CONTRATO,
+    payload: mensErr
+
+});
+
+// Registro publicación
+export const registrandoPublicacion = () => ({
+
+    type: Acciones.REGISTRANDO_PUBLICACION,
+
+});
+
+export const publicacionRegistrada = (resultado) => ({
+
+    type: Acciones.PUBLICACION_REGISTRADA,
+    payload: resultado
+
+});
+
+export const errorRegistroPublicacion = (mensErr) => ({
+
+    type: Acciones.ERROR_REGISTRO_PUBLICACION,
     payload: mensErr
 
 });

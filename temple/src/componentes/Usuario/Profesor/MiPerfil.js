@@ -73,6 +73,8 @@ class MiPerfil extends Component {
                             <Pestanas ubicacion={{ latitud: perfil.latitud, longitud: perfil.longitud }}
                                 publicaciones={perfil.publicaciones || []} horarios={perfil.horarios || []}
                                 preferencias={perfil.preferencias || []} perfil={perfil}
+                                registrarPublicacion={this.props.registrarPublicacion}
+                                registroPublicacion={this.props.registroPublicacion}
                             />
 
                         </Col>

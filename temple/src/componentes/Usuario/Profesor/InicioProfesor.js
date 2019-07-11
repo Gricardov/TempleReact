@@ -15,21 +15,6 @@ import Publicador from '../../Utilidades/PublicadorComponente';
 
 import { Fade } from 'react-animation-components';
 
-const mapStateToProps = (state) => {
-
-    return {
-        sesion: state.sesion
-
-    }
-
-}
-
-const mapDispatchToProps = (dispatch) => ({
-
-    cerrarSesion: () => dispatch(cerrarSesion())
-
-})
-
 class InicioProfesor extends Component {
     constructor(props) {
         super(props);
@@ -47,7 +32,6 @@ class InicioProfesor extends Component {
 
     render() {
         // Necesito las publicaciones y las citas para que se muestren primero
-
         return (
             <div className="container debajo-barra bloque-contenedor">
 
@@ -60,11 +44,15 @@ class InicioProfesor extends Component {
                 <Row className="mb-4">
                     <Col xs={9}>
 
-                        <Publicador usuario={this.props.sesion.usuario} />
+                        <Publicador usuario={this.props.sesion.usuario}
+                            registrarPublicacion={this.props.registrarPublicacion}
+                            registroPublicacion={this.props.registroPublicacion} />
 
                         {this.props.sesion.usuario.publicaciones
                             ?
-                            <Publicaciones publicaciones={this.props.sesion.usuario.publicaciones} />
+                            <Publicaciones publicaciones={this.props.sesion.usuario.publicaciones}
+                                registrarPublicacion={this.props.registrarPublicacion}
+                            />
                             :
                             null
                         }
@@ -78,17 +66,6 @@ class InicioProfesor extends Component {
                             null}
                     </Col>
                 </Row>
-
-
-
-
-
-
-
-
-
-
-
             </div>
         )
     }
@@ -113,4 +90,4 @@ const MensajeAnimado = (props) => {
 
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InicioProfesor));
+export default InicioProfesor;
