@@ -4,21 +4,6 @@ import Cursos from '../../Utilidades/CursosComponente';
 import Horarios from '../../Utilidades/HorariosComponente';
 import Ubicación from '../../Utilidades/UbicacionComponente';
 import Publicador from '../../Utilidades/PublicadorComponente';
-import { seleccionarPestanaPerfilContrato } from '../../../redux/CreadorAcciones';
-import { connect } from 'react-redux';
-
-const mapStateToProps = (state) => {
-
-    return {
-        contrato: state.contrato
-    }
-
-}
-
-const mapDispatchToProps = (dispatch) => ({
-
-    seleccionarPestanaPerfilContrato: (numPestana) => dispatch(seleccionarPestanaPerfilContrato(numPestana))
-})
 
 class Pestanas extends Component {
     constructor(props) {
@@ -86,4 +71,4 @@ class Pestanas extends Component {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Pestanas)
+export default Pestanas;

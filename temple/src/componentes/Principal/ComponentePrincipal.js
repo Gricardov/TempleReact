@@ -40,7 +40,6 @@ const mapStateToProps = (state) => {
         contrato: state.contrato,
         registroContrato: state.registroContrato,
         registroPublicacion: state.registroPublicacion
-
     }
 
 }
@@ -52,7 +51,8 @@ const mapDispatchToProps = (dispatch) => ({
     seleccionarPestanaPerfilContrato: (numPestana) => dispatch(seleccionarPestanaPerfilContrato(numPestana)),
     establecerPasoContrato: (numPaso) => dispatch(establecerPasoContrato(numPaso)),
     registrarContrato: (codAlu, codProf, fecIni, fecFin, idCur, idMod) => dispatch(registrarContrato(codAlu, codProf, fecIni, fecFin, idCur, idMod)),
-    registrarPublicacion: (codProf, titPub, desPub, idPriv) => dispatch(registrarPublicacion(codProf, titPub, desPub, idPriv))
+    registrarPublicacion: (codProf, titPub, desPub, idPriv) => dispatch(registrarPublicacion(codProf, titPub, desPub, idPriv)),
+    seleccionarPestanaPerfilContrato: (numPestana) => dispatch(seleccionarPestanaPerfilContrato(numPestana))
 
 })
 
@@ -94,7 +94,9 @@ class Principal extends Component {
                                         estaCargando={this.props.perfil.estaCargando}
                                         mensError={this.props.perfil.mensError}
                                         registroPublicacion={this.props.registroPublicacion}
-                                        registrarPublicacion={this.props.registrarPublicacion} />} />
+                                        registrarPublicacion={this.props.registrarPublicacion}
+                                        seleccionarPestanaPerfilContrato={this.props.seleccionarPestanaPerfilContrato}
+                                        contrato={this.props.contrato} />} />
                                 <Route path={RUTAS.PERFIL_PROFESOR_ALUMNO.ruta} component={() =>
                                     <PerfilProfesorAlumno
                                         perfil={this.props.perfil.perfil}

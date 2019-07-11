@@ -28,6 +28,8 @@ class PerfilProfesorAlumno extends Component {
         // Establece que se encuentra en el primer paso del contrato
         this.props.establecerPasoContrato(1);
 
+        // De ahí, maneja el componente CubiertaContrato
+
     }
 
     establecerIdCurso(idCur) {
@@ -50,6 +52,7 @@ class PerfilProfesorAlumno extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (this.props.contrato.pasoActual == 3) {
             this.props.establecerPasoContrato(-1);
+            
             this.props.registrarContrato(this.props.usuario.COD_USU, this.props.perfil.codUsu,
                 this.state.horarioSeleccionado.inicio, this.state.horarioSeleccionado.fin,
                 this.state.idCursoSeleccionado, this.state.idModalidadSeleccionada);

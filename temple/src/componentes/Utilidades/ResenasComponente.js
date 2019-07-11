@@ -17,7 +17,7 @@ class Resenas extends Component {
 
             resenas = this.props.resenas.map((e, i) => {
                 return (
-                    <div>
+                    <div key={i}>
                         <Row className="valign-wrapper popular_item" key={e.idRes}>
                             <Col xs={3} className="p_img">
                                 <img src={e.imgPer} alt="img-resena" className="circle responsive-img" />

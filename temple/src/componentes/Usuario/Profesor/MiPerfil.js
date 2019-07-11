@@ -75,6 +75,8 @@ class MiPerfil extends Component {
                                 preferencias={perfil.preferencias || []} perfil={perfil}
                                 registrarPublicacion={this.props.registrarPublicacion}
                                 registroPublicacion={this.props.registroPublicacion}
+                                seleccionarPestanaPerfilContrato={this.props.seleccionarPestanaPerfilContrato}
+                                contrato={this.props.contrato}
                             />
 
                         </Col>

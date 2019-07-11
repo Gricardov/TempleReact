@@ -1,117 +1,86 @@
 import React, { Component } from "react";
-import 'react-agenda/build/styles.css';
-import 'react-datetime/css/react-datetime.css';
-import { ReactAgenda, ReactAgendaCtrl, guid, Modal } from 'react-agenda';
-require('moment/locale/es.js');
-let moment = require('moment');
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import {
+  Calendar,
+  DateLocalizer,
+  momentLocalizer,
+  globalizeLocalizer,
+  move,
+  Views,
+  Navigate,
+  components,
+} from 'react-big-calendar'
+import { guid } from 'react-agenda';
+import 'moment/locale/es-us';
+import ModalConfirmacion from '../Utilidades/ModalConfirmacion';
 
-let colorEvento = {
-  'color-1': "rgb(61, 255, 142)",
-  "color-2": "rgb(51, 129, 255)"
+var moment = require('moment');
+const localizer = momentLocalizer(moment)
+
+const obtenerFechaLocal = (moment) => {
+  let date = new Date(moment.year(), moment.month(), moment.day(),
+    moment.hour(), moment.minute(), moment.second());
+  date.setDate(date.getDate() + 6);
+  date.setHours(date.getHours() + 19)
+  return date;
 }
-
-let colorSeleccionado = {
-  "color-2": "rgb(51, 129, 255)"
-}
-
-// Le quito 5 horas porque estoy en UTC -5
-let now = new Date();
-now.setHours(now.getHours() - 5);
 
 class Horario extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: [],
-      cellHeight: 40,
-      showModal: false,
-      locale: "es",
-      rowsPerHour: 4,
-      numberOfDays: 7,
-      startDate: now,
-      eventos: []
+      eventos: [],
+      reservas: [{ id: "" }],
+      modalConfirmacionAbierto: false,
+      mensajeConfirmacion: "",
+      operacionActual: "",
+      rangoSeleccionado: null
     }
-    this.agregarEvento = this.agregarEvento.bind(this)
-    this.editarEvento = this.editarEvento.bind(this)
-    this.editarItem = this.editarItem.bind(this)
-    this.seleccionarRango = this.seleccionarRango.bind(this)
-    this.seleccionarCelda = this.seleccionarCelda.bind(this)
-    this.cambiarDuracionEvento = this.cambiarDuracionEvento.bind(this)
-    this.modificarEvento = this.modificarEvento.bind(this)
-    this.removerItem = this.removerItem.bind(this)
-    this.cerrarModal = this.cerrarModal.bind(this)
-    this.abrirModal = this.abrirModal.bind(this)
+    this.agregarReserva = this.agregarReserva.bind(this);
+    this.editarReserva = this.editarReserva.bind(this);
+    this.eliminarReserva = this.eliminarReserva.bind(this);
+    this.seleccionarRango = this.seleccionarRango.bind(this);
 
   }
-  agregarEvento(items, newItems) {
-    const inicio = items[0].startDateTime;
-    const fin = items[0].endDateTime;
+  agregarReserva() {
+    let reservas = this.state.reservas;
 
-    const fechaInicio = new Date(inicio);
-    const fechaFin = new Date(fin);
+    let momentoInicio = moment(this.state.rangoSeleccionado.start);
+    let momentoFin = moment(this.state.rangoSeleccionado.end);
 
-    const fechaInicioLocal = fechaInicio.setHours(fechaInicio.getHours() - 5);
-    const fechaFinLocal = fechaFin.setHours(fechaFin.getHours() - 5);
+    reservas[0] = {
+      id: guid(),
+      title: 'reserva',
+      start: momentoInicio.toDate(),
+      end: momentoFin.toDate(),
+      allDay: false
+    }
 
     if (this.props.establecerHorario) {
 
       this.props.establecerHorario(
         {
-          inicio: moment(fechaInicioLocal).utc().format('YYYY-MM-DD HH:mm:ss'),
-          fin: moment(fechaFinLocal).utc().format('YYYY-MM-DD HH:mm:ss')
+          inicio: momentoInicio.format('YYYY-MM-DD HH:mm:ss'),
+          fin: momentoFin.format('YYYY-MM-DD HH:mm:ss')
         })
     }
-    
-    let eventos = [];
-    eventos = this.state.eventos;
-    // Le debes quitar 5 horas
-    this.setState({ showModal: false, selected: [], eventos: [...eventos, ...items] });
-    this.cerrarModal();
-  }
-
-  editarEvento(items, item) {
-    this.setState({ showModal: false, selected: [], eventos: items });
-    this.cerrarModal();
-  }
-  seleccionarRango(selected) {
-    //alert(selected)
-    this.setState({ selected: selected, showCtrl: true })
-    this.abrirModal();
-  }
-  editarItem(item, openModal) {
-    if (item && openModal === true) {
-      this.setState({ selected: [item] })
-      return this.abrirModal();
-    }
-  }
-  seleccionarCelda(item, openModal) {
-    if (this.state.selected && this.state.selected[0] === item) {
-      return this.abrirModal();
-    }
-    this.setState({ selected: [item] })
-  }
-  cambiarDuracionEvento(items, item) {
-    this.setState({ eventos: items })
-  }
-  modificarEvento(items, item) {
-    this.setState({ eventos: items })
-  }
-  removerItem(items, item) {
-    this.setState({ eventos: items });
-  }
-
-  abrirModal() {
     this.setState({
-      showModal: true
+      reservas: reservas
     })
   }
 
-  cerrarModal(e) {
-    if (e) {
-      e.stopPropagation();
-      e.preventDefault();
-    }
-    this.setState({ showModal: false })
+  editarReserva() {
+
+  }
+
+  eliminarReserva() {
+
+  }
+  seleccionarRango(slotInfo) {
+    this.setState({
+      modalConfirmacionAbierto: true, mensajeConfirmacion: "¿Agregar reserva?",
+      operacionActual: "registro", rangoSeleccionado: slotInfo
+    })
   }
 
   componentDidMount() {
@@ -123,17 +92,18 @@ class Horario extends Component {
         let momentoInicio = moment(e.fecIni);
         let momentoFin = moment(e.fecFin);
 
-        let fechaIni = new Date(momentoInicio.year(), momentoInicio.month(), momentoInicio.day(), momentoInicio.hour(), momentoInicio.minute(), momentoInicio.second());
-        let fechaFin = new Date(momentoFin.year(), momentoFin.month(), momentoFin.day(), momentoFin.hour(), momentoFin.minute(), momentoFin.second());
+        let fechaIni = obtenerFechaLocal(momentoInicio);
+        let fechaFin = obtenerFechaLocal(momentoFin);
+
         eventos.push({
-          _id: e.idHor,
-          name: e.tipo,
-          startDateTime: fechaIni,
-          endDateTime: fechaFin,
-          classes: 'color-1'
+          id: e.idHor,
+          title: e.tipo,
+          start: fechaIni,
+          end: fechaFin,
+          allDay: false
         })
 
-        console.log(fechaIni + " " + fechaFin)
+        //console.log(fechaIni + " " + fechaFin)
       })
     }
 
@@ -144,49 +114,87 @@ class Horario extends Component {
   }
 
   render() {
-
-    const detalleEvento = (props) => {
-      return (<p>{props.item.name}</p>)
-    }
-
     return (
       <div style={{ zIndex: '999999', position: 'relative' }}>
-        <ReactAgenda
-          minDate={now}
-          maxDate={new Date(now.getFullYear(), now.getMonth() + 3)}
-          startAtTime={1}
-          endAtTime={24}
-          disablePrevButton={false}
-          startDate={this.state.startDate}
-          cellHeight={this.state.cellHeight}
-          locale={this.state.locale}
-          items={this.state.eventos}
-          numberOfDays={this.state.numberOfDays}
-          rowsPerHour={this.state.rowsPerHour}
-          itemColors={colorEvento}
-          itemComponent={detalleEvento}
-          autoScale={false}
-          helper={false}
-          fixedHeader={false}
-          onRangeSelection={this.seleccionarRango}
-          onChangeEvent={this.modificarEvento}
-          onChangeDuration={this.cambiarDuracionEvento}
-          onItemEdit={this.editarItem}
-          onCellSelect={this.seleccionarCelda}
-          onItemRemove={this.removerItem}
+        <Calendar
+          localizer={localizer}
+          events={[...this.state.eventos, ...this.state.reservas]}
+          defaultView={'week'}
+          startAccessor="start"
+          endAccessor="end"
+          views={{
+            week: true
+          }}
+          selectable={true}
+          step={30}
+          onSelectSlot={this.seleccionarRango}
+          showMultiDayTimes={true}
+          eventPropGetter={(event, start, end, isSelected) => {
+            // Verifico si está en el arreglo de las reservas o eventos
+
+            if (event) {
+              if (event.id == this.state.reservas[0].id) {
+                // Pertenece a las reservas del usuario
+                let style = {
+                  backgroundColor: '#5286ff',
+                  borderRadius: '5px',
+                  opacity: 0.8,
+                  color: 'black',
+                  border: '0px',
+                  display: 'block'
+                };
+                return {
+                  style: style
+                };
+
+              } else {
+                // Pertenece a los eventos del profesor
+                let style = {
+                  backgroundColor: '#52ff7a',
+                  borderRadius: '0px',
+                  opacity: 1,
+                  color: 'black',
+                  border: '0px',
+                  display: 'block'
+                };
+                return {
+                  style: style
+                };
+              }
+            }
+          }}
         />
 
-        {
-          this.state.showModal
-            ?
-            <Modal clickOutside={this.cerrarModal} >
-              <div className="modal-content">
-                <ReactAgendaCtrl items={this.state.items} itemColors={colorSeleccionado}
-                  selectedCells={this.state.selected} Addnew={this.agregarEvento} edit={this.editEvent} />
+        <ModalConfirmacion encabezado={"¿Seguro?"} mensaje={this.state.mensajeConfirmacion}
+          abierto={this.state.modalConfirmacionAbierto}
+          cambiarEstadoModal={() => { this.setState({ modalConfirmacionAbierto: !this.state.modalConfirmacionAbierto }) }}
+          confirmar={() => {
+            let operacionActual = this.state.operacionActual;
 
-              </div>
-            </Modal> : ''
-        }
+            switch (operacionActual) {
+              case "registro":
+                this.agregarReserva();
+                break;
+              case "actualizacion":
+                this.editarReserva();
+                break;
+              case "eliminacion":
+                this.eliminarReserva();
+                break;
+            }
+            this.setState({
+              modalConfirmacionAbierto: !this.state.modalConfirmacionAbierto,
+              operacionActual: ""
+            })
+          }}
+          negar={() => {
+            this.setState({
+              modalConfirmacionAbierto: !this.state.modalConfirmacionAbierto,
+              operacionActual: ""
+            })
+          }}
+        />
+
       </div>
     )
   }
