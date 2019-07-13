@@ -589,13 +589,14 @@ export const registrarPublicacion = (codUsu, titPub, desPub, idPriv) => (dispatc
 }
 
 // ChatBot
-export const enviarMensajeChatBot = (mensaje, codUsu) => (dispatch) => {
+export const enviarMensajeChatBot = (mensaje,contexto,codUsu) => (dispatch) => {
 
     dispatch(enviandoMensajeChatBot());
 
     const datos = {
         datos: {
-            mensaje: mensaje
+            mensaje: mensaje,
+            contexto: contexto
         }
     }
 

@@ -15,17 +15,20 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    enviarMensajeChatBot: (mensaje, codUsu) => dispatch(enviarMensajeChatBot(mensaje, codUsu))
+    enviarMensajeChatBot: (mensaje, contexto, codUsu) => dispatch(enviarMensajeChatBot(mensaje, contexto, codUsu))
 })
 
 class Asistente extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            hizoSaludoLogin: false
+            codigoPatero: '-a7cb733c42ac5',
+            hizoSaludoLogin: false,
+            contexto: null
         }
 
         this.enviarMensaje = this.enviarMensaje.bind(this);
+        this.evaluarTarjetaPatera = this.evaluarTarjetaPatera.bind(this);
     }
 
     componentDidMount() {
@@ -35,78 +38,96 @@ class Asistente extends Component {
 
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState) {
+        try {
 
-        if (this.props.usuario && !this.state.hizoSaludoLogin) {
-            addResponseMessage(`Bienvenid@ ${this.props.usuario.NOM_USU}! Soy tu asistente Melendi. Pregúntame lo que necesites`);
-            toggleWidget();
-            this.setState({ hizoSaludoLogin: true });
-        }
-        try{
-        if (this.props.chatBot.respuesta.output) {
+            if (prevProps != this.props) {
 
-            // Aplico un truquito para mostrar la tarjeta del profesor Aliaga :v
+                // Saludo de usuario logueado
+                if (this.props.usuario && !this.state.hizoSaludoLogin) {
+                    addResponseMessage(`Bienvenid@ ${this.props.usuario.NOM_USU}! Soy tu asistente Melendi. Pregúntame lo que necesites`);
+                    toggleWidget();
+                    this.setState({ hizoSaludoLogin: true });
+                }
 
-            // Obtengo un mensaje de todas las posibilidades
-            var respuesta = this.props.chatBot.respuesta.output.text[Math.floor(Math.random() * this.props.chatBot.respuesta.output.text.length)];
+                if (this.props.chatBot.respuesta.output) {
 
-            //let respuesta = this.props.chatBot.respuesta.output.text[0];
+                    // A ver, para que haya secuencia en la conversación, debo almacenar el contexto
+                    let contexto = this.props.chatBot.respuesta.context;
 
-            let codigoAliaga = "-a7cb733c42ac5";
+                    // Si el contexto cambia, que lo reasigne
+                    if (contexto != this.state.contexto) {
+                        this.setState({ contexto: contexto });
+                    }
 
-            let codigoUltraSecretoXd = respuesta.substring(respuesta.length - codigoAliaga.length, respuesta.length);
 
-            if (codigoUltraSecretoXd == codigoAliaga) {
-                respuesta = respuesta.substring(0, respuesta.length - codigoAliaga.length);
+                    // Obtengo un mensaje de todas las posibilidades (Si no está configurado como random)
+                    //var respuesta = this.props.chatBot.respuesta.output.text[Math.floor(Math.random() * this.props.chatBot.respuesta.output.text.length)];
 
-                if (this.props.usuario) {
-                    
-                    const tarjetaPatera = () => {
-                        return <TarjetaPerfil datos={{
-                            "codUsu": "1002",
-                            "nomUsu": "José",
-                            "apaUsu": "Aliaga",
-                            "amaUsu": "Álvarez",
-                            "latitud": -12.164031,
-                            "longitud": -76.991758,
-                            "imgPer": "../../recursos/imagenes/aliaga.jpg",
-                            "imgPor": "https://pbs.twimg.com/media/BWV1bQ8CEAAuHoJ.jpg",
-                            "logUsu": "Aliaga",
-                            "especialidad": "Programación en java",
-                            "experiencia": 1000,
-                            "prestigio": 2000,
-                            "seguidores": 3000,
-                            "cursos": 5,
-                            "genero": "MASCULINO",
-                            "rol": "Instructor",
-                            "idPerfil": 1002,
-                            "sobreMi": "Profesor con una gran trayectoria en la enseñanza de java",
-                            "expLab": "NO ESPECIFICADO",
-                            "habCla": "NO ESPECIFICADO",
-                            "cv": "https://www.udlap.mx/centrodeescritura/files/curriculumVitae-Ejemplos.pdf"
-                        }}>
+                    // Sin embargo, si está configurado como random, puedo tomar el primer valor. Watson te envía al azar
+                    let respuesta = this.props.chatBot.respuesta.output.text[0];
 
-                        </TarjetaPerfil>
-                    };
+                    this.evaluarTarjetaPatera(respuesta);
+
                     addResponseMessage(respuesta);
-                    renderCustomComponent(tarjetaPatera, {});
-                    return;
+
+
                 }
             }
-            addResponseMessage(respuesta)
-
-
+        } catch (e) {
+            addResponseMessage("Has introducido una pregunta que no tiene soporte :( amiguis");
         }
 
-    } catch(e){
-        addResponseMessage("Has introducido una pregunta que no tiene soporte :( amiguis");
+        //console.log(JSON.stringify(this.props.chatBot.respuesta))
     }
 
-        console.log(JSON.stringify(this.props.chatBot.respuesta))
+    evaluarTarjetaPatera(respuesta) {
+        // Aplico un truquito para mostrar la tarjeta del profesor Aliaga :v
+        let codigoAliaga = this.state.codigoPatero;
+
+        let codigoUltraSecretoXd = respuesta.substring(respuesta.length - codigoAliaga.length, respuesta.length);
+
+        if (codigoUltraSecretoXd == codigoAliaga) {
+            respuesta = respuesta.substring(0, respuesta.length - codigoAliaga.length);
+
+            if (this.props.usuario) {
+
+                const tarjetaPatera = () => {
+                    return <TarjetaPerfil datos={{
+                        "codUsu": "1002",
+                        "nomUsu": "José",
+                        "apaUsu": "Aliaga",
+                        "amaUsu": "Álvarez",
+                        "latitud": -12.164031,
+                        "longitud": -76.991758,
+                        "imgPer": "../../recursos/imagenes/aliaga.jpg",
+                        "imgPor": "https://pbs.twimg.com/media/BWV1bQ8CEAAuHoJ.jpg",
+                        "logUsu": "Aliaga",
+                        "especialidad": "Programación en java",
+                        "experiencia": 1000,
+                        "prestigio": 2000,
+                        "seguidores": 3000,
+                        "cursos": 5,
+                        "genero": "MASCULINO",
+                        "rol": "Instructor",
+                        "idPerfil": 1002,
+                        "sobreMi": "Profesor con una gran trayectoria en la enseñanza de java",
+                        "expLab": "NO ESPECIFICADO",
+                        "habCla": "NO ESPECIFICADO",
+                        "cv": "https://www.udlap.mx/centrodeescritura/files/curriculumVitae-Ejemplos.pdf"
+                    }}>
+
+                    </TarjetaPerfil>
+                };
+                addResponseMessage(respuesta);
+                renderCustomComponent(tarjetaPatera, {});
+                return;
+            }
+        }
     }
 
     enviarMensaje(mensaje) {
-        this.props.enviarMensajeChatBot(mensaje, null);
+        this.props.enviarMensajeChatBot(mensaje, this.state.contexto, null);
     }
 
     render() {
@@ -114,8 +135,8 @@ class Asistente extends Component {
         return (
             <div className="panel panel-chat">
                 <Widget handleNewUserMessage={this.enviarMensaje}
-                    title={this.props.usuario?`Hola ${this.props.usuario.NOM_USU}`:"Bienvenido a TEMPLE"}
-                     subtitle="Consulte a nuestro asistente Melendi"
+                    title={this.props.usuario ? `Hola ${this.props.usuario.NOM_USU}` : "Bienvenido a TEMPLE"}
+                    subtitle="Consulte a nuestro asistente Melendi"
                     profileAvatar="../../recursos/imagenes/melendi.jpg" badge={true}
                     senderPlaceHolder="Escribe aquí"
                 />
