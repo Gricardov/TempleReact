@@ -4,6 +4,7 @@ import { Widget, addResponseMessage, toggleWidget, addUserMessage, renderCustomC
 import 'react-chat-widget/lib/styles.css';
 import { enviarMensajeChatBot } from '../../redux/CreadorAcciones';
 import TarjetaPerfil from './TarjetaPerfil';
+import TarjetaPresentacion from './TarjetaPresentacion';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
@@ -23,12 +24,13 @@ class Asistente extends Component {
         super(props);
         this.state = {
             codigoPatero: '-a7cb733c42ac5',
+            separador: '%*',
             hizoSaludoLogin: false,
             contexto: null
         }
 
         this.enviarMensaje = this.enviarMensaje.bind(this);
-        this.evaluarTarjetaPatera = this.evaluarTarjetaPatera.bind(this);
+        this.evaluarIntencion = this.evaluarIntencion.bind(this);
     }
 
     componentDidMount() {
@@ -61,17 +63,48 @@ class Asistente extends Component {
                     }
 
 
-                    // Obtengo un mensaje de todas las posibilidades (Si no está configurado como random)
-                    //var respuesta = this.props.chatBot.respuesta.output.text[Math.floor(Math.random() * this.props.chatBot.respuesta.output.text.length)];
-
-                    // Sin embargo, si está configurado como random, puedo tomar el primer valor. Watson te envía al azar
-                    let respuesta = this.props.chatBot.respuesta.output.text[0];
-
-                    this.evaluarTarjetaPatera(respuesta);
-
-                    addResponseMessage(respuesta);
 
 
+                    // Primero, evalúo los tipos de respuesta. Estas pueden ser texto, imagen u opción
+                    let tiposRespuesta = this.props.chatBot.respuesta.output.generic;
+
+                    // Por cada una de ellas, hago un bucle para responder
+                    tiposRespuesta.map((e, i) => {
+
+                        switch (e.response_type) {
+                            case "text":
+                                // Obtengo un mensaje de todas las posibilidades (Si no está configurado como random)
+                                //var respuesta = this.props.chatBot.respuesta.output.text[Math.floor(Math.random() * this.props.chatBot.respuesta.output.text.length)];
+
+                                // Sin embargo, si está configurado como random, puedo tomar el primer valor. Watson ya lo envía al azar
+                                let respuesta = this.props.chatBot.respuesta.output.text[0];
+                                let intencion = this.props.chatBot.respuesta.intents[0];
+
+                                // Si la intención requiere un logueo u otra restricción, que el sistema decida si tiene algo que decir :P
+                                if (!this.evaluarIntencion(respuesta, intencion)) {
+
+                                    addResponseMessage(respuesta);
+                                }
+                                break;
+
+                            case "image":
+                                const tarjeta = () => {
+
+                                    return (
+                                        <TarjetaPresentacion
+                                            datos={{ titulo: e.title, descripcion: e.description, urlImg: e.source }} />
+                                    )
+                                }
+
+                                renderCustomComponent(tarjeta, {});
+                                break;
+
+
+
+
+                        }
+
+                    })
                 }
             }
         } catch (e) {
@@ -81,17 +114,47 @@ class Asistente extends Component {
         //console.log(JSON.stringify(this.props.chatBot.respuesta))
     }
 
-    evaluarTarjetaPatera(respuesta) {
+    evaluarIntencion(respuesta, intencion) {
+
+        // Si hay intención, que pregunte cuál es
+        if (intencion) {
+            switch (intencion.intent) {
+                case "Contrato":
+                    // Esta función requiere logueo, así que evalúo
+                    if (this.props.usuario) {
+
+                        // Solo pueden contratar los alumnos
+                        if (this.props.usuario.ID_ROL!=2){
+                            // Si es profesor, no puedes contratar
+                            addResponseMessage("Tú eres un profesor, no puedes contratar a otro profesor");
+                            return true;
+                        } else {
+                            // Si es alumno, no tengo nada más que agregar :v
+                            return false;
+                        }
+                        return false;
+                    } else {
+                        // Logueate amiguis, caballero nomás :v
+                        let posiblesRespuestas=["Esta función requiere logueo", "Logueate para usar esta función, amiguito u.u"];
+                        var respuesta = posiblesRespuestas[Math.floor(Math.random() * posiblesRespuestas.length)];
+                        addResponseMessage(respuesta);
+                        return true;
+                    }
+            }
+        }
+
+        /*
+     
         // Aplico un truquito para mostrar la tarjeta del profesor Aliaga :v
         let codigoAliaga = this.state.codigoPatero;
-
+     
         let codigoUltraSecretoXd = respuesta.substring(respuesta.length - codigoAliaga.length, respuesta.length);
-
+     
         if (codigoUltraSecretoXd == codigoAliaga) {
             respuesta = respuesta.substring(0, respuesta.length - codigoAliaga.length);
-
+     
             if (this.props.usuario) {
-
+     
                 const tarjetaPatera = () => {
                     return <TarjetaPerfil datos={{
                         "codUsu": "1002",
@@ -116,14 +179,14 @@ class Asistente extends Component {
                         "habCla": "NO ESPECIFICADO",
                         "cv": "https://www.udlap.mx/centrodeescritura/files/curriculumVitae-Ejemplos.pdf"
                     }}>
-
+     
                     </TarjetaPerfil>
                 };
                 addResponseMessage(respuesta);
                 renderCustomComponent(tarjetaPatera, {});
-                return;
+                return true;
             }
-        }
+        }*/
     }
 
     enviarMensaje(mensaje) {
@@ -145,5 +208,7 @@ class Asistente extends Component {
     }
 
 }
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Asistente);
