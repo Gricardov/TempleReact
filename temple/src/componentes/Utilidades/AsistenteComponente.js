@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import { Widget, addResponseMessage, toggleWidget, addUserMessage, renderCustomComponent } from 'react-chat-widget';
 import 'react-chat-widget/lib/styles.css';
-import { enviarMensajeChatBot } from '../../redux/CreadorAcciones';
+import { enviarMensajeChatBot, consultaProfesoresChatBot } from '../../redux/CreadorAcciones';
 import TarjetaPerfil from './TarjetaPerfil';
 import TarjetaPresentacion from './TarjetaPresentacion';
 import { connect } from 'react-redux';
@@ -10,13 +10,15 @@ import { connect } from 'react-redux';
 const mapStateToProps = (state) => {
 
     return {
-        chatBot: state.chatBot
+        chatBot: state.chatBot,
+        profesoresBusquedaChatBot: state.profesoresBusquedaChatBot
     }
 
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    enviarMensajeChatBot: (mensaje, contexto, codUsu) => dispatch(enviarMensajeChatBot(mensaje, contexto, codUsu))
+    enviarMensajeChatBot: (mensaje, contexto, codUsu) => dispatch(enviarMensajeChatBot(mensaje, contexto, codUsu)),
+    consultaProfesoresChatBot: (nomCur, distancia, modalidad, nivel) => dispatch(consultaProfesoresChatBot(nomCur, distancia, modalidad, nivel))
 })
 
 class Asistente extends Component {
@@ -30,7 +32,7 @@ class Asistente extends Component {
         }
 
         this.enviarMensaje = this.enviarMensaje.bind(this);
-        this.evaluarIntencion = this.evaluarIntencion.bind(this);
+        this.procesarVariablesEntorno = this.procesarVariablesEntorno.bind(this);
     }
 
     componentDidMount() {
@@ -42,7 +44,6 @@ class Asistente extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         try {
-
             if (prevProps != this.props) {
 
                 // Saludo de usuario logueado
@@ -57,13 +58,7 @@ class Asistente extends Component {
                     // A ver, para que haya secuencia en la conversación, debo almacenar el contexto
                     let contexto = this.props.chatBot.respuesta.context;
 
-                    // Si el contexto cambia, que lo reasigne
-                    if (contexto != this.state.contexto) {
-                        this.setState({ contexto: contexto });
-                    }
-
-
-
+                    this.setState({ contexto: contexto });
 
                     // Primero, evalúo los tipos de respuesta. Estas pueden ser texto, imagen u opción
                     let tiposRespuesta = this.props.chatBot.respuesta.output.generic;
@@ -78,13 +73,9 @@ class Asistente extends Component {
 
                                 // Sin embargo, si está configurado como random, puedo tomar el primer valor. Watson ya lo envía al azar
                                 let respuesta = this.props.chatBot.respuesta.output.text[0];
-                                let intencion = this.props.chatBot.respuesta.intents[0];
 
-                                // Si la intención requiere un logueo u otra restricción, que el sistema decida si tiene algo que decir :P
-                                if (!this.evaluarIntencion(respuesta, intencion)) {
+                                addResponseMessage(respuesta);
 
-                                    addResponseMessage(respuesta);
-                                }
                                 break;
 
                             case "image":
@@ -99,12 +90,12 @@ class Asistente extends Component {
                                 renderCustomComponent(tarjeta, {});
                                 break;
 
-
-
-
                         }
 
                     })
+
+                    this.procesarVariablesEntorno(contexto);
+
                 }
             }
         } catch (e) {
@@ -114,34 +105,23 @@ class Asistente extends Component {
         //console.log(JSON.stringify(this.props.chatBot.respuesta))
     }
 
-    evaluarIntencion(respuesta, intencion) {
+    procesarVariablesEntorno(contexto) {
+        // Esto sirve para evaluar la respuesta que envía el chatbot
 
-        // Si hay intención, que pregunte cuál es
-        if (intencion) {
-            switch (intencion.intent) {
-                case "Contrato":
-                    // Esta función requiere logueo, así que evalúo
-                    if (this.props.usuario) {
-
-                        // Solo pueden contratar los alumnos
-                        if (this.props.usuario.ID_ROL!=2){
-                            // Si es profesor, no puedes contratar
-                            addResponseMessage("Tú eres un profesor, no puedes contratar a otro profesor");
-                            return true;
-                        } else {
-                            // Si es alumno, no tengo nada más que agregar :v
-                            return false;
-                        }
-                        return false;
-                    } else {
-                        // Logueate amiguis, caballero nomás :v
-                        let posiblesRespuestas=["Esta función requiere logueo", "Logueate para usar esta función, amiguito u.u"];
-                        var respuesta = posiblesRespuestas[Math.floor(Math.random() * posiblesRespuestas.length)];
-                        addResponseMessage(respuesta);
-                        return true;
-                    }
+        if (contexto) {
+            // Si es que ya terminó el contrato, entonces que lea las variables que ha recopilado el chatbot
+            if (contexto.datosContrato) {
+                let nomCur = contexto.curso;
+                let distancia = contexto.distancia;
+                let modalidad = contexto.modalidad;
+                let nivel = contexto.nivel;
+                // Hago la consulta
+                this.props.consultaProfesoresChatBot(nomCur, distancia, modalidad, nivel);
             }
+
         }
+
+        alert(JSON.stringify(this.props.profesoresBusquedaChatBot.profesores))
 
         /*
      
@@ -190,7 +170,26 @@ class Asistente extends Component {
     }
 
     enviarMensaje(mensaje) {
-        this.props.enviarMensajeChatBot(mensaje, this.state.contexto, null);
+
+        let contexto = this.state.contexto;
+
+        if (!contexto) {
+            contexto = {};
+        }
+
+        // Aquí establezco una variable para saber si está logueado el usuario
+        if (this.props.usuario) {
+            contexto.logueado = true;
+        } else {
+            contexto.logueado = false;
+        }
+
+        // Y lo asigno/reasigno
+        this.setState({ contexto: contexto }, () => {
+            this.props.enviarMensajeChatBot(mensaje, this.state.contexto, null);
+        })
+
+
     }
 
     render() {

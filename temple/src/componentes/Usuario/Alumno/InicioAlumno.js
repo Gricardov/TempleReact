@@ -67,9 +67,9 @@ class InicioAlumno extends Component {
 
             // Después, busco por id o por nombre de curso
             if (this.state.cursoSeleccionado) {
-                this.props.consultaProfesoresPorIdCurso(this.state.cursoSeleccionado.ID_CUR, 1);
+                this.props.consultaProfesoresPorIdCurso(this.state.cursoSeleccionado.ID_CUR, null);
             } else {
-                this.props.consultaProfesoresPorNombreCurso(this.state.consulta, 1);
+                this.props.consultaProfesoresPorNombreCurso(this.state.consulta, null);
 
             }
 

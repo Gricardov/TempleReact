@@ -12,6 +12,7 @@ import {Modalidades} from './reductorModalidades';
 import {Registro} from './reductorRegistro';
 import {Cursos} from './reductorCursos';
 import {ProfesoresBusqueda} from './reductorBusquedaProfesor';
+import {ProfesoresBusquedaChatBot} from './reductorBusquedaProfesorChatBot';
 import {Perfil} from './reductorPerfil';
 import {Contrato} from './reductorContrato';
 import {RegistroContrato} from './reductorRegistroContrato';
@@ -30,6 +31,7 @@ export const ReduxStore = () => {
                 registro: Registro,
                 cursos: Cursos,
                 profesoresBusqueda: ProfesoresBusqueda,
+                profesoresBusquedaChatBot: ProfesoresBusquedaChatBot,
                 perfil: Perfil,
                 contrato: Contrato,
                 registroContrato: RegistroContrato,

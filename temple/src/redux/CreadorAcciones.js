@@ -406,6 +406,123 @@ export const consultaProfesoresPorNombreCurso = (nomCur, idNiv) => (dispatch) =>
         })
 }
 
+// Estas búsqueda son para la búsqueda avanzada y el chatbot, respectivamente
+
+// Búsqueda avanzada
+export const consultaProfesoresBusquedaAvanzada = (idCur, nomCur, distancia, idMod, idNiv) => (dispatch) => {
+
+    dispatch(cargandoProfesoresBusqueda());
+
+    const datos = {
+        datos: {
+            idCur: idCur,
+            nomCur: nomCur,
+            distancia: distancia,
+            idMod: idMod,
+            idNiv: idNiv
+        }
+    }
+
+    fetch(URLBase + 'usuario/profesor/consulta/porBusquedaAvanzada', {
+
+        method: 'POST',
+        body: JSON.stringify(datos),
+        headers: {
+            'Content-type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+        .then(response => {
+
+            if (response.ok) {
+
+                return response;
+
+            }
+
+            else {
+
+                var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
+                error.response = response;
+                throw error;
+
+            }
+
+
+        }, error => {
+
+            var mensErr = new Error(error.message);
+            throw mensErr;
+
+        })
+        .then(response => response.json())
+        .then(profesores => {
+            dispatch(profesoresObtenidosBusqueda(profesores));
+
+        })
+        .catch(error => {
+            console.log("Error : " + error.message);
+            dispatch(errorProfesoresBusqueda(error.message));
+        })
+}
+
+// Búsqueda chatBot
+export const consultaProfesoresChatBot = (nomCur, distancia, modalidad, nivel) => (dispatch) => {
+
+    dispatch(cargandoProfesoresBusquedaChatBot());
+
+    const datos = {
+        datos: {
+            nomCur: nomCur,
+            distancia: distancia,
+            modalidad: modalidad,
+            nivel: nivel
+        }
+    }
+
+    fetch(URLBase + 'usuario/profesor/consulta/porBusquedaChatBot', {
+
+        method: 'POST',
+        body: JSON.stringify(datos),
+        headers: {
+            'Content-type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+        .then(response => {
+
+            if (response.ok) {
+
+                return response;
+
+            }
+
+            else {
+
+                var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
+                error.response = response;
+                throw error;
+
+            }
+
+
+        }, error => {
+
+            var mensErr = new Error(error.message);
+            throw mensErr;
+
+        })
+        .then(response => response.json())
+        .then(profesores => {
+            dispatch(profesoresObtenidosBusquedaChatBot(profesores));
+
+        })
+        .catch(error => {
+            console.log("Error : " + error.message);
+            dispatch(errorProfesoresBusquedaChatBot(error.message));
+        })
+}
+
 // Perfil
 export const obtenerPerfil = (codUsu, tipo) => (dispatch) => {
     dispatch(cargandoPerfil());
@@ -589,7 +706,7 @@ export const registrarPublicacion = (codUsu, titPub, desPub, idPriv) => (dispatc
 }
 
 // ChatBot
-export const enviarMensajeChatBot = (mensaje,contexto,codUsu) => (dispatch) => {
+export const enviarMensajeChatBot = (mensaje, contexto, codUsu) => (dispatch) => {
 
     dispatch(enviandoMensajeChatBot());
 
@@ -752,6 +869,22 @@ export const profesoresObtenidosBusqueda = (profesores) => ({
 
 export const errorProfesoresBusqueda = (mensErr) => ({
     type: Acciones.ERROR_PROFESORES_BUSQUEDA,
+    payload: mensErr
+
+})
+
+// Profesores búsqueda chatBot
+export const cargandoProfesoresBusquedaChatBot = () => ({
+    type: Acciones.CARGANDO_PROFESORES_BUSQUEDA_CHATBOT
+})
+
+export const profesoresObtenidosBusquedaChatBot = (profesores) => ({
+    type: Acciones.PROFESORES_OBTENIDOS_BUSQUEDA_CHATBOT,
+    payload: profesores
+})
+
+export const errorProfesoresBusquedaChatBot = (mensErr) => ({
+    type: Acciones.ERROR_PROFESORES_BUSQUEDA_CHATBOT,
     payload: mensErr
 
 })
