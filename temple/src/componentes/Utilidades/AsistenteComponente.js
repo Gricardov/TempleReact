@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import { Widget, addResponseMessage, toggleWidget, addUserMessage, renderCustomComponent } from 'react-chat-widget';
 import 'react-chat-widget/lib/styles.css';
-import { enviarMensajeChatBot, consultaProfesoresChatBot } from '../../redux/CreadorAcciones';
+import { enviarMensajeChatBot, consultaProfesoresChatBot, contratoRegistrado } from '../../redux/CreadorAcciones';
 import TarjetaPerfil from './TarjetaPerfil';
 import TarjetaPresentacion from './TarjetaPresentacion';
 import { connect } from 'react-redux';
@@ -54,47 +54,55 @@ class Asistente extends Component {
                 }
 
                 if (this.props.chatBot.respuesta.output) {
-
                     // A ver, para que haya secuencia en la conversación, debo almacenar el contexto
                     let contexto = this.props.chatBot.respuesta.context;
 
-                    this.setState({ contexto: contexto });
+                    // Esto evita repetición de respuestas
+                    if (contexto != this.state.contexto) {
 
-                    // Primero, evalúo los tipos de respuesta. Estas pueden ser texto, imagen u opción
-                    let tiposRespuesta = this.props.chatBot.respuesta.output.generic;
+                        this.setState({ contexto: contexto }, () => {
 
-                    // Por cada una de ellas, hago un bucle para responder
-                    tiposRespuesta.map((e, i) => {
+                            // Primero, evalúo los tipos de respuesta. Estas pueden ser texto, imagen u opción
+                            let respuestas = this.props.chatBot.respuesta.output.generic;
 
-                        switch (e.response_type) {
-                            case "text":
-                                // Obtengo un mensaje de todas las posibilidades (Si no está configurado como random)
-                                //var respuesta = this.props.chatBot.respuesta.output.text[Math.floor(Math.random() * this.props.chatBot.respuesta.output.text.length)];
+                            // Por cada una de ellas, hago un bucle para responder
+                            respuestas.map((e, i) => {
 
-                                // Sin embargo, si está configurado como random, puedo tomar el primer valor. Watson ya lo envía al azar
-                                let respuesta = this.props.chatBot.respuesta.output.text[0];
+                                switch (e.response_type) {
+                                    case "text":
+                                        // Obtengo un mensaje de todas las posibilidades (Si no está configurado como random)
+                                        //var respuesta = this.props.chatBot.respuesta.output.text[Math.floor(Math.random() * this.props.chatBot.respuesta.output.text.length)];
 
-                                addResponseMessage(respuesta);
+                                        // Sin embargo, si está configurado como random, puedo tomar el primer valor. Watson ya lo envía al azar
+                                        let respuesta = this.props.chatBot.respuesta.output.text[0];
 
-                                break;
+                                        addResponseMessage(respuesta);
 
-                            case "image":
-                                const tarjeta = () => {
+                                        break;
 
-                                    return (
-                                        <TarjetaPresentacion
-                                            datos={{ titulo: e.title, descripcion: e.description, urlImg: e.source }} />
-                                    )
+                                    case "image":
+                                        const tarjeta = () => {
+
+                                            return (
+                                                <TarjetaPresentacion
+                                                    datos={{ titulo: e.title, descripcion: e.description, urlImg: e.source }} />
+                                            )
+                                        }
+
+                                        renderCustomComponent(tarjeta, {});
+                                        break;
+
                                 }
 
-                                renderCustomComponent(tarjeta, {});
-                                break;
+                            })
+                            this.procesarVariablesEntorno();
 
-                        }
+                        });
 
-                    })
 
-                    this.procesarVariablesEntorno(contexto);
+                    }
+
+
 
                 }
             }
@@ -105,8 +113,9 @@ class Asistente extends Component {
         //console.log(JSON.stringify(this.props.chatBot.respuesta))
     }
 
-    procesarVariablesEntorno(contexto) {
+    procesarVariablesEntorno() {
         // Esto sirve para evaluar la respuesta que envía el chatbot
+        let contexto = this.state.contexto;
 
         if (contexto) {
             // Si es que ya terminó el contrato, entonces que lea las variables que ha recopilado el chatbot
@@ -115,13 +124,21 @@ class Asistente extends Component {
                 let distancia = contexto.distancia;
                 let modalidad = contexto.modalidad;
                 let nivel = contexto.nivel;
-                // Hago la consulta
-                this.props.consultaProfesoresChatBot(nomCur, distancia, modalidad, nivel);
+                // Indico que ya se evaluó la consulta
+                contexto.datosContrato = false;
+                this.setState({ contexto: contexto }, () => {
+                    // Hago la consulta
+                    this.props.consultaProfesoresChatBot(nomCur, distancia, modalidad, nivel);
+                });
+
+
+
+
             }
 
         }
 
-        alert(JSON.stringify(this.props.profesoresBusquedaChatBot.profesores))
+        //alert(JSON.stringify(this.props.profesoresBusquedaChatBot.profesores))
 
         /*
      
