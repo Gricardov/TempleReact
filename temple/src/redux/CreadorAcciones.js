@@ -2,6 +2,7 @@ import * as Acciones from './Acciones';
 import { LIDERES } from '../compartido/lideres';
 import { URLBase } from '../compartido/URLBase';
 import { actions } from 'react-redux-form';
+import {establecerGalleta,obtenerGalleta} from '../componentes/Utilidades/gestorCookies';
 
 // Niveles
 export const consultaNiveles = () => (dispatch) => {
@@ -107,12 +108,9 @@ export const iniciarSesion = (usuario, contrasena) => (dispatch) => {
         method: 'POST',
         body: JSON.stringify(datos),
         headers: {
-
+            Accept: 'application/json',
             'Content-type': 'application/json'
-
-        },
-        credentials: 'same-origin'
-
+        }
     })
         .then(response => {
 
@@ -137,7 +135,77 @@ export const iniciarSesion = (usuario, contrasena) => (dispatch) => {
             throw mensErr;
 
         })
-        .then(response => response.json())
+        .then(response => {
+
+            return response.json()
+        })
+        .then(usuario => {
+
+            if (Object.keys(usuario).length === 0) {
+                console.log("Sesión no iniciada : Datos incorrectos")
+                dispatch(sesionNoIniciada("Datos incorrectos"))
+            } else {
+                establecerGalleta('usuario',usuario.galleta,60);
+                dispatch(sesionIniciada(usuario));
+            }
+            //
+
+
+        })
+        .catch(error => {
+            console.log("Sesión no iniciada : " + error.message)
+            dispatch(sesionNoIniciada(error.message));
+
+        })
+}
+
+// Sesión usuario por galleta
+export const iniciarSesionGalleta = (galleta) => (dispatch) => {
+
+    dispatch(iniciandoSesion());
+
+    const datos = {
+        datos: {
+            galleta: galleta
+        }
+    }
+
+    return fetch(URLBase + 'usuario/login/galleta', {
+
+        method: 'POST',
+        body: JSON.stringify(datos),
+        headers: {
+            Accept: 'application/json',
+            'Content-type': 'application/json'
+        }
+    })
+        .then(response => {
+
+            if (response.ok) {
+
+                return response;
+
+            }
+
+            else {
+
+                var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
+                error.response = response;
+                throw error;
+
+            }
+
+
+        }, error => {
+
+            var mensErr = new Error(error.message);
+            throw mensErr;
+
+        })
+        .then(response => {
+
+            return response.json()
+        })
         .then(usuario => {
 
             if (Object.keys(usuario).length === 0) {
@@ -211,6 +279,7 @@ export const registrarUsuario = (usuario) => (dispatch) => {
 
 export const cerrarSesion = () => (dispatch) => {
 
+    establecerGalleta('usuario',null,60);    
     dispatch(sesionNoIniciada('Cerrado correctamente'));
 
 

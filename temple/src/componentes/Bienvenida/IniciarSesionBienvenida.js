@@ -13,14 +13,12 @@ import * as RUTAS from '../../compartido/rutas';
 const mapStateToProps = (state) => {
 
   return {
-
     sesion: state.sesion
   }
 
 }
 
 const mapDispatchToProps = (dispatch) => ({
-
   iniciarSesion: (usuario, contrasena) => dispatch(iniciarSesion(usuario, contrasena))
 })
 
@@ -41,24 +39,12 @@ class Login extends Component {
     this.iniciarSesion = this.iniciarSesion.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    //alert(JSON.stringify(this.props))
+  /*componentDidUpdate(prevProps, prevState) {
     if (prevProps.sesion.usuario != this.props.sesion.usuario) {
 
-      // Si la sesión se ha iniciado correctamente, que pregunte qué tipo de usuario es
-      if (this.props.sesion.usuario) {
-
-        if (this.props.sesion.usuario.ID_ROL == 1) {
-          this.props.history.push(RUTAS.INICIO_PROFESOR.ruta);
-
-        } else {
-          this.props.history.push(RUTAS.INICIO_ALUMNO.ruta);
-
-        }
-
-      }
+      
     }
-  }
+  }*/
 
   iniciarSesion(usuario, contrasena) {
 

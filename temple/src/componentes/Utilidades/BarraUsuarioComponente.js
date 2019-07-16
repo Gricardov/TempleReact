@@ -6,7 +6,7 @@ import {
 import { NavLink, Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { obtenerPerfil } from '../../redux/CreadorAcciones';
+import { obtenerPerfil, cerrarSesion } from '../../redux/CreadorAcciones';
 
 import * as RUTAS from '../../compartido/rutas';
 
@@ -20,7 +20,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
 
-    obtenerPerfil: (codUsu, tipoUsu) => dispatch(obtenerPerfil(codUsu, tipoUsu))
+    obtenerPerfil: (codUsu, tipoUsu) => dispatch(obtenerPerfil(codUsu, tipoUsu)),
+    cerrarSesion: () => dispatch(cerrarSesion())
 })
 
 class BarraUsuario extends Component {
@@ -46,6 +47,21 @@ class BarraUsuario extends Component {
 
         });
 
+    }
+
+    componentDidMount() {
+        // Si la sesión se ha iniciado correctamente, que pregunte qué tipo de usuario es
+        if (this.props.usuario) {
+
+            if (this.props.usuario.ID_ROL == 1) {
+                this.props.history.push(RUTAS.INICIO_PROFESOR.ruta);
+
+            } else {
+                this.props.history.push(RUTAS.INICIO_ALUMNO.ruta);
+
+            }
+
+        }
     }
 
     render() {
@@ -121,14 +137,17 @@ class BarraUsuario extends Component {
                                     <DropdownMenu right>
                                         <DropdownItem>
                                             Configuración
-                  </DropdownItem>
+                                        </DropdownItem>
                                         <DropdownItem>
                                             Ayuda
-                  </DropdownItem>
+                                        </DropdownItem>
                                         <DropdownItem divider />
-                                        <DropdownItem>
+                                        <DropdownItem onClick={() => {
+                                            this.props.cerrarSesion()
+                                            this.props.history.push(RUTAS.INICIAR_SESION_BIENVENIDA.ruta);
+                                        }}>
                                             Salir
-                  </DropdownItem>
+                                        </DropdownItem>
                                     </DropdownMenu>
                                 </UncontrolledDropdown>
 

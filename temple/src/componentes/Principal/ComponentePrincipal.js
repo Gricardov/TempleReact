@@ -19,6 +19,8 @@ import Asistente from '../Utilidades/AsistenteComponente';
 import SwitchDeslizador from '../Utilidades/ComponenteSwitchDeslizador';
 import CubiertaMensaje from '../Utilidades/CubiertaMensaje';
 import CubiertaContrato from '../Utilidades/CubiertaContrato';
+import { establecerGalleta, obtenerGalleta } from '../../componentes/Utilidades/gestorCookies';
+
 import * as RUTAS from '../../compartido/rutas';
 
 import { Route, Redirect, withRouter } from 'react-router-dom';
@@ -30,7 +32,7 @@ import {
     obtenerLideres, iniciarSesion, seleccionarPestanaPerfilContrato,
     establecerPasoContrato, registrarContrato, registrarPublicacion,
     obtenerPerfil, cerrarSesion, consultaCursosPorNombre, consultaProfesoresPorIdCurso,
-    consultaProfesoresPorNombreCurso
+    consultaProfesoresPorNombreCurso, iniciarSesionGalleta
 } from '../../redux/CreadorAcciones';
 
 const mapStateToProps = (state) => {
@@ -50,6 +52,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     iniciarSesion: (usuario, contrasena) => dispatch(iniciarSesion(usuario, contrasena)),
+    iniciarSesionGalleta: (galleta) => dispatch(iniciarSesionGalleta(galleta)),
     obtenerLideres: () => dispatch(obtenerLideres()),
     reiniciarFormContacto: () => dispatch(actions.reset('formContacto')),
     seleccionarPestanaPerfilContrato: (numPestana) => dispatch(seleccionarPestanaPerfilContrato(numPestana)),
@@ -68,13 +71,18 @@ const mapDispatchToProps = (dispatch) => ({
 class Principal extends Component {
 
     componentDidMount() {
+        let usuario = obtenerGalleta("usuario");
+
+        // La galleta indica que hay un usuario logueado
+        if (usuario && usuario != "") {
+            this.props.iniciarSesionGalleta(usuario);
+        }
 
         this.props.obtenerLideres();
 
     }
 
     render() {
-
         return (
             <>
 

@@ -71,9 +71,9 @@ class InicioAlumno extends Component {
 
             // Después, busco por id o por nombre de curso
             if (this.state.cursoSeleccionado) {
-                this.props.consultaProfesoresPorIdCurso(this.state.cursoSeleccionado.ID_CUR, 1);
+                this.props.consultaProfesoresPorIdCurso(this.state.cursoSeleccionado.ID_CUR, null);
             } else {
-                this.props.consultaProfesoresPorNombreCurso(this.state.consulta, 1);
+                this.props.consultaProfesoresPorNombreCurso(this.state.consulta, null);
 
             }
 
@@ -96,122 +96,133 @@ class InicioAlumno extends Component {
 
         let preferencias = [];
 
-        if (this.props.sesion.usuario.preferencias) {
+        if (this.props.sesion.usuario) {
 
-            preferencias = this.props.sesion.usuario.preferencias.map((e, i) => {
+            if (this.props.sesion.usuario.preferencias) {
+
+                preferencias = this.props.sesion.usuario.preferencias.map((e, i) => {
 
 
-                return (
-                    <Row className="mb-3" key={i}>
-                        <Col xs={12}>
-                            <h5 className="text-muted">Curso <span className="badge badge-pill badge-danger">{e.nomCur}</span>{' '}
-                                Nivel <span className="badge badge-pill badge-info">{e.nomNiv}</span>{' '}</h5>
-                        </Col>
-                        <Col xs={12}>
-                            <Carrusel resultados={e.profesores} obtenerPerfil={this.props.obtenerPerfil} />
-                        </Col>
+                    return (
+                        <Row className="mb-3" key={i}>
+                            <Col xs={12}>
+                                <h5 className="text-muted">Curso <span className="badge badge-pill badge-danger">{e.nomCur}</span>{' '}
+                                    Nivel <span className="badge badge-pill badge-info">{e.nomNiv}</span>{' '}</h5>
+                            </Col>
+                            <Col xs={12}>
+                                <Carrusel resultados={e.profesores} obtenerPerfil={this.props.obtenerPerfil} />
+                            </Col>
 
-                    </Row>
-                )
-            })
+                        </Row>
+                    )
+                })
+
+            }
         }
 
         return (
-            <div className="container debajo-barra bloque-contenedor">
-
-                <Row className="mb-4">
-                    <Col xs={12}>
+            <>
+                {this.props.sesion.usuario
+                    ?
+                    <div className="container debajo-barra bloque-contenedor">
 
                         <Row className="mb-4">
                             <Col xs={12}>
-                                <MensajeAnimado texto={`Hola ${this.props.sesion.usuario.NOM_USU}! ¿Qué deseas aprender hoy?`} />
+
+                                <Row className="mb-4">
+                                    <Col xs={12}>
+                                        <MensajeAnimado texto={`Hola ${this.props.sesion.usuario.NOM_USU}! ¿Qué deseas aprender hoy?`} />
+                                    </Col>
+                                </Row>
+
+                                <Input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Por ejemplo: Java, SQL Server, MySQL"
+                                    autoComplete="off"
+                                    value={this.state.consulta}
+                                    onChange={(e) => this.manejarCambio(e)}
+                                />
+                                {
+                                    this.state.cursoSeleccionado
+                                        ?
+                                        null
+                                        :
+                                        <Sugerencias resultados={this.props.cursos.cursos}
+                                            cargandoResultados={this.props.cursos.estaCargando}
+                                            errorResultados={this.props.errorResultados}
+                                            modificarPreferencia={(curso) => {
+                                                this.setState({ cursoSeleccionado: curso, consulta: curso.texto })
+                                            }} />
+                                }
+
                             </Col>
                         </Row>
 
-                        <Input
-                            type="text"
-                            className="form-control"
-                            placeholder="Por ejemplo: Java, SQL Server, MySQL"
-                            autoComplete="off"
-                            value={this.state.consulta}
-                            onChange={(e) => this.manejarCambio(e)}
-                        />
+                        <Row>
+                            <Col xs={5}>
+                                <a href="#">Búsqueda avanzada</a>
+                            </Col>
+                            <Col xs={7}>
+                                <label className="float-right label">
+                                    <div className="toggle">
+                                        <input className="toggle-state" type="checkbox" name="check" value="check" onChange={this.cambiarVista} />
+                                        <div className="toggle-inner">
+                                            <div className="indicator"></div>
+                                        </div>
+                                        <div className="active-bg"></div>
+                                    </div>
+                                    <div className="label-text">{
+                                        this.state.tipoVista == 1
+                                            ?
+                                            "Cuadrícula"
+                                            :
+                                            "Mapa"
+                                    }</div>
+                                </label>
+                            </Col>
+                        </Row>
+
+                        <Row>
+                            {
+                                this.state.consulta
+                                    ?
+                                    <Col xs={12}>
+                                        <Fade in><h4 className="text-muted">Resultados de búsqueda para <b>"{this.state.consulta}":</b></h4></Fade>
+                                    </Col>
+                                    :
+                                    null
+                            }
+                        </Row>
+
                         {
-                            this.state.cursoSeleccionado
+                            this.state.tipoVista == 1
                                 ?
-                                null
+                                <Cuadricula columnas={4}
+                                    resultados={this.props.profesoresBusqueda.profesores}
+                                    cargandoResultados={this.props.profesoresBusqueda.estaCargando}
+                                    errorResultados={this.props.profesoresBusqueda.mensError}
+                                    consulta={this.state.consulta}
+                                    obtenerPerfil={this.props.obtenerPerfil} />
                                 :
-                                <Sugerencias resultados={this.props.cursos.cursos}
-                                    cargandoResultados={this.props.cursos.estaCargando}
-                                    errorResultados={this.props.errorResultados}
-                                    modificarPreferencia={(curso) => {
-                                        this.setState({ cursoSeleccionado: curso, consulta: curso.texto })
-                                    }} />
+                                <MapaMultiple resultados={this.props.profesoresBusqueda.profesores}
+                                    obtenerPerfil={this.props.obtenerPerfil} />
                         }
 
-                    </Col>
-                </Row>
 
-                <Row>
-                    <Col xs={5}>
-                        <a href="#">Búsqueda avanzada</a>
-                    </Col>
-                    <Col xs={7}>
-                        <label className="float-right label">
-                            <div className="toggle">
-                                <input className="toggle-state" type="checkbox" name="check" value="check" onChange={this.cambiarVista} />
-                                <div className="toggle-inner">
-                                    <div className="indicator"></div>
-                                </div>
-                                <div className="active-bg"></div>
-                            </div>
-                            <div className="label-text">{
-                                this.state.tipoVista == 1
-                                    ?
-                                    "Cuadrícula"
-                                    :
-                                    "Mapa"
-                            }</div>
-                        </label>
-                    </Col>
-                </Row>
 
-                <Row>
-                    {
-                        this.state.consulta
-                            ?
+                        <Row className="mb-2">
                             <Col xs={12}>
-                                <Fade in><h4 className="text-muted">Resultados de búsqueda para <b>"{this.state.consulta}":</b></h4></Fade>
+                                <h4 className="text-muted">Recomendados para ti: </h4>
                             </Col>
-                            :
-                            null
-                    }
-                </Row>
+                        </Row>
+                        {preferencias}
 
-                {
-                    this.state.tipoVista == 1
-                        ?
-                        <Cuadricula columnas={4}
-                            resultados={this.props.profesoresBusqueda.profesores}
-                            cargandoResultados={this.props.profesoresBusqueda.estaCargando}
-                            errorResultados={this.props.profesoresBusqueda.mensError}
-                            consulta={this.state.consulta}
-                            obtenerPerfil={this.props.obtenerPerfil} />
-                        :
-                        <MapaMultiple resultados={this.props.profesoresBusqueda.profesores}
-                            obtenerPerfil={this.props.obtenerPerfil} />
+                    </div>
+                    :
+                    null
                 }
-
-
-
-                <Row className="mb-2">
-                    <Col xs={12}>
-                        <h4 className="text-muted">Recomendados para ti: </h4>
-                    </Col>
-                </Row>
-                {preferencias}
-
-            </div>
+            </>
         )
     }
 

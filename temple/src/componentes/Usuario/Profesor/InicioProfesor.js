@@ -33,40 +33,47 @@ class InicioProfesor extends Component {
     render() {
         // Necesito las publicaciones y las citas para que se muestren primero
         return (
-            <div className="container debajo-barra bloque-contenedor">
+            <>
+                {this.props.sesion.usuario
+                    ?
+                    <div className="container debajo-barra bloque-contenedor">
 
-                <Row className="mb-4">
-                    <Col xs={12}>
-                        <MensajeAnimado texto={`Bienvenid@ de nuevo, ${this.props.sesion.usuario.NOM_USU}`} />
-                    </Col>
-                </Row>
+                        <Row className="mb-4">
+                            <Col xs={12}>
+                                <MensajeAnimado texto={`Bienvenid@ de nuevo, ${this.props.sesion.usuario.NOM_USU}`} />
+                            </Col>
+                        </Row>
 
-                <Row className="mb-4">
-                    <Col xs={9}>
+                        <Row className="mb-4">
+                            <Col xs={9}>
 
-                        <Publicador usuario={this.props.sesion.usuario}
-                            registrarPublicacion={this.props.registrarPublicacion}
-                            registroPublicacion={this.props.registroPublicacion} />
+                                <Publicador usuario={this.props.sesion.usuario}
+                                    registrarPublicacion={this.props.registrarPublicacion}
+                                    registroPublicacion={this.props.registroPublicacion} />
 
-                        {this.props.sesion.usuario.publicaciones
-                            ?
-                            <Publicaciones publicaciones={this.props.sesion.usuario.publicaciones}
-                                registrarPublicacion={this.props.registrarPublicacion}
-                            />
-                            :
-                            null
-                        }
-                    </Col>
+                                {this.props.sesion.usuario.publicaciones
+                                    ?
+                                    <Publicaciones publicaciones={this.props.sesion.usuario.publicaciones}
+                                        registrarPublicacion={this.props.registrarPublicacion}
+                                    />
+                                    :
+                                    null
+                                }
+                            </Col>
 
-                    <Col xs={3}>
-                        {this.props.sesion.usuario.contratos
-                            ?
-                            <Citas citas={this.props.sesion.usuario.contratos} />
-                            :
-                            null}
-                    </Col>
-                </Row>
-            </div>
+                            <Col xs={3}>
+                                {this.props.sesion.usuario.contratos
+                                    ?
+                                    <Citas citas={this.props.sesion.usuario.contratos} />
+                                    :
+                                    null}
+                            </Col>
+                        </Row>
+                    </div>
+                    :
+                    null
+                }
+            </>
         )
     }
 
