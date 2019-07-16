@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, CardFooter } from 'reactstrap';
+let moment = require('moment');
 
 class Publicaciones extends Component {
     constructor(props) {
@@ -58,7 +59,8 @@ class Publicaciones extends Component {
                         </CardHeader>
                         <CardBody>
                             <div className="text-muted h7 mb-2">
-                                <i className="fa fa-clock-o"></i>{e.fecha}</div>
+                                <i className="fa fa-clock-o"></i> Publicado el {moment(e.fecha).format('DD-MM-YYYY')}{' '}
+                                  a las {moment(e.fecha).format('HH:mm:ss')}</div>
                             <a className="card-link" href="#">
                                 <h5 className="card-title">{e.titulo}</h5>
                             </a>

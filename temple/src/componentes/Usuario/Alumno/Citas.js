@@ -28,8 +28,8 @@ class Citas extends Component {
                         <span><b>Curso:</b> {e.nomCur}</span><br />
                         <span><b>Modalidad:</b> {e.nomMod}</span><br />
                         <span><b>Estado:</b> {e.nomEst}</span><br />
-                        <span><b>Desde:</b> {moment(e.fecIni).utc().format('HH:mm:ss DD-MM-YYYY')}</span><br />
-                        <span><b>Hasta:</b> {moment(e.fecFin).utc().format('HH:mm:ss DD-MM-YYYY')}</span>
+                        <span><b>Desde:</b> {moment(e.fecIni).format('DD-MM-YYYY HH:mm:ss')}</span><br />
+                        <span><b>Hasta:</b> {moment(e.fecFin).format('DD-MM-YYYY HH:mm:ss')}</span>
                     </Col>
 
                 </Row>

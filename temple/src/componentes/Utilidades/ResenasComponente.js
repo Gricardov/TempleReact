@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Input } from 'reactstrap';
+let moment = require('moment');
 
 class Resenas extends Component {
     constructor(props) {
@@ -26,7 +27,8 @@ class Resenas extends Component {
                                 <p>{e.nomUsu} {e.apaUsu} {e.amaUsu} comentó: </p>
                                 <span>{e.descripcion}</span><br />
                                 <span>{e.calificacion} estrellas</span><br />
-                                <span className="black_text">{e.fecha}</span>
+                                <span className="black_text">Realizado el {moment(e.fecIni).format('DD-MM-YYYY')}{' '}
+                                  a las {moment(e.fecIni).format('HH:mm:ss')}</span>
                             </Col>
                         </Row>
                         <hr />

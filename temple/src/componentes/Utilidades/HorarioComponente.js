@@ -14,16 +14,16 @@ import { guid } from 'react-agenda';
 import 'moment/locale/es-us';
 import ModalConfirmacion from '../Utilidades/ModalConfirmacion';
 
-var moment = require('moment');
-const localizer = momentLocalizer(moment)
+let moment = require('moment');
+const localizer = momentLocalizer(moment);
 
-const obtenerFechaLocal = (moment) => {
+/*const obtenerFechaLocal = (moment) => {
   let date = new Date(moment.year(), moment.month(), moment.day(),
     moment.hour(), moment.minute(), moment.second());
   date.setDate(date.getDate() + 6);
   date.setHours(date.getHours() + 19)
   return date;
-}
+}*/
 
 class Horario extends Component {
   constructor(props) {
@@ -89,21 +89,17 @@ class Horario extends Component {
     if (this.props.eventos) {
       this.props.eventos.map((e, i) => {
 
-        let momentoInicio = moment(e.fecIni);
-        let momentoFin = moment(e.fecFin);
-
-        let fechaIni = obtenerFechaLocal(momentoInicio);
-        let fechaFin = obtenerFechaLocal(momentoFin);
+        let momentoInicio = moment(e.fecIni).toDate();
+        let momentoFin = moment(e.fecFin).toDate();
 
         eventos.push({
           id: e.idHor,
           title: e.tipo,
-          start: fechaIni,
-          end: fechaFin,
+          start: momentoInicio,
+          end: momentoFin,
           allDay: false
         })
 
-        //console.log(fechaIni + " " + fechaFin)
       })
     }
 
