@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Pestanas from './PestanasPerfilAlumno';
 import ModalEntradaMensaje from '../../Utilidades/ModalEntradaMensaje';
 import Presentacion from '../../Utilidades/PresentacionComponente';
-import Citas from '../Alumno/Citas';
+import Citas from './CitasPerfil';
 import Publicaciones from '../../Utilidades/PublicacionesComponente';
 import { Row, Col } from 'reactstrap';
 

@@ -110,37 +110,44 @@ class BarraUsuario extends Component {
                                     </DropdownMenu>
                                 </UncontrolledDropdown>
 
-                                <UncontrolledDropdown nav inNavbar>
-                                    <DropdownToggle nav>
-                                        <span className="fa fa-envelope-o" />
 
-                                    </DropdownToggle>
-                                    <DropdownMenu right>
-                                        <DropdownItem>
-                                            Mensaje 1
-                  </DropdownItem>
-                                        <DropdownItem>
-                                            Mensaje 2
-                  </DropdownItem>
-                                        <DropdownItem divider />
-                                        <DropdownItem>
-                                            Reset
-                  </DropdownItem>
-                                    </DropdownMenu>
-                                </UncontrolledDropdown>
 
                                 <UncontrolledDropdown nav inNavbar>
                                     <DropdownToggle nav>
                                         <span className="fa fa-caret-down" />
 
                                     </DropdownToggle>
+
+
+
                                     <DropdownMenu right>
-                                        <DropdownItem>
-                                            Configuración
+
+                                        {
+                                            this.props.usuario.ID_ROL == 1
+                                                ?
+                                                <>
+                                                    <DropdownItem onClick={() => {
+                                                        this.props.obtenerPerfil(this.props.usuario.COD_USU, this.props.usuario.ID_ROL)
+
+                                                    }}>
+                                                        Mis horarios
                                         </DropdownItem>
-                                        <DropdownItem>
-                                            Ayuda
+                                                    <DropdownItem onClick={() => {
+                                                        this.props.obtenerPerfil(this.props.usuario.COD_USU, this.props.usuario.ID_ROL)
+                                                        this.props.history.push(RUTAS.MIS_CITAS_PROFESOR.ruta);
+                                                    }}>
+                                                        Mis citas
                                         </DropdownItem>
+                                                </>
+                                                :
+                                                <DropdownItem onClick={() => {
+                                                    this.props.obtenerPerfil(this.props.usuario.COD_USU, this.props.usuario.ID_ROL)
+                                                    this.props.history.push(RUTAS.MIS_CITAS_ALUMNO.ruta);
+                                                }}>
+                                                    Mis citas
+                                        </DropdownItem>
+                                        }
+
                                         <DropdownItem divider />
                                         <DropdownItem onClick={() => {
                                             this.props.cerrarSesion()

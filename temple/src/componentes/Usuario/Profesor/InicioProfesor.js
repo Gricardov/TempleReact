@@ -10,7 +10,7 @@ import Carrusel from '../../Utilidades/CarruselTarjetas';
 import Cuadrícula from '../../Utilidades/CuadriculaTarjetas';
 import Sugerencias from '../../Utilidades/SugerenciasBusqueda';
 import MapaMultiple from '../../Utilidades/ComponenteMapaMultiple';
-import Citas from './Citas';
+import Citas from './CitasPerfil';
 import Publicador from '../../Utilidades/PublicadorComponente';
 
 import { Fade } from 'react-animation-components';

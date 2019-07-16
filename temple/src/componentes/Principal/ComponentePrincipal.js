@@ -19,6 +19,9 @@ import Asistente from '../Utilidades/AsistenteComponente';
 import SwitchDeslizador from '../Utilidades/ComponenteSwitchDeslizador';
 import CubiertaMensaje from '../Utilidades/CubiertaMensaje';
 import CubiertaContrato from '../Utilidades/CubiertaContrato';
+import DetalleCitaAlumno from '../Usuario/Alumno/MisCitas';
+import DetalleCitaProfesor from '../Usuario/Profesor/MisCitas';
+
 import { establecerGalleta, obtenerGalleta } from '../../componentes/Utilidades/gestorCookies';
 
 import * as RUTAS from '../../compartido/rutas';
@@ -126,6 +129,18 @@ class Principal extends Component {
                                         contrato={this.props.contrato}
                                         registroContrato={this.props.registroContrato}
                                         registrarContrato={this.props.registrarContrato}
+                                    />} />
+                                <Route path={RUTAS.MIS_CITAS_ALUMNO.ruta} component={() =>
+                                    <DetalleCitaAlumno
+                                        citas={this.props.perfil.perfil.contratos}
+                                        estaCargando={this.props.perfil.estaCargando}
+                                        mensError={this.props.perfil.mensError}
+                                    />} />
+                                    <Route path={RUTAS.MIS_CITAS_PROFESOR.ruta} component={() =>
+                                    <DetalleCitaProfesor
+                                        citas={this.props.perfil.perfil.contratos}
+                                        estaCargando={this.props.perfil.estaCargando}
+                                        mensError={this.props.perfil.mensError}
                                     />} />
 
                             </SwitchDeslizador>

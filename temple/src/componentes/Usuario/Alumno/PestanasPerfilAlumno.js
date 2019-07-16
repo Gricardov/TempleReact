@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Publicaciones from '../../Utilidades/PublicacionesComponente';
 import Cursos from '../../Utilidades/CursosComponente';
-import Horarios from '../../Utilidades/HorariosComponente';
+import Horario from '../../Utilidades/HorarioComponente';
 import Ubicación from '../../Utilidades/UbicacionComponente';
 import { seleccionarPestanaPerfilContrato } from '../../../redux/CreadorAcciones';
 import { connect } from 'react-redux';
@@ -69,7 +69,9 @@ class Pestanas extends Component {
                                 :
                                 this.props.contrato.seleccionada == 3
                                     ?
-                                    <Horarios eventos={this.props.horarios} establecerHorario={this.props.establecerHorario}/>
+                                    <Horario eventos={this.props.horarios}
+                                    establecerHorario={this.props.establecerHorario}
+                                    seleccionable={true}/>
                                     :
                                     <Ubicación posicion={this.props.ubicacion} />
                     }
