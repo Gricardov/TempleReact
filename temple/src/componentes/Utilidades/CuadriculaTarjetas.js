@@ -23,7 +23,7 @@ class Cuadricula extends Component {
             return (
                 <Col key={i} xs={cociente}>
                     <Fade in>
-                        <TarjetaPerfil datos={e} />
+                        <TarjetaPerfil datos={e} obtenerPerfil={this.props.obtenerPerfil}/>
                     </Fade>
                 </Col>
 

@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { Col, Row } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { cerrarSesion, consultaCursosPorNombre, consultaProfesoresPorIdCurso, consultaProfesoresPorNombreCurso } from '../../../redux/CreadorAcciones';
+import {
+    cerrarSesion, consultaCursosPorNombre, consultaProfesoresPorIdCurso,
+    consultaProfesoresPorNombreCurso, obtenerPerfil
+} from '../../../redux/CreadorAcciones';
 import { Input } from 'reactstrap';
 import { FadeTransform } from 'react-animation-components';
 import Carrusel from '../../Utilidades/CarruselTarjetas';
-import Cuadrícula from '../../Utilidades/CuadriculaTarjetas';
+import Cuadricula from '../../Utilidades/CuadriculaTarjetas';
 import Sugerencias from '../../Utilidades/SugerenciasBusqueda';
 import MapaMultiple from '../../Utilidades/ComponenteMapaMultiple';
 import { Fade } from 'react-animation-components';
@@ -26,7 +29,8 @@ const mapDispatchToProps = (dispatch) => ({
     cerrarSesion: () => dispatch(cerrarSesion()),
     consultaCursosPorNombre: (nomCur) => dispatch(consultaCursosPorNombre(nomCur)),
     consultaProfesoresPorIdCurso: (idCur, idNiv) => dispatch(consultaProfesoresPorIdCurso(idCur, idNiv)),
-    consultaProfesoresPorNombreCurso: (nomCur, idNiv) => dispatch(consultaProfesoresPorNombreCurso(nomCur, idNiv))
+    consultaProfesoresPorNombreCurso: (nomCur, idNiv) => dispatch(consultaProfesoresPorNombreCurso(nomCur, idNiv)),
+    obtenerPerfil: (codUsu, tipoUsu) => dispatch(obtenerPerfil(codUsu, tipoUsu))
 })
 
 class InicioAlumno extends Component {
@@ -67,9 +71,9 @@ class InicioAlumno extends Component {
 
             // Después, busco por id o por nombre de curso
             if (this.state.cursoSeleccionado) {
-                this.props.consultaProfesoresPorIdCurso(this.state.cursoSeleccionado.ID_CUR, null);
+                this.props.consultaProfesoresPorIdCurso(this.state.cursoSeleccionado.ID_CUR, 1);
             } else {
-                this.props.consultaProfesoresPorNombreCurso(this.state.consulta, null);
+                this.props.consultaProfesoresPorNombreCurso(this.state.consulta, 1);
 
             }
 
@@ -104,14 +108,14 @@ class InicioAlumno extends Component {
                                 Nivel <span className="badge badge-pill badge-info">{e.nomNiv}</span>{' '}</h5>
                         </Col>
                         <Col xs={12}>
-                            <Carrusel resultados={e.profesores} />
+                            <Carrusel resultados={e.profesores} obtenerPerfil={this.props.obtenerPerfil} />
                         </Col>
 
                     </Row>
                 )
             })
         }
-        
+
         return (
             <div className="container debajo-barra bloque-contenedor">
 
@@ -187,13 +191,15 @@ class InicioAlumno extends Component {
                 {
                     this.state.tipoVista == 1
                         ?
-                        <Cuadrícula columnas={4}
+                        <Cuadricula columnas={4}
                             resultados={this.props.profesoresBusqueda.profesores}
                             cargandoResultados={this.props.profesoresBusqueda.estaCargando}
                             errorResultados={this.props.profesoresBusqueda.mensError}
-                            consulta={this.state.consulta} />
+                            consulta={this.state.consulta}
+                            obtenerPerfil={this.props.obtenerPerfil} />
                         :
-                        <MapaMultiple resultados={this.props.profesoresBusqueda.profesores} />
+                        <MapaMultiple resultados={this.props.profesoresBusqueda.profesores}
+                            obtenerPerfil={this.props.obtenerPerfil} />
                 }
 
 

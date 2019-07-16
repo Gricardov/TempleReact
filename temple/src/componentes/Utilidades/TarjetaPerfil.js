@@ -3,22 +3,8 @@ import { Col, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { obtenerPerfil } from '../../redux/CreadorAcciones';
 
 import * as RUTAS from '../../compartido/rutas';
-
-const mapStateToProps = (state) => {
-
-    return {
-
-    }
-
-}
-
-const mapDispatchToProps = (dispatch) => ({
-
-    obtenerPerfil: (codUsu,tipoUsu) => dispatch(obtenerPerfil(codUsu,tipoUsu))
-})
 
 class TarjetaPerfil extends Component {
     constructor(props) {
@@ -32,6 +18,7 @@ class TarjetaPerfil extends Component {
         return (
             <Link className="enlace-pie" to={RUTAS.PERFIL_PROFESOR_ALUMNO.ruta}
                 onClick={() => {
+
                     this.props.obtenerPerfil(this.props.datos.codUsu,1)
                 }}>
                 <div className="tarjeta-perfil text-center">
@@ -78,5 +65,5 @@ class TarjetaPerfil extends Component {
 
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TarjetaPerfil));
+export default TarjetaPerfil;
 

@@ -54,7 +54,7 @@ class Carrusel extends Component {
 
         const tarjetas = this.props.resultados.map((e, i) => {
             return (
-                <TarjetaPerfil datos={e} key={i} />
+                <TarjetaPerfil datos={e} key={i} obtenerPerfil={this.props.obtenerPerfil}/>
             )
         });
 

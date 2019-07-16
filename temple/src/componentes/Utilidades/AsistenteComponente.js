@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import { Widget, addResponseMessage, toggleWidget, addUserMessage, renderCustomComponent } from 'react-chat-widget';
 import 'react-chat-widget/lib/styles.css';
-import { enviarMensajeChatBot, consultaProfesoresChatBot, contratoRegistrado } from '../../redux/CreadorAcciones';
+import {
+    enviarMensajeChatBot, consultaProfesoresChatBot,
+    contratoRegistrado, obtenerPerfil
+} from '../../redux/CreadorAcciones';
 import TarjetaPerfil from './TarjetaPerfil';
 import TarjetaPresentacion from './TarjetaPresentacion';
 import { connect } from 'react-redux';
@@ -18,7 +21,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     enviarMensajeChatBot: (mensaje, contexto, codUsu) => dispatch(enviarMensajeChatBot(mensaje, contexto, codUsu)),
-    consultaProfesoresChatBot: (nomCur, distancia, modalidad, nivel) => dispatch(consultaProfesoresChatBot(nomCur, distancia, modalidad, nivel))
+    consultaProfesoresChatBot: (nomCur, distancia, modalidad, nivel) => dispatch(consultaProfesoresChatBot(nomCur, distancia, modalidad, nivel)),
+    obtenerPerfil: (codUsu, tipoUsu) => dispatch(obtenerPerfil(codUsu, tipoUsu))
 })
 
 class Asistente extends Component {
@@ -28,7 +32,8 @@ class Asistente extends Component {
             codigoPatero: '-a7cb733c42ac5',
             separador: '%*',
             hizoSaludoLogin: false,
-            contexto: null
+            contexto: null,
+            mostrarResultados: false
         }
 
         this.enviarMensaje = this.enviarMensaje.bind(this);
@@ -49,17 +54,18 @@ class Asistente extends Component {
                 // Saludo de usuario logueado
                 if (this.props.usuario && !this.state.hizoSaludoLogin) {
                     addResponseMessage(`Bienvenid@ ${this.props.usuario.NOM_USU}! Soy tu asistente Melendi. Pregúntame lo que necesites`);
-                    toggleWidget();
                     this.setState({ hizoSaludoLogin: true });
                 }
 
                 if (this.props.chatBot.respuesta.output) {
+
                     // A ver, para que haya secuencia en la conversación, debo almacenar el contexto
                     let contexto = this.props.chatBot.respuesta.context;
 
                     // Esto evita repetición de respuestas
                     if (contexto != this.state.contexto) {
 
+                        // Si el contexto ha cambiado, que lo guarde
                         this.setState({ contexto: contexto }, () => {
 
                             // Primero, evalúo los tipos de respuesta. Estas pueden ser texto, imagen u opción
@@ -102,7 +108,32 @@ class Asistente extends Component {
 
                     }
 
+                    // Esto se encarga de decidir si se muestran los resultados de la búsqueda. Estos solo deben mostrarse
+                    // si han sido producto de una búsqueda explícita, no de una actualziación
+                    if (this.state.mostrarResultados) {
 
+                        this.props.profesoresBusquedaChatBot.profesores.map((e, i) => {
+                            const tarjeta = () => {
+                                return <TarjetaPerfil datos={e} obtenerPerfil={this.props.obtenerPerfil} />
+                            }
+                            renderCustomComponent(tarjeta, {});
+
+                            // Cuando ya mostró el último, ya no debe mostrarlos otra vez, a menos que se haga otra
+                            // búsqueda explíctia
+                            if (i >= this.props.profesoresBusquedaChatBot.profesores.length - 1) {
+                                this.setState({ mostrarResultados: false });
+                            }
+
+                        })
+
+                        if (this.props.profesoresBusquedaChatBot.profesores.length == 0 &&
+                            !this.props.profesoresBusquedaChatBot.estaCargando) {
+                            addResponseMessage("No he encontrado un profesor con esas características u.u");
+                            this.setState({ mostrarResultados: false });
+
+                        }
+
+                    }
 
                 }
             }
@@ -121,14 +152,15 @@ class Asistente extends Component {
             // Si es que ya terminó el contrato, entonces que lea las variables que ha recopilado el chatbot
             if (contexto.datosContrato) {
                 let nomCur = contexto.curso;
-                let distancia = contexto.distancia;
+                let fecha = contexto.fecha;
                 let modalidad = contexto.modalidad;
                 let nivel = contexto.nivel;
                 // Indico que ya se evaluó la consulta
                 contexto.datosContrato = false;
-                this.setState({ contexto: contexto }, () => {
+                this.setState({ contexto: contexto, mostrarResultados: true }, () => {
+                    //alert(nomCur+" "+fecha+" "+modalidad+" "+nivel)
                     // Hago la consulta
-                    this.props.consultaProfesoresChatBot(nomCur, distancia, modalidad, nivel);
+                    this.props.consultaProfesoresChatBot(nomCur, fecha, modalidad, nivel);
                 });
 
 

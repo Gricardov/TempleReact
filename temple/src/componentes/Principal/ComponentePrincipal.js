@@ -28,13 +28,17 @@ import { actions } from 'react-redux-form';
 
 import {
     obtenerLideres, iniciarSesion, seleccionarPestanaPerfilContrato,
-    establecerPasoContrato, registrarContrato, registrarPublicacion
+    establecerPasoContrato, registrarContrato, registrarPublicacion,
+    obtenerPerfil, cerrarSesion, consultaCursosPorNombre, consultaProfesoresPorIdCurso,
+    consultaProfesoresPorNombreCurso
 } from '../../redux/CreadorAcciones';
 
 const mapStateToProps = (state) => {
 
     return {
         sesion: state.sesion,
+        cursos: state.cursos,
+        profesoresBusqueda: state.profesoresBusqueda,
         lideres: state.lideres,
         perfil: state.perfil,
         contrato: state.contrato,
@@ -52,7 +56,12 @@ const mapDispatchToProps = (dispatch) => ({
     establecerPasoContrato: (numPaso) => dispatch(establecerPasoContrato(numPaso)),
     registrarContrato: (codAlu, codProf, fecIni, fecFin, idCur, idMod) => dispatch(registrarContrato(codAlu, codProf, fecIni, fecFin, idCur, idMod)),
     registrarPublicacion: (codProf, titPub, desPub, idPriv) => dispatch(registrarPublicacion(codProf, titPub, desPub, idPriv)),
-    seleccionarPestanaPerfilContrato: (numPestana) => dispatch(seleccionarPestanaPerfilContrato(numPestana))
+    seleccionarPestanaPerfilContrato: (numPestana) => dispatch(seleccionarPestanaPerfilContrato(numPestana)),
+    cerrarSesion: () => dispatch(cerrarSesion()),
+    consultaCursosPorNombre: (nomCur) => dispatch(consultaCursosPorNombre(nomCur)),
+    consultaProfesoresPorIdCurso: (idCur, idNiv) => dispatch(consultaProfesoresPorIdCurso(idCur, idNiv)),
+    consultaProfesoresPorNombreCurso: (nomCur, idNiv) => dispatch(consultaProfesoresPorNombreCurso(nomCur, idNiv)),
+    obtenerPerfil: (codUsu, tipoUsu) => dispatch(obtenerPerfil(codUsu, tipoUsu))
 
 })
 
@@ -75,7 +84,8 @@ class Principal extends Component {
                         <>
                             <BarraUsuario usuario={this.props.sesion.usuario} />
                             <SwitchDeslizador>
-                                <Route exact path="/" component={InicioAlumno} />
+                                <Route exact path="/" component={() =>
+                                    <InicioAlumno />} />
                                 <Route path={RUTAS.INICIO_ALUMNO.ruta} component={InicioAlumno} />
                                 <Route path={RUTAS.INICIO_PROFESOR.ruta} component={() =>
                                     <InicioProfesor

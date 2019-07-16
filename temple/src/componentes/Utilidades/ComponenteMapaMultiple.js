@@ -98,7 +98,7 @@ class MapaMultiple extends Component {
 
         const iconoMarcador = L.icon({
             iconUrl: '../../recursos/imagenes/ubicacionProfesor.png',
-            iconSize: [64,64],
+            iconSize: [64, 64],
             iconAnchor: [32, 64],
             shadowUrl: null,
             shadowSize: null,
@@ -109,9 +109,9 @@ class MapaMultiple extends Component {
             posicionesProfesores = this.props.resultados.map((e, i) => {
                 return (
                     <Marker position={[e.latitud, e.longitud]} icon={iconoMarcador}
-                        draggable={false}>
+                        draggable={false} key={i}>
                         <Popup>
-                            <TarjetaPerfil datos={e} />
+                            <TarjetaPerfil datos={e} obtenerPerfil={this.props.obtenerPerfil} />
                         </Popup>
                     </Marker>
                 )

@@ -526,7 +526,6 @@ export const consultaProfesoresChatBot = (nomCur, distancia, modalidad, nivel) =
 // Perfil
 export const obtenerPerfil = (codUsu, tipo) => (dispatch) => {
     dispatch(cargandoPerfil());
-
     const datos = {
         datos: {
             codUsu: codUsu
