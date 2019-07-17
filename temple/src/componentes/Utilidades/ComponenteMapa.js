@@ -113,13 +113,19 @@ class Mapa extends Component {
     render() {
 
         const posicion = [this.state.posicion.latitud, this.state.posicion.longitud];
-        
+
         return (
             <>
                 <Row className="justify-content-between">
-                    <Col xs={6}>
-                        <p>Puedes mover el marcador para establecer tu ubicación exacta. </p>
-                    </Col>
+                    {
+                        this.props.soloMuestra
+                            ?
+                            null
+                            :
+                            <Col xs={6}>
+                                <p>Puedes mover el marcador para establecer tu ubicación exacta. </p>
+                            </Col>
+                    }
                     <Col xs={6}>
                         <p className={this.state.posicion.solicitandoUbicacion
                             ?
@@ -149,7 +155,7 @@ class Mapa extends Component {
                             format='jpg70'
                             accessToken='sk.eyJ1IjoiZ3JpY2FyZG92IiwiYSI6ImNqbnphd3FicjAwNHAzcG85bmowaWFyMDUifQ.CxTAN8PiT2jZkldTwukmPg'
                         />
-                        <Marker position={posicion||[this.props.posicion.latitud,this.props.posicion.longitud]}
+                        <Marker position={posicion || [this.props.posicion.latitud, this.props.posicion.longitud]}
                             draggable={this.props.soloMuestra ? false : true}
                             ondragend={this.actualizarPosicion}
 

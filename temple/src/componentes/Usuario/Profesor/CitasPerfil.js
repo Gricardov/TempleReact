@@ -17,7 +17,7 @@ class Citas extends Component {
 
             citas = this.props.citas.map((e, i) => {
                 return (
-                    <div>
+                    <div key={i}>
                         <Row className="valign-wrapper popular_item" key={e.idCon}>
                             <Col xs={3} md={12} className="p_img text-center mb-3">
                                 <img src={e.imgPer} alt="img-resena" className="circle responsive-img" />

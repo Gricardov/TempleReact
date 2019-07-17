@@ -16,6 +16,12 @@ body p {
 
 }
 
+/*Contiene las páginas detalle como mis citas, mis horarios, etc*/
+.contenedor-detalles{
+  width: 100%;
+  margin: 0px 50px 50px;
+}
+
 /*Este bloquecito es el principal de la página de inicio*/
 .bloque-principal{
 

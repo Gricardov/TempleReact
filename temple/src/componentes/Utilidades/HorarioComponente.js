@@ -116,7 +116,7 @@ class Horarios extends Component {
                                 views={{
                                     week: true
                                 }}
-                                selectable={this.props.seleccionables}
+                                selectable={this.props.seleccionable}
                                 step={30}
                                 onSelectSlot={this.seleccionarRango}
                                 showMultiDayTimes={true}

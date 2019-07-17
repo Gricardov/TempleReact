@@ -1,56 +1,149 @@
 import React, { Component } from 'react';
-import { Row, Col, Input, Card } from 'reactstrap';
+import { Row, Col, Input, Card, CardHeader, CardBody, TabContent, TabPane, Nav, NavItem, NavLink, Button, Modal, ModalBody } from 'reactstrap';
+import TarjetaCita from '../../Utilidades/TarjetaCita';
+import Mapa from '../../Utilidades/ComponenteMapa';
+import classnames from 'classnames';
+
 let moment = require('moment');
 
 class MisCitas extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            pestanaSeleccionada: '1',
+            modalAbierto: false,
+            posicion: {}
         };
+        this.seleccionarPestana = this.seleccionarPestana.bind(this);
+        this.mostrarMapa = this.mostrarMapa.bind(this);
+
     }
-
-
+    seleccionarPestana(pestana) {
+        if (this.state.pestanaSeleccionada !== pestana) {
+            this.setState({
+                pestanaSeleccionada: pestana
+            });
+        }
+    }
+    mostrarMapa(posicion) {
+        this.setState({ modalAbierto: true, posicion: posicion })
+    }
     render() {
-        let citas=[];
+        let futuras = [];
+        let presentes = [];
+        let pasadas = [];
+        let fechaActual = new Date();
 
-        if (this.props.citas){
+        if (this.props.citas) {
 
-        citas = this.props.citas.map((e, i) => {
-            return (
-                
-                <div>
-                <Row className="valign-wrapper popular_item" key={e.idCon}>
-                    <Col xs={3} md={12} className="p_img text-center mb-3">
-                        <img src={e.imgPer} alt="img-resena" className="circle responsive-img" />
-                    </Col>
-                    <Col xs={9} md={12} className="p_content">
-                        <span><b>Alumno:</b> {e.nomAlu} {e.apaAlu} {e.amaAlu}</span><br />
-                        <span><b>Curso:</b> {e.nomCur}</span><br />
-                        <span><b>Modalidad:</b> {e.nomMod}</span><br />
-                        <span><b>Estado:</b> {e.nomEst}</span><br />
-                        <span><b>Desde:</b> {moment(e.fecIni).format('DD-MM-YYYY HH:mm:ss')}</span><br />
-                        <span><b>Hasta:</b> {moment(e.fecFin).format('DD-MM-YYYY HH:mm:ss')}</span>
-                    </Col>
+            futuras = this.props.citas.map((e, i) => {
 
-                </Row>
-                <hr />
-            </div>
-                
-            )
-        })
-    }
+                if (moment(e.fecIni).toDate() > fechaActual) {
+                    return <TarjetaCita
+                        key={i}
+                        indice={i}
+                        cita={{ nomUsu: e.nomAlu, apaUsu: e.apaAlu, amaUsu: e.amaAlu, ...e }}
+                        mostrarMapa={this.mostrarMapa} />;
+                }
+
+            })
+
+            presentes = this.props.citas.map((e, i) => {
+
+                if (moment(e.fecIni).toDate() <= fechaActual && fechaActual <=moment(e.fecFin).toDate()) {
+                    return <TarjetaCita
+                        key={i}
+                        indice={i}
+                        cita={{ nomUsu: e.nomAlu, apaUsu: e.apaAlu, amaUsu: e.amaAlu, ...e }}
+                        mostrarMapa={this.mostrarMapa} />;
+                }
+
+            })
+
+            pasadas = this.props.citas.map((e, i) => {
+
+                if (moment(e.fecFin).toDate() < fechaActual) {
+                    return <TarjetaCita
+                        key={i}
+                        indice={i}
+                        cita={{ nomUsu: e.nomAlu, apaUsu: e.apaAlu, amaUsu: e.amaAlu, ...e }}
+                        mostrarMapa={this.mostrarMapa} />;
+                }
+
+            })
+        }
 
         return (
-            <div className="quickFade tarjeta-seccion">
-                <div className="popular_posts popular_fast">
+
+            <div className="row debajo-barra justify-content-center">
+                <div className="contenedor-detalles">
                     <h3 className="categories_tittle me_tittle">Mis citas</h3>
-                    <div className="container like_img">
-                        {citas}
-                    </div>
+
+                    <Nav tabs>
+                        <NavItem style={{ width: '30%' }}>
+                            <NavLink
+                                className={classnames({ active: this.state.pestanaSeleccionada === '1' })}
+                                onClick={() => { this.seleccionarPestana('1'); }}>
+                                <i className="fa fa-forward"></i> Futuras
+                </NavLink>
+                        </NavItem>
+                        <NavItem style={{ width: '30%' }}>
+                            <NavLink
+                                className={classnames({ active: this.state.pestanaSeleccionada === '2' })}
+                                onClick={() => { this.seleccionarPestana('2'); }}>
+                                <i className="fa fa-clock-o"></i> En este momento
+                </NavLink>
+                        </NavItem>
+                        <NavItem style={{ width: '30%' }}>
+                            <NavLink
+                                className={classnames({ active: this.state.pestanaSeleccionada === '3' })}
+                                onClick={() => { this.seleccionarPestana('3'); }}>
+                                <i className="fa fa-list"></i> Pasadas
+                </NavLink>
+                        </NavItem>
+                    </Nav>
+
+                    <TabContent activeTab={this.state.pestanaSeleccionada}>
+                        <TabPane tabId="1">
+                            <Row className="mt-4">
+                                <Col xs={12}>
+                                    {
+                                        futuras
+                                    }
+                                </Col>
+                            </Row>
+
+                        </TabPane>
+                        <TabPane tabId="2">
+                            <Row className="mt-4">
+                                <Col xs={12}>{
+
+                                    presentes
+                                }
+                                </Col>
+                            </Row>
+                        </TabPane>
+                        <TabPane tabId="3">
+                            <Row className="mt-4">
+                                <Col xs={12}>{
+
+                                    pasadas
+                                }
+                                </Col>
+                            </Row>
+                        </TabPane>
+                    </TabContent>
                 </div>
 
+                <Modal className="modal-lg" isOpen={this.state.modalAbierto} toggle={() => { this.setState({ modalAbierto: !this.state.modalAbierto }) }}>
+                    <ModalBody>
+                        <Mapa posicion={this.state.posicion} soloMuestra={true} />
+                    </ModalBody>
+                </Modal>
 
             </div>
+
+
         )
     }
 
