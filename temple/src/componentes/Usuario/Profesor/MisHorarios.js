@@ -3,7 +3,7 @@ import { Row, Col, Input, Card, CardHeader, CardBody, TabContent, TabPane, Nav, 
 import TarjetaCita from '../../Utilidades/TarjetaCita';
 import Mapa from '../../Utilidades/ComponenteMapa';
 import classnames from 'classnames';
-import Horario from '../../Utilidades/HorarioComponente';
+import Horario from './HorarioGestor';
 
 let moment = require('moment');
 

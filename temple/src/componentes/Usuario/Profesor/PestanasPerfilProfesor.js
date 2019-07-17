@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Publicaciones from '../../Utilidades/PublicacionesComponente';
 import Cursos from '../../Utilidades/CursosComponente';
-import Horario from '../../Utilidades/HorarioComponente';
+import Horario from './HorarioPerfil';
 import Ubicación from '../../Utilidades/UbicacionComponente';
 import Publicador from '../../Utilidades/PublicadorComponente';
 

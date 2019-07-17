@@ -10,10 +10,10 @@ import {
   Views,
   Navigate,
   components,
-} from 'react-big-calendar'
+} from 'react-big-calendar';
 import { guid } from 'react-agenda';
 import 'moment/locale/es-us';
-import ModalConfirmacion from './ModalConfirmacion';
+import ModalConfirmacion from '../../Utilidades/ModalConfirmacion';
 
 let moment = require('moment');
 const localizer = momentLocalizer(moment);
