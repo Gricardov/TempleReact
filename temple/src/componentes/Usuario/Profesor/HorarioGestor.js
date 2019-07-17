@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Button } from 'reactstrap';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss'
 import {
@@ -13,9 +13,12 @@ import {
   components,
 } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
-import { guid } from 'react-agenda';
 import 'moment/locale/es-us';
 import ModalConfirmacion from '../../Utilidades/ModalConfirmacion';
+import * as RUTAS from '../../../compartido/rutas';
+
+import { withRouter } from 'react-router-dom';
+
 
 let moment = require('moment');
 const localizer = momentLocalizer(moment);
@@ -37,6 +40,19 @@ const haySuperposicion = (id, eventos, inicio, fin) => {
 
   }
   return false;
+}
+
+const generarIdCorrelativo = (eventos) => {
+  // Obtengo el mayor id
+  let mayor = 0;
+  for (var i = 0; i < eventos.length; i++) {
+    let e = eventos[i];
+    let numActual = parseInt(e.id);
+    if (numActual > mayor) {
+      mayor = numActual;
+    }
+  }
+  return mayor + 1;
 }
 
 class Horario extends Component {
@@ -62,15 +78,15 @@ class Horario extends Component {
   agregarEvento() {
     let eventos = this.state.eventos;
 
-    let inicio = moment(this.state.rangoSeleccionado.start).toDate();
-    let fin = moment(this.state.rangoSeleccionado.end).toDate();
-    if (!haySuperposicion(null, eventos, inicio, fin)) {
+    let momentoInicio = moment(this.state.rangoSeleccionado.start);
+    let momentoFin = moment(this.state.rangoSeleccionado.end);
+    if (!haySuperposicion(null, eventos, momentoInicio, momentoFin)) {
 
       eventos.push({
-        id: guid(),
+        id: generarIdCorrelativo(eventos),
         title: 'individual',
-        start: inicio,
-        end: fin,
+        start: momentoInicio.toDate(),
+        end: momentoFin.toDate(),
         allDay: false
       })
 
@@ -150,6 +166,7 @@ class Horario extends Component {
     }
   }
   seleccionarRango(slotInfo) {
+
     this.setState({
       modalConfirmacionAbierto: true, mensajeConfirmacion: "¿Agregar evento?",
       operacionActual: "registro", rangoSeleccionado: slotInfo
@@ -170,8 +187,8 @@ class Horario extends Component {
 
       this.props.eventos.map((e, i) => {
 
-        let momentoInicio = moment(e.fecIni).toDate();
-        let momentoFin = moment(e.fecFin).toDate();
+        let momentoInicio = new Date(e.fecIni);
+        let momentoFin = new Date(e.fecFin);
 
         eventos.push({
           id: e.idHor || e.idCon,
@@ -190,90 +207,111 @@ class Horario extends Component {
     })
   }
 
+  componentDidCatch(error,info){
+  }
+
   render() {
-    return (
-      <div id="mainArea" className="quickFade">
-        <Row className="mt-4">
-          <Col xs={12}>
-            <div style={{ zIndex: '999999', position: 'relative' }}>
-              <DragAndDropCalendar
-                localizer={localizer}
-                events={[...this.state.eventos]}
-                defaultView={'week'}
-                startAccessor="start"
-                endAccessor="end"
-                views={{
-                  week: true
-                }}
-                selectable={true}
-                onEventDrop={this.moverEvento}
-                resizable={true}
-                onEventResize={this.redimensionarEvento}
-                step={30}
-                onSelectEvent={this.seleccionarEvento}
-                onSelectSlot={this.seleccionarRango}
-                showMultiDayTimes={true}
-                eventPropGetter={(event, start, end, isSelected) => {
+      return (
+        
+        <div id="mainArea" className="quickFade">
+          <Row className="mt-4">
+            <Col xs={12}>
+              <div style={{ zIndex: '999999', position: 'relative' }}>
+                <DragAndDropCalendar
+                  localizer={localizer}
+                  events={this.state.eventos}
+                  defaultView='week'
+                  startAccessor="start"
+                  endAccessor="end"
+                  views={{
+                    week: true
+                  }}
+                  selectable={true}
+                  onEventDrop={this.moverEvento}
+                  resizable={true}
+                  onEventResize={this.redimensionarEvento}
+                  step={30}
+                  onSelectEvent={this.seleccionarEvento}
+                  onSelectSlot={this.seleccionarRango}
+                  showMultiDayTimes={true}
+                  eventPropGetter={(event, start, end, isSelected) => {
 
-                  if (event) {
+                    if (event) {
 
-                    // Pertenece a los eventos del profesor
-                    let style = {
-                      backgroundColor: event.title == 'reservado' ? '#f57242' : '#52ff7a',
-                      borderRadius: '0px',
-                      opacity: 1,
-                      color: 'black',
-                      border: '0px',
-                      display: 'block'
-                    };
-                    return {
-                      style: style
-                    };
+                      // Pertenece a los eventos del profesor
+                      let style = {
+                        backgroundColor: event.title == 'reservado' ? '#f57242' : '#52ff7a',
+                        borderRadius: '0px',
+                        opacity: 1,
+                        color: 'black',
+                        border: '0px',
+                        display: 'block'
+                      };
+                      return {
+                        style: style
+                      };
 
-                  }
-                }}
-              />
+                    }
+                  }}
+                />
 
-              <ModalConfirmacion encabezado={"¿Seguro?"} mensaje={this.state.mensajeConfirmacion}
-                abierto={this.state.modalConfirmacionAbierto}
-                cambiarEstadoModal={() => { this.setState({ modalConfirmacionAbierto: !this.state.modalConfirmacionAbierto }) }}
-                confirmar={() => {
-                  let operacionActual = this.state.operacionActual;
+                <ModalConfirmacion encabezado={"¿Seguro?"} mensaje={this.state.mensajeConfirmacion}
+                  abierto={this.state.modalConfirmacionAbierto}
+                  cambiarEstadoModal={() => { this.setState({ modalConfirmacionAbierto: !this.state.modalConfirmacionAbierto }) }}
+                  confirmar={() => {
+                    let operacionActual = this.state.operacionActual;
 
-                  switch (operacionActual) {
-                    case "registro":
-                      this.agregarEvento();
-                      break;
-                    case "actualizacion":
-                      this.editarEvento();
-                      break;
-                    case "eliminacion":
-                      this.eliminarEvento();
-                      break;
-                  }
-                  this.setState({
-                    modalConfirmacionAbierto: !this.state.modalConfirmacionAbierto,
-                    operacionActual: ""
-                  })
-                }}
-                negar={() => {
-                  this.setState({
-                    modalConfirmacionAbierto: !this.state.modalConfirmacionAbierto,
-                    operacionActual: ""
-                  })
-                }}
-              />
+                    switch (operacionActual) {
+                      case "registro":
+                        this.agregarEvento();
+                        break;
+                      case "actualizacion":
+                        this.editarEvento();
+                        break;
+                      case "eliminacion":
+                        this.eliminarEvento();
+                        break;
+                    }
+                    this.setState({
+                      modalConfirmacionAbierto: !this.state.modalConfirmacionAbierto,
+                      operacionActual: ""
+                    })
+                  }}
+                  negar={() => {
+                    this.setState({
+                      modalConfirmacionAbierto: !this.state.modalConfirmacionAbierto,
+                      operacionActual: ""
+                    })
+                  }}
+                />
 
-            </div>
-          </Col>
-        </Row>
-      </div>
-    )
+              </div>
+            </Col>
+          </Row>
+          <Row className="mt-4">
+            <Col xs={12}>
+              <Button color="primary" block onClick={() => {
+                let eventosFiltrados = this.state.eventos.filter(e => e.title !== 'reservado');
 
+                // Formateo las fechass
+                for (var i = 0; i < eventosFiltrados.length; i++) {
+                  eventosFiltrados[i].start = (moment(eventosFiltrados[i].start).format('YYYY-MM-DD HH:mm:ss'));
+                  eventosFiltrados[i].end = (moment(eventosFiltrados[i].end).format('YYYY-MM-DD HH:mm:ss'));
+                }
+                this.props.actualizarHorarios(eventosFiltrados);
+                this.props.history.push(RUTAS.MI_PERFIL_PROFESOR.ruta);
+              }
+              }>
+                Guardar cambios</Button>
+            </Col>
+          </Row>
+        </div>
+      )
 
+    
 
   }
 
 }
 
-export default Horario;
+export default withRouter(Horario);

@@ -35,8 +35,9 @@ class MisHorarios extends Component {
                 <div className="contenedor-detalles">
                     <h3 className="categories_tittle me_tittle">Mis citas</h3>
                     <Horario eventos={this.props.horarios}
-                        establecerHorario={() => { }}
-                        seleccionable={true} />
+                        actualizarHorarios={(eventos) => { this.props.actualizarHorarios(this.props.usuario.COD_USU, eventos) }}
+                    />
+
                 </div>
             </div>
         )

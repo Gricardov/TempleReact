@@ -36,7 +36,7 @@ import {
     obtenerLideres, iniciarSesion, seleccionarPestanaPerfilContrato,
     establecerPasoContrato, registrarContrato, registrarPublicacion,
     obtenerPerfil, cerrarSesion, consultaCursosPorNombre, consultaProfesoresPorIdCurso,
-    consultaProfesoresPorNombreCurso, iniciarSesionGalleta
+    consultaProfesoresPorNombreCurso, iniciarSesionGalleta, actualizarHorarios
 } from '../../redux/CreadorAcciones';
 
 const mapStateToProps = (state) => {
@@ -68,7 +68,8 @@ const mapDispatchToProps = (dispatch) => ({
     consultaCursosPorNombre: (nomCur) => dispatch(consultaCursosPorNombre(nomCur)),
     consultaProfesoresPorIdCurso: (idCur, idNiv) => dispatch(consultaProfesoresPorIdCurso(idCur, idNiv)),
     consultaProfesoresPorNombreCurso: (nomCur, idNiv) => dispatch(consultaProfesoresPorNombreCurso(nomCur, idNiv)),
-    obtenerPerfil: (codUsu, tipoUsu) => dispatch(obtenerPerfil(codUsu, tipoUsu))
+    obtenerPerfil: (codUsu, tipoUsu) => dispatch(obtenerPerfil(codUsu, tipoUsu)),
+    actualizarHorarios: (codUsu, horarios) => dispatch(actualizarHorarios(codUsu, horarios))
 
 })
 
@@ -143,8 +144,10 @@ class Principal extends Component {
                                         estaCargando={this.props.perfil.estaCargando}
                                         mensError={this.props.perfil.mensError}
                                     />} />
-                                    <Route path={RUTAS.MIS_HORARIOS_PROFESOR.ruta} component={() =>
+                                <Route path={RUTAS.MIS_HORARIOS_PROFESOR.ruta} component={() =>
                                     <MisHorarios
+                                        actualizarHorarios={this.props.actualizarHorarios}
+                                        usuario={this.props.sesion.usuario}
                                         horarios={this.props.perfil.perfil.horarios}
                                         estaCargando={this.props.perfil.estaCargando}
                                         mensError={this.props.perfil.mensError}

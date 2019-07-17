@@ -773,6 +773,62 @@ export const registrarPublicacion = (codUsu, titPub, desPub, idPriv) => (dispatc
         })
 }
 
+// Actualización de horarios del profesor
+export const actualizarHorarios = (codUsu, horarios) => (dispatch) => {
+
+    dispatch(actualizandoHorarios());
+
+    const datos = {
+        datos: {
+            codUsu: codUsu,
+            horarios: horarios
+        }
+    }
+
+    fetch(URLBase + 'horario/registro', {
+
+        method: 'POST',
+        body: JSON.stringify(datos),
+        headers: {
+            'Content-type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+        .then(response => {
+
+            if (response.ok) {
+
+                return response;
+
+            }
+
+            else {
+
+                var error = new Error("Ha ocurrido un error con el siguiente mensaje:\n" + response.status + " : " + response.statusText);
+                error.response = response;
+                throw error;
+
+            }
+
+
+        }, error => {
+
+            var mensErr = new Error(error.message);
+            throw mensErr;
+
+        })
+        .then(response => response.json())
+        .then(respuesta => {
+            dispatch(horariosActualizados(respuesta));
+
+        })
+        .catch(error => {
+            console.log("Error : " + error.message);
+            dispatch(errorActualizacionHorarios(error.message));
+        })
+
+}
+
 // ChatBot
 export const enviarMensajeChatBot = (mensaje, contexto, codUsu) => (dispatch) => {
 
@@ -1072,6 +1128,22 @@ export const sesionNoIniciada = (mensErr) => ({
 
 });
 
+// Actualización de horarios del profesor
+export const actualizandoHorarios = () => ({
+    type: Acciones.ACTUALIZANDO_HORARIOS
+})
+
+export const horariosActualizados = (respuesta) => ({
+    type: Acciones.HORARIOS_ACTUALIZADOS,
+    payload: respuesta
+})
+
+export const errorActualizacionHorarios = (mensErr) => ({
+    type: Acciones.ERROR_ACTUALIZACION_HORARIOS,
+    payload: mensErr
+})
+
+// ChatBot
 export const enviandoMensajeChatBot = () => ({
     type: Acciones.ENVIANDO_MENSAJE_CHATBOT
 })
