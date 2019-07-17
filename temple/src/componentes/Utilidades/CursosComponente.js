@@ -5,7 +5,7 @@ class Cursos extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            idContenidoVisible: this.props.cursos[0].idCur,
+            idContenidoVisible: this.props.cursos[0] ? this.props.cursos[0].idCur : null,
             idModalidadSeleccionada: -1
         };
         this.mostrarContenido = this.mostrarContenido.bind(this);

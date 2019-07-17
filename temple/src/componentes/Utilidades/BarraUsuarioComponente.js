@@ -128,6 +128,7 @@ class BarraUsuario extends Component {
                                                 <>
                                                     <DropdownItem onClick={() => {
                                                         this.props.obtenerPerfil(this.props.usuario.COD_USU, this.props.usuario.ID_ROL)
+                                                        this.props.history.push(RUTAS.MIS_HORARIOS_PROFESOR.ruta);
 
                                                     }}>
                                                         Mis horarios

@@ -17,10 +17,12 @@ import ModalConfirmacion from './ModalConfirmacion';
 
 let moment = require('moment');
 const localizer = momentLocalizer(moment);
-class Horarios extends Component {
+
+class Horario extends Component {
     constructor(props) {
         super(props);
         this.state = {
+
             eventos: [],
             reservas: [{ id: "" }],
             modalConfirmacionAbierto: false,
@@ -79,13 +81,14 @@ class Horarios extends Component {
         // Transformo los eventos al formato requerido
         let eventos = [];
         if (this.props.eventos) {
+
           this.props.eventos.map((e, i) => {
     
             let momentoInicio = moment(e.fecIni).toDate();
             let momentoFin = moment(e.fecFin).toDate();
     
             eventos.push({
-              id: e.idHor,
+              id: e.idHor||e.idCon,
               title: e.tipo,
               start: momentoInicio,
               end: momentoFin,
@@ -125,7 +128,7 @@ class Horarios extends Component {
 
                                     if (event) {
                                         if (event.id == this.state.reservas[0].id) {
-                                            // Pertenece a las reservas del usuario
+                                            // Pertenece a las reservas que marca el usuario
                                             let style = {
                                                 backgroundColor: '#5286ff',
                                                 borderRadius: '5px',
@@ -141,7 +144,7 @@ class Horarios extends Component {
                                         } else {
                                             // Pertenece a los eventos del profesor
                                             let style = {
-                                                backgroundColor: '#52ff7a',
+                                                backgroundColor: event.title=='reservado'?'#f57242':'#52ff7a',
                                                 borderRadius: '0px',
                                                 opacity: 1,
                                                 color: 'black',
@@ -198,4 +201,4 @@ class Horarios extends Component {
 
 }
 
-export default Horarios;
+export default Horario;

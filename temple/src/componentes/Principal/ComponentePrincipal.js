@@ -21,6 +21,7 @@ import CubiertaMensaje from '../Utilidades/CubiertaMensaje';
 import CubiertaContrato from '../Utilidades/CubiertaContrato';
 import DetalleCitaAlumno from '../Usuario/Alumno/MisCitas';
 import DetalleCitaProfesor from '../Usuario/Profesor/MisCitas';
+import MisHorarios from '../Usuario/Profesor/MisHorarios';
 
 import { establecerGalleta, obtenerGalleta } from '../../componentes/Utilidades/gestorCookies';
 
@@ -136,9 +137,15 @@ class Principal extends Component {
                                         estaCargando={this.props.perfil.estaCargando}
                                         mensError={this.props.perfil.mensError}
                                     />} />
-                                    <Route path={RUTAS.MIS_CITAS_PROFESOR.ruta} component={() =>
+                                <Route path={RUTAS.MIS_CITAS_PROFESOR.ruta} component={() =>
                                     <DetalleCitaProfesor
                                         citas={this.props.perfil.perfil.contratos}
+                                        estaCargando={this.props.perfil.estaCargando}
+                                        mensError={this.props.perfil.mensError}
+                                    />} />
+                                    <Route path={RUTAS.MIS_HORARIOS_PROFESOR.ruta} component={() =>
+                                    <MisHorarios
+                                        horarios={this.props.perfil.perfil.horarios}
                                         estaCargando={this.props.perfil.estaCargando}
                                         mensError={this.props.perfil.mensError}
                                     />} />
