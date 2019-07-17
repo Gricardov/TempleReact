@@ -78,7 +78,7 @@ class Horario extends Component {
 
     let momentoInicio = moment(this.state.rangoSeleccionado.start);
     let momentoFin = moment(this.state.rangoSeleccionado.end);
-    if (!haySuperposicion(null, eventos, momentoInicio, momentoFin)) {
+    if (!haySuperposicion(null, eventos, momentoInicio.toDate(), momentoFin.toDate())) {
 
       eventos.push({
         id: generarIdCorrelativo(eventos),

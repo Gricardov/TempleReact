@@ -18,6 +18,104 @@ import ModalConfirmacion from '../../Utilidades/ModalConfirmacion';
 let moment = require('moment');
 const localizer = momentLocalizer(moment);
 
+const estaDentroDeAlgunEvento = (eventos, inicio, fin) => {
+
+  // Recorro todos los eventos
+  for (var i = 0; i < eventos.length; i++) {
+    // Para que haya superposición, algún tiempo de evento debe estar dentro de los límites de inicio y fin
+    let e = eventos[i];
+    if (inicio >= e.start && inicio <= e.end || fin >= e.start && fin < e.end) {
+      return true;
+    }
+
+
+  }
+  return false;
+}
+
+/*const limpiarHorario = (horario, eventos) => {
+  let horarios = [];
+
+  let momentoInicio = moment(horario.fecIni).toDate();
+  let momentoFin = moment(horario.fecFin).toDate();
+
+  for (var i = 0; i < eventos.length; i++) {
+    let eventoActual = eventos[i];
+    let eventoActualFecIni = moment(eventoActual.fecIni).toDate();
+    let eventoActualFecFin = moment(eventoActual.fecFin).toDate();
+
+    // Solo voy a comparar contra los reservados
+    if (eventoActual.idCon) {
+      alert('for')
+
+      if (eventoActualFecIni > momentoInicio && eventoActualFecIni < momentoFin
+        && eventoActualFecFin > momentoInicio && eventoActualFecFin < momentoFin) {
+        alert('a')
+        // Si es que el reservado está completamente metido dentro del horario, que divida el horario
+        let fechaAux = eventoActualFecIni;
+        fechaAux.setMinutes(fechaAux.getMinutes() - 1);
+
+        let evAux1 = {
+          id: guid(),
+          title: 'individual',
+          start: momentoInicio,
+          end: fechaAux
+        }
+
+        let fechaAux2 = eventoActualFecFin;
+        fechaAux2.setMinutes(fechaAux2.getMinutes() + 1);
+
+        let evAux2 = {
+          id: guid(),
+          title: 'individual',
+          start: fechaAux2,
+          end: momentoFin
+        }
+        horarios.push(evAux1);
+        horarios.push(evAux2);
+      }
+
+      // Si solo chocan por arriba
+      else if (eventoActualFecIni < momentoInicio && eventoActualFecFin > momentoInicio && eventoActualFecFin < momentoFin) {
+        alert('b')
+
+        let fechaAux = eventoActualFecFin;
+        fechaAux.setMinutes(fechaAux.getMinutes() + 1);
+
+        let evAux1 = {
+          id: guid(),
+          title: 'individual',
+          start: fechaAux,
+          end: momentoFin
+        }
+        horarios.push(evAux1);
+
+
+      }
+
+      // Si solo chocan por abajo
+      else if (eventoActualFecFin > momentoFin && eventoActualFecIni > momentoInicio && eventoActualFecIni < momentoFin) {
+        alert('c')
+
+        let fechaAux = eventoActualFecIni;
+        fechaAux.setMinutes(fechaAux.getMinutes() - 1);
+
+        let evAux1 = {
+          id: guid(),
+          title: 'individual',
+          start: momentoInicio,
+          end: fechaAux
+        }
+        horarios.push(evAux1);
+      }
+
+    }
+  }
+  alert('return ' + horarios.length)
+  return horarios;
+
+}*/
+
 class Horario extends Component {
   constructor(props) {
     super(props);
@@ -38,30 +136,48 @@ class Horario extends Component {
 
   agregarReserva() {
     let reservas = this.state.reservas;
+    let eventos = this.state.eventos;
 
     let momentoInicio = moment(this.state.rangoSeleccionado.start);
     let momentoFin = moment(this.state.rangoSeleccionado.end);
 
-    reservas[0] = {
-      id: guid(),
-      title: 'reserva',
-      start: momentoInicio.toDate(),
-      end: momentoFin.toDate(),
-      allDay: false
-    }
+    let fechaActual = new Date();
 
-    // Llamada a un componente del padre
-    if (this.props.establecerHorario) {
+    // Primero, verifico que la selección sea después de la fecha actual
+    if (momentoInicio.toDate() > fechaActual && momentoFin.toDate() > fechaActual) {
 
-      this.props.establecerHorario(
-        {
-          inicio: momentoInicio.format('YYYY-MM-DD HH:mm:ss'),
-          fin: momentoFin.format('YYYY-MM-DD HH:mm:ss')
+      if (estaDentroDeAlgunEvento(eventos, momentoInicio.toDate(), momentoFin.toDate())) {
+
+        reservas[0] = {
+          id: guid(),
+          title: 'reserva',
+          start: momentoInicio.toDate(),
+          end: momentoFin.toDate(),
+          allDay: false
+        }
+
+        // Llamada a un componente del padre
+        if (this.props.establecerHorario) {
+
+          this.props.establecerHorario(
+            {
+              inicio: momentoInicio.format('YYYY-MM-DD HH:mm:ss'),
+              fin: momentoFin.format('YYYY-MM-DD HH:mm:ss')
+            })
+        }
+        this.setState({
+          reservas: reservas
         })
+
+      } else {
+        alert("Tu reserva debe estar dentro de uno de los horarios disponibles");
+
+      }
+
+    } else {
+      alert("Debe seleccionar una reserva después de la fecha actual")
     }
-    this.setState({
-      reservas: reservas
-    })
+
   }
 
   editarReserva() {
@@ -83,27 +199,30 @@ class Horario extends Component {
     let eventos = [];
     if (this.props.eventos) {
 
-      this.props.eventos.map((e, i) => {
+      for (var i = 0; i < this.props.eventos.length; i++) {
 
+        let e = this.props.eventos[i];
         let momentoInicio = moment(e.fecIni).toDate();
         let momentoFin = moment(e.fecFin).toDate();
-
         if (e.idHor) {
+
           eventos.push({
-            id: e.idHor,
-            title: e.tipo,
-            start: momentoInicio,
-            end: momentoFin,
-            allDay: false
-          })
+              id: e.idHor,
+              title: e.tipo,
+              start: momentoInicio,
+              end: momentoFin,
+              allDay: false
+            })
+             
         }
+      }
+      // Y lo establezco como el estado
+      this.setState({
+        eventos: eventos
       })
     }
 
-    // Y lo establezco como el estado
-    this.setState({
-      eventos: eventos
-    })
+
   }
 
   render() {
@@ -115,7 +234,7 @@ class Horario extends Component {
               <Calendar
                 localizer={localizer}
                 events={[...this.state.eventos, ...this.state.reservas]}
-                defaultView={'week'}
+                defaultView='week'
                 startAccessor="start"
                 endAccessor="end"
                 views={{
