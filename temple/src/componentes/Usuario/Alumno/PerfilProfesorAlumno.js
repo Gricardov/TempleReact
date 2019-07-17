@@ -10,8 +10,8 @@ class PerfilProfesorAlumno extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            idCursoSeleccionado: -1,
-            idModalidadSeleccionada: -1,
+            idCursoSeleccionado: this.props.perfil.preferencias?this.props.perfil.preferencias[0].idCur:-1,
+            idModalidadSeleccionada: this.props.perfil.preferencias?this.props.perfil.preferencias[0].modalidades[0].idMod:-1,
             horarioSeleccionado: {},
             modalAbierto: false
         };

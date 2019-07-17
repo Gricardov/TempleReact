@@ -15,9 +15,7 @@ import {
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import 'moment/locale/es-us';
 import ModalConfirmacion from '../../Utilidades/ModalConfirmacion';
-import * as RUTAS from '../../../compartido/rutas';
 
-import { withRouter } from 'react-router-dom';
 
 
 let moment = require('moment');
@@ -208,6 +206,7 @@ class Horario extends Component {
   }
 
   componentDidCatch(error,info){
+    console.log(error);
   }
 
   render() {
@@ -299,7 +298,7 @@ class Horario extends Component {
                   eventosFiltrados[i].end = (moment(eventosFiltrados[i].end).format('YYYY-MM-DD HH:mm:ss'));
                 }
                 this.props.actualizarHorarios(eventosFiltrados);
-                this.props.history.push(RUTAS.MI_PERFIL_PROFESOR.ruta);
+                
               }
               }>
                 Guardar cambios</Button>
@@ -314,4 +313,4 @@ class Horario extends Component {
 
 }
 
-export default withRouter(Horario);
+export default Horario;

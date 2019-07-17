@@ -4,6 +4,8 @@ import TarjetaCita from '../../Utilidades/TarjetaCita';
 import Mapa from '../../Utilidades/ComponenteMapa';
 import classnames from 'classnames';
 import Horario from './HorarioGestor';
+import { withRouter } from 'react-router-dom';
+import * as RUTAS from '../../../compartido/rutas';
 
 let moment = require('moment');
 
@@ -35,7 +37,11 @@ class MisHorarios extends Component {
                 <div className="contenedor-detalles">
                     <h3 className="categories_tittle me_tittle">Mis citas</h3>
                     <Horario eventos={this.props.horarios}
-                        actualizarHorarios={(eventos) => { this.props.actualizarHorarios(this.props.usuario.COD_USU, eventos) }}
+                        actualizarHorarios={(eventos) => { 
+                            this.props.actualizarHorarios(this.props.usuario.COD_USU, eventos)
+                            this.props.obtenerPerfil(this.props.usuario.COD_USU, 1);
+                            this.props.history.push(RUTAS.MI_PERFIL_PROFESOR.ruta);
+                        }}
                     />
 
                 </div>
@@ -45,4 +51,4 @@ class MisHorarios extends Component {
 
 }
 
-export default MisHorarios;
+export default withRouter(MisHorarios);

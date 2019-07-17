@@ -2,7 +2,7 @@ import * as Acciones from './Acciones';
 import { LIDERES } from '../compartido/lideres';
 import { URLBase } from '../compartido/URLBase';
 import { actions } from 'react-redux-form';
-import {establecerGalleta,obtenerGalleta} from '../componentes/Utilidades/gestorCookies';
+import { establecerGalleta, obtenerGalleta } from '../componentes/Utilidades/gestorCookies';
 
 // Niveles
 export const consultaNiveles = () => (dispatch) => {
@@ -145,7 +145,7 @@ export const iniciarSesion = (usuario, contrasena) => (dispatch) => {
                 console.log("Sesión no iniciada : Datos incorrectos")
                 dispatch(sesionNoIniciada("Datos incorrectos"))
             } else {
-                establecerGalleta('usuario',usuario.galleta,60);
+                establecerGalleta('usuario', usuario.galleta, 60);
                 dispatch(sesionIniciada(usuario));
             }
             //
@@ -160,13 +160,13 @@ export const iniciarSesion = (usuario, contrasena) => (dispatch) => {
 }
 
 // Sesión usuario por galleta
-export const iniciarSesionGalleta = (galleta) => (dispatch) => {
+export const obtenerInicioGalleta = () => (dispatch) => {
 
     dispatch(iniciandoSesion());
-
+    let usuario = obtenerGalleta("usuario");
     const datos = {
         datos: {
-            galleta: galleta
+            galleta: usuario
         }
     }
 
@@ -279,7 +279,7 @@ export const registrarUsuario = (usuario) => (dispatch) => {
 
 export const cerrarSesion = () => (dispatch) => {
 
-    establecerGalleta('usuario',null,60);    
+    establecerGalleta('usuario', null, 60);
     dispatch(sesionNoIniciada('Cerrado correctamente'));
 
 
@@ -765,7 +765,7 @@ export const registrarPublicacion = (codUsu, titPub, desPub, idPriv) => (dispatc
         .then(respuesta => {
 
             dispatch(publicacionRegistrada(respuesta));
-
+            dispatch(obtenerPerfil(codUsu, 1));
         })
         .catch(error => {
             console.log("Error : " + error.message);
@@ -826,6 +826,10 @@ export const actualizarHorarios = (codUsu, horarios) => (dispatch) => {
             console.log("Error : " + error.message);
             dispatch(errorActualizacionHorarios(error.message));
         })
+
+}
+
+export const redireccionar = (ruta) => {
 
 }
 

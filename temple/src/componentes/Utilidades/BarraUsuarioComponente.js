@@ -6,7 +6,7 @@ import {
 import { NavLink, Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { obtenerPerfil, cerrarSesion } from '../../redux/CreadorAcciones';
+import { obtenerPerfil, cerrarSesion, obtenerInicioGalleta } from '../../redux/CreadorAcciones';
 
 import * as RUTAS from '../../compartido/rutas';
 
@@ -21,7 +21,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
 
     obtenerPerfil: (codUsu, tipoUsu) => dispatch(obtenerPerfil(codUsu, tipoUsu)),
-    cerrarSesion: () => dispatch(cerrarSesion())
+    cerrarSesion: () => dispatch(cerrarSesion()),
+    obtenerInicioGalleta: () => dispatch(obtenerInicioGalleta())
+
 })
 
 class BarraUsuario extends Component {
@@ -71,7 +73,10 @@ class BarraUsuario extends Component {
 
                     <div className="container">
 
-                        <NavbarBrand className="mr-auto" tag={Link} to={this.props.usuario.ID_ROL == 1 ? RUTAS.INICIO_PROFESOR.ruta : RUTAS.INICIO_ALUMNO.ruta}>
+                        <NavbarBrand className="mr-auto"
+                            tag={Link}
+                            to={this.props.usuario.ID_ROL == 1 ? RUTAS.INICIO_PROFESOR.ruta : RUTAS.INICIO_ALUMNO.ruta}
+                        >
                             <img src="recursos/imagenes/logo.png" height="30" width="100" alt="logo temple" />
                         </NavbarBrand>
                         <NavbarToggler onClick={this.permutarColapso} />

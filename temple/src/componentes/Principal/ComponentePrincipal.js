@@ -36,7 +36,7 @@ import {
     obtenerLideres, iniciarSesion, seleccionarPestanaPerfilContrato,
     establecerPasoContrato, registrarContrato, registrarPublicacion,
     obtenerPerfil, cerrarSesion, consultaCursosPorNombre, consultaProfesoresPorIdCurso,
-    consultaProfesoresPorNombreCurso, iniciarSesionGalleta, actualizarHorarios
+    consultaProfesoresPorNombreCurso, obtenerInicioGalleta, actualizarHorarios
 } from '../../redux/CreadorAcciones';
 
 const mapStateToProps = (state) => {
@@ -56,7 +56,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     iniciarSesion: (usuario, contrasena) => dispatch(iniciarSesion(usuario, contrasena)),
-    iniciarSesionGalleta: (galleta) => dispatch(iniciarSesionGalleta(galleta)),
+    obtenerInicioGalleta: () => dispatch(obtenerInicioGalleta()),
     obtenerLideres: () => dispatch(obtenerLideres()),
     reiniciarFormContacto: () => dispatch(actions.reset('formContacto')),
     seleccionarPestanaPerfilContrato: (numPestana) => dispatch(seleccionarPestanaPerfilContrato(numPestana)),
@@ -80,7 +80,7 @@ class Principal extends Component {
 
         // La galleta indica que hay un usuario logueado
         if (usuario && usuario != "") {
-            this.props.iniciarSesionGalleta(usuario);
+            this.props.obtenerInicioGalleta();
         }
 
         this.props.obtenerLideres();
@@ -147,6 +147,7 @@ class Principal extends Component {
                                 <Route path={RUTAS.MIS_HORARIOS_PROFESOR.ruta} component={() =>
                                     <MisHorarios
                                         actualizarHorarios={this.props.actualizarHorarios}
+                                        obtenerPerfil={this.props.obtenerPerfil}
                                         usuario={this.props.sesion.usuario}
                                         horarios={this.props.perfil.perfil.horarios}
                                         estaCargando={this.props.perfil.estaCargando}
