@@ -14,7 +14,7 @@ import InicioAlumno from '../Usuario/Alumno/InicioAlumno';
 import InicioProfesor from '../Usuario/Profesor/InicioProfesor';
 import PerfilProfesorAlumno from '../Usuario/Alumno/PerfilProfesorAlumno';
 import MiPerfilAlumno from '../Usuario/Alumno/MiPerfil';
-import MiPerfilProfesor from '../Usuario/Profesor/MiPerfil';
+import MiPerfilProfesor from '../Usuario/Profesor/MiPerfilResponsivo';
 import Asistente from '../Utilidades/AsistenteComponente';
 import SwitchDeslizador from '../Utilidades/ComponenteSwitchDeslizador';
 import CubiertaMensaje from '../Utilidades/CubiertaMensaje';

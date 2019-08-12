@@ -1,0 +1,102 @@
+.contenedor-css-grid{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: repeat(3,auto);
+    grid-template-areas:    "avisos            avisos               avisos              avisos              avisos"
+                            "cajon-colapsable  selector-principal   selector-principal  selector-principal  selector-principal"
+                            "cajon-colapsable  selector-secundario  selector-secundario selector-secundario selector-secundario"
+}
+
+.contenedor-css-grid > div {
+    padding: 20px;
+}
+
+.contenedor-css-grid .avisos{
+    padding: 10px;
+    background: #ff695e;
+    grid-area: avisos;
+    color: #fff;
+}
+.contenedor-css-grid .cajon-colapsable{
+    background: #12273b;
+    grid-area: cajon-colapsable;
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.contenedor-css-grid .cajon-colapsable div{
+    color: #fff;
+}
+.contenedor-css-grid .cajon-colapsable .nombre-seguimiento{
+    color: rgb(158, 158, 158);
+    font-size: 20px;    
+}
+
+.contenedor-css-grid .cajon-colapsable .contenedor-datos-resumidos-perfil
+{
+    margin-right: auto;
+    margin-top: 50px; 
+}
+
+.contenedor-css-grid .cajon-colapsable .contenedor-atributos-perfil
+{
+    margin-right: auto;
+    margin-top: 10px; 
+}
+.contenedor-css-grid .selector-principal-perfil{
+    background: #fff;
+    grid-area: selector-principal;
+    min-height: 80px;
+}
+
+.contenedor-css-grid .selector-secundario-perfil{
+    background: #fff;
+    grid-area: selector-secundario;
+    min-height: 90vh;
+}
+
+.contenedor-css-grid .cajon-colapsable .nombres-perfil {
+    font-size: 30px;
+    color: #fff;
+    margin: 25px auto 0;
+  }
+
+.contenedor-css-grid .cajon-colapsable .foto-perfil {
+    background-position: center center;
+    background-size: cover;
+    border: 5px #efefef solid;
+    border-radius: 50%;
+    -webkit-box-shadow: 0px 0px 38px -6px rgba(255,255,255,0.61);
+    -moz-box-shadow: 0px 0px 38px -6px rgba(255,255,255,0.61);
+    box-shadow: 0px 0px 38px -6px rgba(255,255,255,0.61);
+    height: 200px;
+    width: 200px;
+    z-index: 3;
+  }
+
+  .contenedor-css-grid .selector-principal-perfil{
+    padding: 0px;
+}
+
+.contenedor-css-grid .selector-principal-perfil .control-principal-perfil{
+    list-style: none;
+  margin: 0;
+  background: #fff;
+    display: flex;
+    justify-content: space-around;
+    color: #000;
+    font-size: 35px;
+}
+
+.contenedor-css-grid .selector-principal-perfil .control-principal-perfil a {
+    text-decoration: none;
+    display: block;
+    padding: 20px;
+    color: #000;
+  }
+
+  .contenedor-css-grid .selector-principal-perfil .control-principal-perfil a:hover {
+    background: #eaf7ff;
+    border-bottom: 5px solid rgb(58, 89, 146);
+  }

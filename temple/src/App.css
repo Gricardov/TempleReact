@@ -39,7 +39,7 @@ body p {
 
 .perfil-debajo-barra{
 
-  padding: 30px 0px 50px 0px;
+  padding-top: 58px;
   background: #eff3f5;
 
 }
@@ -287,12 +287,15 @@ height: 25px;
 
 /*Estilos del perfil*/
 
-.nombres-perfil {
+
+/*.nombres-perfil {
   display: block;
   font-size: 50px;
   margin: 25px auto 0;
   width: 975px;
 }
+*/
+
 
 .nombres-perfil>small {
   color: #aaaaaa;
@@ -301,7 +304,7 @@ height: 25px;
 
 .contenedor-portada-perfil {
   box-shadow: 1px 1px 4px rgba(0,0,0,0.5);
-  margin:   25px auto 50px;
+  margin:   0px auto 50px;
   height:   250px;
   position: relative;
   width:    100%;
@@ -313,7 +316,7 @@ height: 25px;
   width: 100%;
 }
 
-.foto-perfil {
+/*.foto-perfil {
   background-position: center center;
   background-size: cover;
   border: 5px #efefef solid;
@@ -325,7 +328,7 @@ height: 25px;
   position: absolute;
   width: 148px;
   z-index: 3;
-}
+}*/
 
 div .estadisticas-perfil {
   bottom: 0;
