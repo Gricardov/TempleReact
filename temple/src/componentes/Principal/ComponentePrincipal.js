@@ -119,7 +119,9 @@ class Principal extends Component {
                                         registroPublicacion={this.props.registroPublicacion}
                                         registrarPublicacion={this.props.registrarPublicacion}
                                         seleccionarPestanaPerfilContrato={this.props.seleccionarPestanaPerfilContrato}
-                                        contrato={this.props.contrato} />} />
+                                        contrato={this.props.contrato}
+                                        citas={this.props.perfil.perfil.contratos}
+                                        />} />
                                 <Route path={RUTAS.PERFIL_PROFESOR_ALUMNO.ruta} component={() =>
                                     <PerfilProfesorAlumno
                                         perfil={this.props.perfil.perfil}

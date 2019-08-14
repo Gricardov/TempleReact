@@ -4,7 +4,7 @@
     grid-template-rows: repeat(3,auto);
     grid-template-areas:    "avisos            avisos               avisos              avisos              avisos"
                             "cajon-colapsable  selector-principal   selector-principal  selector-principal  selector-principal"
-                            "cajon-colapsable  selector-secundario  selector-secundario selector-secundario selector-secundario"
+                            "cajon-colapsable  contenedor-selector-secundario  contenedor-selector-secundario contenedor-selector-secundario contenedor-selector-secundario"
 }
 
 .contenedor-css-grid > div {
@@ -12,15 +12,15 @@
 }
 
 .contenedor-css-grid .avisos{
-    padding: 10px;
+    padding: 5px;
     background: #ff695e;
     grid-area: avisos;
-    color: #fff;
+    color: rgb(241, 241, 241);
 }
 .contenedor-css-grid .cajon-colapsable{
     background: #12273b;
     grid-area: cajon-colapsable;
-    padding-top: 80px;
+    padding-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,17 +44,6 @@
     margin-right: auto;
     margin-top: 10px; 
 }
-.contenedor-css-grid .selector-principal-perfil{
-    background: #fff;
-    grid-area: selector-principal;
-    min-height: 80px;
-}
-
-.contenedor-css-grid .selector-secundario-perfil{
-    background: #fff;
-    grid-area: selector-secundario;
-    min-height: 90vh;
-}
 
 .contenedor-css-grid .cajon-colapsable .nombres-perfil {
     font-size: 30px;
@@ -70,33 +59,140 @@
     -webkit-box-shadow: 0px 0px 38px -6px rgba(255,255,255,0.61);
     -moz-box-shadow: 0px 0px 38px -6px rgba(255,255,255,0.61);
     box-shadow: 0px 0px 38px -6px rgba(255,255,255,0.61);
-    height: 200px;
-    width: 200px;
+    height: 150px;
+    width: 150px;
     z-index: 3;
   }
 
-  .contenedor-css-grid .selector-principal-perfil{
+.contenedor-css-grid .selector-principal-perfil{
+    background: #fff;
+    grid-area: selector-principal;
     padding: 0px;
+    max-height: 53px;
+
 }
 
 .contenedor-css-grid .selector-principal-perfil .control-principal-perfil{
+
     list-style: none;
-  margin: 0;
-  background: #fff;
-    display: flex;
-    justify-content: space-around;
+    margin: 0;
+    background: #fff;    
     color: #000;
-    font-size: 35px;
+    font-size: 23px;
+    max-height: 53px;
+}
+
+.contenedor-css-grid .selector-principal-perfil .control-principal-perfil .boton-control-principal{
+
+    transition: all 0.3s ease;
+}
+
+.contenedor-css-grid .selector-principal-perfil .control-principal-perfil .boton-control-principal:hover{
+
+    border-bottom: 5px solid rgb(58, 89, 146);
 }
 
 .contenedor-css-grid .selector-principal-perfil .control-principal-perfil a {
     text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
     display: block;
-    padding: 20px;
+    padding: 8px;
     color: #000;
+    width: 100%;
+    float: left;
+    border-right: 1px solid;
+    border-image: linear-gradient(to bottom, rgb(255, 255, 255), #919191) 0 100%;    
+
+    transition: all 0.5s ease;
+
+    -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+
   }
 
-  .contenedor-css-grid .selector-principal-perfil .control-principal-perfil a:hover {
+  .contenedor-css-grid .contenedor-selector-secundario{
+    background:  rgb(58, 89, 146);
+    grid-area: contenedor-selector-secundario;
+    min-height: 100vh;
+
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 50px 50px;
+    grid-template-areas:    "selector-secundario-perfil"
+                            "contenido-seleccion-perfil"
+}
+
+.contenedor-css-grid .contenedor-selector-secundario .control-secundario-perfil{
+    grid-area: selector-secundario-perfil;
+}
+
+.contenedor-css-grid .contenedor-selector-secundario .control-secundario-perfil .boton-control-secundario{
+   
+    text-align: center;
+    font-size: 20px;
+    min-height: 50px;
+ }
+
+ .contenedor-css-grid .contenedor-selector-secundario .control-secundario-perfil .boton-control-secundario a
+ {
+    background: white;
+    border-radius: 20px;
+    text-decoration: none;
+    color:black;
+    display: block;
+    padding: 2px;
+    margin-right: 20px;
+    white-space: nowrap;
+    -webkit-box-shadow: 11px 6px 14px -5px rgb(0, 0, 0);
+    -moz-box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
+    box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
+
+    -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+ }
+
+ .contenedor-css-grid .contenedor-selector-secundario .contenido-seleccion{
+    grid-area: contenido-seleccion-perfil;
+
+}
+
+.contenedor-css-grid .contenedor-selector-secundario .contenido-seleccion .tarjeta-contenedora-contenido{
+    border-radius: 10px;
+    background: rgb(238, 238, 238);
+    margin-top: 15px;
+    padding: 20px;
+    height: auto;
+    min-height: 80vh;
+    -webkit-box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
+    -moz-box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
+    box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
+}
+   /*.contenedor-css-grid .selector-principal-perfil .control-principal-perfil a:hover {
     background: #eaf7ff;
-    border-bottom: 5px solid rgb(58, 89, 146);
+  }*/
+
+
+ /*
+
+ 
+
+ 
+  .contenedor-css-grid .contenedor-selector-secundario .selector-secundario-perfil
+  .control-secundario-perfil .boton-control-secundario a{
+     text-decoration: none;
+     color:black;
+     display: block;
   }
+ 
+ .contenedor-css-grid .contenedor-selector-secundario .contenido-seleccion{
+     grid-area: contenido-seleccion;
+  }
+ */
+ 

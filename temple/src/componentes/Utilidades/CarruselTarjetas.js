@@ -24,6 +24,7 @@ class Carrusel extends Component {
             speed: 200,
             slidesToShow: 4,
             slidesToScroll: 1,
+
             responsive: [
                 {
                     breakpoint: 992,
@@ -65,7 +66,6 @@ class Carrusel extends Component {
                 ?
                 <Slider {...settings}>
                     {tarjetas}
-
                 </Slider>
                 :
                 <Fade in><Alert color="warning">No hay profesores recomendados :(</Alert></Fade>
