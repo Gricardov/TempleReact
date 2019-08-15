@@ -68,8 +68,8 @@
     background: #fff;
     grid-area: selector-principal;
     padding: 0px;
+    display: block;
     max-height: 53px;
-
 }
 
 .contenedor-css-grid .selector-principal-perfil .control-principal-perfil{
@@ -80,6 +80,11 @@
     color: #000;
     font-size: 23px;
     max-height: 53px;
+    display: block;
+}
+
+.control-principal-perfil-oculto{
+    display: none;
 }
 
 .contenedor-css-grid .selector-principal-perfil .control-principal-perfil .boton-control-principal{
@@ -129,16 +134,22 @@
     background:  rgb(58, 89, 146);
     grid-area: contenedor-selector-secundario;
     min-height: 100vh;
+    
+}
 
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 50px 50px;
-    grid-template-areas:    "selector-secundario-perfil"
-                            "contenido-seleccion-perfil"
+.contenedor-selector-secundario-revisando-ejercicio{
+    background:  rgb(58, 89, 146);
+    grid-area: contenedor-selector-secundario;
+    min-height: 100vh;
+   
 }
 
 .contenedor-css-grid .contenedor-selector-secundario .control-secundario-perfil{
-    grid-area: selector-secundario-perfil;
+    display: block;
+}
+
+.control-secundario-perfil-oculto{
+    display: none;
 }
 
 .contenedor-css-grid .contenedor-selector-secundario .control-secundario-perfil .boton-control-secundario{
@@ -203,7 +214,7 @@
     left: 2px;
     -webkit-box-shadow: none !important;
 	-moz-box-shadow: none !important;
-	box-shadow: none !important;
+    box-shadow: none !important;
 }
 
 .boton-control-secundario-deseleccionado{
@@ -212,7 +223,6 @@
 }
 
  .contenedor-css-grid .contenedor-selector-secundario .contenido-seleccion{
-    grid-area: contenido-seleccion-perfil;
 
 }
 
@@ -220,6 +230,36 @@
     border-radius: 10px;
     background: rgb(238, 238, 238);
     margin-top: 15px;
+    padding: 20px;
+    height: auto;
+    min-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    -webkit-box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
+    -moz-box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
+    box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
+}
+
+.tarjeta-contenedora-contenido-extendida{
+    border-radius: 10px;
+    background: rgb(238, 238, 238);
+    margin-top: 0px;
+    padding: 20px;
+    height: auto;
+    min-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    -webkit-box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
+    -moz-box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
+    box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
+}
+
+.extendiendo-tarjeta-contenedora-enter-done{
+    border-radius: 10px;
+    background: rgb(238, 238, 238);
+    margin-top: 0px !important;
     padding: 20px;
     height: auto;
     min-height: 88vh;

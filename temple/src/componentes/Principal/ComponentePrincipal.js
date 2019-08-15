@@ -124,12 +124,14 @@ class Principal extends Component {
                                         ejercicios={[{
                                             curso: "Geometría",
                                             ejercicios: [{
+                                                id:'1001',
                                                 imgPer: 'https://s2.r29static.com//bin/entry/2c8/720x864,85/2166446/adele-husband-simon-konecki-2166446.webp',
                                                 asunto: 'Profe ayúdeme con este problema porfa', nomUsu: 'Vane', apaUsu: 'Sita', amaUsu:'Sita', codUsu: '1002',
                                                 fecSol: '2019-08-14 03:00:00', estado: -1,
                                                 descripcion: 'Lorem ipsum', imgAdj: '', pdfAdj: '', respuesta: ''
                                             },
                                             {
+                                                id: '1002',
                                                 imgPer: 'https://s2.r29static.com//bin/entry/2c8/720x864,85/2166446/adele-husband-simon-konecki-2166446.webp',
                                                 asunto: 'Profe no me sale lo de la circunferencia', nomUsu: 'Vane', apaUsu: 'Sita',amaUsu:'Sita', codUsu: '1002',
                                                 fecSol: '2019-08-14 03:40:00', estado: -1,
@@ -139,6 +141,7 @@ class Principal extends Component {
                                         {
                                             curso: "Programación en Java",
                                             ejercicios: [{
+                                                id: '1003',
                                                 imgPer: 'https://s2.r29static.com//bin/entry/2c8/720x864,85/2166446/adele-husband-simon-konecki-2166446.webp',
                                                 asunto: 'Problema con los bucles', nomUsu: 'Vane', apaUsu: 'Sita', amaUsu:'Sita',codUsu: '1002',
                                                 fecSol: '2019-08-14 03:00:00', estado: -1,

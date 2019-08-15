@@ -36,7 +36,7 @@ class TarjetaEjercicio extends Component {
                              versions of Lorem Ipsum.
                     </p>
                     </div>
-                    <button className="btn-revisar-tarjeta-ejercicio" onClick={()=>{this.props.revisarEjercicio()}}>Revisar</button>
+                    <button className="btn-revisar-tarjeta-ejercicio" onClick={()=>{this.props.revisarEjercicio(this.props.ejercicio.id)}}>Revisar</button>
 
                 </div>
 

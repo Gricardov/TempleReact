@@ -26,31 +26,32 @@ class MiPerfil extends Component {
             selectores: {
                 0: [{ nombre: 'Futuras' }, { nombre: 'En este momento' }, { nombre: 'Pasadas' }],
                 1: [{ nombre: 'Todos' }],
-                2: [{ nombre: 'Sin leer' },{nombre:'Leídos'}],
+                2: [{ nombre: 'Sin leer' }, { nombre: 'Leídos' }],
                 3: [{ nombre: 'Mi presentación' }, { nombre: 'Mis horarios' },
                 { nombre: 'Mis cursos' }, { nombre: 'Mis reseñas' }, { nombre: 'Mis alumnos' }]
             },
-            perfilSeleccionado: this.props.perfil
+            perfilSeleccionado: this.props.perfil,
+            revisandoEjercicio: false
         };
     }
 
     render() {
 
         // Primero, actualizo el state con los cursos de los ejercicios       
-        if (this.props.ejercicios){
+        if (this.props.ejercicios) {
             // Obtengo el arreglo que está en mi estado y le borro el primero porque es general
-            let ejerciciosActuales=JSON.parse(JSON.stringify(this.state.selectores["1"]));
+            let ejerciciosActuales = JSON.parse(JSON.stringify(this.state.selectores["1"]));
             ejerciciosActuales.shift();
 
             // Extraigo solo los nombres de los cursos de los props
-            let selectoresCursosNuevos=this.props.ejercicios.map((e,i)=>{return {nombre:e.curso}});
+            let selectoresCursosNuevos = this.props.ejercicios.map((e, i) => { return { nombre: e.curso } });
             // Ahora, pregunto si la información de los props aún es la misma que tengo. Si no la es, la actualizo
-        
-            if (JSON.stringify(ejerciciosActuales)!==JSON.stringify(selectoresCursosNuevos)){
-                let selectoresAux=this.state.selectores;
-                selectoresAux["1"]=[{ nombre: 'Todos' }].concat(selectoresCursosNuevos);
-                
-                this.setState({selectores:selectoresAux});                
+
+            if (JSON.stringify(ejerciciosActuales) !== JSON.stringify(selectoresCursosNuevos)) {
+                let selectoresAux = this.state.selectores;
+                selectoresAux["1"] = [{ nombre: 'Todos' }].concat(selectoresCursosNuevos);
+
+                this.setState({ selectores: selectoresAux });
             }
         }
 
@@ -61,26 +62,33 @@ class MiPerfil extends Component {
                     Tienes una nueva notificación
                 </div>
                 <div className="cajon-colapsable">
-                    <Cajon perfil={perfil}/>
+                    <Cajon perfil={perfil} />
                 </div>
 
                 <div className="selector-principal-perfil">
                     <SelectorPrincipal
                         seleccionado={this.state.seleccionPrincipal}
-                        seleccionar={(seleccion) => { this.setState({ seleccionPrincipal: seleccion, seleccionSecundaria: 0 }) }} />
+                        seleccionar={(seleccion) => { this.setState({ seleccionPrincipal: seleccion, seleccionSecundaria: 0 }) }}
+                        revisandoEjercicio={this.state.revisandoEjercicio} />                        
                 </div>
 
                 <div className="contenedor-selector-secundario">
-                    <ContenedorPerfil 
+                    <ContenedorPerfil
                         citas={this.props.citas}
                         ejercicios={this.props.ejercicios}
-                        revisarEjercicio={()=>{this.setState({perfilSeleccionado:{
-                            imgPer:'https://s2.r29static.com//bin/entry/2c8/720x864,85/2166446/adele-husband-simon-konecki-2166446.webp',
-                            nomUsu:'Vane',
-                            apaUsu:'Sita',
-                            amaUsu:'Sita',
-                            logUsu:'milanesita'
-                        }})}}
+                        revisarEjercicio={(id) => {
+                            this.setState({
+                                perfilSeleccionado: {
+                                    imgPer: 'https://s2.r29static.com//bin/entry/2c8/720x864,85/2166446/adele-husband-simon-konecki-2166446.webp',
+                                    nomUsu: 'Vane',
+                                    apaUsu: 'Sita',
+                                    amaUsu: 'Sita',
+                                    logUsu: 'milanesita'
+                                },
+                                revisandoEjercicio: true
+                            })
+                        }}
+                        revisandoEjercicio={this.state.revisandoEjercicio}
                         pestanas={this.state.selectores[this.state.seleccionPrincipal]}
                         seleccionPrincipal={this.state.seleccionPrincipal}
                         seleccionSecundaria={this.state.seleccionSecundaria}

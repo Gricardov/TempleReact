@@ -13,9 +13,8 @@ class SelectorPrincipal extends Component {
     }
 
     render(){
-
         var confSelectorPrincipal = {
-            className: 'control-principal-perfil',
+            className: this.props.revisandoEjercicio?"control-principal-perfil-oculto":"control-principal-perfil",
             centerMode: false,
             infinite: false,
             speed: 200,

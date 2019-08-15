@@ -59,7 +59,7 @@ class ContenedorPerfil extends Component {
         }
 
         var confSelectorSecundario = {
-            className: "control-secundario-perfil",
+            className: this.props.revisandoEjercicio?"control-secundario-perfil-oculto":"control-secundario-perfil",
             centerMode: false,
             infinite: false,
             speed: 200,
@@ -97,7 +97,7 @@ class ContenedorPerfil extends Component {
                         {pestanas}
                 </Slider>
                 <div className="contenido-seleccion">
-                    <div className="tarjeta-contenedora-contenido">
+                    <div className={this.props.revisandoEjercicio?"tarjeta-contenedora-contenido-extendida":"tarjeta-contenedora-contenido"}>
                         {contenido}
                     </div>
                 </div>
@@ -182,7 +182,7 @@ const renderizarEjercicios = (seleccionado, ejerciciosRecibidos, revisarEjercici
                         key={i}
                         indice={i}
                         ejercicio={e}
-                        revisarEjercicio={() => { revisarEjercicio() }}
+                        revisarEjercicio={(id) => { revisarEjercicio(id) }}
                     />;
                 }))
             })
@@ -192,7 +192,7 @@ const renderizarEjercicios = (seleccionado, ejerciciosRecibidos, revisarEjercici
                     key={i}
                     indice={i}
                     ejercicio={e}
-                    revisarEjercicio={() => { revisarEjercicio() }}
+                    revisarEjercicio={(id) => { revisarEjercicio(id) }}
                 />;
             })
         }
