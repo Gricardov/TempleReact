@@ -121,7 +121,33 @@ class Principal extends Component {
                                         seleccionarPestanaPerfilContrato={this.props.seleccionarPestanaPerfilContrato}
                                         contrato={this.props.contrato}
                                         citas={this.props.perfil.perfil.contratos}
-                                        />} />
+                                        ejercicios={[{
+                                            curso: "Geometría",
+                                            ejercicios: [{
+                                                imgPer: 'https://s2.r29static.com//bin/entry/2c8/720x864,85/2166446/adele-husband-simon-konecki-2166446.webp',
+                                                asunto: 'Profe ayúdeme con este problema porfa', nomUsu: 'Vane', apaUsu: 'Sita', amaUsu:'Sita', codUsu: '1002',
+                                                fecSol: '2019-08-14 03:00:00', estado: -1,
+                                                descripcion: 'Lorem ipsum', imgAdj: '', pdfAdj: '', respuesta: ''
+                                            },
+                                            {
+                                                imgPer: 'https://s2.r29static.com//bin/entry/2c8/720x864,85/2166446/adele-husband-simon-konecki-2166446.webp',
+                                                asunto: 'Profe no me sale lo de la circunferencia', nomUsu: 'Vane', apaUsu: 'Sita',amaUsu:'Sita', codUsu: '1002',
+                                                fecSol: '2019-08-14 03:40:00', estado: -1,
+                                                descripcion: 'Cómo puedes tú ser libre mientras yo soy preso', imgAdj: '', pdfAdj: '', respuesta: ''
+                                            }]
+                                        },
+                                        {
+                                            curso: "Programación en Java",
+                                            ejercicios: [{
+                                                imgPer: 'https://s2.r29static.com//bin/entry/2c8/720x864,85/2166446/adele-husband-simon-konecki-2166446.webp',
+                                                asunto: 'Problema con los bucles', nomUsu: 'Vane', apaUsu: 'Sita', amaUsu:'Sita',codUsu: '1002',
+                                                fecSol: '2019-08-14 03:00:00', estado: -1,
+                                                descripcion: 'Dado un arreglo a con x objetos, se itera...', imgAdj: '', pdfAdj: '', respuesta: ''
+                                            }
+                                            ]
+                                        }
+                                        ]}
+                                    />} />
                                 <Route path={RUTAS.PERFIL_PROFESOR_ALUMNO.ruta} component={() =>
                                     <PerfilProfesorAlumno
                                         perfil={this.props.perfil.perfil}

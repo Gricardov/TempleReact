@@ -90,6 +90,17 @@
 .contenedor-css-grid .selector-principal-perfil .control-principal-perfil .boton-control-principal:hover{
 
     border-bottom: 5px solid rgb(58, 89, 146);
+    background: #c2e1ff;
+}
+
+.boton-control-principal-seleccionado{
+    border-bottom: 5px solid rgb(58, 89, 146);
+    background: #9ecfff;
+}
+
+.boton-control-principal-deseleccionado{
+    border-bottom: 0px;
+    background: #fff;
 }
 
 .contenedor-css-grid .selector-principal-perfil .control-principal-perfil a {
@@ -139,7 +150,7 @@
 
  .contenedor-css-grid .contenedor-selector-secundario .control-secundario-perfil .boton-control-secundario a
  {
-    background: white;
+    background: #fff;
     border-radius: 20px;
     text-decoration: none;
     color:black;
@@ -147,6 +158,8 @@
     padding: 2px;
     margin-right: 20px;
     white-space: nowrap;
+    transition: all 0.3s ease;
+    cursor: pointer;
     -webkit-box-shadow: 11px 6px 14px -5px rgb(0, 0, 0);
     -moz-box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
     box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
@@ -157,6 +170,26 @@
   -o-user-drag: none;
   user-drag: none;
  }
+
+ .contenedor-css-grid .contenedor-selector-secundario .control-secundario-perfil .boton-control-secundario a:hover
+ {
+    background: #c2e1ff;
+ }
+
+ .boton-control-secundario-seleccionado{
+    background: #9ecfff !important;
+    position: relative;
+    top: 2px;
+    left: 2px;
+    -webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+.boton-control-secundario-deseleccionado{
+    border-bottom: 0px;
+    background: #fff;
+}
 
  .contenedor-css-grid .contenedor-selector-secundario .contenido-seleccion{
     grid-area: contenido-seleccion-perfil;
@@ -169,30 +202,105 @@
     margin-top: 15px;
     padding: 20px;
     height: auto;
-    min-height: 80vh;
+    min-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     -webkit-box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
     -moz-box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
     box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
 }
-   /*.contenedor-css-grid .selector-principal-perfil .control-principal-perfil a:hover {
-    background: #eaf7ff;
-  }*/
 
+@media screen and (max-width: 768px){
+    .contenedor-css-grid {
+        grid-template-areas:    "avisos            avisos               avisos              avisos              avisos"
+                            "selector-principal  selector-principal   selector-principal  selector-principal  selector-principal"
+                            "contenedor-selector-secundario  contenedor-selector-secundario  contenedor-selector-secundario contenedor-selector-secundario contenedor-selector-secundario"
+    }
+    .cajon-colapsable{
+        display: none !important
+    }
+}
 
- /*
+/*Tarjetas dentro del contenedor*/
+.tarjeta-ejercicio{
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 5px;
+    min-height: 100px;
+    padding: 20px;
+    background: #fff;
+    margin-bottom: 10px; 
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 80px 5fr 1fr;
+    grid-template-rows: 80px 100px 30px;
+    grid-template-areas:    "img            encabezado      estado"
+                            "contenido      contenido       contenido"
+                            "pie            pie             revisar"
+}
 
- 
+.img-perfil-tarjeta-ejercicio{
+    display: block;
+    border-radius: 50%;
+    border: 1px solid #efefef;
+    justify-self: stretch;
+    align-self: stretch;
+    grid-area: img;
+    -webkit-box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+}
 
- 
-  .contenedor-css-grid .contenedor-selector-secundario .selector-secundario-perfil
-  .control-secundario-perfil .boton-control-secundario a{
-     text-decoration: none;
-     color:black;
-     display: block;
-  }
- 
- .contenedor-css-grid .contenedor-selector-secundario .contenido-seleccion{
-     grid-area: contenido-seleccion;
-  }
- */
- 
+.encabezado-tarjeta-ejercicio{
+    grid-area: encabezado;
+    margin-left: 30px;
+}
+
+.encabezado-tarjeta-ejercicio h2{
+    font-size: 25px;
+    color: #5a5a5a;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.encabezado-tarjeta-ejercicio p{
+    font-size: 15px;  
+    font-weight: bold;  
+    color: #a3a3a3;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.estado-tarjeta-ejercicio{
+    grid-area: estado;
+    justify-self: end;
+}
+
+.contenido-tarjeta-ejercicio{
+    grid-area: contenido;
+    overflow: hidden;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.contenido-tarjeta-ejercicio p{
+    overflow: hidden;
+    color: rgb(170, 170, 170);
+    font-size: 15px;
+    line-height: 20px;
+    
+}
+
+.btn-revisar-tarjeta-ejercicio{
+    grid-area: revisar;
+    justify-self: stretch;
+    background: rgb(208, 247, 176);
+    border-radius: 5px;
+    text-decoration: none;
+    border: none;
+    outline: none !important;
+    cursor: pointer;
+    -webkit-box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
+-moz-box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
+box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
+}
