@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import TarjetaCita from '../../Utilidades/TarjetaCita';
 import TarjetaEjercicio from '../../Utilidades/TarjetaEjercicio';
 import { Fade } from 'react-animation-components';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Alert } from 'reactstrap';
 import '../../../Perfil.css';
 import '../../../../node_modules/slick-carousel/slick/slick.css';
@@ -26,11 +27,11 @@ class ContenedorPerfil extends Component {
         if (this.props.pestanas) {
             pestanas = this.props.pestanas.map((e, i) => {
                 return (
-                    <div key={i} className="boton-control-secundario">
-                        <a onClick={() => { this.props.seleccionar(i) }}
-                            className={this.props.seleccionSecundaria == i ? 'boton-control-secundario-seleccionado'
-                                : 'boton-control-secundario-deseleccionado'}>{e.nombre}</a>
-                    </div>
+                        <div key={i} className="boton-control-secundario">
+                            <a style={{animationDelay:`${i*0.1}s`}} onClick={() => { this.props.seleccionar(i) }}
+                                className={this.props.seleccionSecundaria == i ? 'boton-control-secundario-seleccionado'
+                                    : 'boton-control-secundario-deseleccionado'}>{e.nombre}</a>
+                        </div>
                 )
             })
         }
@@ -44,7 +45,7 @@ class ContenedorPerfil extends Component {
                 break;
             case 1:
                 // Solución de ejercicios
-                contenido = renderizarEjercicios(this.props.seleccionSecundaria, this.props.ejercicios, 
+                contenido = renderizarEjercicios(this.props.seleccionSecundaria, this.props.ejercicios,
                     this.props.revisarEjercicio);
                 break;
             case 2:
@@ -93,7 +94,7 @@ class ContenedorPerfil extends Component {
         return (
             <>
                 <Slider {...confSelectorSecundario}>
-                    {pestanas}
+                        {pestanas}
                 </Slider>
                 <div className="contenido-seleccion">
                     <div className="tarjeta-contenedora-contenido">
@@ -181,8 +182,8 @@ const renderizarEjercicios = (seleccionado, ejerciciosRecibidos, revisarEjercici
                         key={i}
                         indice={i}
                         ejercicio={e}
-                        revisarEjercicio={()=>{revisarEjercicio()}}
-                        />;
+                        revisarEjercicio={() => { revisarEjercicio() }}
+                    />;
                 }))
             })
         } else {
@@ -191,8 +192,8 @@ const renderizarEjercicios = (seleccionado, ejerciciosRecibidos, revisarEjercici
                     key={i}
                     indice={i}
                     ejercicio={e}
-                    revisarEjercicio={()=>{revisarEjercicio()}}
-                    />;
+                    revisarEjercicio={() => { revisarEjercicio() }}
+                />;
             })
         }
 
