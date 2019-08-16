@@ -54,11 +54,11 @@ class SelectorPrincipal extends Component {
         return (
 
             <Slider {...confSelectorPrincipal}>
-                    <div onClick={() => { this.props.seleccionar(0) }}
-                        className={this.props.seleccionado == 0 ? 'boton-control-principal boton-control-principal-seleccionado'
-                            : 'boton-control-principal boton-control-principal-deseleccionado'}>
-                        <a href="#">Mis citas</a>
-                    </div>
+                <div onClick={() => { this.props.seleccionar(0) }}
+                    className={this.props.seleccionado == 0 ? 'boton-control-principal boton-control-principal-seleccionado'
+                        : 'boton-control-principal boton-control-principal-deseleccionado'}>
+                    <a href="#">Mis citas</a>
+                </div>
                 <div onClick={() => { this.props.seleccionar(1) }}
                     className={this.props.seleccionado == 1 ? 'boton-control-principal boton-control-principal-seleccionado'
                         : 'boton-control-principal boton-control-principal-deseleccionado'}>

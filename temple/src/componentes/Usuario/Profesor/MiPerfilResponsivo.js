@@ -34,8 +34,40 @@ class MiPerfil extends Component {
             },
             perfilSeleccionado: this.props.perfil,
             revisandoEjercicio: false,
-            cajonLateralAbierto: true
+            cajonLateralAbierto: true,
+            ejercicioSeleccionado: null
         };
+        this.revisarEjercicio = this.revisarEjercicio.bind(this);
+        this.volverMenu = this.volverMenu.bind(this);
+    }
+
+    revisarEjercicio(id) {
+        let ejercicioSeleccionado = this.props.ejercicios.filter((e, i) => e.id == id)[0];
+
+        // Luego, hago la selección primaria que corresponde a la revisión de un ejercicio
+        this.setState({
+            perfilSeleccionado: {
+                imgPer: 'https://s2.r29static.com//bin/entry/2c8/720x864,85/2166446/adele-husband-simon-konecki-2166446.webp',
+                nomUsu: 'Vane',
+                apaUsu: 'Sita',
+                amaUsu: 'Sita',
+                logUsu: 'milanesita'
+            },
+            revisandoEjercicio: true,
+            ejercicioSeleccionado: ejercicioSeleccionado,
+            seleccionPrincipal: -2
+        })
+
+    }
+
+    volverMenu() {
+        this.setState({
+            perfilSeleccionado: this.props.perfil,
+            revisandoEjercicio: false,
+            ejercicioSeleccionado: null,
+            seleccionPrincipal: 1
+        })
+
     }
 
     componentDidUpdate() {
@@ -68,7 +100,7 @@ class MiPerfil extends Component {
                     Tienes una nueva notificación
                 </div>
                 <div className="cajon-colapsable">
-                        <Cajon perfil={perfil} revisandoEjercicio={this.state.revisandoEjercicio} />
+                    <Cajon perfil={perfil} revisandoEjercicio={this.state.revisandoEjercicio} />
                 </div>
                 <div className="selector-principal-perfil">
                     <SelectorPrincipal
@@ -81,18 +113,17 @@ class MiPerfil extends Component {
                     <ContenedorPerfil
                         citas={this.props.citas}
                         ejercicios={this.props.ejercicios}
+                        ejercicioSeleccionado={this.props.ejercicioSeleccionado}
                         revisarEjercicio={(id) => {
-                            this.setState({
-                                perfilSeleccionado: {
-                                    imgPer: 'https://s2.r29static.com//bin/entry/2c8/720x864,85/2166446/adele-husband-simon-konecki-2166446.webp',
-                                    nomUsu: 'Vane',
-                                    apaUsu: 'Sita',
-                                    amaUsu: 'Sita',
-                                    logUsu: 'milanesita'
-                                },
-                                revisandoEjercicio: true
-                            })
+                            this.revisarEjercicio(id);
                         }}
+                        volverMenu={
+                            // Vuelve al menú
+                            () => { this.volverMenu() }
+                        }
+                        enviarRespuesta={
+                            ()=>{alert('Respuesta enviada')}
+                        }
                         revisandoEjercicio={this.state.revisandoEjercicio}
                         pestanas={this.state.selectores[this.state.seleccionPrincipal]}
                         seleccionPrincipal={this.state.seleccionPrincipal}

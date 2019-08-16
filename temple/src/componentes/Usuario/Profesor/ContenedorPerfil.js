@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Slider from 'react-slick';
 import TarjetaCita from '../../Utilidades/TarjetaCita';
 import TarjetaEjercicio from '../../Utilidades/TarjetaEjercicio';
+import TarjetaDetalleEjercicio from '../../Utilidades/TarjetaDetalleEjercicio';
 import { Fade, Transform } from 'react-animation-components';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Alert } from 'reactstrap';
@@ -27,11 +28,11 @@ class ContenedorPerfil extends Component {
         if (this.props.pestanas) {
             pestanas = this.props.pestanas.map((e, i) => {
                 return (
-                        <div key={i} className="boton-control-secundario">
-                            <a style={{animationDelay:`${i*0.1}s`}} onClick={() => { this.props.seleccionar(i) }}
-                                className={this.props.seleccionSecundaria == i ? 'boton-control-secundario-seleccionado'
-                                    : 'boton-control-secundario-deseleccionado'}>{e.nombre}</a>
-                        </div>
+                    <div key={i} className="boton-control-secundario">
+                        <a style={{ animationDelay: `${i * 0.1}s` }} onClick={() => { this.props.seleccionar(i) }}
+                            className={this.props.seleccionSecundaria == i ? 'boton-control-secundario-seleccionado'
+                                : 'boton-control-secundario-deseleccionado'}>{e.nombre}</a>
+                    </div>
                 )
             })
         }
@@ -42,8 +43,9 @@ class ContenedorPerfil extends Component {
 
             case -2:
                 // Detalle ejercicio
-                
-
+                contenido = renderizarDetalleEjercicio(this.props.ejercicioSeleccionado,
+                    this.props.volverMenu, this.props.enviarRespuesta);
+                break;
             case 0:
                 // Citas
                 contenido = renderizarCitas(this.props.seleccionSecundaria, this.props.citas);
@@ -64,7 +66,7 @@ class ContenedorPerfil extends Component {
         }
 
         var confSelectorSecundario = {
-            className: this.props.revisandoEjercicio?"control-secundario-perfil-perfil control-secundario-perfil-oculto":"control-secundario-perfil",
+            className: this.props.revisandoEjercicio ? "control-secundario-perfil-perfil control-secundario-perfil-oculto" : "control-secundario-perfil",
             centerMode: false,
             infinite: false,
             speed: 200,
@@ -99,14 +101,14 @@ class ContenedorPerfil extends Component {
         return (
             <>
                 <Slider {...confSelectorSecundario}>
-                        {pestanas}
+                    {pestanas}
                 </Slider>
                 <Transform enterTransform="translateY(0px)" exitTransform="translateY(50px)" duration={300} in>
-                <div className="contenido-seleccion">
-                    <div className={this.props.revisandoEjercicio?"tarjeta-contenedora-contenido-extendida":"tarjeta-contenedora-contenido"}>
-                        {contenido}
+                    <div className="contenido-seleccion">
+                        <div className={this.props.revisandoEjercicio ? "tarjeta-contenedora-contenido-extendida" : "tarjeta-contenedora-contenido"}>
+                            {contenido}
+                        </div>
                     </div>
-                </div>
                 </Transform>
             </>
         )
@@ -170,7 +172,7 @@ const renderizarCitas = (seleccionado, citasRecibidas) => {
     if (!citas[0]) {
         citas = <Fade in>
             <Alert color="danger">No tienes citas para esta selección</Alert>
-            </Fade>
+        </Fade>
     }
     return citas;
 }
@@ -213,6 +215,10 @@ const renderizarEjercicios = (seleccionado, ejerciciosRecibidos, revisarEjercici
         ejercicios = <Fade in><Alert color="danger">No tienes ejercicios para esta selección</Alert></Fade>;
     }
     return ejercicios;
+}
+
+const renderizarDetalleEjercicio = (ejercicio, volverMenu, enviarRespuesta) => {
+    return (<TarjetaDetalleEjercicio ejercicio={ejercicio} volverMenu={volverMenu} enviarRespuesta={enviarRespuesta}/>)
 }
 
 export default ContenedorPerfil;

@@ -367,3 +367,72 @@ box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
 box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
 }
 
+/*Tarjeta detalle ejercicio*/
+.tarjeta-detalle-ejercicio{
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 5px;
+    min-height: 100px;
+    padding: 20px;
+    background: #fff;
+    margin-bottom: 10px; 
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 30px minmax(40px,auto) minmax(80px,auto) 30px;        
+    grid-template-areas:    "encabezado-detalle-ejercicio   encabezado-detalle-ejercicio    estado-detalle-ejercicio"
+                            "asunto-detalle-ejercicio       asunto-detalle-ejercicio        mensaje-detalle-ejercicio"
+                            "contenido-detalle-ejercicio    contenido-detalle-ejercicio     mensaje-detalle-ejercicio "
+                            "pie-detalle-ejercicio          pie-detalle-ejercicio           pie-detalle-ejercicio"
+}
+
+.encabezado-detalle-ejercicio{
+    grid-area: encabezado-detalle-ejercicio;
+    align-items: center;
+}
+
+.encabezado-detalle-ejercicio span{
+    cursor: pointer;
+}
+
+.encabezado-detalle-ejercicio p{
+    display: inline;
+    font-size: 16px;
+    color: black;
+    margin-left: 20px;
+}
+
+.asunto-detalle-ejercicio{
+    grid-area: asunto-detalle-ejercicio;
+}
+
+.asunto-detalle-ejercicio h1{
+    color:#5a5a5a;
+    font-size: 28px;
+    margin-top: 20px;
+}
+
+.estado-detalle-ejercicio{
+    grid-area:estado-detalle-ejercicio;
+    justify-self: end;
+
+}
+
+.contenido-detalle-ejercicio{
+    grid-area:contenido-detalle-ejercicio;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.contenido-detalle-ejercicio p{
+    color:#838383;
+    font-size: 18px;
+    line-height: 30px;
+}
+
+.mensaje-detalle-ejercicio{
+    grid-area: mensaje-detalle-ejercicio;
+}
+
+.pie-detalle-ejercicio{
+    grid-area: pie-detalle-ejercicio;
+}
