@@ -18,7 +18,7 @@ class TarjetaDetalle extends Component {
                         <p>Regresar</p>
                     </div>
                     <div className="asunto-detalle-ejercicio">
-                        <h1>Profe ayúdeme porfa no me saleProfe ayúdeme porfa no me sale estoy preocupadooooProfe ayúdeme porfa no me sale estoy preocupadoooo</h1>
+                        <h1>Profe ayúdeme porfa estoy preocupada no me viene</h1>
                     </div>
                     <div className="estado-detalle-ejercicio">
                         Sin revisar
@@ -52,7 +52,15 @@ class TarjetaDetalle extends Component {
                         </p>
                     </div>
                     <div className="mensaje-detalle-ejercicio">
-                        <div>Cajita</div>
+                        <p>Responder</p>
+                        <textarea placeholder="Escribe un mensaje"></textarea>
+                        <div className="mensaje-detalle-ejercicios-botones">
+                            <div className="contenedor-controles-adjuntos">
+                            <span className="fa fa-paperclip"></span>
+                            <span className="fa fa-image"></span>
+                            </div>
+                            <button className="btn-enviar-mensaje"><span className="fa fa-paper-plane"></span></button>
+                        </div>
                     </div>
                     <div className="pie-detalle-ejercicio">
                         <div>Pie</div>
