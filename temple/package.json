@@ -16,6 +16,7 @@
     "prop-types": "15.6.0",
     "react": "^16.8.2",
     "react-agenda": "0.0.8",
+    "react-animated-css": "^1.2.1",
     "react-animation-components": "3.0.0",
     "react-big-calendar": "^0.22.0",
     "react-chat-widget": "^2.1.4-1",

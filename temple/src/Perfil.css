@@ -45,6 +45,12 @@
     margin-top: 10px; 
 }
 
+.contenedor-css-grid .cajon-colapsable .txt-preguntado-por {
+    font-size: 15px;
+    color: #fff;
+    margin-bottom: 5px;
+  }
+
 .contenedor-css-grid .cajon-colapsable .nombres-perfil {
     font-size: 30px;
     color: #fff;
@@ -65,7 +71,7 @@
   }
 
 .contenedor-css-grid .selector-principal-perfil{
-    background: #fff;
+    background: rgb(58, 89, 146);
     grid-area: selector-principal;
     padding: 0px;
     display: block;
@@ -81,11 +87,9 @@
     font-size: 23px;
     max-height: 53px;
     display: block;
+    position: relative;
 }
 
-.control-principal-perfil-oculto{
-    display: none;
-}
 
 .contenedor-css-grid .selector-principal-perfil .control-principal-perfil .boton-control-principal{
 
@@ -128,6 +132,10 @@
   -o-user-drag: none;
   user-drag: none;
 
+  }
+
+.control-principal-perfil-oculto {
+    display: none !important;    
   }
 
   .contenedor-css-grid .contenedor-selector-secundario{
@@ -190,14 +198,8 @@
     
  }
  
- /* Animación */
+ /* Animación de las pestañas */
 @keyframes movimiento-control-secundario {
-    0%   {top: -40px}
-    50%  {top: 20px}
-    100% {top: 0px}
-  }
-
-  @keyframes movimiento-control-secundario2 {
     0%   {top: -40px}
     50%  {top: 20px}
     100% {top: 0px}

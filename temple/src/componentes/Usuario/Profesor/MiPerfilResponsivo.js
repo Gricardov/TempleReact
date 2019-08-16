@@ -10,6 +10,8 @@ import TarjetaCita from '../../Utilidades/TarjetaCita';
 import Cajon from './CajonColapsablePerfil';
 import SelectorPrincipal from './SelectorPrincipalPerfil';
 import ContenedorPerfil from './ContenedorPerfil';
+import { Animated } from "react-animated-css";
+import { Fade, Transform } from 'react-animation-components';
 
 import '../../../Perfil.css';
 import '../../../../node_modules/slick-carousel/slick/slick.css';
@@ -31,12 +33,12 @@ class MiPerfil extends Component {
                 { nombre: 'Mis cursos' }, { nombre: 'Mis reseñas' }, { nombre: 'Mis alumnos' }]
             },
             perfilSeleccionado: this.props.perfil,
-            revisandoEjercicio: false
+            revisandoEjercicio: false,
+            cajonLateralAbierto: true
         };
     }
 
-    render() {
-
+    componentDidUpdate() {
         // Primero, actualizo el state con los cursos de los ejercicios       
         if (this.props.ejercicios) {
             // Obtengo el arreglo que está en mi estado y le borro el primero porque es general
@@ -54,22 +56,25 @@ class MiPerfil extends Component {
                 this.setState({ selectores: selectoresAux });
             }
         }
+    }
+
+    render() {
 
         const perfil = this.state.perfilSeleccionado;
         return (
             <div className="perfil-debajo-barra contenedor-css-grid">
+
                 <div className="avisos">
                     Tienes una nueva notificación
                 </div>
                 <div className="cajon-colapsable">
-                    <Cajon perfil={perfil} />
+                        <Cajon perfil={perfil} revisandoEjercicio={this.state.revisandoEjercicio} />
                 </div>
-
                 <div className="selector-principal-perfil">
                     <SelectorPrincipal
                         seleccionado={this.state.seleccionPrincipal}
                         seleccionar={(seleccion) => { this.setState({ seleccionPrincipal: seleccion, seleccionSecundaria: 0 }) }}
-                        revisandoEjercicio={this.state.revisandoEjercicio} />                        
+                        revisandoEjercicio={this.state.revisandoEjercicio} />
                 </div>
 
                 <div className="contenedor-selector-secundario">

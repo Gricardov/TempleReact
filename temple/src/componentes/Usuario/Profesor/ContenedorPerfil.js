@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Slider from 'react-slick';
 import TarjetaCita from '../../Utilidades/TarjetaCita';
 import TarjetaEjercicio from '../../Utilidades/TarjetaEjercicio';
-import { Fade } from 'react-animation-components';
+import { Fade, Transform } from 'react-animation-components';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Alert } from 'reactstrap';
 import '../../../Perfil.css';
@@ -39,6 +39,11 @@ class ContenedorPerfil extends Component {
         let contenido = null;
 
         switch (this.props.seleccionPrincipal) {
+
+            case -2:
+                // Detalle ejercicio
+                
+
             case 0:
                 // Citas
                 contenido = renderizarCitas(this.props.seleccionSecundaria, this.props.citas);
@@ -59,7 +64,7 @@ class ContenedorPerfil extends Component {
         }
 
         var confSelectorSecundario = {
-            className: this.props.revisandoEjercicio?"control-secundario-perfil-oculto":"control-secundario-perfil",
+            className: this.props.revisandoEjercicio?"control-secundario-perfil-perfil control-secundario-perfil-oculto":"control-secundario-perfil",
             centerMode: false,
             infinite: false,
             speed: 200,
@@ -96,11 +101,13 @@ class ContenedorPerfil extends Component {
                 <Slider {...confSelectorSecundario}>
                         {pestanas}
                 </Slider>
+                <Transform enterTransform="translateY(0px)" exitTransform="translateY(50px)" duration={300} in>
                 <div className="contenido-seleccion">
                     <div className={this.props.revisandoEjercicio?"tarjeta-contenedora-contenido-extendida":"tarjeta-contenedora-contenido"}>
                         {contenido}
                     </div>
                 </div>
+                </Transform>
             </>
         )
     }
@@ -161,7 +168,9 @@ const renderizarCitas = (seleccionado, citasRecibidas) => {
 
     // Si está vacío, que muestre un mensaje bonito
     if (!citas[0]) {
-        citas = <Fade in><Alert color="danger">No tienes citas para esta selección</Alert></Fade>;
+        citas = <Fade in>
+            <Alert color="danger">No tienes citas para esta selección</Alert>
+            </Fade>
     }
     return citas;
 }
