@@ -131,19 +131,35 @@ class BarraUsuario extends Component {
                                             this.props.usuario.ID_ROL == 1
                                                 ?
                                                 <>
+                                                <DropdownItem onClick={() => {}}>
+                                                        Gestionar clases
+                                                    </DropdownItem>
                                                     <DropdownItem onClick={() => {
                                                         this.props.obtenerPerfil(this.props.usuario.COD_USU, this.props.usuario.ID_ROL)
                                                         this.props.history.push(RUTAS.MIS_HORARIOS_PROFESOR.ruta);
 
                                                     }}>
-                                                        Mis horarios
-                                        </DropdownItem>
+                                                        Gestionar horarios
+                                                    </DropdownItem>
                                                     <DropdownItem onClick={() => {
                                                         this.props.obtenerPerfil(this.props.usuario.COD_USU, this.props.usuario.ID_ROL)
                                                         this.props.history.push(RUTAS.MIS_CITAS_PROFESOR.ruta);
                                                     }}>
-                                                        Mis citas
-                                        </DropdownItem>
+                                                        Gestionar cursos
+                                                    </DropdownItem>
+                                                    <DropdownItem onClick={() => {}}>
+                                                        Gestionar alumnos
+                                                    </DropdownItem>
+                                                    <DropdownItem onClick={() => {}}>
+                                                        Gestionar pagos
+                                                    </DropdownItem>
+                                                    <DropdownItem divider />
+                                                    <DropdownItem onClick={() => {}}>
+                                                        Configuración
+                                                    </DropdownItem>
+                                                    <DropdownItem onClick={() => {}}>
+                                                        Ayuda
+                                                    </DropdownItem>
                                                 </>
                                                 :
                                                 <DropdownItem onClick={() => {

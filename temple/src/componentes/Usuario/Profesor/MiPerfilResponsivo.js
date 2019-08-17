@@ -28,9 +28,8 @@ class MiPerfil extends Component {
             selectores: {
                 0: [{ nombre: 'Futuras' }, { nombre: 'En este momento' }, { nombre: 'Pasadas' }],
                 1: [{ nombre: 'Todos' }],
-                2: [{ nombre: 'Sin leer' }, { nombre: 'Leídos' }],
-                3: [{ nombre: 'Mi presentación' }, { nombre: 'Mis horarios' },
-                { nombre: 'Mis cursos' }, { nombre: 'Mis reseñas' }, { nombre: 'Mis alumnos' }]
+                2: [{ nombre: 'Presentación' }, { nombre: 'Reseñas' },
+                { nombre: 'Publicaciones' }, { nombre: 'Datos personales' }, ]
             },
             perfilSeleccionado: this.props.perfil,
             revisandoEjercicio: false,

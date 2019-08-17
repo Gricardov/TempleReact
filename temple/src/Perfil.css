@@ -289,7 +289,7 @@
     border: 1px solid rgb(212, 212, 212);
     border-radius: 5px;
     min-height: 100px;
-    padding: 20px;
+    padding: 40px;
     background: #fff;
     margin-bottom: 10px; 
     display: grid;
@@ -340,13 +340,14 @@ box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
 
 .contenido-tarjeta-ejercicio{
     grid-area: contenido;
-    overflow: hidden;
+    overflow: hidden;    
     text-align: justify;
     text-justify: inter-word;
 }
 
 .contenido-tarjeta-ejercicio p{
     overflow: hidden;
+    margin-top: 20px;
     color: rgb(170, 170, 170);
     font-size: 15px;
     line-height: 20px;
@@ -376,7 +377,7 @@ box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
     background: #fff;
     margin-bottom: 10px; 
     display: grid;
-    grid-gap: 15px;
+    grid-gap: 30px;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 30px minmax(40px,auto) minmax(80px,auto) 30px;        
     grid-template-areas:    "encabezado-detalle-ejercicio   encabezado-detalle-ejercicio    estado-detalle-ejercicio"
@@ -405,6 +406,7 @@ box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
 .asunto-detalle-ejercicio{
     grid-area: asunto-detalle-ejercicio;
     border-top: 1px solid rgb(170, 170, 170);
+    margin-left: 30px;
 
 }
 
@@ -424,6 +426,7 @@ box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
     grid-area:contenido-detalle-ejercicio;
     text-align: justify;
     text-justify: inter-word;
+    margin-left: 30px;
 }
 
 .contenido-detalle-ejercicio p{
@@ -438,7 +441,8 @@ box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
     display: flex;
     flex-direction: column;
     border: 1px rgb(223, 223, 223) solid;
-    margin-left: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .mensaje-detalle-ejercicio p{

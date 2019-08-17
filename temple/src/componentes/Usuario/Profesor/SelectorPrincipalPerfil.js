@@ -20,7 +20,7 @@ class SelectorPrincipal extends Component {
             centerMode: false,
             infinite: false,
             speed: 200,
-            slidesToShow: 4,
+            slidesToShow: 3,
             slidesToScroll: 1,
             arrows: false,
             responsive: [
@@ -29,7 +29,7 @@ class SelectorPrincipal extends Component {
                     settings: {
                         arrows: false,
                         centerPadding: '40px',
-                        slidesToShow: 3.5
+                        slidesToShow: 3
                     }
                 },
                 {
@@ -57,7 +57,7 @@ class SelectorPrincipal extends Component {
                 <div onClick={() => { this.props.seleccionar(0) }}
                     className={this.props.seleccionado == 0 ? 'boton-control-principal boton-control-principal-seleccionado'
                         : 'boton-control-principal boton-control-principal-deseleccionado'}>
-                    <a href="#">Mis citas</a>
+                    <a href="#">Mis clases</a>
                 </div>
                 <div onClick={() => { this.props.seleccionar(1) }}
                     className={this.props.seleccionado == 1 ? 'boton-control-principal boton-control-principal-seleccionado'
@@ -67,12 +67,7 @@ class SelectorPrincipal extends Component {
                 <div onClick={() => { this.props.seleccionar(2) }}
                     className={this.props.seleccionado == 2 ? 'boton-control-principal boton-control-principal-seleccionado'
                         : 'boton-control-principal boton-control-principal-deseleccionado'}>
-                    <a href="#">Mis mensajes</a>
-                </div>
-                <div onClick={() => { this.props.seleccionar(3) }}
-                    className={this.props.seleccionado == 3 ? 'boton-control-principal boton-control-principal-seleccionado'
-                        : 'boton-control-principal boton-control-principal-deseleccionado'}>
-                    <a href="#">Mi cuenta</a>
+                    <a href="#">Mi perfil</a>
                 </div>
             </Slider>
 
