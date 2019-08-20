@@ -19,6 +19,7 @@ import '../../../../node_modules/slick-carousel/slick/slick-theme.css';
 let moment = require('moment');
 
 class MiPerfil extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {

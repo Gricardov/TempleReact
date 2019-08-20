@@ -1604,3 +1604,20 @@ hr {
   
 
  }
+
+
+ .oculto{
+   display: none;
+ }
+
+.no-oculto{
+  display: block;
+}
+
+ .visible{
+   visibility: visible;
+ }
+
+ .invisible{
+   visibility: hidden;
+ }

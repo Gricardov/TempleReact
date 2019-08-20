@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TarjetaCurso from './TarjetaCurso';
+import TarjetaCurso from '../../Utilidades/TarjetaCurso';
 import ContenedorCursos from './ContenedorCursos';
 import { Fade, Transform } from 'react-animation-components';
 
@@ -12,38 +12,50 @@ class GestionCursos extends Component {
             cursoSeleccionado: null,
             revisandoCurso: false
         };
+        this.revisarCurso = this.revisarCurso.bind(this);
+        this.volverMenu = this.volverMenu.bind(this);
+    }
+
+    revisarCurso(id) {
+        let cursoSeleccionado = this.props.cursos.filter((e, i) => e.id == id)[0];
+
+        this.setState({
+            revisandoCurso: true,
+            cursoSeleccionado: cursoSeleccionado
+        });
+    }
+
+    volverMenu() {
+        this.setState({
+            revisandoCurso: false,
+            cursoSeleccionado: null
+        })
     }
 
     render() {
         return (
             <div className="perfil-debajo-barra contenedor-gestion-cursos-css-grid">
-                <h1>Cursos que enseño</h1>
-                <button className="btn-agregar-curso">Agregar curso</button>
-                <div className="tarjeta-contenedora-contenido">
-                    <ContenedorCursos cursos={[
-                        { id: 0, nombre: 'Geometría', img: 'https://definicion.mx/wp-content/uploads/educacion/Geometria.jpg', categoria: 'Matemáticas', horExp: '1', solEje: '0' },
-                        { id: 1, nombre: 'Álgebra', img: 'https://www.cienciamatematica.com/wp-content/uploads/algebra.jpg', categoria: 'Matemáticas', horExp: '2', solEje: '1' },
-                        { id: 2, nombre: 'Programación en Javascript con trocitos de chocolate', img: 'https://www.muylinux.com/wp-content/uploads/2017/09/java.png', categoria: 'Programación', horExp: '3', solEje: '3' },
-                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
-                        { id: 4, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
-                        { id: 5, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
-                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
-                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
-                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },/*
-                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
-                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
-                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
-                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
-                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
-                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
-                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
-                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
-                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
-                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
-                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
-                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },*/
+                <h1>Cursos que enseño{this.state.revisandoCurso ? `: ${this.state.cursoSeleccionado.nombre}` : null}</h1>
+                <button className={this.state.revisandoCurso
+                    ?
+                    "btn-agregar-curso invisible"
+                    :
+                    "btn-agregar-curso visible"}>Agregar curso</button>
 
-                    ]} />
+                <div className={this.state.revisandoCurso
+                    ?
+                    "tarjeta-contenedora-contenido tarjeta-contenedora-contenido-entera"
+                    :
+                    "tarjeta-contenedora-contenido tarjeta-contenedora-contenido-cuadricula"}>
+                    <ContenedorCursos
+                        cursos={this.props.cursos}
+                        revisarCurso={(id) => {
+                            this.revisarCurso(id);
+                        }}
+                        cursoSeleccionado={this.state.cursoSeleccionado}
+                        revisandoCurso={this.state.revisandoCurso}
+                        volverMenu={this.volverMenu}
+                    />
                 </div>
             </div>
         )

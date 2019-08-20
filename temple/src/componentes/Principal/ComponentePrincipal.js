@@ -171,7 +171,30 @@ class Principal extends Component {
                                         mensError={this.props.perfil.mensError}
                                     />} />
                                 <Route path={RUTAS.MIS_CITAS_PROFESOR.ruta} component={() =>
-                                    <GestionCursos />} />
+                                    <GestionCursos cursos={[
+                                        { id: 0, nombre: 'Geometría', img: 'https://definicion.mx/wp-content/uploads/educacion/Geometria.jpg', categoria: 'Matemáticas', horExp: '1', solEje: '0' },
+                                        { id: 1, nombre: 'Álgebra', img: 'https://www.cienciamatematica.com/wp-content/uploads/algebra.jpg', categoria: 'Matemáticas', horExp: '2', solEje: '1' },
+                                        { id: 2, nombre: 'Programación en Javascript con trocitos de chocolate', img: 'https://www.muylinux.com/wp-content/uploads/2017/09/java.png', categoria: 'Programación', horExp: '3', solEje: '3' },
+                                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
+                                        { id: 4, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
+                                        { id: 5, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
+                                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
+                                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
+                                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },/*
+                                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
+                                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
+                                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
+                                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
+                                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
+                                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
+                                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
+                                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
+                                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
+                                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
+                                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
+                                        { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },*/
+                
+                                    ]}/>} />
                                 <Route path={RUTAS.MIS_HORARIOS_PROFESOR.ruta} component={() =>
                                     <MisHorarios
                                         actualizarHorarios={this.props.actualizarHorarios}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Slider from 'react-slick';
-import TarjetaCurso from './TarjetaCurso';
-import TarjetaDetalleEjercicio from '../../Utilidades/TarjetaDetalleEjercicio';
+import TarjetaCurso from '../../Utilidades/TarjetaCurso';
+import TarjetaDetalleCurso from '../../Utilidades/TarjetaDetalleCurso';
 import { Fade, Transform } from 'react-animation-components';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Alert } from 'reactstrap';
@@ -20,106 +20,30 @@ class ContenedorCursos extends Component {
 
     render() {
 
-        let cursos = [];
-        if (this.props.cursos) {
-            cursos = this.props.cursos.map((e, i) => {
-                return <TarjetaCurso curso={e} />
-            })
-        }
-
         // Ahora, pregunto qué clase de información debo mostrar
         let contenido = null;
 
-        switch (this.props.seleccionPrincipal) {
-
-            case -2:
-                // Detalle ejercicio
-                //contenido = renderizarDetalleEjercicio(this.props.ejercicioSeleccionado,
-                //this.props.volverMenu, this.props.enviarRespuesta);
-                break;
-            case 0:
-                // Citas
-                //contenido = renderizarCitas(this.props.seleccionSecundaria, this.props.citas);
-                break;
-            case 1:
-                // Solución de ejercicios
-                //contenido = renderizarEjercicios(this.props.seleccionSecundaria, this.props.ejercicios,
-                //this.props.revisarEjercicio);
-                break;
-            case 2:
-                // Mensajes
-                //contenido=renderizarMensajes(this.props.seleccionSecundaria);
-                break;
-            default:
-            // Perfil
-            //contenido=renderizarPerfil(this.props.seleccionSecundaria);
-
+        if (this.props.revisandoCurso) {
+            // Que muestre el detalle del curso
+            contenido = renderizarDetalleCurso(this.props.cursoSeleccionado, this.props.volverMenu, this.props.guardarCambios)
+        } else {
+            // Que muestre todos los cursos
+            if (this.props.cursos) {
+                contenido = this.props.cursos.map((e, i) => {
+                    return <TarjetaCurso key={i} curso={e} revisarCurso={(id) => { this.props.revisarCurso(id) }} />
+                })
+            }
         }
-        contenido = null;
+
         return (
-            cursos
+            contenido
         )
     }
 
 }
 
-const renderizarCitas = (seleccionado, citasRecibidas) => {
-
-    let citas = [];
-    let fechaActual = new Date();
-
-    // Si está vacío, que muestre un mensaje bonito
-    if (!citas[0]) {
-        citas = <Fade in>
-            <Alert color="danger">No tienes citas para esta selección</Alert>
-        </Fade>
-    }
-    return citas;
-}
-
-const renderizarEjercicios = (seleccionado, ejerciciosRecibidos, revisarEjercicio) => {
-    /*
-        let ejercicios = [];
-    
-        if (ejerciciosRecibidos) {
-    
-            // Si el seleccionado es 0, ese está reservado
-            if (seleccionado == 0) {
-    
-                // Itero todos para agregarlos uno por uno
-                ejerciciosRecibidos.map((ee, ii) => {
-                    ejercicios.push(ejerciciosRecibidos[ii].ejercicios.map((e, i) => {
-                        return <TarjetaEjercicio
-                            key={i}
-                            indice={i}
-                            ejercicio={e}
-                            revisarEjercicio={(id) => { revisarEjercicio(id) }}
-                        />;
-                    }))
-                })
-            } else {
-                ejercicios = ejerciciosRecibidos[seleccionado - 1].ejercicios.map((e, i) => {
-                    return <TarjetaEjercicio
-                        key={i}
-                        indice={i}
-                        ejercicio={e}
-                        revisarEjercicio={(id) => { revisarEjercicio(id) }}
-                    />;
-                })
-            }
-    
-        }
-    */
-    // Si está vacío, que muestre un mensaje bonito
-    let ejercicios = null;
-    if (!ejercicios[0]) {
-        ejercicios = <Fade in><Alert color="danger">No tienes ejercicios para esta selección</Alert></Fade>;
-    }
-    return ejercicios;
-}
-
-const renderizarDetalleEjercicio = (ejercicio, volverMenu, enviarRespuesta) => {
-    return (<TarjetaDetalleEjercicio ejercicio={ejercicio} volverMenu={volverMenu} enviarRespuesta={enviarRespuesta} />)
+const renderizarDetalleCurso = (curso, volverMenu, guardarCambios) => {
+    return (<TarjetaDetalleCurso curso={curso} volverMenu={volverMenu} guardarCambios={guardarCambios} />)
 }
 
 export default ContenedorCursos;
