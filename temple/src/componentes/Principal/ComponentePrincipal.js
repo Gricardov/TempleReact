@@ -20,6 +20,7 @@ import SwitchDeslizador from '../Utilidades/ComponenteSwitchDeslizador';
 import CubiertaMensaje from '../Utilidades/CubiertaMensaje';
 import CubiertaContrato from '../Utilidades/CubiertaContrato';
 import DetalleCitaAlumno from '../Usuario/Alumno/MisCitas';
+import GestionCursos from '../Usuario/Profesor/GestionCursos';
 import DetalleCitaProfesor from '../Usuario/Profesor/MisCitas';
 import MisHorarios from '../Usuario/Profesor/MisHorarios';
 
@@ -170,11 +171,7 @@ class Principal extends Component {
                                         mensError={this.props.perfil.mensError}
                                     />} />
                                 <Route path={RUTAS.MIS_CITAS_PROFESOR.ruta} component={() =>
-                                    <DetalleCitaProfesor
-                                        citas={this.props.perfil.perfil.contratos}
-                                        estaCargando={this.props.perfil.estaCargando}
-                                        mensError={this.props.perfil.mensError}
-                                    />} />
+                                    <GestionCursos />} />
                                 <Route path={RUTAS.MIS_HORARIOS_PROFESOR.ruta} component={() =>
                                     <MisHorarios
                                         actualizarHorarios={this.props.actualizarHorarios}

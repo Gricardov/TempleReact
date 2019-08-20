@@ -12,8 +12,8 @@ import SelectorPrincipal from './SelectorPrincipalPerfil';
 import ContenedorPerfil from './ContenedorPerfil';
 import { Animated } from "react-animated-css";
 import { Fade, Transform } from 'react-animation-components';
+import './Perfil.css';
 
-import '../../../Perfil.css';
 import '../../../../node_modules/slick-carousel/slick/slick.css';
 import '../../../../node_modules/slick-carousel/slick/slick-theme.css';
 let moment = require('moment');
