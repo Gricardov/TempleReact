@@ -58,34 +58,6 @@
     font-size: 1rem;;    
 }
 
-  @media screen and (max-width: 1300px){
-    .contenedor-css-grid .cajon-colapsable .nombres-perfil {
-        font-size: 1.2rem;;
-        color: #fff;
-        margin: 25px auto 0;
-      }
-      .contenedor-css-grid .cajon-colapsable .nombre-seguimiento{
-        color: rgb(158, 158, 158);
-        font-size: 0.9rem;;    
-    }
-}
-
-@media screen and (max-width: 1100px){
-    .contenedor-css-grid{
-        display: grid;
-        grid-template-columns: repeat(5,1fr);
-        grid-template-rows: repeat(3,auto);
-        grid-template-areas:    "avisos            avisos               avisos              avisos              avisos"
-                                "selector-principal  selector-principal   selector-principal  selector-principal  selector-principal"
-                                "contenedor-selector-secundario  contenedor-selector-secundario  contenedor-selector-secundario contenedor-selector-secundario contenedor-selector-secundario"
-    }
-
-    .cajon-colapsable{
-        display: none !important;
-    }
-    
-}
-
 .contenedor-css-grid .cajon-colapsable .foto-perfil {
     background-position: center center;
     background-size: cover;
@@ -313,10 +285,10 @@
     display: grid;
     grid-gap: 10px;
     grid-template-columns: auto 5fr 1fr;
-    grid-template-rows: auto 100px 30px;
+    grid-template-rows: auto 100px auto;
     grid-template-areas:    "img            encabezado      estado"
                             "contenido      contenido       contenido"
-                            "pie            pie             revisar"
+                            "oferta         oferta          revisar"
 }
 
 .img-perfil-tarjeta-ejercicio{
@@ -338,21 +310,14 @@ box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
     margin-left: 30px;
 }
 
-@media screen and (max-width: 680px){
-    .encabezado-tarjeta-ejercicio{
-        grid-area: encabezado;
-        margin-left: 10px;
-    }
-}
-
 .encabezado-tarjeta-ejercicio h2{
-    font-size: 25px;
+    font-size: 1.6rem;
     color: #5a5a5a;
     overflow: hidden;
 }
 
 .encabezado-tarjeta-ejercicio p{
-    font-size: 15px;  
+    font-size: 0.9rem;  
     font-weight: bold;  
     color: #a3a3a3;
     white-space: nowrap;
@@ -362,6 +327,12 @@ box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
 .estado-tarjeta-ejercicio{
     grid-area: estado;
     justify-self: end;
+}
+
+.estado-tarjeta-ejercicio p{
+    font-size: 0.9rem;
+    color: #000;
+    white-space: nowrap;
 }
 
 .contenido-tarjeta-ejercicio{
@@ -374,8 +345,8 @@ box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
 .contenido-tarjeta-ejercicio p{
     overflow: hidden;
     margin-top: 20px;
-    color: rgb(170, 170, 170);
-    font-size: 15px;
+    color: rgb(146, 145, 145);
+    font-size: 0.9rem;
     line-height: 20px;
     
 }
@@ -389,6 +360,7 @@ box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
     border: none;
     outline: none !important;
     cursor: pointer;
+    margin-top: 15px;
     -webkit-box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
 -moz-box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
 box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
@@ -423,7 +395,7 @@ box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
 
 .encabezado-detalle-ejercicio p{
     display: inline;
-    font-size: 16px;
+    font-size: 1rem;
     color: rgb(54, 54, 54);
     margin-left: 20px;
 }
@@ -437,7 +409,7 @@ box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
 
 .asunto-detalle-ejercicio h1{
     color:#5a5a5a;
-    font-size: 28px;
+    font-size: 1.7rem;
     margin-top: 20px;
 }
 
@@ -455,7 +427,7 @@ box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
 
 .contenido-detalle-ejercicio p{
     color:#838383;
-    font-size: 18px;
+    font-size: 1rem;
     line-height: 30px;
 }
 
@@ -524,3 +496,286 @@ flex-grow: auto;
     
 
 }
+
+/*Consultas css*/
+
+@media screen and (max-width: 1300px){
+    .contenedor-css-grid .cajon-colapsable .nombres-perfil {
+        font-size: 1.2rem;;
+        color: #fff;
+        margin: 25px auto 0;
+      }
+      .contenedor-css-grid .cajon-colapsable .nombre-seguimiento{
+        color: rgb(158, 158, 158);
+        font-size: 0.9rem;;    
+    }
+}
+
+@media screen and (max-width: 1100px){
+    .contenedor-css-grid{
+        display: grid;
+        grid-template-columns: repeat(5,1fr);
+        grid-template-rows: repeat(3,auto);
+        grid-template-areas:    "avisos            avisos               avisos              avisos              avisos"
+                                "selector-principal  selector-principal   selector-principal  selector-principal  selector-principal"
+                                "contenedor-selector-secundario  contenedor-selector-secundario  contenedor-selector-secundario contenedor-selector-secundario contenedor-selector-secundario"
+    }
+
+    .cajon-colapsable{
+        display: none !important;
+    }
+    
+}
+
+@media screen and (max-width: 768px){
+
+    .contenedor-css-grid > div {
+        padding: 10px;
+    }
+
+    /*Tarjetas dentro del contenedor*/
+.tarjeta-ejercicio{
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 5px;
+    min-height: 100px;
+    padding: 22px;
+    background: #fff;
+    margin-bottom: 10px; 
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: auto 100px auto;
+    grid-template-areas:    "img            encabezado      encabezado"
+                            "contenido      contenido       contenido"
+                            "revisar        oferta          estado"
+}
+
+.img-perfil-tarjeta-ejercicio{
+    display: block;
+    border-radius: 50%;
+    border: 1px solid #efefef;
+    justify-self: center;
+    align-self: center;
+    width: 50px;
+    height: 50px;
+    grid-area: img;
+    -webkit-box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+}
+
+.encabezado-tarjeta-ejercicio{
+    grid-area: encabezado;
+    margin-left: 10px;
+}
+
+.encabezado-tarjeta-ejercicio h2{
+    font-size: 1.3rem;
+    color: #5a5a5a;
+    overflow: hidden;
+}
+
+.encabezado-tarjeta-ejercicio p{
+    font-size: 0.7rem;  
+    font-weight: bold;  
+    color: #a3a3a3;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.estado-tarjeta-ejercicio{
+    grid-area: estado;
+    justify-self: end;
+}
+
+.estado-tarjeta-ejercicio p{
+    font-size: 0.9rem;
+    color: #000;
+    white-space: nowrap;
+    align-self: end;
+}
+
+.contenido-tarjeta-ejercicio{
+    grid-area: contenido;
+    overflow: hidden;    
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.contenido-tarjeta-ejercicio p{
+    overflow: hidden;
+    margin-top: 0px;
+    color: rgb(146, 145, 145);
+    font-size: 0.8rem;
+    line-height: 18px;
+    
+}
+
+.btn-revisar-tarjeta-ejercicio{
+    grid-area: revisar;
+    justify-self: stretch;
+    background: rgb(208, 247, 176);
+    border-radius: 5px;
+    text-decoration: none;
+    border: none;
+    outline: none !important;
+    cursor: pointer;
+    -webkit-box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
+-moz-box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
+box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
+}
+}
+
+@media screen and (max-width: 576px){
+    .contenedor-css-grid .contenedor-selector-secundario .contenido-seleccion .tarjeta-contenedora-contenido{
+        
+        padding: 6px;
+                
+    }
+
+    .encabezado-tarjeta-ejercicio h2{
+        font-size: 1.3rem;
+        margin-top: 0.9rem;
+        color: #5a5a5a;
+        overflow: hidden;
+    }
+
+    .tarjeta-ejercicio{
+        
+        padding: 10px;        
+             
+        
+    }
+}
+
+/*
+tarjeta-detalle-ejercicio{
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 5px;
+    min-height: 100px;
+    padding: 20px;
+    background: #fff;
+    margin-bottom: 10px; 
+    display: grid;
+    grid-gap: 30px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 30px minmax(40px,auto) minmax(80px,auto) 30px;        
+    grid-template-areas:    "encabezado-detalle-ejercicio   encabezado-detalle-ejercicio    estado-detalle-ejercicio"
+                            "asunto-detalle-ejercicio       asunto-detalle-ejercicio        mensaje-detalle-ejercicio"
+                            "contenido-detalle-ejercicio    contenido-detalle-ejercicio     mensaje-detalle-ejercicio "
+                            "pie-detalle-ejercicio          pie-detalle-ejercicio           pie-detalle-ejercicio"
+}
+
+.encabezado-detalle-ejercicio{
+    grid-area: encabezado-detalle-ejercicio;
+    align-items: center;
+}
+
+.encabezado-detalle-ejercicio span{
+    cursor: pointer;
+}
+
+.encabezado-detalle-ejercicio p{
+    display: inline;
+    font-size: 1rem;
+    color: rgb(54, 54, 54);
+    margin-left: 20px;
+}
+
+.asunto-detalle-ejercicio{
+    grid-area: asunto-detalle-ejercicio;
+    border-top: 1px solid rgb(170, 170, 170);
+    margin-left: 30px;
+
+}
+
+.asunto-detalle-ejercicio h1{
+    color:#5a5a5a;
+    font-size: 1.7rem;
+    margin-top: 20px;
+}
+
+.estado-detalle-ejercicio{
+    grid-area:estado-detalle-ejercicio;
+    justify-self: end;
+}
+
+.contenido-detalle-ejercicio{
+    grid-area:contenido-detalle-ejercicio;
+    text-align: justify;
+    text-justify: inter-word;
+    margin-left: 30px;
+}
+
+.contenido-detalle-ejercicio p{
+    color:#838383;
+    font-size: 1rem;
+    line-height: 30px;
+}
+
+.mensaje-detalle-ejercicio{
+    grid-area: mensaje-detalle-ejercicio;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    border: 1px rgb(223, 223, 223) solid;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.mensaje-detalle-ejercicio p{
+text-align: center;
+background: rgb(50, 146, 255);
+color: #fff;
+padding: 10px;
+border-top-left-radius: 9px;
+border-top-right-radius: 9px;
+flex-grow: auto;
+}
+
+.mensaje-detalle-ejercicio textarea{
+    margin: 10px;
+    outline: none;
+    text-decoration: none;
+    border:none;
+    flex-grow: 1;
+    resize: none;
+    }
+
+.mensaje-detalle-ejercicio .mensaje-detalle-ejercicios-botones{
+    flex-grow: auto;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.contenedor-controles-adjuntos{
+    flex-grow: 40;
+    display: flex;
+    justify-content: space-around;
+}
+
+.contenedor-controles-adjuntos span{
+    cursor: pointer;
+}
+
+.btn-enviar-mensaje{
+    flex-grow: 1;
+    margin-left: auto;
+    border:none;
+    outline: none;
+    text-decoration: none;
+    border-radius: 50%;
+    color: #fff;
+    background: green;
+    cursor: pointer;
+
+}
+
+.pie-detalle-ejercicio{
+    grid-area: pie-detalle-ejercicio;
+    
+
+}
+*/
