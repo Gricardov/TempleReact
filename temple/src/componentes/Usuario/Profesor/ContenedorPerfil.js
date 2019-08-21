@@ -91,7 +91,7 @@ class ContenedorPerfil extends Component {
                     breakpoint: 480,
                     settings: {
                         arrows: false,
-                        slidesToShow: 1.2
+                        slidesToShow: 1.6
                     }
                 }
             ]

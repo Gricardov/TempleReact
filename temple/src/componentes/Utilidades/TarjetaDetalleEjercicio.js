@@ -13,15 +13,15 @@ class TarjetaDetalle extends Component {
         return (
             <Fade in>
                 <div className="tarjeta-detalle-ejercicio">
-                <div className="encabezado-detalle-ejercicio">
-                        <span className="fa fa-arrow-left" onClick={()=>{this.props.volverMenu()}}></span>
+                    <div className="encabezado-detalle-ejercicio">
+                        <span className="fa fa-arrow-left" onClick={() => { this.props.volverMenu() }}></span>
                         <p>Regresar</p>
                     </div>
                     <div className="asunto-detalle-ejercicio">
                         <h1>Profe ayúdeme porfa estoy preocupada no me viene</h1>
                     </div>
                     <div className="estado-detalle-ejercicio">
-                        Sin revisar
+                        <p>No resuelto</p>
                     </div>
                     <div className="contenido-detalle-ejercicio">
                         <p>
@@ -56,14 +56,14 @@ class TarjetaDetalle extends Component {
                         <textarea placeholder="Escribe un mensaje"></textarea>
                         <div className="mensaje-detalle-ejercicios-botones">
                             <div className="contenedor-controles-adjuntos">
-                            <span className="fa fa-paperclip"></span>
-                            <span className="fa fa-image"></span>
+                                <span className="fa fa-paperclip"></span>
+                                <span className="fa fa-image"></span>
                             </div>
                             <button className="btn-enviar-mensaje"><span className="fa fa-paper-plane"></span></button>
                         </div>
                     </div>
-                    <div className="pie-detalle-ejercicio">
-                        <div>Pie</div>
+                    <div className="adjuntos-detalle-ejercicio">
+                        <div><p>Archivos adjuntos: TeExtrañoMila.jpg, queTriste.pdf</p></div>
                     </div>
 
                 </div>

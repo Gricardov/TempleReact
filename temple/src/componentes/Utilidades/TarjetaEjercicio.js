@@ -38,6 +38,9 @@ class TarjetaEjercicio extends Component {
                              versions of Lorem Ipsum.
                     </p>
                     </div>
+                    <div className="oferta-tarjeta-ejercicio">
+                        <p>Oferta: 5 soles</p>
+                    </div>
                     <button className="btn-revisar-tarjeta-ejercicio" onClick={() => { this.props.revisarEjercicio(this.props.ejercicio.id) }}>Revisar</button>
 
                 </div>

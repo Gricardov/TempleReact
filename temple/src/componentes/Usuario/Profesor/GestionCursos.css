@@ -241,7 +241,13 @@
          grid-auto-rows: minmax(350px, auto);    
     }
 }
-
+@media screen and (max-width: 768px){
+    .contenedor-gestion-cursos-css-grid{
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+    }
+}
 @media screen and (max-width: 610px){
     .contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido-cuadricula{
         grid-gap: 10px;
