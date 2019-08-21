@@ -19,7 +19,7 @@ import '../../../../node_modules/slick-carousel/slick/slick-theme.css';
 let moment = require('moment');
 
 class MiPerfil extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -30,9 +30,9 @@ class MiPerfil extends Component {
                 0: [{ nombre: 'Futuras' }, { nombre: 'En este momento' }, { nombre: 'Pasadas' }],
                 1: [{ nombre: 'Todos' }],
                 2: [{ nombre: 'Presentación' }, { nombre: 'Reseñas' },
-                { nombre: 'Publicaciones' }, { nombre: 'Datos personales' }, ]
+                { nombre: 'Publicaciones' }, { nombre: 'Datos personales' },]
             },
-            perfilSeleccionado: this.props.perfil,
+            perfilSeleccionado: null,
             revisandoEjercicio: false,
             cajonLateralAbierto: true,
             ejercicioSeleccionado: null
@@ -91,8 +91,8 @@ class MiPerfil extends Component {
     }
 
     render() {
-
-        const perfil = this.state.perfilSeleccionado;
+        const perfil = this.state.revisandoEjercicio ? this.state.perfilSeleccionado : this.props.perfil;
+        
         return (
             <div className="perfil-debajo-barra contenedor-css-grid">
 
@@ -122,7 +122,7 @@ class MiPerfil extends Component {
                             () => { this.volverMenu() }
                         }
                         enviarRespuesta={
-                            ()=>{alert('Respuesta enviada')}
+                            () => { alert('Respuesta enviada') }
                         }
                         revisandoEjercicio={this.state.revisandoEjercicio}
                         pestanas={this.state.selectores[this.state.seleccionPrincipal]}
