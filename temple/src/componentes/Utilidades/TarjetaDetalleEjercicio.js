@@ -12,7 +12,7 @@ class TarjetaDetalle extends Component {
     render() {
         return (
             <Fade in>
-                <div className="tarjeta-detalle-ejercicio">
+                <div className="tarjeta-detalle-responsiva tarjeta-detalle-ejercicio">
                     <div className="encabezado-detalle-ejercicio">
                         <span className="fa fa-arrow-left" onClick={() => { this.props.volverMenu() }}></span>
                         <p>Regresar</p>

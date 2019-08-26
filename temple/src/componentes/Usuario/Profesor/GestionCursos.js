@@ -44,9 +44,9 @@ class GestionCursos extends Component {
 
                 <div className={this.state.revisandoCurso
                     ?
-                    "tarjeta-contenedora-contenido tarjeta-contenedora-contenido-entera"
+                    "tarjeta-contenedora-contenido-responsiva tarjeta-contenedora-contenido tarjeta-contenedora-contenido-entera"
                     :
-                    "tarjeta-contenedora-contenido tarjeta-contenedora-contenido-cuadricula"}>
+                    "tarjeta-contenedora-contenido-responsiva tarjeta-contenedora-contenido tarjeta-contenedora-contenido-cuadricula"}>
                     <ContenedorCursos
                         cursos={this.props.cursos}
                         revisarCurso={(id) => {

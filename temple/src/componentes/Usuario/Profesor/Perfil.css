@@ -1,10 +1,22 @@
 .contenedor-css-grid{
     display: grid;
     grid-template-columns: repeat(5,1fr);
-    grid-template-rows: repeat(3,auto);
+    grid-template-rows: auto auto auto;
     grid-template-areas:    "avisos            avisos               avisos              avisos              avisos"
                             "cajon-colapsable  selector-principal   selector-principal  selector-principal  selector-principal"
                             "cajon-colapsable  contenedor-selector-secundario  contenedor-selector-secundario contenedor-selector-secundario contenedor-selector-secundario"
+}
+
+.contenedor-css-grid span, button{
+    cursor: pointer;
+}
+.contenedor-css-grid span{
+    margin-left: 15px;
+}
+.contenedor-css-grid p{
+    display: inline;
+    font-size: 0.9rem;
+    color: #5a5a5a;
 }
 
 .contenedor-css-grid > div {
@@ -345,6 +357,8 @@ box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
 .contenido-tarjeta-ejercicio p{
     overflow: hidden;
     margin-top: 20px;
+    margin-left: 0px;
+    white-space: normal;
     color: rgb(146, 145, 145);
     font-size: 0.9rem;
     line-height: 20px;
@@ -360,7 +374,6 @@ box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
     border: none;
     outline: none !important;
     cursor: pointer;
-    margin-top: 15px;
     -webkit-box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
 -moz-box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
 box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
@@ -403,14 +416,10 @@ box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
 }
 
 .encabezado-detalle-ejercicio span{
-    cursor: pointer;
+    margin-left: 0px;
 }
 
 .encabezado-detalle-ejercicio p{
-    display: inline;
-    font-size: 0.9rem;
-    color: #5a5a5a;
-    white-space: nowrap;
     margin-left: 20px;
 }
 
@@ -433,12 +442,6 @@ box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
     margin-right: 20px;
 }
 
-.estado-detalle-ejercicio p{
-    font-size: 0.9rem;
-    color: #5a5a5a;
-    white-space: nowrap;
-}
-
 .contenido-detalle-ejercicio{
     grid-area:contenido-detalle-ejercicio;
     text-align: justify;
@@ -450,6 +453,8 @@ box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
     color:#838383;
     font-size: 1rem;
     line-height: 30px;
+    white-space: normal;
+    margin-left: 0px;
 }
 
 .mensaje-detalle-ejercicio{
@@ -495,10 +500,6 @@ flex-grow: auto;
     justify-content: space-around;
 }
 
-.contenedor-controles-adjuntos span{
-    cursor: pointer;
-}
-
 .btn-enviar-mensaje{
     flex-grow: 1;
     margin-left: auto;
@@ -526,7 +527,7 @@ flex-grow: auto;
 /*Consultas css*/
 @media screen and (max-width: 1500px){
     .tarjeta-detalle-ejercicio{
-        grid-gap: 25px;
+    
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 30px minmax(40px,auto) minmax(80px,auto) minmax(30px,auto) 500px ;        
     grid-template-areas:    "encabezado-detalle-ejercicio    estado-detalle-ejercicio"
@@ -558,10 +559,12 @@ flex-grow: auto;
 }
 
 @media screen and (max-width: 1100px){
+
+   
     .contenedor-css-grid{
         display: grid;
         grid-template-columns: repeat(5,1fr);
-        grid-template-rows: repeat(3,auto);
+        grid-template-rows: auto auto auto;
         grid-template-areas:    "avisos            avisos               avisos              avisos              avisos"
                                 "selector-principal  selector-principal   selector-principal  selector-principal  selector-principal"
                                 "contenedor-selector-secundario  contenedor-selector-secundario  contenedor-selector-secundario contenedor-selector-secundario contenedor-selector-secundario"
@@ -577,10 +580,6 @@ flex-grow: auto;
 
     .contenedor-css-grid > div {
         padding: 10px;
-    }
-
-    .tarjeta-contenedora-contenido{
-        margin-top: 5px !important;
     }
 
     /*Tarjetas dentro del contenedor*/
@@ -663,6 +662,7 @@ box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
     background: rgb(208, 247, 176);
     border-radius: 5px;
     text-decoration: none;
+    font-size: 0.8rem;
     border: none;
     outline: none !important;
     cursor: pointer;
@@ -678,14 +678,6 @@ box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
 }
 
 @media screen and (max-width: 576px){
-    
-    .contenedor-css-grid .contenedor-selector-secundario .contenido-seleccion .tarjeta-contenedora-contenido{
-        padding: 6px;
-                
-    }
-    .contenedor-css-grid .contenedor-selector-secundario .contenido-seleccion .tarjeta-contenedora-contenido-extendida{
-        padding: 6px;
-    }
 
     .boton-control-secundario{          
         min-height: 35px !important;        
@@ -718,9 +710,7 @@ box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
     .encabezado-detalle-ejercicio{
         margin-left: 10px;
     }
-    .tarjeta-detalle-ejercicio{
-        padding: 10px;
-    }
+    
     .asunto-detalle-ejercicio{
         margin-left: 20px;
         margin-right: 20px;

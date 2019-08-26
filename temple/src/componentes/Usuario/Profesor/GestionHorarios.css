@@ -1,4 +1,4 @@
-.contenedor-gestion-cursos-css-grid{
+.contenedor-gestion-horarios-css-grid{
     display: grid;
     grid-template-columns: 3fr 1fr;
     grid-template-rows: 60px 100vh;
@@ -10,12 +10,12 @@
     background: rgb(58, 89, 146);
 }
 
-.contenedor-gestion-cursos-css-grid span{
+.contenedor-gestion-horarios-css-grid span{
     cursor: pointer;
     margin-left: 15px;
 }
 
-.contenedor-gestion-cursos-css-grid p,.contenedor-gestion-cursos-css-grid a{
+.contenedor-gestion-horarios-css-grid p,.contenedor-gestion-horarios-css-grid a{
     display: inline;
     font-size: 0.9rem;
     font-weight: bold;
@@ -23,12 +23,12 @@
 
 }
 
-.contenedor-gestion-cursos-css-grid p{
+.contenedor-gestion-horarios-css-grid p{
     color: #5a5a5a;
 }
 
 
-.contenedor-gestion-cursos-css-grid h1{
+.contenedor-gestion-horarios-css-grid h1{
     justify-self: start;
     font-size: 1.5rem;
     grid-area: titulo;
@@ -36,7 +36,7 @@
     color: rgb(236, 236, 236);
 }
 
-.contenedor-gestion-cursos-css-grid .btn-agregar-curso{
+.contenedor-gestion-horarios-css-grid .btn-agregar-horario{
     justify-self: stretch;
     text-decoration: none;
     border: none;
@@ -53,7 +53,7 @@
     box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
 }
 
-.contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido{
+.contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido{
     grid-area: contenedor;
     border-radius: 10px;
     background: rgb(238, 238, 238);
@@ -64,11 +64,11 @@
     -webkit-box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
     -moz-box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
     box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
-    display: grid;    
+    display: block;    
     overflow: auto;   
 }
 
-.contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido-cuadricula{
+.contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido-cuadricula{
     grid-gap: 20px;
     grid-template-columns: repeat(4,1fr);
     grid-template-rows: minmax(350px, auto);
@@ -77,7 +77,7 @@
      grid-auto-rows: minmax(350px, auto);    
 }
 
-.contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido .tarjeta-curso{
+.contenedor-gestion-cuhorariosrsos-css-grid .tarjeta-contenedora-contenido .tarjeta-horario{
     border: 1px solid rgb(212, 212, 212);
     border-radius: 5px;
     min-height: 100px;
@@ -95,7 +95,7 @@
     cursor: pointer;
 }
 
-.contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido .tarjeta-curso img{
+.contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido .tarjeta-horario img{
     display: block;
     border-radius: 50%;
     border: 1px solid #efefef;
@@ -108,7 +108,7 @@
     
 }
 
-.contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido .tarjeta-curso h1{
+.contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido .tarjeta-horario h1{
     font-size: 1.5rem;
     color: #5a5a5a;
     overflow: hidden;
@@ -116,7 +116,7 @@
     justify-self: center;
 }
 
-.contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido .tarjeta-curso h2{
+.contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido .tarjeta-horario h2{
     font-size: 0.8rem;
     color: #5a5a5a;
     overflow: hidden;
@@ -127,13 +127,13 @@
 }
 
 
-.contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido .tarjeta-curso > div {
+.contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido .tarjeta-horario > div {
     grid-area: cuerpo-tarjeta-curso;
     justify-self: center;
 
 }
 
-.contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido .tarjeta-curso >div p{
+.contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido .tarjeta-horario >div p{
     display: block;
     overflow: hidden;
     color: rgb(170, 170, 170);
@@ -142,12 +142,12 @@
     margin-top: 5px;
 }
 
-/*Tarjeta detalle curso*/
-.contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido-entera{
+/*Tarjeta detalle horario*/
+.contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido-entera{
     display: block;
 }
 
-.contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido-entera .tarjeta-detalle-curso{
+.contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido-entera .tarjeta-detalle-horario{
     display: grid;
     border: 1px solid rgb(212, 212, 212);
     border-radius: 5px;
@@ -169,33 +169,33 @@
                         "txt-pregunta-ejercicio-detalle-curso pregunta-ejercicio-detalle-curso";
 }
 
-.tarjeta-detalle-curso input, textarea{
+.tarjeta-detalle-horario input, textarea{
     outline:none;
     border:1px rgb(160, 160, 160) solid;
     border-radius: 10px;
     padding: 5px;
 }
 
-.encabezado-detalle-curso{
+.encabezado-detalle-horario{
     grid-area: encabezado-detalle-curso;
     align-items: center;
 }
 
-.encabezado-detalle-curso p{
+.encabezado-detalle-horario p{
     font-weight: normal;
     margin-left: 20px;
 }
 
-.encabezado-detalle-curso span{
+.encabezado-detalle-horario span{
     margin-left: 0px;
 }
 
-.botonera-detalle-curso{
+.botonera-detalle-horario{
     grid-area:botonera-detalle-curso;
     justify-self: end;
 }
 
-.botonera-detalle-curso .btn-guardar-cambios{
+.botonera-detalle-horario .btn-guardar-cambios{
         padding: 7px;
         outline: none;
         text-decoration: none;
@@ -206,66 +206,66 @@
         box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);    
 }
 
-.txt-descripcion-detalle-curso{
+.txt-descripcion-detalle-horario{
     grid-area: txt-descripcion-detalle-curso;
 }
 
-.descripcion-detalle-curso{
+.descripcion-detalle-horario{
     grid-area: descripcion-detalle-curso;
     resize: none;
 }
 
-.txt-niveles-detalle-curso{
+.txt-niveles-detalle-horario{
     grid-area: txt-niveles-detalle-curso;
 
 }
 
-.niveles-detalle-curso{
+.niveles-detalle-horario{
     grid-area: niveles-detalle-curso;
 
 }
 
-.txt-temas-detalle-curso{
+.txt-temas-detalle-horario{
     grid-area: txt-temas-detalle-curso;
 
 }
 
-.temas-detalle-curso{
+.temas-detalle-horario{
     grid-area: temas-detalle-curso;
 
 }
 
-.txt-costo-hora-detalle-curso{
+.txt-costo-hora-detalle-horario{
     grid-area: txt-costo-hora-detalle-curso;
 
 }
 
-.costo-hora-detalle-curso{
+.costo-hora-detalle-horario{
     grid-area: costo-hora-detalle-curso;
 
 }
 
-.txt-costo-ejercicio-detalle-curso{
+.txt-costo-ejercicio-detalle-horario{
     grid-area: txt-costo-ejercicio-detalle-curso;
 
 }
 
-.costo-ejercicio-detalle-curso{
+.costo-ejercicio-detalle-horario{
     grid-area: costo-ejercicio-detalle-curso;
 
 }
 
-.txt-pregunta-ejercicio-detalle-curso{
+.txt-pregunta-ejercicio-detalle-horario{
     grid-area: txt-pregunta-ejercicio-detalle-curso;
 
 }
 
-.pregunta-ejercicio-detalle-curso{
+.pregunta-ejercicio-detalle-horario{
     grid-area: pregunta-ejercicio-detalle-curso;
 
 }
 
-.pregunta-ejercicio-detalle-curso p{
+.pregunta-ejercicio-detalle-horario p{
     font-weight: normal;
     margin-left: 10px;
 }
@@ -273,7 +273,7 @@
 /*Consultas css*/
 
 @media screen and (max-width: 1100px){
-    .contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido-cuadricula{
+    .contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido-cuadricula{
         grid-gap: 20px;
         grid-template-columns: repeat(3,1fr);
         grid-template-rows: minmax(350px, auto);
@@ -284,7 +284,7 @@
 }
 
 @media screen and (max-width: 850px){
-    .contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido-cuadricula{
+    .contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido-cuadricula{
         grid-gap: 10px;
         grid-template-columns: repeat(2,1fr);
         grid-template-rows: minmax(350px, auto);
@@ -294,17 +294,17 @@
     }
 }
 @media screen and (max-width: 768px){
-    .contenedor-gestion-cursos-css-grid{
+    .contenedor-gestion-horarios-css-grid{
         padding-left: 10px;
         padding-right: 10px;
         padding-bottom: 10px;
     }
-    .contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido-entera .tarjeta-detalle-curso{
+    .contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido-entera .tarjeta-detalle-horario{
         grid-gap: 15px !important;        
     }
 }
 @media screen and (max-width: 610px){
-    .contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido-cuadricula{
+    .contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido-cuadricula{
         grid-gap: 10px !important;
         grid-template-columns: 1fr;
         grid-template-rows: minmax(350px, auto);
@@ -316,12 +316,12 @@
 
 @media screen and (max-width: 576px){
     
-    .contenedor-gestion-cursos-css-grid{
+    .contenedor-gestion-horarios-css-grid{
         grid-template-rows: 60px 100vh;
 
     }
 
-    .contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido-entera .tarjeta-detalle-curso{
+    .contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido-entera .tarjeta-detalle-horario{
         grid-gap: 5px !important;
         align-items: center;
         grid-template-columns: 1fr 2fr;
@@ -341,23 +341,23 @@
                             "pregunta-ejercicio-detalle-curso pregunta-ejercicio-detalle-curso"
     }
 
-    .contenedor-gestion-cursos-css-grid h1{
+    .contenedor-gestion-horarios-css-grid h1{
         font-size: 1.2rem;
         margin-top: 20px;
     }
 
-    .txt-descripcion-detalle-curso{
+    .txt-descripcion-detalle-horario{
         border-top: 1px solid gray;
         margin-top: 15px;
     }
 
-    .contenedor-gestion-cursos-css-grid p, .contenedor-gestion-cursos-css-grid a{
+    .contenedor-gestion-horarios-css-grid p, .contenedor-gestion-horarios-css-grid a{
         font-size: 0.8rem;
         font-weight: bold;
         margin-left: 5px;
     
     }
-    .botonera-detalle-curso span{
+    .botonera-detalle-horario span{
         margin-left: 10px;
     }
 
@@ -366,7 +366,7 @@
         font-size: 0.8rem !important;
     }
 
-    .btn-agregar-curso{
+    .btn-agregar-horario{
         margin: 10px !important;
         font-size: 0.7rem;
     }

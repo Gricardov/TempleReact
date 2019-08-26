@@ -104,7 +104,11 @@ class ContenedorPerfil extends Component {
                 </Slider>
                 <Transform enterTransform="translateY(0px)" exitTransform="translateY(50px)" duration={300} in>
                     <div className="contenido-seleccion">
-                        <div className={this.props.revisandoEjercicio ? "tarjeta-contenedora-contenido-extendida" : "tarjeta-contenedora-contenido"}>
+                        <div className={this.props.revisandoEjercicio 
+                            ?
+                            "tarjeta-contenedora-contenido-responsiva tarjeta-contenedora-contenido-extendida"
+                            :
+                            "tarjeta-contenedora-contenido-responsiva tarjeta-contenedora-contenido"}>
                             {contenido}
                         </div>
                     </div>

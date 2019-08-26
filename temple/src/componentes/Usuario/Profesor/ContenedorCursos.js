@@ -43,7 +43,9 @@ class ContenedorCursos extends Component {
 }
 
 const renderizarDetalleCurso = (curso, volverMenu, guardarCambios) => {
-    return (<TarjetaDetalleCurso curso={curso} volverMenu={volverMenu} guardarCambios={guardarCambios} />)
+    return (
+    <TarjetaDetalleCurso curso={curso} volverMenu={volverMenu} guardarCambios={guardarCambios} />
+    )
 }
 
 export default ContenedorCursos;

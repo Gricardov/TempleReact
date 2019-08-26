@@ -1621,3 +1621,39 @@ hr {
  .invisible{
    visibility: hidden;
  }
+
+ /*Tarjetas responsivas*/
+ @media screen and (max-width: 1500px){
+ 
+  .tarjeta-detalle-responsiva{
+    grid-gap: 25px !important;
+
+  }
+}
+
+ @media screen and (max-width: 768px){
+ 
+  .tarjeta-contenedora-contenido-responsiva{
+    margin-top: 5px !important;
+}
+
+  .tarjeta-detalle-responsiva{
+
+  }
+
+
+}
+
+ @media screen and (max-width: 576px){
+
+
+ .tarjeta-contenedora-contenido-responsiva{
+  padding: 6px !important;
+
+ }
+
+ .tarjeta-detalle-responsiva{
+  padding: 10px !important;
+}
+
+}

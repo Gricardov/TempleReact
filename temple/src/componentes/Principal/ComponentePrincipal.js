@@ -21,6 +21,7 @@ import CubiertaMensaje from '../Utilidades/CubiertaMensaje';
 import CubiertaContrato from '../Utilidades/CubiertaContrato';
 import DetalleCitaAlumno from '../Usuario/Alumno/MisCitas';
 import GestionCursos from '../Usuario/Profesor/GestionCursos';
+import GestionHorarios from '../Usuario/Profesor/GestionHorarios';
 import DetalleCitaProfesor from '../Usuario/Profesor/MisCitas';
 import MisHorarios from '../Usuario/Profesor/MisHorarios';
 
@@ -196,15 +197,19 @@ class Principal extends Component {
                 
                                     ]}/>} />
                                 <Route path={RUTAS.MIS_HORARIOS_PROFESOR.ruta} component={() =>
-                                    <MisHorarios
+                                
+                                <GestionHorarios horarios={this.props.perfil.perfil.horarios}/>
+                                    
+                                    
+                                }/>
+                                    {/*<MisHorarios
                                         actualizarHorarios={this.props.actualizarHorarios}
                                         obtenerPerfil={this.props.obtenerPerfil}
                                         usuario={this.props.sesion.usuario}
                                         horarios={this.props.perfil.perfil.horarios}
                                         estaCargando={this.props.perfil.estaCargando}
                                         mensError={this.props.perfil.mensError}
-                                    />} />
-
+                                    /> */}
                             </SwitchDeslizador>
                             <Asistente usuario={this.props.sesion.usuario} />
                             <CubiertaMensaje mensError={this.props.perfil.mensError}
