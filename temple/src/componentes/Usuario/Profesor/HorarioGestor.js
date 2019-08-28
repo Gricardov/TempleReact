@@ -210,13 +210,30 @@ class Horario extends Component {
   }
 
   render() {
+
+    const traducido = {
+      allDay: 'Todo el día',
+      previous: '<',
+      next: '>',
+      today: 'Hoy',
+      month: 'Mes',
+      week: 'Semana',
+      day: 'Día',
+      agenda: 'Agenda',
+      date: 'Fecha',
+      time: 'Hora',
+      event: 'Evento',
+      showMore: total => `+ Mostrar más: (${total})`
+    };
+
       return (
         
         <div id="mainArea" className="quickFade">
           <Row className="mt-4">
             <Col xs={12}>
-              <div style={{ zIndex: '999999', position: 'relative' }}>
+              <div style={{ overflow:'auto' }}>
                 <DragAndDropCalendar
+                messages={traducido}
                   localizer={localizer}
                   events={this.state.eventos}
                   defaultView='week'

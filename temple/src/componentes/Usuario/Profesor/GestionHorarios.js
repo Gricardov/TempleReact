@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TarjetaCurso from '../../Utilidades/TarjetaCurso';
 import ContenedorCursos from './ContenedorCursos';
 import { Fade, Transform } from 'react-animation-components';
+import Horario from './HorarioGestor';
 
 import './GestionHorarios.css';
 
@@ -43,15 +44,10 @@ class GestionHorarios extends Component {
                     "btn-agregar-horario visible"}>Agregar horario</button>
 
                 <div className="tarjeta-contenedora-contenido-responsiva tarjeta-contenedora-contenido">
-                    <ContenedorCursos
-                        cursos={this.props.cursos}
-                        revisarCurso={(id) => {
-                            this.revisarCurso(id);
-                        }}
-                        cursoSeleccionado={this.state.cursoSeleccionado}
-                        revisandoCurso={this.state.revisandoCurso}
-                        volverMenu={this.volverMenu}
-                    />
+                    <div className="tarjeta-detalle-responsiva tarjeta-horario">
+                    <Horario eventos={this.props.horarios}/>
+
+                    </div>
                 </div>
             </div>
         )

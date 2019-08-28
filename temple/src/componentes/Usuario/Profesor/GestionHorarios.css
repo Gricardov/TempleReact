@@ -19,7 +19,6 @@
     display: inline;
     font-size: 0.9rem;
     font-weight: bold;
-    margin-left: 30px;
 
 }
 
@@ -77,22 +76,15 @@
      grid-auto-rows: minmax(350px, auto);    
 }
 
-.contenedor-gestion-cuhorariosrsos-css-grid .tarjeta-contenedora-contenido .tarjeta-horario{
+.contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido .tarjeta-horario{
+    display: block;
     border: 1px solid rgb(212, 212, 212);
     border-radius: 5px;
     min-height: 100px;
-    padding: 20px;
+    padding: 15px;
     background: #fff;
-    display: grid;
-    grid-gap: 5px;
-    justify-items: center;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(4,auto);
-    grid-template-areas:    "img-tarjeta-curso"
-                            "nombre-tarjeta-curso"
-                            "categoria-tarjeta-curso"
-                            "cuerpo-tarjeta-curso";
-    cursor: pointer;
+    margin-bottom: 10px;
+    align-items: center;
 }
 
 .contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido .tarjeta-horario img{
@@ -270,6 +262,17 @@
     margin-left: 10px;
 }
 
+/*Modificando el calendario*/
+.rbc-calendar{
+    min-width: 650px;
+}
+
+.rbc-event{
+    -webkit-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.75);
+}
+
 /*Consultas css*/
 
 @media screen and (max-width: 1100px){
@@ -354,7 +357,6 @@
     .contenedor-gestion-horarios-css-grid p, .contenedor-gestion-horarios-css-grid a{
         font-size: 0.8rem;
         font-weight: bold;
-        margin-left: 5px;
     
     }
     .botonera-detalle-horario span{
