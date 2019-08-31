@@ -11,7 +11,8 @@ class GestionHorarios extends Component {
         super(props);
         this.state = {
             horarioSeleccionado: null,
-            revisandoHorario: false
+            revisandoHorario: false,
+            agregandoHorario:false
         };
         this.revisarHorario = this.revisarHorario.bind(this);
         this.volverMenu = this.volverMenu.bind(this);
@@ -37,16 +38,11 @@ class GestionHorarios extends Component {
         return (
             <div className="perfil-debajo-barra contenedor-gestion-horarios-css-grid">
                 <h1>Horarios de enseñanza</h1>
-                <button className={this.state.revisandoHorario
-                    ?
-                    "btn-agregar-horario invisible"
-                    :
-                    "btn-agregar-horario visible"}>Agregar horario</button>
-
+                <button className={"btn-agregar-horario visible"} onClick={()=>{this.setState({agregandoHorario:true})}}>Agregar horario</button>
+                
                 <div className="tarjeta-contenedora-contenido-responsiva tarjeta-contenedora-contenido">
                     <div className="tarjeta-detalle-responsiva tarjeta-horario">
-                    <Horario eventos={this.props.horarios}/>
-
+                    <Horario eventos={this.props.horarios} agregandoHorario={this.state.agregandoHorario} establecerAgregandoHorario={(estado)=>{this.setState({agregandoHorario:estado})}}/>
                     </div>
                 </div>
             </div>

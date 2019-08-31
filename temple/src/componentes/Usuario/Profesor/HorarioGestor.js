@@ -15,8 +15,7 @@ import {
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import 'moment/locale/es-us';
 import ModalConfirmacion from '../../Utilidades/ModalConfirmacion';
-
-
+import ModalDetalleEvento from '../../Utilidades/ModalDetalleEvento';
 
 let moment = require('moment');
 const localizer = momentLocalizer(moment);
@@ -57,9 +56,9 @@ class Horario extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
       eventos: [],
       modalConfirmacionAbierto: false,
+      modalDetalleAbierto: false,
       mensajeConfirmacion: "",
       operacionActual: "",
       rangoSeleccionado: null,
@@ -113,7 +112,6 @@ class Horario extends Component {
 
   }
 
-
   moverEvento({ event, start, end, isAllDay: droppedOnAllDaySlot }) {
 
     let eventos = this.state.eventos;
@@ -164,9 +162,8 @@ class Horario extends Component {
     }
   }
   seleccionarRango(slotInfo) {
-
+    this.props.establecerAgregandoHorario(true);
     this.setState({
-      modalConfirmacionAbierto: true, mensajeConfirmacion: "¿Agregar evento?",
       operacionActual: "registro", rangoSeleccionado: slotInfo
     })
   }
@@ -176,6 +173,13 @@ class Horario extends Component {
       modalConfirmacionAbierto: true, mensajeConfirmacion: "¿Eliminar evento?",
       operacionActual: "eliminacion", eventoSeleccionado: evento
     })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.agregandoHorario != this.props.agregandoHorario) {
+
+      this.setState({ modalDetalleAbierto: this.props.agregandoHorario })
+    }
   }
 
   componentDidMount() {
@@ -205,7 +209,7 @@ class Horario extends Component {
     })
   }
 
-  componentDidCatch(error,info){
+  componentDidCatch(error, info) {
     console.log(error);
   }
 
@@ -226,105 +230,107 @@ class Horario extends Component {
       showMore: total => `+ Mostrar más: (${total})`
     };
 
-      return (
-        
-        <div id="mainArea" className="quickFade">
-          <Row className="mt-4">
-            <Col xs={12}>
-              <div style={{ overflow:'auto' }}>
-                <DragAndDropCalendar
+    return (
+
+      <div id="mainArea" className="quickFade">
+        <Row className="mt-4">
+          <Col xs={12}>
+            <div style={{ overflow: 'auto' }}>
+              <DragAndDropCalendar
                 messages={traducido}
-                  localizer={localizer}
-                  events={this.state.eventos}
-                  defaultView='week'
-                  startAccessor="start"
-                  endAccessor="end"
-                  views={{
-                    week: true
-                  }}
-                  selectable={true}
-                  onEventDrop={this.moverEvento}
-                  resizable={true}
-                  onEventResize={this.redimensionarEvento}
-                  step={30}
-                  onSelectEvent={this.seleccionarEvento}
-                  onSelectSlot={this.seleccionarRango}
-                  showMultiDayTimes={true}
-                  eventPropGetter={(event, start, end, isSelected) => {
+                localizer={localizer}
+                events={this.state.eventos}
+                defaultView='week'
+                startAccessor="start"
+                endAccessor="end"
+                views={{
+                  week: true
+                }}
+                selectable={true}
+                onEventDrop={this.moverEvento}
+                resizable={true}
+                onEventResize={this.redimensionarEvento}
+                step={30}
+                onSelectEvent={this.seleccionarEvento}
+                onSelectSlot={this.seleccionarRango}
+                showMultiDayTimes={true}
+                eventPropGetter={(event, start, end, isSelected) => {
 
-                    if (event) {
+                  if (event) {
 
-                      // Pertenece a los eventos del profesor
-                      let style = {
-                        backgroundColor: event.title == 'reservado' ? '#f57242' : '#52ff7a',
-                        borderRadius: '0px',
-                        opacity: 1,
-                        color: 'black',
-                        border: '0px',
-                        display: 'block'
-                      };
-                      return {
-                        style: style
-                      };
+                    // Pertenece a los eventos del profesor
+                    let style = {
+                      backgroundColor: event.title == 'reservado' ? '#f57242' : '#52ff7a',
+                      borderRadius: '0px',
+                      opacity: 1,
+                      color: 'black',
+                      border: '0px',
+                      display: 'block'
+                    };
+                    return {
+                      style: style
+                    };
 
-                    }
-                  }}
-                />
+                  }
+                }}
+              />
+              
+              <ModalDetalleEvento abierto={this.state.modalDetalleAbierto} cerrar={()=>{this.props.establecerAgregandoHorario(false)}}/>
 
-                <ModalConfirmacion encabezado={"¿Seguro?"} mensaje={this.state.mensajeConfirmacion}
-                  abierto={this.state.modalConfirmacionAbierto}
-                  cambiarEstadoModal={() => { this.setState({ modalConfirmacionAbierto: !this.state.modalConfirmacionAbierto }) }}
-                  confirmar={() => {
-                    let operacionActual = this.state.operacionActual;
+              <ModalConfirmacion encabezado={"¿Seguro?"} mensaje={this.state.mensajeConfirmacion}
+                abierto={this.state.modalConfirmacionAbierto}
+                cambiarEstadoModal={() => { this.setState({ modalConfirmacionAbierto: !this.state.modalConfirmacionAbierto }) }}
+                confirmar={() => {
+                  let operacionActual = this.state.operacionActual;
 
-                    switch (operacionActual) {
-                      case "registro":
-                        this.agregarEvento();
-                        break;
-                      case "actualizacion":
-                        this.editarEvento();
-                        break;
-                      case "eliminacion":
-                        this.eliminarEvento();
-                        break;
-                    }
-                    this.setState({
-                      modalConfirmacionAbierto: !this.state.modalConfirmacionAbierto,
-                      operacionActual: ""
-                    })
-                  }}
-                  negar={() => {
-                    this.setState({
-                      modalConfirmacionAbierto: !this.state.modalConfirmacionAbierto,
-                      operacionActual: ""
-                    })
-                  }}
-                />
+                  switch (operacionActual) {
+                    case "registro":
+                      this.agregarEvento();
+                      break;
+                    case "actualizacion":
+                      this.editarEvento();
+                      break;
+                    case "eliminacion":
+                      this.eliminarEvento();
+                      break;
+                  }
+                  this.setState({
+                    modalConfirmacionAbierto: !this.state.modalConfirmacionAbierto,
+                    operacionActual: ""
+                  })
+                }}
+                negar={() => {
+                  this.setState({
+                    modalConfirmacionAbierto: !this.state.modalConfirmacionAbierto,
+                    operacionActual: ""
+                  })
+                }}
+              />
 
-              </div>
-            </Col>
-          </Row>
-          <Row className="mt-4">
-            <Col xs={12}>
-              <Button color="primary" block onClick={() => {
-                let eventosFiltrados = this.state.eventos.filter(e => e.title !== 'reservado');
+            </div>
+          </Col>
+        </Row>
+        <Row className="mt-4">
+          <Col xs={12}>
+            <Button color="primary" block onClick={() => {
+              let eventosFiltrados = this.state.eventos.filter(e => e.title !== 'reservado');
 
-                // Formateo las fechass
-                for (var i = 0; i < eventosFiltrados.length; i++) {
-                  eventosFiltrados[i].start = (moment(eventosFiltrados[i].start).format('YYYY-MM-DD HH:mm:ss'));
-                  eventosFiltrados[i].end = (moment(eventosFiltrados[i].end).format('YYYY-MM-DD HH:mm:ss'));
-                }
-                this.props.actualizarHorarios(eventosFiltrados);
-                
+              // Formateo las fechass
+              for (var i = 0; i < eventosFiltrados.length; i++) {
+                eventosFiltrados[i].start = (moment(eventosFiltrados[i].start).format('YYYY-MM-DD HH:mm:ss'));
+                eventosFiltrados[i].end = (moment(eventosFiltrados[i].end).format('YYYY-MM-DD HH:mm:ss'));
               }
-              }>
-                Guardar cambios</Button>
-            </Col>
-          </Row>
-        </div>
-      )
+              this.props.actualizarHorarios(eventosFiltrados);
 
-    
+            }
+            }>
+              Guardar cambios</Button>
+          </Col>
+        </Row>
+      </div>
+    )
+
+
 
   }
 
