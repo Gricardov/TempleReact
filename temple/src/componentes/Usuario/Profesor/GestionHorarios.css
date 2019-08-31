@@ -19,7 +19,7 @@
     display: inline;
     font-size: 0.9rem;
     font-weight: bold;
-
+    margin-left: 30px;
 }
 
 .contenedor-gestion-horarios-css-grid p{
@@ -79,6 +79,7 @@
 }
 
 .modal-detalle-evento{
+    cursor:auto;
     display: grid;
     position: fixed;
     z-index: 1051;
@@ -97,13 +98,18 @@
     grid-template-columns: 1fr 3fr;
     grid-template-rows: 30px repeat(5, auto) 30px;
     grid-template-areas:"encabezado-detalle-horario     botonera-detalle-horario"
+                        "txt-tipo-horario-detalle-horario tipo-horario-detalle-horario"
                         "txt-fechahora-detalle-horario  fechahora-detalle-horario"
                         "txt-curso-detalle-horario      curso-detalle-horario"
                         "txt-lugar-detalle-horario      lugar-detalle-horario"
                         "txt-pago-detalle-horario       pago-detalle-horario"
-                        "txt-detalle-detalle-horario      detalle-detalle-horario"
+                        "txt-detalle-detalle-horario    detalle-detalle-horario"
                         "espacio                        opciones-avanzadas-detalle-horario";
 
+}
+
+.modal-detalle-evento a{
+        color: #007bff !important;  
 }
 
 .tarjeta-detalle-horario input, textarea{
@@ -111,6 +117,7 @@
     border:1px rgb(160, 160, 160) solid;
     border-radius: 10px;
     padding: 5px;
+    resize: none;
 }
 
 .encabezado-detalle-horario{
@@ -142,6 +149,15 @@
         font-size: 1rem;
         box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);    
 }
+
+.txt-tipo-horario-detalle-horario{
+    grid-area: txt-tipo-horario-detalle-horario;
+}
+
+.tipo-horario-detalle-horario{
+    grid-area: tipo-horario-detalle-horario;    
+}
+
 
 .txt-fechahora-detalle-horario{
     grid-area:txt-fechahora-detalle-horario;
@@ -189,6 +205,10 @@
 
 .opciones-avanzadas-detalle-horario{
     grid-area: opciones-avanzadas-detalle-horario;
+}
+
+.opciones-avanzadas-detalle-horario{
+    margin-left: 0px !important;
 }
 
 /*Modificando el calendario*/
@@ -278,7 +298,7 @@
         margin-top: 20px;
     }
 
-    .txt-fechahora-detalle-horario{
+    .txt-tipo-horario-detalle-horario{
         border-top: 1px solid gray;
         margin-top: 15px;
     }

@@ -169,6 +169,10 @@
                         "txt-pregunta-ejercicio-detalle-curso pregunta-ejercicio-detalle-curso";
 }
 
+.contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido-entera .tarjeta-detalle-curso .modal-detalle-evento a{
+    color: #007bff !important;  
+}
+
 .tarjeta-detalle-curso input, textarea{
     outline:none;
     border:1px rgb(160, 160, 160) solid;
