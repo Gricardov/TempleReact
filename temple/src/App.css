@@ -1572,6 +1572,16 @@ hr {
   background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0); 
 }
 
+/*Cajas de entrada generales*/
+
+input, textarea {
+  outline: none;
+  border: 1px rgb(160, 160, 160) solid;
+  border-radius: 10px;
+  padding: 5px;
+  resize: none;
+}
+
 /*Cajas de selección*/
 
 .caja-seleccion {
@@ -1628,7 +1638,7 @@ hr {
   left: -9999px;
 }
 .radio-boton input + label {
-  width: 40%;
+  width: 100%;
   cursor: pointer;
   margin: 0;
   padding: .6em 1.4em .5em .8em;
@@ -1669,7 +1679,7 @@ hr {
   color: #FFF;
   box-shadow: 0 0 10px rgba(102, 179, 251, 0.5);
   border-color: #4B9DEA;
-  z-index: 1;
+  z-index: -1;
 }
 .radio-boton input:focus + label {
   outline: dotted 1px #CCC;

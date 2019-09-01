@@ -81,7 +81,7 @@ class Horario extends Component {
 
       eventos.push({
         id: generarIdCorrelativo(eventos),
-        title: 'individual',
+        title: 'Clase libre',
         start: momentoInicio.toDate(),
         end: momentoFin.toDate(),
         allDay: false
@@ -177,8 +177,10 @@ class Horario extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.agregandoHorario != this.props.agregandoHorario) {
-
-      this.setState({ modalDetalleAbierto: this.props.agregandoHorario })
+      this.setState({
+        modalDetalleAbierto: this.props.agregandoHorario,
+        operacionActual: "registro", rangoSeleccionado: null
+      })
     }
   }
 
@@ -235,7 +237,7 @@ class Horario extends Component {
       <div id="mainArea" className="quickFade">
         <Row className="mt-4">
           <Col xs={12}>
-            <div style={{ overflow: 'auto' }}>
+            <div style={{ overflow: 'auto', cursor: 'grab' }}>
               <DragAndDropCalendar
                 messages={traducido}
                 localizer={localizer}
@@ -274,8 +276,16 @@ class Horario extends Component {
                   }
                 }}
               />
-              
-              <ModalDetalleEvento abierto={this.state.modalDetalleAbierto} cerrar={()=>{this.props.establecerAgregandoHorario(false)}}/>
+
+              <ModalDetalleEvento abierto={this.state.modalDetalleAbierto} rangoSeleccionado={this.state.rangoSeleccionado}
+                cerrar={() => { this.props.establecerAgregandoHorario(false) }}
+                agregarEvento={(rangoSeleccionado) => {
+                  this.setState({ rangoSeleccionado: rangoSeleccionado }, () => {
+                    this.props.establecerAgregandoHorario(false);
+                    this.agregarEvento();
+                  });
+                }}
+              />
 
               <ModalConfirmacion encabezado={"¿Seguro?"} mensaje={this.state.mensajeConfirmacion}
                 abierto={this.state.modalConfirmacionAbierto}

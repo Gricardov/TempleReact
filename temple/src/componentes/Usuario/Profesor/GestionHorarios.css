@@ -83,20 +83,19 @@
     display: grid;
     position: fixed;
     z-index: 1051;
-    top: 30%;
+    top: 450px;
     left: 50%;
     width: 95%;
     transform: translate(-50%, -50%);
     margin: 0 auto;
     border: 1px solid rgb(212, 212, 212);
     border-radius: 5px;
-    min-height: 100px;
     padding: 20px;
     grid-gap: 30px;
     background: #fff;
     align-items: center;
     grid-template-columns: 1fr 3fr;
-    grid-template-rows: 30px repeat(5, auto) 30px;
+    grid-template-rows: 30px repeat(6, auto) 30px;
     grid-template-areas:"encabezado-detalle-horario     botonera-detalle-horario"
                         "txt-tipo-horario-detalle-horario tipo-horario-detalle-horario"
                         "txt-fechahora-detalle-horario  fechahora-detalle-horario"
@@ -108,8 +107,9 @@
 
 }
 
+
 .modal-detalle-evento a{
-        color: #007bff !important;  
+        color: #007bff !important;
 }
 
 .tarjeta-detalle-horario input, textarea{
@@ -155,9 +155,16 @@
 }
 
 .tipo-horario-detalle-horario{
-    grid-area: tipo-horario-detalle-horario;    
+    grid-area: tipo-horario-detalle-horario; 
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap; 
 }
 
+.tipo-horario-detalle-horario p{
+    margin-left: 0px;
+    font-weight: normal;
+}
 
 .txt-fechahora-detalle-horario{
     grid-area:txt-fechahora-detalle-horario;
@@ -165,8 +172,22 @@
 
 .fechahora-detalle-horario{
     grid-area: fechahora-detalle-horario;
+    display: flex;
+    flex-flow: row;
 }
 
+.fechahora-detalle-horario .radio-boton{
+    flex-grow: 4;
+}
+
+.modal-detalle-evento .txt-que-esto-extendido{
+    cursor: pointer;
+    align-self: center;
+}
+.fechahora-detalle-horario .radio-boton span{
+    align-self: center;
+    cursor: pointer;
+}
 .txt-curso-detalle-horario{
     grid-area: txt-curso-detalle-horario;
 }
@@ -216,6 +237,10 @@
     min-width: 650px;
 }
 
+.rbc-row-content{
+    z-index: 0;
+}
+
 .rbc-event{
     -webkit-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.75);
@@ -236,66 +261,43 @@
 }
 
 @media screen and (max-width: 850px){
-    .contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido-cuadricula{
-        grid-gap: 10px;
-        grid-template-columns: repeat(2,1fr);
-        grid-template-rows: minmax(350px, auto);
-         /*Para la grid implícita :v*/
-         grid-auto-columns: 1fr;
-         grid-auto-rows: minmax(350px, auto);    
-    }
-}
-@media screen and (max-width: 768px){
-    .contenedor-gestion-horarios-css-grid{
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-bottom: 10px;
-    }
-    .contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido-entera .tarjeta-detalle-horario{
-        grid-gap: 15px !important;        
-    }
-}
-@media screen and (max-width: 610px){
-    .contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido-cuadricula{
-        grid-gap: 10px !important;
-        grid-template-columns: 1fr;
-        grid-template-rows: minmax(350px, auto);
-         /*Para la grid implícita :v*/
-         grid-auto-columns: 1fr;
-         grid-auto-rows: minmax(350px, auto);    
-    }
-}
-
-@media screen and (max-width: 576px){
-    
     .contenedor-gestion-horarios-css-grid{
         grid-template-rows: 60px 100vh;
+    }    
 
-    }
-
-    .contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido-entera .tarjeta-detalle-horario{
-        grid-gap: 5px !important;
+    .contenedor-gestion-horarios-css-grid .modal-detalle-evento{
+        grid-gap: 10px !important;
         align-items: center;
         grid-template-columns: 1fr 2fr;
-        grid-template-rows: 30px 40px auto 12px auto 12px auto 12px auto 12px auto 12px 30px;
-        grid-template-areas:"encabezado-detalle-curso       botonera-detalle-curso"
-                            "txt-descripcion-detalle-curso  txt-descripcion-detalle-curso"
-                            "descripcion-detalle-curso      descripcion-detalle-curso"
-                            "txt-niveles-detalle-curso      txt-niveles-detalle-curso"
-                            "niveles-detalle-curso          niveles-detalle-curso"
-                            "txt-temas-detalle-curso        txt-temas-detalle-curso"
-                            "temas-detalle-curso            temas-detalle-curso"
-                            "txt-costo-hora-detalle-curso   txt-costo-hora-detalle-curso"
-                            "costo-hora-detalle-curso       costo-hora-detalle-curso"
-                            "txt-costo-ejercicio-detalle-curso txt-costo-ejercicio-detalle-curso"
-                            "costo-ejercicio-detalle-curso  costo-ejercicio-detalle-curso"
-                            "txt-pregunta-ejercicio-detalle-curso txt-pregunta-ejercicio-detalle-curso"
-                            "pregunta-ejercicio-detalle-curso pregunta-ejercicio-detalle-curso"
-    }
+        grid-template-rows: 30px repeat(12,auto) 30px;
+        grid-template-areas:"encabezado-detalle-horario       botonera-detalle-horario"
+                            "txt-tipo-horario-detalle-horario txt-tipo-horario-detalle-horario"
+                            "tipo-horario-detalle-horario   tipo-horario-detalle-horario"
+                            "txt-fechahora-detalle-horario  txt-fechahora-detalle-horario"
+                            "fechahora-detalle-horario      fechahora-detalle-horario"
+                            "txt-curso-detalle-horario      txt-curso-detalle-horario"
+                            "curso-detalle-horario          curso-detalle-horario"
+                            "txt-lugar-detalle-horario      txt-lugar-detalle-horario"
+                            "lugar-detalle-horario          lugar-detalle-horario"
+                            "txt-pago-detalle-horario       txt-pago-detalle-horario"
+                            "pago-detalle-horario           pago-detalle-horario"
+                            "txt-detalle-detalle-horario    txt-detalle-detalle-horario"
+                            "detalle-detalle-horario        detalle-detalle-horario"
+                            "opciones-avanzadas-detalle-horario opciones-avanzadas-detalle-horario"
+                        }
 
+                        .modal-detalle-evento .txt-que-esto-extendido{
+                            color: #007bff !important;
+                            display: none !important;
+                        }
+                        
     .contenedor-gestion-horarios-css-grid h1{
         font-size: 1.2rem;
         margin-top: 20px;
+    }
+
+    .fechahora-detalle-horario .radio-boton a {
+        display: block;
     }
 
     .txt-tipo-horario-detalle-horario{
@@ -321,5 +323,26 @@
         font-size: 0.7rem;
     }
     
-    
+}
+@media screen and (max-width: 768px){
+    .contenedor-gestion-horarios-css-grid{
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+    }
+    .contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido-entera .tarjeta-detalle-horario{
+        grid-gap: 15px !important;        
+    }
+}
+@media screen and (max-width: 610px){
+    .contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido-cuadricula{
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(350px, auto);
+         /*Para la grid implícita :v*/
+         grid-auto-columns: 1fr;
+         grid-auto-rows: minmax(350px, auto);    
+    }
+    .react-datepicker-popper{
+        left: -50px !important;
+    }
 }

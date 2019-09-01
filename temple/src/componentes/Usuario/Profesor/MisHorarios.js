@@ -3,7 +3,7 @@ import { Row, Col, Input, Card, CardHeader, CardBody, TabContent, TabPane, Nav, 
 import TarjetaCita from '../../Utilidades/TarjetaCita';
 import Mapa from '../../Utilidades/ComponenteMapa';
 import classnames from 'classnames';
-import Horario from './HorarioGestor';
+import Horario from './Horario';
 import { withRouter } from 'react-router-dom';
 import * as RUTAS from '../../../compartido/rutas';
 

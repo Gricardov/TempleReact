@@ -150,10 +150,8 @@
 .contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido-entera .tarjeta-detalle-curso{
     display: grid;
     border: 1px solid rgb(212, 212, 212);
-    border-radius: 5px;
-    min-height: 100px;
+    border-radius: 5px;   
     padding: 20px;
-    height: 100%;
     background: #fff;
     margin-bottom: 10px;
     grid-gap: 30px;
@@ -326,7 +324,6 @@
     }
 
     .contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido-entera .tarjeta-detalle-curso{
-        grid-gap: 5px !important;
         align-items: center;
         grid-template-columns: 1fr 2fr;
         grid-template-rows: 30px 40px auto 12px auto 12px auto 12px auto 12px auto 12px 30px;

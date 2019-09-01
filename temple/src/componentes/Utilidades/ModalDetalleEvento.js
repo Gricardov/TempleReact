@@ -5,6 +5,28 @@ import "react-datepicker/dist/react-datepicker.css";
 
 class ModalDetalleEvento extends Component {
 
+    constructor(props){
+        super(props);
+        this.state={
+            rangoInicio:new Date(),
+            rangoFin:new Date()
+        }
+    }
+    
+    componentDidUpdate(prevProps, prevState){
+
+        if (prevProps.rangoSeleccionado!=this.props.rangoSeleccionado){
+
+            if (this.props.rangoSeleccionado){
+                this.setState({rangoInicio:this.props.rangoSeleccionado.start, rangoFin: this.props.rangoSeleccionado.end})
+            }else {
+                this.setState({rangoInicio:new Date(), rangoFin:new Date()})
+            }
+
+        }
+
+    }
+
     render() {
         return (
             <div className={this.props.abierto
@@ -14,40 +36,62 @@ class ModalDetalleEvento extends Component {
                 'cubierta oculto'}>
                 <div className={this.props.abierto
                     ?
-                    'modal-detalle-evento no-oculto'
+                    'tarjeta-detalle-responsiva modal-detalle-evento no-oculto'
                     :
-                    'modal-detalle-evento oculto'}>
-
+                    'tarjeta-detalle-responsiva modal-detalle-evento oculto'}>
                     <div className="encabezado-detalle-horario">
                         <span className="fa fa-arrow-left" onClick={() => { this.props.cerrar() }}></span>
                         <p>Regresar</p>
                     </div>
                     <div className="botonera-detalle-horario">
-                        <button className="btn-guardar-cambios"> Guardar cambios</button>
+                        <button className="btn-guardar-cambios" onClick={()=>{
+                            this.props.agregarEvento({start:this.state.rangoInicio,end:this.state.rangoFin})}}> Guardar cambios</button>
                         <span className="fa fa-edit"></span>
                         <span className="fa fa-trash"></span>
                     </div>
 
                     <p className="txt-tipo-horario-detalle-horario">Fecha y hora</p>
                     <div className="tipo-horario-detalle-horario">
-                        hi
+                        <div>
+                        <p>Desde </p>
+                        <DatePicker
+                            selected={this.state.rangoInicio}
+                            onChange={fecha => this.setState({rangoInicio:fecha})}
+                            showTimeSelect
+                            timeFormat="HH:mm"
+                            timeIntervals={5}
+                            timeCaption="Hora"
+                            dateFormat="dd/MM/yyyy HH:mm (aa)"
+                        />
+                        </div>
+                        <div>
+                        <p>Hasta </p>
+                        <DatePicker
+                            selected={this.state.rangoFin}
+                            onChange={fecha => this.setState({rangoFin:fecha})}
+                            showTimeSelect
+                            timeFormat="HH:mm"
+                            timeIntervals={5}
+                            timeCaption="Hora"
+                            dateFormat="dd/MM/yyyy HH:mm (aa)"
+                        />
                     </div>
-
+                    </div>
                     <p className="txt-fechahora-detalle-horario">Tipo horario</p>
                     <div className="fechahora-detalle-horario">
-                    <div class="radio-boton">
-                            <input type="radio" name="rd-tipo-horario" value="1" id="sizeWeight" checked="checked" />
-                            <label for="sizeWeight">Clase libre</label>
-                            <input type="radio" name="rd-tipo-horario" value="2" id="sizeDimensions" />
-                            <label for="sizeDimensions">Clase magistral</label>
-                            <a>¿Qué es esto?</a>
-                    </div>
-                    
+                        <div className="radio-boton">                           
+                            <input type="radio" name="rd-tipo-horario" value="1" id="rd-clase-libre" defaultChecked="checked" />
+                            <label htmlFor="rd-clase-libre">Clase libre</label>
+                            <input type="radio" name="rd-tipo-horario" value="2" id="rd-clase-magistral" />
+                            <label htmlFor="rd-clase-magistral">Clase magistral</label>                            
+                        </div>
+                        <a className="txt-que-esto-extendido">¿Qué es esto?</a>
+                        <span className="fa fa-question-circle fa-2x"></span>
                     </div>
 
                     <p className="txt-curso-detalle-horario">Curso</p>
                     <select className="caja-seleccion curso-detalle-horario">
-                        <option>Cualquiera</option>
+                        <option>Libre elección</option>
                         <option>Geometría</option>
                         <option>Física</option>
                     </select>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TarjetaCurso from '../../Utilidades/TarjetaCurso';
 import ContenedorCursos from './ContenedorCursos';
 import { Fade, Transform } from 'react-animation-components';
-import Horario from './HorarioGestor';
+import Horario from './Horario';
 
 import './GestionHorarios.css';
 
