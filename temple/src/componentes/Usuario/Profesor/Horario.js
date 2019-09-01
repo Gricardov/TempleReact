@@ -95,6 +95,30 @@ class Horario extends Component {
     }
   }
 
+  editarEvento(){
+    let eventos = this.state.eventos;
+
+    let momentoInicio = moment(this.state.rangoSeleccionado.start);
+    let momentoFin = moment(this.state.rangoSeleccionado.end);
+    if (!haySuperposicion(this.state.rangoSeleccionado.id, eventos, momentoInicio.toDate(), momentoFin.toDate())) {
+        // Primero, busco el evento que corresponda al id suministrado
+        let evento=null;
+        
+        evento=eventos.filter((e,i)=>e.id==this.state.rangoSeleccionado.id)[0];
+
+        // Si existe, que cambie sus datos
+        if (evento){
+          evento.start=this.state.rangoSeleccionado.start;
+          evento.end=this.state.rangoSeleccionado.end;
+
+          // Y lo vuelva a establecer
+          
+
+        }
+
+    }
+  }
+
   eliminarEvento() {
     let eventos = this.state.eventos;
     let eventoSeleccionado = this.state.eventoSeleccionado;
@@ -169,9 +193,9 @@ class Horario extends Component {
   }
 
   seleccionarEvento(evento) {
+    this.props.establecerAgregandoHorario(true);
     this.setState({
-      modalConfirmacionAbierto: true, mensajeConfirmacion: "¿Eliminar evento?",
-      operacionActual: "eliminacion", eventoSeleccionado: evento
+      operacionActual: "edicion", rangoSeleccionado: evento
     })
   }
 
@@ -279,12 +303,13 @@ class Horario extends Component {
 
               <ModalDetalleEvento abierto={this.state.modalDetalleAbierto} rangoSeleccionado={this.state.rangoSeleccionado}
                 cerrar={() => { this.props.establecerAgregandoHorario(false) }}
-                agregarEvento={(rangoSeleccionado) => {
-                  this.setState({ rangoSeleccionado: rangoSeleccionado }, () => {
+                guardarCambios={(evento) => {
+                  this.setState({ rangoSeleccionado: evento }, () => {
                     this.props.establecerAgregandoHorario(false);
                     this.agregarEvento();
                   });
                 }}
+                operacionActual={this.state.operacionActual}
               />
 
               <ModalConfirmacion encabezado={"¿Seguro?"} mensaje={this.state.mensajeConfirmacion}
