@@ -1685,6 +1685,19 @@ input, textarea {
   outline: dotted 1px #CCC;
   outline-offset: .45rem;
 }
+
+
+/*Media queries*/
+@media (max-width: 800px) {
+.rcw-widget-container{
+  display: none !important;
+}
+
+#barraNav{
+  position: absolute;
+}
+
+}
 @media (max-width: 800px) {
   .radio-boton input + label {
     padding: .6em 1.4em .5em .8em;
@@ -1694,9 +1707,6 @@ input, textarea {
     align-items: center;
   }
 }
-
-/*Media queries*/
-
 /*telefonitos*/
 @media (max-width: 575px){
 

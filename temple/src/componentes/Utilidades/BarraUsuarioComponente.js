@@ -69,7 +69,7 @@ class BarraUsuario extends Component {
     render() {
         return (
             <>
-                <Navbar dark expand="md" className="fixed-top sombra-barra">
+                <Navbar dark expand="md" id="barraNav" className="fixed-top sombra-barra">
 
                     <div className="container">
 
