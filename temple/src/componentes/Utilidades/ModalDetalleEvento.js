@@ -9,18 +9,23 @@ class ModalDetalleEvento extends Component {
         super(props);
         this.state = {
             rangoInicio: new Date(),
-            rangoFin: new Date()
+            rangoFin: new Date(),
+            id: null,
+            tipo: ''           
         }
     }
 
     componentDidUpdate(prevProps, prevState) {
 
-        if (prevProps.rangoSeleccionado != this.props.rangoSeleccionado) {
-
-            if (this.props.rangoSeleccionado) {
-                this.setState({ rangoInicio: this.props.rangoSeleccionado.start, rangoFin: this.props.rangoSeleccionado.end })
+        // En otras palabras, si envías un inicio y un fin, es porque haz hecho la selección por arrastre,
+        // si no, lo has hecho por medio del botón (que asigne las fechas de hoy como inicio y fin)
+        if (prevProps.eventoSeleccionado != this.props.eventoSeleccionado) {
+            if (this.props.eventoSeleccionado) {
+                this.setState({ rangoInicio: this.props.eventoSeleccionado.start,
+                    rangoFin: this.props.eventoSeleccionado.end, id:this.props.eventoSeleccionado.id,
+                    tipo: this.props.eventoSeleccionado.title})
             } else {
-                this.setState({ rangoInicio: new Date(), rangoFin: new Date() })
+                this.setState({ rangoInicio: new Date(), rangoFin: new Date(), id:null })
             }
 
         }
@@ -48,10 +53,9 @@ class ModalDetalleEvento extends Component {
                     </div>
                     <div className="botonera-detalle-horario">
                         <button className="btn-guardar-cambios" onClick={() => {
-                            this.props.guardarCambios({ start: this.state.rangoInicio, end: this.state.rangoFin })
+                            this.props.guardarCambios({ start: this.state.rangoInicio, end: this.state.rangoFin, id: this.state.id })
                         }}> Guardar cambios</button>
-                        <span className="fa fa-edit"></span>
-                        <span className="fa fa-trash"></span>
+                        <span className="fa fa-trash" onClick={()=>{this.props.eliminar({id:this.state.id, title: this.state.tipo})}}></span>
                     </div>
 
                     <p className="txt-tipo-horario-detalle-horario">Fecha y hora</p>

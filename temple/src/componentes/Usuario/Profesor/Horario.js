@@ -58,10 +58,9 @@ class Horario extends Component {
     this.state = {
       eventos: [],
       modalConfirmacionAbierto: false,
-      modalDetalleAbierto: false,
       mensajeConfirmacion: "",
       operacionActual: "",
-      rangoSeleccionado: null,
+      //rangoSeleccionado: null,
       eventoSeleccionado: null
     }
     this.agregarEvento = this.agregarEvento.bind(this);
@@ -75,8 +74,8 @@ class Horario extends Component {
   agregarEvento() {
     let eventos = this.state.eventos;
 
-    let momentoInicio = moment(this.state.rangoSeleccionado.start);
-    let momentoFin = moment(this.state.rangoSeleccionado.end);
+    let momentoInicio = moment(this.state.eventoSeleccionado.start);
+    let momentoFin = moment(this.state.eventoSeleccionado.end);
     if (!haySuperposicion(null, eventos, momentoInicio.toDate(), momentoFin.toDate())) {
 
       eventos.push({
@@ -87,35 +86,44 @@ class Horario extends Component {
         allDay: false
       })
 
-      this.setState({
-        eventos: eventos
-      })
+      this.setState({eventos: eventos},()=>this.props.cambiarEstadoModalDetalle(false))
+
     } else {
       alert('Hay superposición de horarios')
     }
   }
 
-  editarEvento(){
+  editarEvento() {
     let eventos = this.state.eventos;
 
-    let momentoInicio = moment(this.state.rangoSeleccionado.start);
-    let momentoFin = moment(this.state.rangoSeleccionado.end);
-    if (!haySuperposicion(this.state.rangoSeleccionado.id, eventos, momentoInicio.toDate(), momentoFin.toDate())) {
-        // Primero, busco el evento que corresponda al id suministrado
-        let evento=null;
-        
-        evento=eventos.filter((e,i)=>e.id==this.state.rangoSeleccionado.id)[0];
+    let momentoInicio = moment(this.state.eventoSeleccionado.start);
+    let momentoFin = moment(this.state.eventoSeleccionado.end);
+    //alert(JSON.stringify(this.state.eventoSeleccionado))
 
-        // Si existe, que cambie sus datos
-        if (evento){
-          evento.start=this.state.rangoSeleccionado.start;
-          evento.end=this.state.rangoSeleccionado.end;
+    if (!haySuperposicion(this.state.eventoSeleccionado.id, eventos, momentoInicio.toDate(), momentoFin.toDate())) {
+      // Primero, busco el evento que corresponda al id suministrado
 
-          // Y lo vuelva a establecer
-          
-
+      let evento = null;
+      let indice = -1;
+      eventos.map((e, i) => {
+        if (e.id == this.state.eventoSeleccionado.id) {
+          evento = e;
+          indice = i;
         }
+      });
+      // Si existe, que cambie sus datos
+      if (evento) {
+        evento.start = this.state.eventoSeleccionado.start;
+        evento.end = this.state.eventoSeleccionado.end;
+        // Lo reemplazo en el arreglo
+        eventos.splice(indice, 1, evento);
+        // Y lo vuelva a establecer
+        this.setState({ eventos: eventos });
+      }
+      this.props.cambiarEstadoModalDetalle(false);
 
+    } else {
+      alert('Hay superposición de horarios');
     }
   }
 
@@ -129,7 +137,7 @@ class Horario extends Component {
       this.setState({
         eventos: eventos
       })
-
+      this.props.cambiarEstadoModalDetalle(false);
     } else {
       alert('No puede eliminar una reserva hecha por algún alumno')
     }
@@ -186,26 +194,17 @@ class Horario extends Component {
     }
   }
   seleccionarRango(slotInfo) {
-    this.props.establecerAgregandoHorario(true);
+    this.props.cambiarEstadoModalDetalle(true);
     this.setState({
-      operacionActual: "registro", rangoSeleccionado: slotInfo
+      operacionActual: "registro", eventoSeleccionado: slotInfo
     })
   }
 
   seleccionarEvento(evento) {
-    this.props.establecerAgregandoHorario(true);
+    this.props.cambiarEstadoModalDetalle(true);
     this.setState({
-      operacionActual: "edicion", rangoSeleccionado: evento
+      operacionActual: "edicion", eventoSeleccionado: evento
     })
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.agregandoHorario != this.props.agregandoHorario) {
-      this.setState({
-        modalDetalleAbierto: this.props.agregandoHorario,
-        operacionActual: "registro", rangoSeleccionado: null
-      })
-    }
   }
 
   componentDidMount() {
@@ -285,7 +284,7 @@ class Horario extends Component {
                   if (event) {
 
                     // Pertenece a los eventos del profesor
-                    let style = {
+                    let estilo = {
                       backgroundColor: event.title == 'reservado' ? '#f57242' : '#52ff7a',
                       borderRadius: '0px',
                       opacity: 1,
@@ -294,19 +293,27 @@ class Horario extends Component {
                       display: 'block'
                     };
                     return {
-                      style: style
+                      style: estilo
                     };
 
                   }
                 }}
               />
 
-              <ModalDetalleEvento abierto={this.state.modalDetalleAbierto} rangoSeleccionado={this.state.rangoSeleccionado}
-                cerrar={() => { this.props.establecerAgregandoHorario(false) }}
+              <ModalDetalleEvento abierto={this.props.modalDetalleAbierto} eventoSeleccionado={this.state.eventoSeleccionado}
+                cerrar={() => { this.props.cambiarEstadoModalDetalle(false) }}
+                eliminar={(evento) => { this.setState({ eventoSeleccionado: evento }, () => { this.eliminarEvento() }) }}
                 guardarCambios={(evento) => {
-                  this.setState({ rangoSeleccionado: evento }, () => {
-                    this.props.establecerAgregandoHorario(false);
-                    this.agregarEvento();
+                  this.setState({ eventoSeleccionado: evento }, () => {
+                    let operacionActual = this.state.operacionActual;
+                    switch (operacionActual) {
+                      case "registro":
+                        this.agregarEvento();
+                        break;
+                      case "edicion":
+                        this.editarEvento();
+                        break;
+                    }
                   });
                 }}
                 operacionActual={this.state.operacionActual}
@@ -316,19 +323,8 @@ class Horario extends Component {
                 abierto={this.state.modalConfirmacionAbierto}
                 cambiarEstadoModal={() => { this.setState({ modalConfirmacionAbierto: !this.state.modalConfirmacionAbierto }) }}
                 confirmar={() => {
-                  let operacionActual = this.state.operacionActual;
 
-                  switch (operacionActual) {
-                    case "registro":
-                      this.agregarEvento();
-                      break;
-                    case "actualizacion":
-                      this.editarEvento();
-                      break;
-                    case "eliminacion":
-                      this.eliminarEvento();
-                      break;
-                  }
+
                   this.setState({
                     modalConfirmacionAbierto: !this.state.modalConfirmacionAbierto,
                     operacionActual: ""
