@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Slider from 'react-slick';
+import './SelectorPastillas.css';
 
 const SelectorPastillas = (props) => {
 
@@ -19,7 +20,7 @@ const SelectorPastillas = (props) => {
     }
 
     var configuracion = {
-        className: props.oculto ? "control-secundario-perfil-perfil control-secundario-perfil-oculto" : "control-secundario-perfil",
+        className: props.oculto ? "control-secundario oculto" : "control-secundario",
         centerMode: false,
         infinite: false,
         speed: 200,

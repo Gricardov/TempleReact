@@ -1,0 +1,73 @@
+.control-secundario{
+    display: block;
+}
+
+.boton-control-secundario{
+   
+    text-align: center;
+    font-size: 1.1rem;
+    min-height: 45px;
+    position: relative;
+    
+ }
+
+ .boton-control-secundario a
+ {
+    background: #fff;
+    border-radius: 20px;
+    text-decoration: none;
+    color:black;
+    display: block;
+    padding: 2px;
+    margin-right: 20px;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+
+    -webkit-box-shadow: 11px 6px 14px -5px rgb(0, 0, 0);
+    -moz-box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
+    box-shadow: 11px 6px 14px -5px rgba(0,0,0,1);
+
+    -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  
+  animation: movimiento-control-secundario 0.4s linear;
+  webkit-animation: movimiento-control-secundario 0.4s linear;
+    
+ }
+
+.boton-control-secundario a:hover
+ {
+    background: #c2e1ff;
+ }
+
+ .boton-control-secundario-seleccionado{
+    background: #9ecfff !important;
+    top: 2px;
+    left: 2px;
+    -webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.boton-control-secundario-deseleccionado{
+    border-bottom: 0px;
+    background: #fff;
+}
+
+@media screen and (max-width: 576px){
+
+
+.boton-control-secundario{          
+    min-height: 35px !important;        
+    
+ }
+
+.boton-control-secundario a {
+    font-size: 1rem;
+}
+}

@@ -9,16 +9,16 @@ class GestionAlumnos extends Component {
         super(props);
         this.state = {
             modalDetalleAbierto:false,
-            pestanas:[{ nombre: 'Todos' }, { nombre: 'Clases presenciales' }, { nombre: 'Solución de ejercicios' }]
-            
+            pestanas:[{ nombre: 'Todos' }, { nombre: 'Clases presenciales' }, { nombre: 'Solución de ejercicios' }],
+            indiceSeleccion: 0            
         };
     }
     
     render() {
         return (
             <div className="perfil-debajo-barra contenedor-gestion-horarios-css-grid">
-                <SelectorPastillas pestanas={this.state.pestanas} seleccionar={(i)=>{this.props.seleccionar(i)}}
-                indiceSeleccion={this.props.seleccionSecundaria} oculto={this.props.revisandoEjercicio}/>
+                <SelectorPastillas pestanas={this.state.pestanas} seleccionar={(i)=>{this.setState({indiceSeleccion:i})}}
+                indiceSeleccion={this.state.indiceSeleccion} oculto={false}/>
                 <div className="tarjeta-contenedora-contenido-responsiva tarjeta-contenedora-contenido">
                     <div className="tarjeta-detalle-responsiva tarjeta-horario">
                     
