@@ -22,6 +22,7 @@ import CubiertaContrato from '../Utilidades/CubiertaContrato';
 import DetalleCitaAlumno from '../Usuario/Alumno/MisCitas';
 import GestionCursos from '../Usuario/Profesor/GestionCursos';
 import GestionHorarios from '../Usuario/Profesor/GestionHorarios';
+import GestionAlumnos from '../Usuario/Profesor/GestionAlumnos';
 import DetalleCitaProfesor from '../Usuario/Profesor/MisCitas';
 import MisHorarios from '../Usuario/Profesor/MisHorarios';
 
@@ -202,6 +203,11 @@ class Principal extends Component {
                                     
                                     
                                 }/>
+                                <Route path={RUTAS.MIS_ALUMNOS_PROFESOR.ruta} component={()=>
+                                
+                                <GestionAlumnos alumnos={{}}/>
+                                
+                                } />
                                     {/*<MisHorarios
                                         actualizarHorarios={this.props.actualizarHorarios}
                                         obtenerPerfil={this.props.obtenerPerfil}

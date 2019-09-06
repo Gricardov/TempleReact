@@ -132,7 +132,7 @@ class BarraUsuario extends Component {
                                                 ?
                                                 <>
                                                 <DropdownItem onClick={() => {}}>
-                                                        Gestionar clases
+                                                        Gestionar contratos
                                                     </DropdownItem>
                                                     <DropdownItem onClick={() => {
                                                         this.props.obtenerPerfil(this.props.usuario.COD_USU, this.props.usuario.ID_ROL)
@@ -147,7 +147,10 @@ class BarraUsuario extends Component {
                                                     }}>
                                                         Gestionar cursos
                                                     </DropdownItem>
-                                                    <DropdownItem onClick={() => {}}>
+                                                    <DropdownItem onClick={() => {
+                                                        this.props.obtenerPerfil(this.props.usuario.COD_USU, this.props.usuario.ID_ROL)
+                                                        this.props.history.push(RUTAS.MIS_ALUMNOS_PROFESOR.ruta);
+                                                    }}>
                                                         Gestionar alumnos
                                                     </DropdownItem>
                                                     <DropdownItem onClick={() => {}}>

@@ -5,6 +5,7 @@ import TarjetaEjercicio from '../../Utilidades/TarjetaEjercicio';
 import TarjetaDetalleEjercicio from '../../Utilidades/TarjetaDetalleEjercicio';
 import { Fade, Transform } from 'react-animation-components';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import SelectorPastillas from '../../Utilidades/SelectorPastillas';
 import { Alert } from 'reactstrap';
 import '../../../../node_modules/slick-carousel/slick/slick.css';
 import '../../../../node_modules/slick-carousel/slick/slick-theme.css';
@@ -21,21 +22,7 @@ class ContenedorPerfil extends Component {
 
     render() {
 
-        // Primero, construyo las pestañas
-        let pestanas = [];
-
-        if (this.props.pestanas) {
-            pestanas = this.props.pestanas.map((e, i) => {
-                return (
-                    <div key={i} className="boton-control-secundario">
-                        <a style={{ animationDelay: `${i * 0.1}s` }} onClick={() => { this.props.seleccionar(i) }}
-                            className={this.props.seleccionSecundaria == i ? 'boton-control-secundario-seleccionado'
-                                : 'boton-control-secundario-deseleccionado'}>{e.nombre}</a>
-                    </div>
-                )
-            })
-        }
-        // Ahora, pregunto qué clase de información debo mostrar
+        // Pregunto qué clase de información debo mostrar
         let contenido = null;
 
         switch (this.props.seleccionPrincipal) {
@@ -64,44 +51,10 @@ class ContenedorPerfil extends Component {
 
         }
 
-        var confSelectorSecundario = {
-            className: this.props.revisandoEjercicio ? "control-secundario-perfil-perfil control-secundario-perfil-oculto" : "control-secundario-perfil",
-            centerMode: false,
-            infinite: false,
-            speed: 200,
-            slidesToShow: pestanas.length <= 4 ? pestanas.length : 3.5,
-            slidesToScroll: 1,
-            arrows: false,
-            responsive: [
-                {
-                    breakpoint: 992,
-                    settings: {
-                        arrows: false,
-                        slidesToShow: 3.5
-                    }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        arrows: false,
-                        slidesToShow: 2.5
-                    }
-                },
-                {
-                    breakpoint: 480,
-                    settings: {
-                        arrows: false,
-                        slidesToShow: 1.6
-                    }
-                }
-            ]
-        };
-
         return (
             <>
-                <Slider {...confSelectorSecundario}>
-                    {pestanas}
-                </Slider>
+                <SelectorPastillas pestanas={this.props.pestanas} seleccionar={(i)=>{this.props.seleccionar(i)}}
+                indiceSeleccion={this.props.seleccionSecundaria} oculto={this.props.revisandoEjercicio}/>
                 <Transform enterTransform="translateY(0px)" exitTransform="translateY(50px)" duration={300} in>
                     <div className="contenido-seleccion">
                         <div className={this.props.revisandoEjercicio 
