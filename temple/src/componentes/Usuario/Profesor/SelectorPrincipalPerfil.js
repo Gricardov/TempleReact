@@ -5,6 +5,8 @@ import { Fade, Transform } from 'react-animation-components';
 
 import '../../../../node_modules/slick-carousel/slick/slick.css';
 import '../../../../node_modules/slick-carousel/slick/slick-theme.css';
+import './SelectorPrincipalPerfil.css';
+
 class SelectorPrincipal extends Component {
     constructor(props) {
         super(props);
@@ -14,7 +16,7 @@ class SelectorPrincipal extends Component {
     }
 
     render() {
-        var confSelectorPrincipal = {
+        var configuracion = {
             className: this.props.revisandoEjercicio ? "control-principal-perfil control-principal-perfil-oculto" : "control-principal-perfil",
             centerMode: false,
             infinite: false,
@@ -50,24 +52,22 @@ class SelectorPrincipal extends Component {
             ]
         };
 
+        let pestanas=[];
+
+        pestanas=this.props.pestanas.map((e,i)=>{
+            return (
+                <div onClick={() => { this.props.seleccionar(i) }}
+                    className={this.props.seleccionado == i ? 'boton-control-principal boton-control-principal-seleccionado'
+                        : 'boton-control-principal boton-control-principal-deseleccionado'}>
+                    <a href="#">{e.nombre}</a>
+                </div>
+            )
+        })
+
         return (
 
-            <Slider {...confSelectorPrincipal}>
-                <div onClick={() => { this.props.seleccionar(0) }}
-                    className={this.props.seleccionado == 0 ? 'boton-control-principal boton-control-principal-seleccionado'
-                        : 'boton-control-principal boton-control-principal-deseleccionado'}>
-                    <a href="#">Mis clases</a>
-                </div>
-                <div onClick={() => { this.props.seleccionar(1) }}
-                    className={this.props.seleccionado == 1 ? 'boton-control-principal boton-control-principal-seleccionado'
-                        : 'boton-control-principal boton-control-principal-deseleccionado'}>
-                    <a href="#">Solución de ejercicios</a>
-                </div>
-                <div onClick={() => { this.props.seleccionar(2) }}
-                    className={this.props.seleccionado == 2 ? 'boton-control-principal boton-control-principal-seleccionado'
-                        : 'boton-control-principal boton-control-principal-deseleccionado'}>
-                    <a href="#">Mi perfil</a>
-                </div>
+            <Slider {...configuracion}>
+                {pestanas}                
             </Slider>
 
         )

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './CajonColapsablePerfil.css';
 
 class Cajon extends Component {
     constructor(props) {

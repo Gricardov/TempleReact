@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Fade } from 'react-animation-components';
+import './TarjetaDetalleEjercicio.css';
 
 class TarjetaDetalle extends Component {
     constructor(props) {

@@ -1,0 +1,65 @@
+.tarjeta-curso{
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 5px;
+    min-height: 100px;
+    padding: 20px;
+    background: #fff;
+    display: grid;
+    grid-gap: 5px;
+    justify-items: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4,auto);
+    grid-template-areas:    "img-tarjeta-curso"
+                            "nombre-tarjeta-curso"
+                            "categoria-tarjeta-curso"
+                            "cuerpo-tarjeta-curso";
+    cursor: pointer;
+}
+
+.tarjeta-curso img{
+    display: block;
+    border-radius: 50%;
+    border: 1px solid #efefef;
+    justify-self: center;
+    align-self: center;
+    grid-area: img-tarjeta-curso;
+    width: 120px;
+    height: 120px;
+    box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+    
+}
+
+.tarjeta-curso h1{
+    font-size: 1.5rem;
+    color: #5a5a5a;
+    overflow: hidden;
+    grid-area: nombre-tarjeta-curso;
+    justify-self: center;
+
+}
+
+.tarjeta-curso h2{
+    font-size: 0.8rem;
+    color: #5a5a5a;
+    overflow: hidden;
+    grid-area: categoria-tarjeta-curso;
+    justify-self: center;
+    margin-bottom: 0px;
+    
+}
+
+
+.tarjeta-curso > div {
+    grid-area: cuerpo-tarjeta-curso;
+    justify-self: center;
+
+}
+
+.tarjeta-curso >div p{
+    display: block;
+    overflow: hidden;
+    color: rgb(170, 170, 170);
+    font-size: 0.7rem;
+    line-height: 15px;
+    margin-top: 5px;
+}

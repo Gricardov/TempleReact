@@ -26,12 +26,11 @@ class MiPerfil extends Component {
             modalMensajeAbierto: false,
             seleccionPrincipal: 0,
             seleccionSecundaria: 0,
-            selectores: {
-                0: [{ nombre: 'Futuras' }, { nombre: 'En este momento' }, { nombre: 'Pasadas' }],
-                1: [{ nombre: 'Todos' }],
-                2: [{ nombre: 'Presentación' }, { nombre: 'Reseñas' },
-                { nombre: 'Publicaciones' }, { nombre: 'Datos personales' },]
-            },
+            selectores: [
+                {nombre:"Mis contratos",subs:[{ nombre: 'Futuros' }, { nombre: 'Actuales' }, { nombre: 'Pasados' }]},
+                {nombre:"Solución de ejercicios",subs:[{ nombre: 'Todos' }]},
+                {nombre:"Mi perfil",subs:[{ nombre: 'Presentación' }, { nombre: 'Reseñas' }, {nombre: 'Publicaciones' }, { nombre: 'Datos personales' }]}
+                ],            
             perfilSeleccionado: null,
             revisandoEjercicio: false,
             cajonLateralAbierto: true,
@@ -74,7 +73,7 @@ class MiPerfil extends Component {
         // Primero, actualizo el state con los cursos de los ejercicios       
         if (this.props.ejercicios) {
             // Obtengo el arreglo que está en mi estado y le borro el primero porque es general
-            let ejerciciosActuales = JSON.parse(JSON.stringify(this.state.selectores["1"]));
+            let ejerciciosActuales = JSON.parse(JSON.stringify(this.state.selectores["1"].subs));
             ejerciciosActuales.shift();
 
             // Extraigo solo los nombres de los cursos de los props
@@ -83,7 +82,7 @@ class MiPerfil extends Component {
 
             if (JSON.stringify(ejerciciosActuales) !== JSON.stringify(selectoresCursosNuevos)) {
                 let selectoresAux = this.state.selectores;
-                selectoresAux["1"] = [{ nombre: 'Todos' }].concat(selectoresCursosNuevos);
+                selectoresAux["1"].subs = [{ nombre: 'Todos' }].concat(selectoresCursosNuevos);
 
                 this.setState({ selectores: selectoresAux });
             }
@@ -106,10 +105,11 @@ class MiPerfil extends Component {
                     <SelectorPrincipal
                         seleccionado={this.state.seleccionPrincipal}
                         seleccionar={(seleccion) => { this.setState({ seleccionPrincipal: seleccion, seleccionSecundaria: 0 }) }}
-                        revisandoEjercicio={this.state.revisandoEjercicio} />
+                        revisandoEjercicio={this.state.revisandoEjercicio}
+                        pestanas={this.state.selectores} />
                 </div>
 
-                <div className="contenedor-selector-secundario">
+                <div className="contenedor-selector-secundario panel-fondo">
                     <ContenedorPerfil
                         citas={this.props.citas}
                         ejercicios={this.props.ejercicios}
@@ -125,7 +125,7 @@ class MiPerfil extends Component {
                             () => { alert('Respuesta enviada') }
                         }
                         revisandoEjercicio={this.state.revisandoEjercicio}
-                        pestanas={this.state.selectores[this.state.seleccionPrincipal]}
+                        pestanas={this.state.selectores[this.state.seleccionPrincipal].subs}
                         seleccionPrincipal={this.state.seleccionPrincipal}
                         seleccionSecundaria={this.state.seleccionSecundaria}
                         seleccionar={(seleccion) => { this.setState({ seleccionSecundaria: seleccion }) }}

@@ -1,0 +1,177 @@
+.tarjeta-detalle-curso{
+    display: grid;
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 5px;   
+    padding: 20px;
+    background: #fff;
+    margin-bottom: 10px;
+    grid-gap: 30px;
+    align-items: center;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 30px repeat(5, auto) 30px;
+    grid-template-areas:"encabezado-detalle-curso       botonera-detalle-curso"
+                        "txt-descripcion-detalle-curso  descripcion-detalle-curso"
+                        "txt-niveles-detalle-curso      niveles-detalle-curso"
+                        "txt-temas-detalle-curso        temas-detalle-curso"
+                        "txt-costo-hora-detalle-curso   costo-hora-detalle-curso"
+                        "txt-costo-ejercicio-detalle-curso costo-ejercicio-detalle-curso"
+                        "txt-pregunta-ejercicio-detalle-curso pregunta-ejercicio-detalle-curso";
+}
+
+.tarjeta-detalle-curso .modal-detalle-evento a{
+    color: #007bff !important;  
+}
+
+.tarjeta-detalle-curso input, textarea{
+    outline:none;
+    border:1px rgb(160, 160, 160) solid;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.encabezado-detalle-curso{
+    grid-area: encabezado-detalle-curso;
+    align-items: center;
+}
+
+.encabezado-detalle-curso p{
+    font-weight: normal !important;
+    margin-left: 20px !important;
+}
+
+.encabezado-detalle-curso span{
+    margin-left: 0px;
+}
+
+.botonera-detalle-curso{
+    grid-area:botonera-detalle-curso;
+    justify-self: end;
+}
+
+.botonera-detalle-curso .btn-guardar-cambios{
+        padding: 7px;
+        outline: none;
+        text-decoration: none;
+        border: none;
+        border-radius: 20px;
+        color: black;
+        font-size: 1rem;
+        box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);    
+}
+
+.txt-descripcion-detalle-curso{
+    grid-area: txt-descripcion-detalle-curso;
+}
+
+.descripcion-detalle-curso{
+    grid-area: descripcion-detalle-curso;
+    resize: none;
+}
+
+.txt-niveles-detalle-curso{
+    grid-area: txt-niveles-detalle-curso;
+
+}
+
+.niveles-detalle-curso{
+    grid-area: niveles-detalle-curso;
+
+}
+
+.txt-temas-detalle-curso{
+    grid-area: txt-temas-detalle-curso;
+
+}
+
+.temas-detalle-curso{
+    grid-area: temas-detalle-curso;
+
+}
+
+.txt-costo-hora-detalle-curso{
+    grid-area: txt-costo-hora-detalle-curso;
+
+}
+
+.costo-hora-detalle-curso{
+    grid-area: costo-hora-detalle-curso;
+
+}
+
+.txt-costo-ejercicio-detalle-curso{
+    grid-area: txt-costo-ejercicio-detalle-curso;
+
+}
+
+.costo-ejercicio-detalle-curso{
+    grid-area: costo-ejercicio-detalle-curso;
+
+}
+
+.txt-pregunta-ejercicio-detalle-curso{
+    grid-area: txt-pregunta-ejercicio-detalle-curso;
+
+}
+
+.pregunta-ejercicio-detalle-curso{
+    grid-area: pregunta-ejercicio-detalle-curso;
+
+}
+
+.pregunta-ejercicio-detalle-curso p{
+    font-weight: normal;
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 768px){
+    .tarjeta-detalle-curso{
+        grid-gap: 15px !important;        
+    }
+}
+
+@media screen and (max-width: 576px){
+    .tarjeta-detalle-curso{
+        align-items: center;
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: 30px 40px auto 12px auto 12px auto 12px auto 12px auto 12px 30px;
+        grid-template-areas:"encabezado-detalle-curso       botonera-detalle-curso"
+                            "txt-descripcion-detalle-curso  txt-descripcion-detalle-curso"
+                            "descripcion-detalle-curso      descripcion-detalle-curso"
+                            "txt-niveles-detalle-curso      txt-niveles-detalle-curso"
+                            "niveles-detalle-curso          niveles-detalle-curso"
+                            "txt-temas-detalle-curso        txt-temas-detalle-curso"
+                            "temas-detalle-curso            temas-detalle-curso"
+                            "txt-costo-hora-detalle-curso   txt-costo-hora-detalle-curso"
+                            "costo-hora-detalle-curso       costo-hora-detalle-curso"
+                            "txt-costo-ejercicio-detalle-curso txt-costo-ejercicio-detalle-curso"
+                            "costo-ejercicio-detalle-curso  costo-ejercicio-detalle-curso"
+                            "txt-pregunta-ejercicio-detalle-curso txt-pregunta-ejercicio-detalle-curso"
+                            "pregunta-ejercicio-detalle-curso pregunta-ejercicio-detalle-curso"
+    }
+
+    .txt-descripcion-detalle-curso{
+        border-top: 1px solid gray;
+        margin-top: 15px;
+    }
+
+    .contenedor-gestion-cursos-css-grid p, .contenedor-gestion-cursos-css-grid a{
+        font-size: 0.8rem !important;
+        margin-left: 5px !important;
+    
+    }
+    .botonera-detalle-curso span{
+        margin-left: 10px;
+    }
+
+    .btn-guardar-cambios{
+        padding: 3px !important;
+        font-size: 0.8rem !important;
+    }
+
+    .btn-agregar-curso{
+        margin: 10px !important;
+        font-size: 0.7rem !important;
+    }
+    
+
+}

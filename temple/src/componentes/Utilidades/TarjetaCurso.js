@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './TarjetaCurso.css';
 
 const TarjetaCurso = (props) => {
     let curso = props.curso;

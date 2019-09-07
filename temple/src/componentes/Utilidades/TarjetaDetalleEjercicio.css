@@ -1,0 +1,178 @@
+.tarjeta-detalle-ejercicio{
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 5px;
+    min-height: 100px;
+    padding: 20px;
+    background: #fff;
+    margin-bottom: 10px; 
+    display: grid;
+    grid-gap: 30px;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 30px minmax(40px,auto) minmax(80px,auto) 30px;        
+    grid-template-areas:    "encabezado-detalle-ejercicio    estado-detalle-ejercicio"
+                            "asunto-detalle-ejercicio        mensaje-detalle-ejercicio"
+                            "contenido-detalle-ejercicio     mensaje-detalle-ejercicio "
+                            "adjuntos-detalle-ejercicio      adjuntos-detalle-ejercicio"
+}
+
+.encabezado-detalle-ejercicio{
+    grid-area: encabezado-detalle-ejercicio;
+    align-items: center;
+}
+
+.encabezado-detalle-ejercicio span{
+    margin-left: 0px;
+}
+
+.encabezado-detalle-ejercicio p{
+    margin-left: 20px;
+}
+
+.asunto-detalle-ejercicio{
+    grid-area: asunto-detalle-ejercicio;
+    border-top: 1px solid rgb(170, 170, 170);
+    margin-left: 30px;
+
+}
+
+.asunto-detalle-ejercicio h1{
+    color:#5a5a5a;
+    font-size: 1.7rem;
+    margin-top: 20px;
+}
+
+.estado-detalle-ejercicio{
+    grid-area:estado-detalle-ejercicio;
+    justify-self: end;
+    margin-right: 20px;
+}
+
+.contenido-detalle-ejercicio{
+    grid-area:contenido-detalle-ejercicio;
+    text-align: justify;
+    text-justify: inter-word;
+    margin-left: 30px;
+}
+
+.contenido-detalle-ejercicio p{
+    color:#838383;
+    font-size: 1rem;
+    line-height: 30px;
+    white-space: normal;
+    margin-left: 0px;
+}
+
+.mensaje-detalle-ejercicio{
+    grid-area: mensaje-detalle-ejercicio;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    border: 1px rgb(223, 223, 223) solid;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.mensaje-detalle-ejercicio p{
+text-align: center;
+background: rgb(50, 146, 255);
+color: #fff;
+padding: 10px;
+border-top-left-radius: 9px;
+border-top-right-radius: 9px;
+flex-grow: auto;
+}
+
+.mensaje-detalle-ejercicio textarea{
+    margin: 10px;
+    outline: none;
+    text-decoration: none;
+    border:none;
+    flex-grow: 1;
+    resize: none;
+    }
+
+.mensaje-detalle-ejercicio .mensaje-detalle-ejercicios-botones{
+    flex-grow: auto;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.contenedor-controles-adjuntos{
+    flex-grow: 40;
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn-enviar-mensaje{
+    flex-grow: 1;
+    margin-left: auto;
+    border:none;
+    outline: none;
+    text-decoration: none;
+    border-radius: 50%;
+    color: #fff;
+    background: green;
+    cursor: pointer;
+
+}
+
+.adjuntos-detalle-ejercicio{
+    grid-area: adjuntos-detalle-ejercicio;
+}
+
+.adjuntos-detalle-ejercicio p{
+    margin-left: 30px;
+    font-weight: bold;
+    color: #5a5a5a;
+    font-size: 0.9rem;
+}
+
+@media screen and (max-width: 1500px){
+    .tarjeta-detalle-ejercicio{
+    
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 30px minmax(40px,auto) minmax(80px,auto) minmax(30px,auto) 500px ;        
+    grid-template-areas:    "encabezado-detalle-ejercicio    estado-detalle-ejercicio"
+                            "asunto-detalle-ejercicio        asunto-detalle-ejercicio"
+                            "contenido-detalle-ejercicio     contenido-detalle-ejercicio"
+                            "adjuntos-detalle-ejercicio      adjuntos-detalle-ejercicio"
+                            "mensaje-detalle-ejercicio       mensaje-detalle-ejercicio"                            
+    }
+
+    .asunto-detalle-ejercicio{
+        margin-right: 30px;
+    }
+
+    .contenido-detalle-ejercicio{
+        margin-right: 30px;
+    }
+}
+
+@media screen and (max-width: 576px){
+
+.encabezado-detalle-ejercicio{
+    margin-left: 10px;
+}
+
+.asunto-detalle-ejercicio{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.asunto-detalle-ejercicio h1{
+    font-size: 1.6rem;
+}
+.contenido-detalle-ejercicio{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.contenido-detalle-ejercicio p{
+    font-size: 0.9rem;
+}
+
+.adjuntos-detalle-ejercicio p{
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 0.8rem;
+} }

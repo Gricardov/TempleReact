@@ -34,13 +34,13 @@ class GestionCursos extends Component {
 
     render() {
         return (
-            <div className="perfil-debajo-barra contenedor-gestion-cursos-css-grid">
-                <h1>Cursos que enseño{this.state.revisandoCurso ? `: ${this.state.cursoSeleccionado.nombre}` : null}</h1>
+            <div className="perfil-debajo-barra contenedor-gestion-cursos-css-grid panel-fondo">
+                <h1 className="titulo-gestion">Cursos que enseño{this.state.revisandoCurso ? `: ${this.state.cursoSeleccionado.nombre}` : null}</h1>
                 <button className={this.state.revisandoCurso
                     ?
-                    "btn-agregar-curso invisible"
+                    "btn-gestion invisible"
                     :
-                    "btn-agregar-curso visible"}>Agregar curso</button>
+                    "btn-gestion visible"}>Agregar curso</button>
 
                 <div className={this.state.revisandoCurso
                     ?

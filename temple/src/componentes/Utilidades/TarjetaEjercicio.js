@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Card, CardHeader, CardBody, Row, Col, Button } from 'reactstrap';
 import { Fade } from 'react-animation-components';
+import './TarjetaEjercicio.css';
+
 let moment = require('moment');
 
 class TarjetaEjercicio extends Component {

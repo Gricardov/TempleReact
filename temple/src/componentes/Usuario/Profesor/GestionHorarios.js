@@ -14,12 +14,12 @@ class GestionHorarios extends Component {
     
     render() {
         return (
-            <div className="perfil-debajo-barra contenedor-gestion-horarios-css-grid">
-                <h1>Horarios de enseñanza</h1>
-                <button className={"btn-agregar-horario visible"} onClick={()=>{this.setState({modalDetalleAbierto:true})}}>Agregar horario</button>
+            <div className="perfil-debajo-barra contenedor-gestion-horarios-css-grid panel-fondo">
+                <h1 className="titulo-gestion">Horarios de enseñanza</h1>
+                <button className={"btn-gestion visible"} onClick={()=>{this.setState({modalDetalleAbierto:true})}}>Agregar horario</button>
                 
                 <div className="tarjeta-contenedora-contenido-responsiva tarjeta-contenedora-contenido">
-                    <div className="tarjeta-detalle-responsiva tarjeta-horario">
+                    <div className="tarjeta-detalle-responsiva tarjeta-contenido">
                     <Horario eventos={this.props.horarios} modalDetalleAbierto={this.state.modalDetalleAbierto}
                     cambiarEstadoModalDetalle={(estado)=>{this.setState({modalDetalleAbierto:estado})}}/>
                     </div>
