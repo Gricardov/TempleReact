@@ -1,0 +1,80 @@
+.modal-cuadricula-alumnos{
+    cursor:auto;
+    display: grid;
+    position: fixed;
+    z-index: 1051;
+    top: 500px;
+    left: 50%;
+    width: 95%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 5px;
+    padding: 20px;
+    grid-gap: 30px;
+    background: #fff;
+    align-items: center;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 30px auto;
+    grid-template-areas:"encabezado-cuadricula-alumnos     botonera-cuadricula-alumnos"
+                        "contenido-cuadricula-alumnos      contenido-cuadricula-alumnos";
+
+}
+
+.modal-cuadricula-alumnos a{
+    color: #007bff !important;
+}
+
+.modal-cuadricula-alumnos p{
+    display: inline;
+    font-size: .9rem;
+    color: #5a5a5a;
+}
+
+.modal-cuadricula-alumnos span{
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+.modal-cuadricula-alumnos input, textarea{
+outline:none;
+border:1px rgb(160, 160, 160) solid;
+border-radius: 10px;
+padding: 5px;
+resize: none;
+}
+
+.encabezado-cuadricula-alumnos{
+    grid-area: encabezado-cuadricula-alumnos;
+    align-items: center;
+}
+
+.encabezado-cuadricula-alumnos p{
+    font-weight: normal !important;
+    margin-left: 20px !important;
+}
+
+.encabezado-cuadricula-alumnos span{
+    margin-left: 0px;
+}
+
+.botonera-cuadricula-alumnos{
+    grid-area:botonera-cuadricula-alumnos;
+    justify-self: end;
+}
+
+.botonera-cuadricula-alumnos .btn-guardar-cambios{
+        padding: 7px;
+        outline: none;
+        text-decoration: none;
+        border: none;
+        border-radius: 20px;
+        color: black;
+        font-size: 1rem;
+        box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);    
+}
+
+.contenido-cuadricula-alumnos{
+    grid-area: contenido-cuadricula-alumnos;
+    display: grid;
+}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "./ModalDetalleEvento.css";
 
 class ModalDetalleEvento extends Component {
 
