@@ -1930,7 +1930,7 @@ input, textarea {
  @media screen and (max-width: 1500px){
  
   .tarjeta-detalle-responsiva{
-    grid-gap: 25px !important;
+    grid-gap: 20px !important;
 
   }
 }
@@ -1961,3 +1961,50 @@ input, textarea {
 }
 
 }
+
+/*Miscelánea :v*/
+
+/*Botones de tarjeta*/
+.btn-tarjeta{
+  border-radius: 15px;
+  padding: 5px 50px;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  font-size: 0.8rem;
+  color: #fff;
+  box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+}
+
+@media screen and (max-width: 768px){
+  .btn-tarjeta{
+    padding: 5px 15px;
+
+  }
+}
+
+/*Etiqueta pastilla*/
+.etiqueta-pastilla{
+  border-radius: 20px;
+  color: white !important;
+  padding: 5px 8px;
+  font-size: 0.8rem !important;
+}
+
+.verde{
+  background: #41c578;
+}
+
+.rojo{
+  background: #d65e5e;
+}
+
+.agua{
+  background: #4ba2ff;
+}
+
+.color-clase-magistral{
+  background: #bcc90d;
+}
+
+

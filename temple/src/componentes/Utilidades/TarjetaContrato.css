@@ -1,0 +1,95 @@
+.tarjeta-contrato{
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 5px;
+    min-height: 100px;
+    padding: 20px;
+    background: #fff;
+    display: grid;
+    grid-gap: 1px;
+    justify-items: start;
+    grid-template-columns: 1fr 8fr;
+    grid-template-rows: repeat(5,auto);
+    grid-template-areas:    "img-tarjeta-contrato       nombre-tarjeta-contrato"
+                            "img-tarjeta-contrato       tipo-tarjeta-contrato"
+                            "txt-desde-tarjeta-contrato desde-tarjeta-contrato"
+                            "txt-hasta-tarjeta-contrato hasta-tarjeta-contrato"
+                            "txt-lugar-tarjeta-contrato lugar-tarjeta-contrato"
+                            "botonera-tarjeta-contrato  botonera-tarjeta-contrato";
+    cursor: auto;
+    margin-bottom: 10px;
+}
+
+.tarjeta-contrato img{
+    display: block;
+    border-radius: 50%;
+    border: 1px solid #efefef;
+    justify-self: start;
+    align-self: center;
+    grid-area: img-tarjeta-contrato;
+    width: 80px;
+    height: 80px;
+    box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+    margin-left: 30px;
+}
+
+.tarjeta-contrato p{
+    display: inline;
+    font-size: 0.9rem;
+    color: #5a5a5a;
+}
+
+.tarjeta-contrato .txt-titulo-tarjeta-contrato{
+    display: inline;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+.tarjeta-contrato .nombre-tarjeta-contrato{
+    grid-area: nombre-tarjeta-contrato;
+    font-size: 1.8rem;
+    color: #5a5a5a;
+    overflow: hidden;
+    justify-self: start;
+    align-self: center;
+    margin: 0px;
+}
+
+.tarjeta-contrato .tipo-tarjeta-contrato{
+    grid-area: tipo-tarjeta-contrato;
+
+}
+
+.tarjeta-contrato .txt-desde-tarjeta-contrato{
+    grid-area: txt-desde-tarjeta-contrato;
+
+}
+.tarjeta-contrato .desde-tarjeta-contrato{
+    grid-area: desde-tarjeta-contrato;
+
+}
+.tarjeta-contrato .txt-hasta-tarjeta-contrato{
+    grid-area: txt-hasta-tarjeta-contrato;
+
+}
+
+.tarjeta-contrato .hasta-tarjeta-contrato{
+    grid-area:hasta-tarjeta-contrato;
+}
+
+.tarjeta-contrato .txt-lugar-tarjeta-contrato{
+    grid-area: txt-lugar-tarjeta-contrato;
+
+}
+
+.tarjeta-contrato .lugar-tarjeta-contrato{
+    grid-area:lugar-tarjeta-contrato
+}
+
+.tarjeta-contrato .botonera-tarjeta-contrato{
+    grid-area: botonera-tarjeta-contrato;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-self: stretch;
+    justify-content: space-around;
+}

@@ -43,7 +43,7 @@ class TarjetaEjercicio extends Component {
                     <div className="oferta-tarjeta-ejercicio">
                         <p>Oferta: 5 soles</p>
                     </div>
-                    <button className="btn-revisar-tarjeta-ejercicio" onClick={() => { this.props.revisarEjercicio(this.props.ejercicio.id) }}>Revisar</button>
+                    <button className="btn-tarjeta verde" onClick={() => { this.props.revisarEjercicio(this.props.ejercicio.id) }}>Revisar</button>
 
                 </div>
 

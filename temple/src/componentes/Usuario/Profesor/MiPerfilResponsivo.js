@@ -27,10 +27,10 @@ class MiPerfil extends Component {
             seleccionPrincipal: 0,
             seleccionSecundaria: 0,
             selectores: [
-                {nombre:"Mis contratos",subs:[{ nombre: 'Futuros' }, { nombre: 'Actuales' }, { nombre: 'Pasados' }]},
-                {nombre:"Solución de ejercicios",subs:[{ nombre: 'Todos' }]},
-                {nombre:"Mi perfil",subs:[{ nombre: 'Presentación' }, { nombre: 'Reseñas' }, {nombre: 'Publicaciones' }, { nombre: 'Datos personales' }]}
-                ],            
+                { nombre: "Mis contratos", subs: [{ nombre: 'Futuros' }, { nombre: 'Actuales' }, { nombre: 'Pasados' }] },
+                { nombre: "Solución de ejercicios", subs: [{ nombre: 'Todos' }] },
+                { nombre: "Mi perfil", subs: [{ nombre: 'Presentación' }, { nombre: 'Reseñas' }, { nombre: 'Publicaciones' }, { nombre: 'Datos personales' }] }
+            ],
             perfilSeleccionado: null,
             revisandoEjercicio: false,
             cajonLateralAbierto: true,
@@ -91,7 +91,7 @@ class MiPerfil extends Component {
 
     render() {
         const perfil = this.state.revisandoEjercicio ? this.state.perfilSeleccionado : this.props.perfil;
-        
+
         return (
             <div className="perfil-debajo-barra contenedor-css-grid">
 
@@ -125,7 +125,7 @@ class MiPerfil extends Component {
                             () => { alert('Respuesta enviada') }
                         }
                         revisandoEjercicio={this.state.revisandoEjercicio}
-                        pestanas={this.state.selectores[this.state.seleccionPrincipal].subs}
+                        pestanas={this.state.selectores[this.state.seleccionPrincipal] ? this.state.selectores[this.state.seleccionPrincipal].subs : []}
                         seleccionPrincipal={this.state.seleccionPrincipal}
                         seleccionSecundaria={this.state.seleccionSecundaria}
                         seleccionar={(seleccion) => { this.setState({ seleccionSecundaria: seleccion }) }}

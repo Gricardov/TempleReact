@@ -23,6 +23,7 @@ import DetalleCitaAlumno from '../Usuario/Alumno/MisCitas';
 import GestionCursos from '../Usuario/Profesor/GestionCursos';
 import GestionHorarios from '../Usuario/Profesor/GestionHorarios';
 import GestionAlumnos from '../Usuario/Profesor/GestionAlumnos';
+import GestionContratos from '../Usuario/Profesor/GestionContratos';
 import DetalleCitaProfesor from '../Usuario/Profesor/MisCitas';
 import MisHorarios from '../Usuario/Profesor/MisHorarios';
 
@@ -200,12 +201,21 @@ class Principal extends Component {
                                 <Route path={RUTAS.MIS_HORARIOS_PROFESOR.ruta} component={() =>
                                 
                                 <GestionHorarios horarios={this.props.perfil.perfil.horarios}/>
-                                    
-                                    
+                                                                        
                                 }/>
                                 <Route path={RUTAS.MIS_ALUMNOS_PROFESOR.ruta} component={()=>
                                 
                                 <GestionAlumnos alumnos={{}}/>
+                                
+                                } />
+                                <Route path={RUTAS.MIS_CONTRATOS_PROFESOR.ruta} component={()=>
+                                
+                                <GestionContratos contratos={[
+                                    {id:1, nombre: 'Geometría', img:'https://definicion.mx/wp-content/uploads/educacion/Geometria.jpg',
+                                    desde:'Mañana a las 2pm',hasta:'Mañana a las 4pm', lugar: 'Mi lugar'},
+                                    {id:2, nombre: 'Álgebra', img:'https://www.cienciamatematica.com/wp-content/uploads/algebra.jpg',
+                                    desde:'Hoy a la 1pm',hasta:'Hoy a las 3pm', lugar: 'Jr. Las bellas 123 - piso 4 - surco'}
+                                ]}/>
                                 
                                 } />
                                     {/*<MisHorarios

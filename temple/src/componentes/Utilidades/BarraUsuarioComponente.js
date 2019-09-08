@@ -131,7 +131,10 @@ class BarraUsuario extends Component {
                                             this.props.usuario.ID_ROL == 1
                                                 ?
                                                 <>
-                                                <DropdownItem onClick={() => {}}>
+                                                <DropdownItem onClick={() => {
+                                                    this.props.obtenerPerfil(this.props.usuario.COD_USU, this.props.usuario.ID_ROL)
+                                                    this.props.history.push(RUTAS.MIS_CONTRATOS_PROFESOR.ruta);
+                                                }}>
                                                         Gestionar contratos
                                                     </DropdownItem>
                                                     <DropdownItem onClick={() => {
