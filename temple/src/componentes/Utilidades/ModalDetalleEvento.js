@@ -53,7 +53,7 @@ class ModalDetalleEvento extends Component {
                         <p>Regresar</p>
                     </div>
                     <div className="botonera-detalle-horario">
-                        <button className="btn-guardar-cambios" onClick={() => {
+                        <button className="btn-gestion-modal" onClick={() => {
                             this.props.guardarCambios({ start: this.state.rangoInicio, end: this.state.rangoFin, id: this.state.id })
                         }}> Guardar cambios</button>
                         <span className="fa fa-trash" onClick={()=>{this.props.eliminar({id:this.state.id, title: this.state.tipo})}}></span>

@@ -1,4 +1,4 @@
-.modal-cuadricula-alumnos{
+.modal-info-detalle{
     cursor:auto;
     display: grid;
     position: fixed;
@@ -15,31 +15,37 @@
     background: #fff;
     align-items: center;
     grid-template-columns: 1fr 3fr;
-    grid-template-rows: 30px auto;
-    grid-template-areas:"encabezado-cuadricula-alumnos     botonera-cuadricula-alumnos"
-                        "contenido-cuadricula-alumnos      contenido-cuadricula-alumnos";
+    grid-template-rows: 30px minmax(30px,auto);
+    grid-auto-rows: minmax(30px,auto);
+    grid-template-areas:"encabezado-info-detalle     botonera-info-detalle"
+                        "contenido-info-detalle      contenido-info-detalle";
 
 }
 
-.modal-cuadricula-alumnos a{
+.modal-info-detalle a{
     color: #007bff !important;
 }
 
-.modal-cuadricula-alumnos p{
+.modal-info-detalle p{
     display: inline;
     font-size: .9rem;
     color: #5a5a5a;
 }
 
-.modal-cuadricula-alumnos span{
+.txt-titulo-detalle{
+    display: inline;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-left: 30px;
+    color: #5a5a5a;
+}
+
+.modal-info-detalle span{
     cursor: pointer;
     margin-left: 15px;
 }
-.modal-cuadricula-alumnos .btn-buscar{
-    cursor: pointer;
-    margin-left: 15px;
-}
-.modal-cuadricula-alumnos input, textarea{
+
+.modal-info-detalle input, textarea{
 outline:none;
 border:1px rgb(160, 160, 160) solid;
 border-radius: 10px;
@@ -47,27 +53,27 @@ padding: 5px;
 resize: none;
 }
 
-.encabezado-cuadricula-alumnos{
-    grid-area: encabezado-cuadricula-alumnos;
+.encabezado-info-detalle{
+    grid-area: encabezado-info-detalle;
     align-items: center;
 }
 
-.encabezado-cuadricula-alumnos p{
+.encabezado-info-detalle p{
     font-weight: normal !important;
     margin-left: 20px !important;
 }
 
-.encabezado-cuadricula-alumnos span{
+.encabezado-info-detalle span{
     margin-left: 0px;
 }
 
-.botonera-cuadricula-alumnos{
-    grid-area:botonera-cuadricula-alumnos;
+.botonera-info-detalle{
+    grid-area:botonera-info-detalle;
     justify-self: end;
 }
 
-.contenido-cuadricula-alumnos{
-    grid-area: contenido-cuadricula-alumnos;
+.contenido-info-detalle{
+    grid-area: contenido-info-detalle;
     display: grid;
     grid-template-rows: minmax(250px, auto);
     grid-auto-rows: minmax(250px, auto);

@@ -36,12 +36,13 @@ class GestionCursos extends Component {
         return (
             <div className="perfil-debajo-barra contenedor-gestion-cursos-css-grid panel-fondo">
                 <h1 className="titulo-gestion">Cursos que enseño{this.state.revisandoCurso ? `: ${this.state.cursoSeleccionado.nombre}` : null}</h1>
-                <button className={this.state.revisandoCurso
-                    ?
-                    "btn-gestion invisible"
-                    :
-                    "btn-gestion visible"}>Agregar curso</button>
-
+                <div className="botonera">
+                    <button className={this.state.revisandoCurso
+                        ?
+                        "btn-gestion invisible"
+                        :
+                        "btn-gestion visible"}>Agregar curso</button>
+                </div>
                 <div className={this.state.revisandoCurso
                     ?
                     "tarjeta-contenedora-contenido-responsiva tarjeta-contenedora-contenido tarjeta-contenedora-contenido-entera"

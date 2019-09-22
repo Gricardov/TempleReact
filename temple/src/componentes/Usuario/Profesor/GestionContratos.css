@@ -14,8 +14,10 @@
 
 }
 
-.contenedor-gestion-contratos-css-grid .btn-gestion{
+.contenedor-gestion-contratos-css-grid .botonera{
     grid-area: botonera;
+    display: flex;
+    justify-self: end;
 
 }
 

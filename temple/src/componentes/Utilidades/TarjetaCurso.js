@@ -4,7 +4,7 @@ import './TarjetaCurso.css';
 const TarjetaCurso = (props) => {
     let curso = props.curso;
     return (
-        <div className="tarjeta-curso" onClick={() => { props.revisarCurso(curso.id) }}>
+        <div className="tarjeta-curso seleccionable" onClick={() => { props.revisarCurso(curso.id) }}>
 
             <img src={curso.img} alt="img-curso" />
             <h1>{curso.nombre}</h1>

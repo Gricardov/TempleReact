@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
+import TarjetaAlumnoAsistencia from './TarjetaInscrito';
+
 import './ModalCuadriculaAlumnos.css';
 
 class ModalCuadriculaAlumnos extends Component {
@@ -12,6 +14,15 @@ class ModalCuadriculaAlumnos extends Component {
     }   
 
     render() {
+
+        let tarjetasAlumnos=[];
+
+        if (this.props.inscritos){
+            tarjetasAlumnos=this.props.inscritos.map((e,i)=>{
+                return <TarjetaAlumnoAsistencia key={i} inscrito={e}/>
+            })
+        }
+        
         return (
             <>
                 <div className={this.props.abierto
@@ -31,18 +42,11 @@ class ModalCuadriculaAlumnos extends Component {
                         <p>Regresar</p>
                     </div>
                     <div className="botonera-cuadricula-alumnos">
-                        <button className="btn-guardar-cambios" onClick={() => {
-                            this.props.guardarCambios({ start: this.state.rangoInicio, end: this.state.rangoFin, id: this.state.id })
-                        }}> Guardar cambios</button>
-                        <span className="fa fa-trash" onClick={()=>{this.props.eliminar({id:this.state.id, title: this.state.tipo})}}></span>
+                        <button className="btn-gestion-modal" onClick={() =>{alert('listo')}}> Guardar cambios</button>
+                        <button className="btn-buscar btn-gestion-modal"><i className="fa fa-search"></i></button>                        
                     </div>
-                    <div className="contenido-cuadricula-alumnos tarjeta-contenedora-contenido-cuadricula">
-                        <div>holi</div>
-                        <div>holi</div>
-                        <div>holi</div>
-                        <div>holi</div>
-                        <div>holi</div>
-                        <div>holi</div>
+                    <div className="contenido-cuadricula-alumnos tarjeta-contenedora-contenido-responsiva tarjeta-contenedora-contenido-cuadricula">
+                        {tarjetasAlumnos}
                     </div>
 
                 </div>

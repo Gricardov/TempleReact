@@ -29,8 +29,10 @@
     grid-area: titulo;
 }
 
-.btn-gestion{    
+.botonera{    
     grid-area: botonera;   
+    display: flex;
+    justify-self: end;
 }
 
 .contenedor-gestion-horarios-css-grid .tarjeta-contenedora-contenido{

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './TarjetaContrato.css';
-import ModalCuadriculaAlumnos from './ModalCuadriculaAlumnos';
 
 class TarjetaContrato extends Component {
 
@@ -43,15 +42,14 @@ class TarjetaContrato extends Component {
                     {contrato.lugar}
                 </p>
                 <div className="botonera-tarjeta-contrato">
-                    <button className="btn-tarjeta rojo" onClick={() => { alert('Confirmado') }}>Confirmar</button>
-                    <button className="btn-tarjeta verde">Detalles</button>
-                    <button className="btn-tarjeta agua" onClick={() => { this.setState({ modalAlumnosAbierto: true }) }}
-                    >Ver alumnos</button>
-
+                    <button className="btn-tarjeta rojo" onClick={() => { this.props.abrirModalOpciones(contrato.id) }}>Confirmar</button>
+                    <button className="btn-tarjeta agua" onClick={() => { this.props.abrirModalGestion(contrato.id) }}
+                    >Gestionar</button>
+                    <button className="btn-tarjeta verde" onClick={()=>{this.props.abrirModalDetalle(contrato.id)}}>Detalles</button>
+                    
                 </div>
             </div>
-            <ModalCuadriculaAlumnos abierto={this.state.modalAlumnosAbierto}
-            cerrar={()=>{this.setState({modalAlumnosAbierto:false})}}/>
+            
 </>
         )
     }

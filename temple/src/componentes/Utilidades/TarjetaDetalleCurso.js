@@ -18,9 +18,9 @@ class TarjetaDetalle extends Component {
                         <p>Regresar</p>
                     </div>
                     <div className="botonera-detalle-curso">
-                        <button className="btn-guardar-cambios"> Guardar cambios</button>
+                        <button className="btn-gestion-modal"> Guardar cambios</button>
                         <span className="fa fa-edit"></span>
-                        <span className="fa fa-close"></span>
+                        <span className="fa fa-trash"></span>
                     </div>
                         <p className="txt-descripcion-detalle-curso">Descripcion</p>
                         <textarea className="descripcion-detalle-curso" placeholder="Ejemplo: En este curso, veremos desde lo más básico a más complejo en Geometría"></textarea>
