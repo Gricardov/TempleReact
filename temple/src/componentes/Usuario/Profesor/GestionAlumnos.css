@@ -1,0 +1,35 @@
+.contenedor-gestion-alumnos-css-grid{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 60px 100vh;
+    grid-template-areas:    "titulo         botonera"
+                            "contenedor     contenedor";
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+}
+
+.contenedor-gestion-alumnos-css-grid .titulo-gestion{
+    grid-area: titulo;
+
+}
+
+.contenedor-gestion-alumnos-css-grid .botonera{
+    grid-area: botonera;
+    display: flex;
+    justify-self: end;
+
+}
+
+.contenedor-gestion-alumnos-css-grid .tarjeta-contenedora-contenido{
+    grid-area: contenedor;
+    display: block;    
+}
+
+@media screen and (max-width: 768px){
+    .contenedor-gestion-alumnos-css-grid{
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+    }
+}

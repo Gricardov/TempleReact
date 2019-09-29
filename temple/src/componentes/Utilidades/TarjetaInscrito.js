@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './TarjetaInscrito.css';
 
-const TarjetaAlumnoAsistencia = (props) => {
+const TarjetaInscrito = (props) => {
 
     return (
         <div className="tarjeta-inscrito seleccionable">
@@ -21,4 +21,4 @@ const TarjetaAlumnoAsistencia = (props) => {
 }
 
 
-export default TarjetaAlumnoAsistencia;
+export default TarjetaInscrito;

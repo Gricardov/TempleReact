@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
-import TarjetaInscrito from './TarjetaInscrito';
+import TarjetaClase from './TarjetaClase';
 
-import './ModalCuadriculaAlumnos.css';
+import './ModalListaClases.css';
 
-class ModalCuadriculaAlumnos extends Component {
+class ModalListaClases extends Component {
 
     constructor(props) {
         super(props);
@@ -15,11 +15,11 @@ class ModalCuadriculaAlumnos extends Component {
 
     render() {
 
-        let tarjetasAlumnos=[];
+        let tarjetasClases=[];
 
-        if (this.props.inscritos){
-            tarjetasAlumnos=this.props.inscritos.map((e,i)=>{
-                return <TarjetaInscrito key={i} inscrito={e}/>
+        if (this.props.contratos){
+            tarjetasClases=this.props.contratos.map((e,i)=>{                
+                return <TarjetaClase key={i} contrato={e} ocultarBotones={true}/>
             })
         }
         
@@ -34,19 +34,19 @@ class ModalCuadriculaAlumnos extends Component {
 
                 <div className={this.props.abierto
                     ?
-                    'tarjeta-detalle-responsiva modal-cuadricula-alumnos no-oculto'
+                    'tarjeta-detalle-responsiva modal-lista-clases no-oculto'
                     :
-                    'tarjeta-detalle-responsiva modal-cuadricula-alumnos oculto'}>
-                    <div className="encabezado-cuadricula-alumnos">
+                    'tarjeta-detalle-responsiva modal-lista-clases oculto'}>
+                    <div className="encabezado-lista-clases">
                         <span className="fa fa-arrow-left" onClick={() => { this.props.cerrar() }}></span>
                         <p>Regresar</p>
                     </div>
-                    <div className="botonera-cuadricula-alumnos">
+                    <div className="botonera-lista-clases">
                         <button className="btn-gestion-modal" onClick={() =>{alert('listo')}}> Guardar cambios</button>
                         <button className="btn-buscar btn-gestion-modal"><i className="fa fa-search"></i></button>                        
                     </div>
-                    <div className="contenido-cuadricula-alumnos tarjeta-contenedora-contenido-responsiva tarjeta-contenedora-contenido-cuadricula">
-                        {tarjetasAlumnos}
+                    <div className="contenido-lista-clases tarjeta-contenedora-contenido-responsiva ">
+                        {tarjetasClases}
                     </div>
 
                 </div>
@@ -56,4 +56,4 @@ class ModalCuadriculaAlumnos extends Component {
 
 }
 
-export default ModalCuadriculaAlumnos;
+export default ModalListaClases;

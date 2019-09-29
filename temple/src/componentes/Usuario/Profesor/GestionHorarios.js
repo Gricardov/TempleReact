@@ -19,6 +19,8 @@ class GestionHorarios extends Component {
                 <div className="botonera">
                     <button className="btn-gestion visible" onClick={() => { this.setState({ modalDetalleAbierto: true }) }}>
                         Agregar</button>
+                    <button className="btn-gestion visible" onClick={() => { this.setState({ buscar: true }) }}>
+                        <i className="fa fa-search"></i></button>
                 </div>
                 <div className="tarjeta-contenedora-contenido-responsiva tarjeta-contenedora-contenido">
                     <div className="tarjeta-detalle-responsiva tarjeta-contenido">

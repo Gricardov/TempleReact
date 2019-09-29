@@ -41,7 +41,9 @@ class GestionCursos extends Component {
                         ?
                         "btn-gestion invisible"
                         :
-                        "btn-gestion visible"}>Agregar curso</button>
+                        "btn-gestion visible"}>Crear</button>
+                        <button className="btn-gestion visible" onClick={() => { this.setState({ buscar: true }) }}>
+                            <i className="fa fa-search"></i></button>
                 </div>
                 <div className={this.state.revisandoCurso
                     ?

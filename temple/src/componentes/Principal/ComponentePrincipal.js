@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Barra from '../Bienvenida/BarraBienvenida';
-import BarraUsuario from '../Utilidades/BarraUsuarioComponente';
+import Barra from '../Barras/BarraBienvenida';
+//import BarraUsuario from '../Utilidades/BarraUsuarioComponente';
+import BarraUsuario from '../Barras/BarraUsuario';
 import Pie from '../Bienvenida/PieBienvenida';
 //
 import Inicio from '../Bienvenida/InicioBienvenida';
@@ -23,7 +24,7 @@ import DetalleCitaAlumno from '../Usuario/Alumno/MisCitas';
 import GestionCursos from '../Usuario/Profesor/GestionCursos';
 import GestionHorarios from '../Usuario/Profesor/GestionHorarios';
 import GestionAlumnos from '../Usuario/Profesor/GestionAlumnos';
-import GestionContratos from '../Usuario/Profesor/GestionContratos';
+import GestionClases from '../Usuario/Profesor/GestionClases';
 import DetalleCitaProfesor from '../Usuario/Profesor/MisCitas';
 import MisHorarios from '../Usuario/Profesor/MisHorarios';
 
@@ -205,12 +206,16 @@ class Principal extends Component {
                                 }/>
                                 <Route path={RUTAS.MIS_ALUMNOS_PROFESOR.ruta} component={()=>
                                 
-                                <GestionAlumnos alumnos={{}}/>
+                                <GestionAlumnos alumnos={[
+                                    {img:'https://i1.sndcdn.com/avatars-000021701752-f0hvgk-t500x500.jpg',nombres:'Mila Luna',horCla:15,numCla:3},
+                                    {img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0RJzD7KFU6AbY8cMy6L-NdM_eajlx7P7FlPbHJc3WEbG0Hph6',nombres:'Roberto Carlos',horCla:56,numCla:7},
+                                    {img:'https://media.timeout.com/images/103805223/630/472/image.jpg',nombres:'José José',horCla:9,numCla:3},
+                                ]}/>
                                 
                                 } />
                                 <Route path={RUTAS.MIS_CONTRATOS_PROFESOR.ruta} component={()=>
                                 
-                                <GestionContratos contratos={[
+                                <GestionClases contratos={[
                                     {id:1, nombre: 'Geometría', img:'https://definicion.mx/wp-content/uploads/educacion/Geometria.jpg',
                                     desde:'Mañana a las 2pm',hasta:'Mañana a las 4pm', lugar: 'Mi lugar'},
                                     {id:2, nombre: 'Álgebra', img:'https://www.cienciamatematica.com/wp-content/uploads/algebra.jpg',

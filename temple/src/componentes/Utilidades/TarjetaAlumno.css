@@ -1,0 +1,84 @@
+.tarjeta-alumno{
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 5px;
+    min-height: 100px;
+    padding: 20px;
+    background: #fff;
+    display: grid;
+    grid-gap: 1px;
+    justify-items: start;
+    grid-template-columns: 1fr 6fr;
+    grid-template-rows: repeat(5,auto);
+    grid-template-areas:    "img-tarjeta-alumno       nombre-tarjeta-alumno"
+                            "img-tarjeta-alumno       tipo-tarjeta-alumno"
+                            "txt-horas-clase-tarjeta-alumno horas-clase-tarjeta-alumno"
+                            "txt-num-clase-tarjeta-alumno num-clase-tarjeta-alumno"
+                            "botonera-tarjeta-alumno  botonera-tarjeta-alumno";
+    cursor: auto;
+    margin-bottom: 10px;
+}
+
+.tarjeta-alumno img{
+    display: block;
+    border-radius: 50%;
+    border: 1px solid #efefef;
+    justify-self: start;
+    align-self: center;
+    grid-area: img-tarjeta-alumno;
+    width: 80px;
+    height: 80px;
+    box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+    margin-left: 30px;
+}
+
+.tarjeta-alumno p{
+    display: inline;
+    font-size: 0.9rem;
+    color: #5a5a5a;
+}
+
+.tarjeta-alumno .nombre-tarjeta-alumno{
+    grid-area: nombre-tarjeta-alumno;
+    font-size: 1.8rem;
+    color: #5a5a5a;
+    overflow: hidden;
+    justify-self: start;
+    align-self: center;
+    margin: 0px;
+}
+
+.tarjeta-alumno .tipo-tarjeta-alumno{
+    grid-area: tipo-tarjeta-alumno;
+}
+
+.tarjeta-alumno .txt-titulo-tarjeta-alumno {
+    display: inline;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+.tarjeta-alumno .txt-horas-clase-tarjeta-alumno{
+    grid-area: txt-horas-clase-tarjeta-alumno;
+
+}
+.tarjeta-alumno .horas-clase-tarjeta-alumno{
+    grid-area: horas-clase-tarjeta-alumno;
+
+}
+.tarjeta-alumno .txt-num-clase-tarjeta-alumno{
+    grid-area: txt-num-clase-tarjeta-alumno;
+
+}
+
+.tarjeta-alumno .num-clase-tarjeta-alumno{
+    grid-area:num-clase-tarjeta-alumno;
+}
+
+.tarjeta-alumno .botonera-tarjeta-alumno{
+    grid-area: botonera-tarjeta-alumno;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-self: stretch;
+    justify-content: space-around;
+}

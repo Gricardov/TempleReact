@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Fade, Transform } from 'react-animation-components';
-import TarjetaContrato from '../../Utilidades/TarjetaContrato';
+import TarjetaClase from '../../Utilidades/TarjetaClase';
 import ModalCuadriculaAlumnos from '../../Utilidades/ModalCuadriculaAlumnos';
 import ModalInfoDetalle from '../../Utilidades/ModalInfoDetalle';
 
-import './GestionContratos.css';
+import './GestionClases.css';
 
 class GestionContratos extends Component {
     constructor(props) {
@@ -23,7 +23,7 @@ class GestionContratos extends Component {
 
         if (this.props.contratos) {
             contratos = this.props.contratos.map((e, i) => {
-                return <TarjetaContrato key={i} contrato={e}
+                return <TarjetaClase key={i} contrato={e}
                     abrirModalDetalle={(id) => { this.setState({ modalDetalleAbierto: true, idContratoSeleccionado: id }) }}
                     abrirModalGestion={(id) => { this.setState({ modalGestionAbierto: true, idContratoSeleccionado: id }) }}
                     abrirModalOpciones={(id) => { this.setState({ modalOpcionesAbierto: true, idContratoSeleccionado: id }) }}
@@ -35,7 +35,7 @@ class GestionContratos extends Component {
         return (
             <>
                 <div className="perfil-debajo-barra contenedor-gestion-contratos-css-grid panel-fondo">
-                    <h1 className="titulo-gestion">Gestión de contratos: Últimos</h1>
+                    <h1 className="titulo-gestion">Gestionar clases: Últimos</h1>
                     <div className="botonera">
                         <button className="btn-gestion visible">Estadísticas</button>
                         <button className="btn-gestion visible" onClick={() => { this.setState({ buscar: true }) }}>
