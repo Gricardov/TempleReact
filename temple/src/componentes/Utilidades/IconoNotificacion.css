@@ -1,0 +1,27 @@
+@media (max-width: 991px){   
+
+    .menu-usuario-barra-responsivo > div{
+        position: relative;
+        border-radius: 50%;
+        cursor: pointer;
+        color: rgb(201, 201, 201);
+        padding: 5px;
+        transition: all 300ms ease-in;
+      }
+    
+      .menu-usuario-barra-responsivo > div:hover{
+        color: #fff;
+        background-color: rgb(48,48,48);
+      }
+    
+      .menu-usuario-barra-responsivo div .num-notificacion{
+        position: absolute;
+        border-radius: 50%;
+        background: rgb(199, 55, 19);
+        color: #fff;
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+        top: 20px;
+        left: 23px;
+      }
+    }
