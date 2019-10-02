@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Barra from '../Barras/BarraBienvenida';
 //import BarraUsuario from '../Utilidades/BarraUsuarioComponente';
 import BarraUsuario from '../Barras/BarraUsuario';
+import BarraInferior from '../Barras/BarraInferior';
 import Pie from '../Bienvenida/PieBienvenida';
 //
 import Inicio from '../Bienvenida/InicioBienvenida';
@@ -129,16 +130,16 @@ class Principal extends Component {
                                         ejercicios={[{
                                             curso: "Geometría",
                                             ejercicios: [{
-                                                id:'1001',
+                                                id: '1001',
                                                 imgPer: 'https://s2.r29static.com//bin/entry/2c8/720x864,85/2166446/adele-husband-simon-konecki-2166446.webp',
-                                                asunto: 'Profe ayúdeme con este problema porfa', nomUsu: 'Vane', apaUsu: 'Sita', amaUsu:'Sita', codUsu: '1002',
+                                                asunto: 'Profe ayúdeme con este problema porfa', nomUsu: 'Vane', apaUsu: 'Sita', amaUsu: 'Sita', codUsu: '1002',
                                                 fecSol: '2019-08-14 03:00:00', estado: -1,
                                                 descripcion: 'Lorem ipsum', imgAdj: '', pdfAdj: '', respuesta: ''
                                             },
                                             {
                                                 id: '1002',
                                                 imgPer: 'https://s2.r29static.com//bin/entry/2c8/720x864,85/2166446/adele-husband-simon-konecki-2166446.webp',
-                                                asunto: 'Profe no me sale lo de la circunferencia', nomUsu: 'Vane', apaUsu: 'Sita',amaUsu:'Sita', codUsu: '1002',
+                                                asunto: 'Profe no me sale lo de la circunferencia', nomUsu: 'Vane', apaUsu: 'Sita', amaUsu: 'Sita', codUsu: '1002',
                                                 fecSol: '2019-08-14 03:40:00', estado: -1,
                                                 descripcion: 'Cómo puedes tú ser libre mientras yo soy preso', imgAdj: '', pdfAdj: '', respuesta: ''
                                             }]
@@ -148,7 +149,7 @@ class Principal extends Component {
                                             ejercicios: [{
                                                 id: '1003',
                                                 imgPer: 'https://s2.r29static.com//bin/entry/2c8/720x864,85/2166446/adele-husband-simon-konecki-2166446.webp',
-                                                asunto: 'Problema con los bucles', nomUsu: 'Vane', apaUsu: 'Sita', amaUsu:'Sita',codUsu: '1002',
+                                                asunto: 'Problema con los bucles', nomUsu: 'Vane', apaUsu: 'Sita', amaUsu: 'Sita', codUsu: '1002',
                                                 fecSol: '2019-08-14 03:00:00', estado: -1,
                                                 descripcion: 'Dado un arreglo a con x objetos, se itera...', imgAdj: '', pdfAdj: '', respuesta: ''
                                             }
@@ -197,33 +198,37 @@ class Principal extends Component {
                                         { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
                                         { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },
                                         { id: 3, nombre: 'Bases de datos', img: 'http://experttv.az//az/home/getfile/843', categoria: 'Programación', horExp: '0', solEje: '0' },*/
-                
-                                    ]}/>} />
+
+                                    ]} />} />
                                 <Route path={RUTAS.MIS_HORARIOS_PROFESOR.ruta} component={() =>
-                                
-                                <GestionHorarios horarios={this.props.perfil.perfil.horarios}/>
-                                                                        
-                                }/>
-                                <Route path={RUTAS.MIS_ALUMNOS_PROFESOR.ruta} component={()=>
-                                
-                                <GestionAlumnos alumnos={[
-                                    {img:'https://i1.sndcdn.com/avatars-000021701752-f0hvgk-t500x500.jpg',nombres:'Mila Luna',horCla:15,numCla:3},
-                                    {img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0RJzD7KFU6AbY8cMy6L-NdM_eajlx7P7FlPbHJc3WEbG0Hph6',nombres:'Roberto Carlos',horCla:56,numCla:7},
-                                    {img:'https://media.timeout.com/images/103805223/630/472/image.jpg',nombres:'José José',horCla:9,numCla:3},
-                                ]}/>
-                                
+
+                                    <GestionHorarios horarios={this.props.perfil.perfil.horarios} />
+
                                 } />
-                                <Route path={RUTAS.MIS_CONTRATOS_PROFESOR.ruta} component={()=>
-                                
-                                <GestionClases contratos={[
-                                    {id:1, nombre: 'Geometría', img:'https://definicion.mx/wp-content/uploads/educacion/Geometria.jpg',
-                                    desde:'Mañana a las 2pm',hasta:'Mañana a las 4pm', lugar: 'Mi lugar'},
-                                    {id:2, nombre: 'Álgebra', img:'https://www.cienciamatematica.com/wp-content/uploads/algebra.jpg',
-                                    desde:'Hoy a la 1pm',hasta:'Hoy a las 3pm', lugar: 'Jr. Las bellas 123 - piso 4 - surco'}
-                                ]}/>
-                                
+                                <Route path={RUTAS.MIS_ALUMNOS_PROFESOR.ruta} component={() =>
+
+                                    <GestionAlumnos alumnos={[
+                                        { img: 'https://i1.sndcdn.com/avatars-000021701752-f0hvgk-t500x500.jpg', nombres: 'Mila Luna', horCla: 15, numCla: 3 },
+                                        { img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0RJzD7KFU6AbY8cMy6L-NdM_eajlx7P7FlPbHJc3WEbG0Hph6', nombres: 'Roberto Carlos', horCla: 56, numCla: 7 },
+                                        { img: 'https://media.timeout.com/images/103805223/630/472/image.jpg', nombres: 'José José', horCla: 9, numCla: 3 },
+                                    ]} />
+
                                 } />
-                                    {/*<MisHorarios
+                                <Route path={RUTAS.MIS_CONTRATOS_PROFESOR.ruta} component={() =>
+
+                                    <GestionClases contratos={[
+                                        {
+                                            id: 1, nombre: 'Geometría', img: 'https://definicion.mx/wp-content/uploads/educacion/Geometria.jpg',
+                                            desde: 'Mañana a las 2pm', hasta: 'Mañana a las 4pm', lugar: 'Mi lugar'
+                                        },
+                                        {
+                                            id: 2, nombre: 'Álgebra', img: 'https://www.cienciamatematica.com/wp-content/uploads/algebra.jpg',
+                                            desde: 'Hoy a la 1pm', hasta: 'Hoy a las 3pm', lugar: 'Jr. Las bellas 123 - piso 4 - surco'
+                                        }
+                                    ]} />
+
+                                } />
+                                {/*<MisHorarios
                                         actualizarHorarios={this.props.actualizarHorarios}
                                         obtenerPerfil={this.props.obtenerPerfil}
                                         usuario={this.props.sesion.usuario}
@@ -232,7 +237,6 @@ class Principal extends Component {
                                         mensError={this.props.perfil.mensError}
                                     /> */}
                             </SwitchDeslizador>
-                            <Asistente usuario={this.props.sesion.usuario} />
                             <CubiertaMensaje mensError={this.props.perfil.mensError}
                                 estaCargando={this.props.perfil.estaCargando} mensaje="Cargando perfil..." />
 
@@ -265,11 +269,13 @@ class Principal extends Component {
 
                                 <Redirect to={RUTAS.INICIO_BIENVENIDA.ruta} component={Inicio} />
                             </SwitchDeslizador>
-                            <Asistente />
 
                         </>
                 }
-
+                <BarraInferior opciones={[{id:0, nombre:'Buscar', icono: 'fa fa-search'},
+                {id:1, nombre:'Estadísticas', icono:'fa fa-line-chart'},
+                {id:2, nombre:'Inscritos', icono:'fa fa-group'}]}/>
+                <Asistente usuario={this.props.sesion.usuario} />
                 <Pie />
 
             </>
