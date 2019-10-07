@@ -44,6 +44,23 @@
 }
 
 /*Consultas css*/
+@media (max-width: 991px){
+    .contenedor-gestion-cursos-css-grid{
+        
+        grid-template-areas:    "titulo         titulo"
+                                "contenedor     contenedor";
+       
+    }
+
+    .contenedor-gestion-cursos-css-grid .botonera{
+        display: none;
+    
+    }
+    .contenedor-gestion-cursos-css-grid .titulo-gestion{
+        justify-self: center;
+    
+    }
+}
 
 @media screen and (max-width: 768px){
     .contenedor-gestion-cursos-css-grid{

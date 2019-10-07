@@ -10,13 +10,33 @@ import TarjetaCita from '../../Utilidades/TarjetaCita';
 import Cajon from './CajonColapsablePerfil';
 import SelectorPrincipal from './SelectorPrincipalPerfil';
 import ContenedorPerfil from './ContenedorPerfil';
+import BarraInferior from '../../Barras/BarraInferior';
 import { Animated } from "react-animated-css";
 import { Fade, Transform } from 'react-animation-components';
+import {establecerOpcionesBarra,seleccionarOpcionBarra} from '../../../redux/CreadorAcciones';
+import { Route, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { actions } from 'react-redux-form';
+
 import './Perfil.css';
 
 import '../../../../node_modules/slick-carousel/slick/slick.css';
 import '../../../../node_modules/slick-carousel/slick/slick-theme.css';
 let moment = require('moment');
+
+const mapDispatchToProps = (dispatch) => ({
+    establecerOpcionesBarra: (opciones) => dispatch(establecerOpcionesBarra(opciones)),
+    seleccionarOpcionBarra: (opcion) => dispatch(seleccionarOpcionBarra(opcion))
+
+})
+
+const mapStateToProps = (state) => {
+
+    return {
+        barra: state.barra
+    }
+
+}
 
 class MiPerfil extends Component {
 
@@ -24,12 +44,11 @@ class MiPerfil extends Component {
         super(props);
         this.state = {
             modalMensajeAbierto: false,
-            seleccionPrincipal: 0,
             seleccionSecundaria: 0,
             selectores: [
-                { nombre: "Mis contratos", subs: [{ nombre: 'Futuros' }, { nombre: 'Actuales' }, { nombre: 'Pasados' }] },
-                { nombre: "Solución de ejercicios", subs: [{ nombre: 'Todos' }] },
-                { nombre: "Mi perfil", subs: [{ nombre: 'Presentación' }, { nombre: 'Reseñas' }, { nombre: 'Publicaciones' }, { nombre: 'Datos personales' }] }
+                { id:1, nombre: "Mis contratos", icono: 'fa fa-search', subs: [{ nombre: 'Futuros' }, { nombre: 'Actuales' }, { nombre: 'Pasados' }] },
+                { id:2, nombre: "Solución de ejercicios", icono:'fa fa-line-chart', subs: [{ nombre: 'Todos' }] },
+                { id:3, nombre: "Mi perfil", icono:'fa fa-group', subs: [{ nombre: 'Presentación' }, { nombre: 'Reseñas' }, { nombre: 'Publicaciones' }, { nombre: 'Datos personales' }] }
             ],
             perfilSeleccionado: null,
             revisandoEjercicio: false,
@@ -38,6 +57,9 @@ class MiPerfil extends Component {
         };
         this.revisarEjercicio = this.revisarEjercicio.bind(this);
         this.volverMenu = this.volverMenu.bind(this);
+
+        this.props.establecerOpcionesBarra(this.state.selectores)
+        this.props.seleccionarOpcionBarra(0)
     }
 
     revisarEjercicio(id) {
@@ -53,10 +75,9 @@ class MiPerfil extends Component {
                 logUsu: 'milanesita'
             },
             revisandoEjercicio: true,
-            ejercicioSeleccionado: ejercicioSeleccionado,
-            seleccionPrincipal: -2
+            ejercicioSeleccionado: ejercicioSeleccionado
         })
-
+        this.props.seleccionarOpcionBarra(-2)
     }
 
     volverMenu() {
@@ -64,9 +85,8 @@ class MiPerfil extends Component {
             perfilSeleccionado: this.props.perfil,
             revisandoEjercicio: false,
             ejercicioSeleccionado: null,
-            seleccionPrincipal: 1
         })
-
+        this.props.seleccionarOpcionBarra(1)
     }
 
     componentDidUpdate() {
@@ -93,6 +113,7 @@ class MiPerfil extends Component {
         const perfil = this.state.revisandoEjercicio ? this.state.perfilSeleccionado : this.props.perfil;
 
         return (
+            <>
             <div className="perfil-debajo-barra contenedor-css-grid">
 
                 <div className="avisos">
@@ -103,8 +124,9 @@ class MiPerfil extends Component {
                 </div>
                 <div className="selector-principal-perfil">
                     <SelectorPrincipal
-                        seleccionado={this.state.seleccionPrincipal}
-                        seleccionar={(seleccion) => { this.setState({ seleccionPrincipal: seleccion, seleccionSecundaria: 0 }) }}
+                        seleccionado={this.props.barra.seleccionado}
+                        seleccionar={(seleccion) => { this.setState({ seleccionSecundaria: 0 }); this.props.seleccionarOpcionBarra(seleccion)
+                    }}
                         revisandoEjercicio={this.state.revisandoEjercicio}
                         pestanas={this.state.selectores} />
                 </div>
@@ -125,21 +147,22 @@ class MiPerfil extends Component {
                             () => { alert('Respuesta enviada') }
                         }
                         revisandoEjercicio={this.state.revisandoEjercicio}
-                        pestanas={this.state.selectores[this.state.seleccionPrincipal] ? this.state.selectores[this.state.seleccionPrincipal].subs : []}
-                        seleccionPrincipal={this.state.seleccionPrincipal}
+                        pestanas={this.state.selectores[this.props.barra.seleccionado] ? this.state.selectores[this.props.barra.seleccionado].subs : []}
+                        seleccionPrincipal={this.props.barra.seleccionado}
                         seleccionSecundaria={this.state.seleccionSecundaria}
                         seleccionar={(seleccion) => { this.setState({ seleccionSecundaria: seleccion }) }}
                     />
-                </div>
+                </div>                
             </div>
+            
+            </>
         )
 
     }
 
 }
 
-export default MiPerfil;
-
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MiPerfil));
 /*
 
 // Lenguaje Corcovado

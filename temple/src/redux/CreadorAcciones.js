@@ -4,6 +4,28 @@ import { URLBase } from '../compartido/URLBase';
 import { actions } from 'react-redux-form';
 import { establecerGalleta, obtenerGalleta } from '../componentes/Utilidades/gestorCookies';
 
+// Acciones que no requieran externos
+export const establecerOpcionesBarra = (opciones) => (dispatch) =>{
+    // Esto va a servir para que la vista responsiva tenga las opciones actualizadas
+    dispatch(establecerOpcionesBarraRedux(opciones))
+}
+
+export const establecerOpcionesBarraRedux = (opciones) => ({
+    type: Acciones.ESTABLECER_OPCIONES_BARRA,
+    payload: opciones
+})
+
+// Selección de una opción de la barra
+export const seleccionarOpcionBarra = (opcion) => (dispatch) =>{
+    // Esto va a servir para que la vista responsiva seleccione una opción de la barra inferior
+    dispatch(seleccionarOpcionBarraRedux(opcion))
+}
+
+export const seleccionarOpcionBarraRedux = (opcion) => ({
+    type: Acciones.SELECCIONAR_OPCION_BARRA,
+    payload: opcion
+})
+
 // Niveles
 export const consultaNiveles = () => (dispatch) => {
     dispatch(cargandoNiveles());

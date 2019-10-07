@@ -18,6 +18,7 @@ import {Contrato} from './reductorContrato';
 import {RegistroContrato} from './reductorRegistroContrato';
 import {RegistroPublicacion} from './reductorRegistroPublicacion';
 import {RegistroHorario} from './reductorRegistroHorario';
+import {Barra} from './reductorBarra';
 import {ChatBot} from './reductorChatBot';
 
 export const ReduxStore = () => {
@@ -39,6 +40,7 @@ export const ReduxStore = () => {
                 registroPublicacion: RegistroPublicacion,
                 registroHorario: RegistroHorario,
                 chatBot: ChatBot,
+                barra: Barra,
                 ...createForms({
                     formContacto: InicioContacto
                 })

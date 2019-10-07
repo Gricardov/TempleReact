@@ -26,6 +26,24 @@
     display: block;    
 }
 
+@media (max-width: 991px){
+    .contenedor-gestion-alumnos-css-grid{
+        
+        grid-template-areas:    "titulo         titulo"
+                                "contenedor     contenedor";
+       
+    }
+
+    .contenedor-gestion-alumnos-css-grid .botonera{
+        display: none;
+    
+    }
+    .contenedor-gestion-alumnos-css-grid .titulo-gestion{
+        justify-self: center;
+    
+    }
+}
+
 @media screen and (max-width: 768px){
     .contenedor-gestion-alumnos-css-grid{
         padding-left: 10px;

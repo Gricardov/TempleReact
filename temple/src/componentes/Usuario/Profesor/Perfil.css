@@ -28,6 +28,7 @@
     background: #ff695e;
     grid-area: avisos;
     color: rgb(241, 241, 241);
+    display: none;
 }
 
 .cajon-colapsable{

@@ -2,18 +2,43 @@ import React, { Component } from 'react';
 import TarjetaCurso from '../../Utilidades/TarjetaCurso';
 import ContenedorCursos from './ContenedorCursos';
 import { Fade, Transform } from 'react-animation-components';
+import {establecerOpcionesBarra,seleccionarOpcionBarra} from '../../../redux/CreadorAcciones';
+import { Route, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { actions } from 'react-redux-form';
 
 import './GestionCursos.css';
+
+const mapDispatchToProps = (dispatch) => ({
+    establecerOpcionesBarra: (opciones) => dispatch(establecerOpcionesBarra(opciones)),
+    seleccionarOpcionBarra: (opcion) => dispatch(seleccionarOpcionBarra(opcion))
+
+})
+
+const mapStateToProps = (state) => {
+
+    return {
+        barra: state.barra
+    }
+
+}
 
 class GestionCursos extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectores: [
+                { id:0, nombre: "Todos", icono:'fa fa-list-alt'},
+                { id:1, nombre: "Buscar", icono: 'fa fa-search'},
+                { id:1, nombre: "Agregar", icono: 'fa fa-plus'}
+            ],
             cursoSeleccionado: null,
             revisandoCurso: false
         };
         this.revisarCurso = this.revisarCurso.bind(this);
         this.volverMenu = this.volverMenu.bind(this);
+        this.props.establecerOpcionesBarra(this.state.selectores)
+        this.props.seleccionarOpcionBarra(0)
     }
 
     revisarCurso(id) {
@@ -66,4 +91,4 @@ class GestionCursos extends Component {
 
 }
 
-export default GestionCursos;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GestionCursos));

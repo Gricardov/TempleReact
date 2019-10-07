@@ -4,17 +4,42 @@ import SelectorPastillas from '../../Utilidades/SelectorPastillas';
 import TarjetaAlumno from '../../Utilidades/TarjetaAlumno'
 import ModalInfoDetalle from '../../Utilidades/ModalInfoDetalle';
 import ModalListaClases from '../../Utilidades/ModalListaClases';
+import {establecerOpcionesBarra,seleccionarOpcionBarra} from '../../../redux/CreadorAcciones';
+import { Route, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { actions } from 'react-redux-form';
 
 import './GestionAlumnos.css';
+
+const mapDispatchToProps = (dispatch) => ({
+    establecerOpcionesBarra: (opciones) => dispatch(establecerOpcionesBarra(opciones)),
+    seleccionarOpcionBarra: (opcion) => dispatch(seleccionarOpcionBarra(opcion))
+
+})
+
+const mapStateToProps = (state) => {
+
+    return {
+        barra: state.barra
+    }
+
+}
 
 class GestionAlumnos extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectores: [
+                { id:0, nombre: "Últimos", icono:'fa fa-list'},
+                { id:1, nombre: "Buscar", icono: 'fa fa-search'},
+                { id:2, nombre: "Estadísticas", icono:'fa fa-line-chart'}
+            ],
             modalDetalleAbierto: false,
             pestanas: [{ nombre: 'Todos' }, { nombre: 'Clases presenciales' }, { nombre: 'Solución de ejercicios' }],
             indiceSeleccion: 0
         };
+        this.props.establecerOpcionesBarra(this.state.selectores)
+        this.props.seleccionarOpcionBarra(0)
     }
 
     render() {
@@ -83,5 +108,4 @@ class GestionAlumnos extends Component {
     }
 
 }
-
-export default GestionAlumnos;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GestionAlumnos));

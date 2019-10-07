@@ -26,6 +26,24 @@
     display: block;    
 }
 
+@media (max-width: 991px){
+    .contenedor-gestion-contratos-css-grid{
+        
+        grid-template-areas:    "titulo         titulo"
+                                "contenedor     contenedor";
+       
+    }
+
+    .contenedor-gestion-contratos-css-grid .botonera{
+        display: none;
+    
+    }
+    .contenedor-gestion-contratos-css-grid .titulo-gestion{
+        justify-self: center;
+    
+    }
+}
+
 @media screen and (max-width: 768px){
     .contenedor-gestion-contratos-css-grid{
         padding-left: 10px;

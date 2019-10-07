@@ -24,7 +24,6 @@ class ContenedorPerfil extends Component {
 
         // Pregunto qué clase de información debo mostrar
         let contenido = null;
-
         switch (this.props.seleccionPrincipal) {
 
             case -2:

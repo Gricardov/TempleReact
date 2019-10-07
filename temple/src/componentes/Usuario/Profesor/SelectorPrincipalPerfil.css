@@ -64,3 +64,9 @@
 .control-principal-perfil-oculto {
     display: none !important;    
   }
+
+  @media (max-width: 991px){
+    .selector-principal-perfil{
+        display: none;
+    }
+}

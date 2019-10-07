@@ -269,12 +269,10 @@ class Principal extends Component {
 
                                 <Redirect to={RUTAS.INICIO_BIENVENIDA.ruta} component={Inicio} />
                             </SwitchDeslizador>
-
+                            
                         </>
                 }
-                <BarraInferior opciones={[{id:0, nombre:'Buscar', icono: 'fa fa-search'},
-                {id:1, nombre:'Estadísticas', icono:'fa fa-line-chart'},
-                {id:2, nombre:'Inscritos', icono:'fa fa-group'}]}/>
+                <BarraInferior/>
                 <Asistente usuario={this.props.sesion.usuario} />
                 <Pie />
 

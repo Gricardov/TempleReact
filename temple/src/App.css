@@ -39,7 +39,7 @@ body p {
 
 .perfil-debajo-barra{
 
-  padding-top: 58px;
+  padding-top: 55px;
   background: #eff3f5;
 
 }
@@ -1349,7 +1349,7 @@ hr {
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0,0.5);
-  z-index: 2;
+  z-index: 101;
   cursor: pointer;
   -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 1s; /* Firefox < 16 */

@@ -61,6 +61,24 @@
 
 /*Consultas css*/
 
+@media (max-width: 991px){
+    .contenedor-gestion-horarios-css-grid{
+        
+        grid-template-areas:    "titulo         titulo"
+                                "contenedor     contenedor";
+       
+    }
+
+    .contenedor-gestion-horarios-css-grid .botonera{
+        display: none;
+    
+    }
+    .contenedor-gestion-horarios-css-grid .titulo-gestion{
+        justify-self: center;
+    
+    }
+}
+
 @media screen and (max-width: 850px){
     .contenedor-gestion-horarios-css-grid{
         grid-template-rows: 60px 100vh;

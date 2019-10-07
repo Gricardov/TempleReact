@@ -1,5 +1,7 @@
 .barra-inferior{
-    display: flex;
+    max-width: 100vw;
+    z-index: 100;
+    display: none;
     flex-wrap: nowrap;
     position: fixed;
     bottom: 0px;
@@ -24,12 +26,22 @@
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     padding: 5px;
     text-align: center;
+    justify-content: center;
     width: 100%;
     border-left: 1px solid rgb(212, 212, 212);
     /*border-right: 1px solid rgb(212, 212, 212);*/
 
 }
 
+.opcion-barra-inferior-seleccionada{
+    background: #c2c2c2;
+}
+
+@media (max-width: 991px){
+    .barra-inferior{
+        display: flex;
+    }
+}
