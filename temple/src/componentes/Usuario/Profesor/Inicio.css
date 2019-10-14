@@ -1,0 +1,21 @@
+.contenedor-inicio-profesor-css-grid{
+    padding: 25px 100px;    
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-areas: "solicitudes-globales publicaciones preguntas-globales";
+    grid-gap: 15px; 
+}
+
+.solicitudes-globales{
+grid-area: solicitudes-globales;
+}
+
+.publicaciones{
+grid-area: publicaciones;
+}
+
+.preguntas-globales{
+grid-area: preguntas-globales;
+}

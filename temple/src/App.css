@@ -1,13 +1,6 @@
 /*@import '~react-agenda/build/styles.css';
 @import '~react-datetime/css/react-datetime.css';*/
 
-body p {
-  font-family: "Lato", sans-serif;
-  line-height: 30px;
-  color: #758690;
-  margin: 0;
-}
-
 /*Le da una sombrita bien sabrosona a la barra*/
 .sombra-barra{
   -webkit-box-shadow: 0px -8px 15px 10px rgba(0,0,0,0.5);
@@ -40,6 +33,7 @@ body p {
 .perfil-debajo-barra{
 
   padding-top: 55px;
+  min-height: 100vh;
   background: #eff3f5;
 
 }
@@ -48,6 +42,14 @@ body p {
 
 .cuerpo-publicador-publicacion{
 
+}
+
+/*Las tarjetas contenedoras del inicio*/
+.tarjeta-contenedora{
+  border: 1px solid rgb(212, 212, 212);
+  border-radius: 5px;
+  padding: 20px;
+  background: #fff;  
 }
 
 /*Los bloques laterales de la página de inicio*/
@@ -2015,6 +2017,17 @@ input, textarea {
   box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
 }
 
+.btn-tarjeta-lateral{
+  border-radius: 15px;
+  padding: 1px 80px;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  font-size: 0.8rem;
+  color: #fff;
+  box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+}
+
 @media screen and (max-width: 768px){
   .btn-tarjeta{
     padding: 5px 15px;
@@ -2028,6 +2041,10 @@ input, textarea {
   color: white !important;
   padding: 5px 8px;
   font-size: 0.8rem !important;
+}
+
+.naranja{
+  background: #ffaa72;
 }
 
 .verde{

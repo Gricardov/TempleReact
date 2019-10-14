@@ -1,0 +1,36 @@
+.solicitudes-globales{
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.solicitudes-globales .encabezado-solicitudes-globales{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.solicitudes-globales .encabezado-solicitudes-globales h2{
+    font-size: 1.1rem;
+    color: #6d6d6d;
+    margin: 0px;
+
+}
+
+.solicitudes-globales .encabezado-solicitudes-globales p{
+    line-height: 1.5;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #b3b3b3;
+    margin: 0px;
+
+}
+
+.solicitudes-globales .cuerpo-solicitudes-globales{
+    overflow: auto;
+}
+
+.solicitudes-globales hr{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

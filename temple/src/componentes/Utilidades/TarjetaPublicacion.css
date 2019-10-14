@@ -1,0 +1,221 @@
+.tarjeta-ejercicio{
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 5px;
+    min-height: 100px;
+    padding: 40px;
+    background: #fff;
+    margin-bottom: 10px; 
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: auto 5fr 1fr;
+    grid-template-rows: auto 100px auto;
+    grid-template-areas:    "img-tarjeta-ejercicio            encabezado-tarjeta-ejercicio      estado-tarjeta-ejercicio"
+                            "contenido-tarjeta-ejercicio      contenido-tarjeta-ejercicio       contenido-tarjeta-ejercicio"
+                            "oferta-tarjeta-ejercicio         oferta-tarjeta-ejercicio          revisar-tarjeta-ejercicio"
+}
+
+.img-perfil-tarjeta-ejercicio{
+    display: block;
+    border-radius: 50%;
+    border: 1px solid #efefef;
+    justify-self: stretch;
+    align-self: center;
+    width: 80px;
+    height: 80px;
+    grid-area: img-tarjeta-ejercicio;
+    -webkit-box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+}
+
+.encabezado-tarjeta-ejercicio{
+    grid-area: encabezado-tarjeta-ejercicio;
+    margin-left: 30px;
+}
+
+.encabezado-tarjeta-ejercicio h2{
+    font-size: 1.6rem;
+    color: #5a5a5a;
+    overflow: hidden;
+}
+
+.encabezado-tarjeta-ejercicio p{
+    font-size: 0.9rem;  
+    font-weight: bold;  
+    color: #a3a3a3;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.estado-tarjeta-ejercicio{
+    grid-area: estado-tarjeta-ejercicio;
+    justify-self: end;
+}
+
+.estado-tarjeta-ejercicio p{
+    font-size: 0.9rem;
+    color: #5a5a5a;
+    white-space: nowrap;
+}
+
+.contenido-tarjeta-ejercicio{
+    grid-area: contenido-tarjeta-ejercicio;
+    overflow: hidden;    
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.contenido-tarjeta-ejercicio p{
+    overflow: hidden;
+    margin-top: 20px;
+    margin-left: 0px;
+    white-space: normal;
+    color: rgb(146, 145, 145);
+    font-size: 0.9rem;
+    line-height: 20px;
+    
+}
+
+.btn-revisar-tarjeta-ejercicio{
+    grid-area: revisar-tarjeta-ejercicio;
+    justify-self: stretch;
+    background: rgb(208, 247, 176);
+    border-radius: 5px;
+    text-decoration: none;
+    border: none;
+    outline: none !important;
+    cursor: pointer;
+    -webkit-box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
+-moz-box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
+box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
+}
+
+.oferta-tarjeta-ejercicio{
+    grid-area: oferta-tarjeta-ejercicio;
+    justify-self: start;
+}
+
+.oferta-tarjeta-ejercicio p{
+    font-size: 0.9rem;
+    color: #5a5a5a;;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 768px){
+
+.tarjeta-ejercicio{
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 5px;
+    min-height: 100px;
+    padding: 22px;
+    background: #fff;
+    margin-bottom: 10px; 
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: auto 100px auto;
+    grid-template-areas:    "img-tarjeta-ejercicio            encabezado-tarjeta-ejercicio      encabezado-tarjeta-ejercicio"
+                            "contenido-tarjeta-ejercicio      contenido-tarjeta-ejercicio       contenido-tarjeta-ejercicio"
+                            "revisar-tarjeta-ejercicio        oferta-tarjeta-ejercicio          estado-tarjeta-ejercicio"
+}
+
+.img-perfil-tarjeta-ejercicio{
+    display: block;
+    border-radius: 50%;
+    border: 1px solid #efefef;
+    justify-self: center;
+    align-self: center;
+    width: 50px;
+    height: 50px;
+    -webkit-box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+}
+
+.encabezado-tarjeta-ejercicio{
+    margin-left: 10px;
+}
+
+.encabezado-tarjeta-ejercicio h2{
+    font-size: 1.3rem;
+    color: #5a5a5a;
+    overflow: hidden;
+}
+
+.encabezado-tarjeta-ejercicio p{
+    font-size: 0.7rem;  
+    font-weight: bold;  
+    color: #a3a3a3;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.estado-tarjeta-ejercicio{
+    justify-self: end;
+}
+
+.estado-tarjeta-ejercicio p{
+    font-size: 0.9rem;
+    color: #000;
+    white-space: nowrap;
+    align-self: end;
+    margin-top: 15px;
+}
+
+.contenido-tarjeta-ejercicio{
+    overflow: hidden;    
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.contenido-tarjeta-ejercicio p{
+    overflow: hidden;
+    margin-top: 0px;
+    color: rgb(146, 145, 145);
+    font-size: 0.8rem;
+    line-height: 18px;
+    
+}
+
+.btn-revisar-tarjeta-ejercicio{
+    justify-self: stretch;
+    background: rgb(208, 247, 176);
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    border: none;
+    outline: none !important;
+    cursor: pointer;
+    -webkit-box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
+-moz-box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
+box-shadow: 3px 2px 11px -7px rgba(0,0,0,0.75);
+}
+
+.oferta-tarjeta-ejercicio{
+    justify-self: center;
+} }
+
+@media screen and (max-width: 576px){
+    
+    .tarjeta-ejercicio{
+        
+        padding: 18px;        
+                    
+    }
+    .tarjeta-ejercicio .encabezado-tarjeta-ejercicio h2{
+        font-size: 1.3rem;
+        margin-top: 0.9rem;
+        color: #5a5a5a;
+        overflow: hidden;
+    }
+   
+    .tarjeta-ejercicio .oferta-tarjeta-ejercicio p{
+        font-size: 0.8rem;
+    }
+
+    .tarjeta-ejercicio .estado-tarjeta-ejercicio p{
+        font-size: 0.8rem;
+    }
+    
+}

@@ -10,6 +10,21 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1,h2,h3,h4,h5{
+  font-family: -apple-system, BlinkMacSystemFont,"Source Sans Pro" "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+/*body p {
+  font-family: -apple-system, BlinkMacSystemFont,"Source Sans Pro" "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  line-height: 30px;
+  color: #758690;
+  margin: 0;
+}*/
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

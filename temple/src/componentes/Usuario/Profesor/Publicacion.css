@@ -1,0 +1,15 @@
+.tarjeta-publicacion{
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 5px;
+    min-height: 100px;
+    padding: 40px;
+    background: #fff;
+    margin-bottom: 10px; 
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: auto 5fr 1fr;
+    grid-template-rows: auto 100px auto;
+    grid-template-areas:    "img-tarjeta-publicacion            encabezado-tarjeta-publicacion"
+                            "contenido-tarjeta-ejercicio      contenido-tarjeta-ejercicio"
+                            "estado-tarjeta-ejercicio         estado-tarjeta-ejercicio"
+}

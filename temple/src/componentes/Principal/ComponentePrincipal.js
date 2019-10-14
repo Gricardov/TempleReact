@@ -13,7 +13,8 @@ import Login from '../Bienvenida/IniciarSesionBienvenida';
 import RegistroAlumno from '../Registro/Alumno/RegistroAlumno';
 import RegistroProfesor from '../Registro/Profesor/RegistroProfesor';
 import InicioAlumno from '../Usuario/Alumno/InicioAlumno';
-import InicioProfesor from '../Usuario/Profesor/InicioProfesor';
+/*import InicioProfesor from '../Usuario/Profesor/InicioProfesor';*/
+import InicioProfesor from '../Usuario/Profesor/Inicio';
 import PerfilProfesorAlumno from '../Usuario/Alumno/PerfilProfesorAlumno';
 import MiPerfilAlumno from '../Usuario/Alumno/MiPerfil';
 import MiPerfilProfesor from '../Usuario/Profesor/MiPerfilResponsivo';
