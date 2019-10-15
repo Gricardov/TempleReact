@@ -2,14 +2,92 @@
     border: 1px solid rgb(212, 212, 212);
     border-radius: 5px;
     min-height: 100px;
-    padding: 40px;
+    padding: 20px;
     background: #fff;
     margin-bottom: 10px; 
     display: grid;
-    grid-gap: 10px;
-    grid-template-columns: auto 5fr 1fr;
-    grid-template-rows: auto 100px auto;
-    grid-template-areas:    "img-tarjeta-publicacion            encabezado-tarjeta-publicacion"
-                            "contenido-tarjeta-ejercicio      contenido-tarjeta-ejercicio"
-                            "estado-tarjeta-ejercicio         estado-tarjeta-ejercicio"
+    grid-gap: 15px;
+    grid-template-columns: 1fr 8fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:    "tarjeta-publicacion-img          tarjeta-publicacion-encabezado"
+                            "tarjeta-publicacion-contenido    tarjeta-publicacion-contenido"
+                            "tarjeta-publicacion-estado       tarjeta-publicacion-estado";
+    justify-items: center;
+    align-items: center;
+                            
+}
+
+.tarjeta-publicacion img{
+    grid-area: tarjeta-publicacion-img;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+}
+
+.tarjeta-publicacion .encabezado{
+    grid-area: tarjeta-publicacion-encabezado;
+    justify-self: start;
+}
+.tarjeta-publicacion .encabezado h2,.tarjeta-publicacion .encabezado p{
+    margin-bottom: 5px;
+}
+
+.tarjeta-publicacion .encabezado h2{
+    font-size: 1.2rem;
+    color: #686868;
+}
+.tarjeta-publicacion .encabezado p{
+    font-size: 0.8rem;
+    color: #808080;
+}
+.tarjeta-publicacion .contenido{
+    grid-area: tarjeta-publicacion-contenido;
+    align-items: center;
+    
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.tarjeta-publicacion .contenido img{
+    width: 100%;
+    height: 250px;
+    cursor: pointer;
+    box-shadow: none;
+    border-radius: 0px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.tarjeta-publicacion .contenido div{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 25px;
+    min-height: 25px;
+    max-height: 100px;
+    line-clamp: 4;
+    -webkit-line-clamp: 4;
+}
+
+.tarjeta-publicacion .contenido p{
+    font-size: 0.9rem;
+    color: #808080;
+    display: block;
+}
+
+.tarjeta-publicacion .estado{
+    grid-area: tarjeta-publicacion-estado;
+    display: flex;
+    justify-self: stretch;
+    justify-content: space-around;
+}
+
+.tarjeta-publicacion .estado div{
+    cursor: pointer;
+    color: #494949;;
+}
+
+.tarjeta-publicacion .estado div:hover{
+    color: #686868;
 }
