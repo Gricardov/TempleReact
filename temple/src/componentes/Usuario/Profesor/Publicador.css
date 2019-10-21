@@ -34,3 +34,19 @@
 
 }
 
+@media (max-width: 991px){
+    .publicaciones .publicador{
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 1fr 8fr;
+        grid-gap: 20px;
+        grid-template-areas:    "img-publicador titulo-publicador";
+        align-items: center;   
+        justify-content: center;
+    }
+        
+    .publicaciones .publicador textarea{
+        display: none;
+    
+    }
+}

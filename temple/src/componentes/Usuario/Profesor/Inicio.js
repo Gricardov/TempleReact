@@ -3,14 +3,39 @@ import './Inicio.css';
 import PreguntasGlobales from './PreguntasGlobales';
 import SolicitudesGlobales from './SolicitudesGlobales';
 import Publicaciones from './Publicaciones';
+import { Route, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {    
+    establecerOpcionesBarra, seleccionarOpcionBarra
+} from '../../../redux/CreadorAcciones';
+
+const mapStateToProps = (state) => {
+
+    return {
+        barra: state.barra
+    }
+
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    
+    establecerOpcionesBarra: (opciones) => dispatch(establecerOpcionesBarra(opciones)),
+    seleccionarOpcionBarra: (opcion) => dispatch(seleccionarOpcionBarra(opcion))
+})
 
 class Inicio extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-
+            selectores: [
+                { id: 0, nombre: "Publicaciones", icono: 'fa fa-sticky-note-o' },
+                { id: 1, nombre: "Solicitudes", icono: 'fa fa-pencil' },
+                { id: 2, nombre: "Ejercicios", icono: 'fa fa-coffee' }
+            ]
         }
+        this.props.establecerOpcionesBarra(this.state.selectores)
+        this.props.seleccionarOpcionBarra(0)
     }
 
     render() {
@@ -50,4 +75,4 @@ class Inicio extends Component {
 
 }
 
-export default Inicio;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Inicio));

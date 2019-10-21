@@ -22,7 +22,7 @@ const SolicitudesGlobales = (props) => {
     return (
         <div className="tarjeta-contenedora solicitudes-globales">
             <div className="encabezado-solicitudes-globales">
-                <h2>Solicitudes globales</h2>
+                <h2>Solicitudes</h2>
                 <p><i className="fa fa-cog"></i> Filtrar</p>
             </div>
             <div className="cuerpo-solicitudes-globales">

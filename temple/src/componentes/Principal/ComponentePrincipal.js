@@ -43,7 +43,8 @@ import {
     obtenerLideres, iniciarSesion, seleccionarPestanaPerfilContrato,
     establecerPasoContrato, registrarContrato, registrarPublicacion,
     obtenerPerfil, cerrarSesion, consultaCursosPorNombre, consultaProfesoresPorIdCurso,
-    consultaProfesoresPorNombreCurso, obtenerInicioGalleta, actualizarHorarios
+    consultaProfesoresPorNombreCurso, obtenerInicioGalleta, actualizarHorarios,
+    establecerOpcionesBarra, seleccionarOpcionBarra
 } from '../../redux/CreadorAcciones';
 
 const mapStateToProps = (state) => {
@@ -76,22 +77,35 @@ const mapDispatchToProps = (dispatch) => ({
     consultaProfesoresPorIdCurso: (idCur, idNiv) => dispatch(consultaProfesoresPorIdCurso(idCur, idNiv)),
     consultaProfesoresPorNombreCurso: (nomCur, idNiv) => dispatch(consultaProfesoresPorNombreCurso(nomCur, idNiv)),
     obtenerPerfil: (codUsu, tipoUsu) => dispatch(obtenerPerfil(codUsu, tipoUsu)),
-    actualizarHorarios: (codUsu, horarios) => dispatch(actualizarHorarios(codUsu, horarios))
-
+    actualizarHorarios: (codUsu, horarios) => dispatch(actualizarHorarios(codUsu, horarios)),
+    establecerOpcionesBarra: (opciones) => dispatch(establecerOpcionesBarra(opciones)),
+    seleccionarOpcionBarra: (opcion) => dispatch(seleccionarOpcionBarra(opcion))
 })
 
 class Principal extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            
+        }
+
+        
+
+    }
+
     componentDidMount() {
+
         let usuario = obtenerGalleta("usuario");
 
         // La galleta indica que hay un usuario logueado
         if (usuario && usuario != "") {
             this.props.obtenerInicioGalleta();
+
         }
 
         this.props.obtenerLideres();
-
+        
     }
 
     render() {
@@ -270,10 +284,10 @@ class Principal extends Component {
 
                                 <Redirect to={RUTAS.INICIO_BIENVENIDA.ruta} component={Inicio} />
                             </SwitchDeslizador>
-                            
+
                         </>
                 }
-                <BarraInferior/>
+                <BarraInferior />
                 <Asistente usuario={this.props.sesion.usuario} />
                 <Pie />
 

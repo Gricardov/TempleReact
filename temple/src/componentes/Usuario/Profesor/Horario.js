@@ -341,7 +341,20 @@ class Horario extends Component {
             </div>
           </Col>
         </Row>
-        <Row className="mt-4">
+        
+      </div>
+    )
+
+
+
+  }
+
+}
+
+export default Horario;
+
+/*
+<Row className="mt-4">
           <Col xs={12}>
             <Button color="primary" block onClick={() => {
               let eventosFiltrados = this.state.eventos.filter(e => e.title !== 'reservado');
@@ -358,13 +371,4 @@ class Horario extends Component {
               Guardar cambios</Button>
           </Col>
         </Row>
-      </div>
-    )
-
-
-
-  }
-
-}
-
-export default Horario;
+*/

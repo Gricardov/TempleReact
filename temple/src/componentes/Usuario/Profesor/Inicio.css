@@ -1,5 +1,5 @@
 .contenedor-inicio-profesor-css-grid{
-    padding: 25px 100px;    
+    padding: 20px 60px;    
     min-height: 100vh;
     display: grid;
     grid-template-rows: 1fr;
@@ -18,4 +18,49 @@ grid-area: publicaciones;
 
 .preguntas-globales{
 grid-area: preguntas-globales;
+}
+
+@media (max-width: 1350px){
+    .contenedor-inicio-profesor-css-grid{
+        padding: 20px 30px;    
+        
+    }
+}
+@media (max-width: 1300px){
+    .contenedor-inicio-profesor-css-grid{
+        padding: 20px 15px;        
+    }
+    .contenedor-inicio-profesor-css-grid{
+        grid-gap: 10px;
+        grid-template-columns: 3fr 5fr 3fr;
+    }
+}
+@media (max-width: 991px){
+    .contenedor-inicio-profesor-css-grid{
+        padding: 20px 20px;    
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas: "publicaciones";
+    }
+    .solicitudes-globales{
+            display: none !important;
+        }
+
+        .preguntas-globales{
+            display: none !important;
+        }
+        
+}
+
+@media (max-width: 576px){
+    .contenedor-inicio-profesor-css-grid{
+        padding: 15px 10px;    
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas: "publicaciones";
+    }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
-import './PreguntasGlobales.css';
+import './Publicaciones.css';
+
 import Publicador from './Publicador';
 import Publicacion from './Publicacion';
 
