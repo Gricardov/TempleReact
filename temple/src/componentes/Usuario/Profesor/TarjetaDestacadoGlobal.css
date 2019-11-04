@@ -1,0 +1,54 @@
+.tarjeta-destacado-global{
+    padding: 5px;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 3fr;
+    grid-gap: 5px;
+    grid-template-areas: "tarjeta-destacado-global-encabezado tarjeta-destacado-global-encabezado"
+                         "tarjeta-destacado-global-cuerpo tarjeta-destacado-global-cuerpo";
+    align-items: center;
+    justify-items: start;
+}
+
+.tarjeta-destacado-global .encabezado{
+    grid-area: tarjeta-destacado-global-encabezado;
+
+}
+
+.tarjeta-destacado-global .encabezado h2, .tarjeta-destacado-global .encabezado p{
+    margin-bottom: 5px;
+}
+
+.tarjeta-destacado-global .encabezado h2{
+    font-size: 1rem;
+    color: #686868;
+    justify-self: start;
+}
+
+.tarjeta-destacado-global .encabezado p{
+    font-size: 0.8rem;
+    color: #808080;
+    font-style: italic;
+}
+
+.tarjeta-destacado-global .cuerpo{
+    align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 25px;
+    min-height: 25px;
+    max-height: 75px;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    grid-area: tarjeta-destacado-global-cuerpo;
+}
+
+.tarjeta-destacado-global .cuerpo p {
+    font-size: 0.8rem;
+    margin: 0px;
+    color: #808080;
+
+}
+

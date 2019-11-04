@@ -7,7 +7,7 @@ const Opciones = (props)=>{
 
     if (props.opciones){
         opciones=props.opciones.map((e,i)=>{
-            return <Link to={e.direccion} onClick={e.accion?()=>{e.accion()}:null}><div key={i}>{e.descripcion}</div></Link>
+            return <Link to={e.direccion} onClick={e.accion?()=>{e.accion()}:null}><div key={i}><i className={e.icono}/> {e.descripcion}</div></Link>
         })
     }
 

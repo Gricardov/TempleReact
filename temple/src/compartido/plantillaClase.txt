@@ -26,3 +26,13 @@ class Inicio extends Component {
 }
 
 export default Inicio;
+--------------------------
+import React from 'react';
+
+const SelectorLista = (props) => {
+    return(
+        <div>La voz</div>
+    )
+}
+
+export default SelectorLista;

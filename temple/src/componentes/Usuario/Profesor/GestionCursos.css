@@ -35,7 +35,8 @@
     grid-area: botonera;
     display: flex;
     justify-self: end;
-    
+    width: 100%;
+    justify-content: space-evenly;
 }
 
 .contenedor-gestion-cursos-css-grid .tarjeta-contenedora-contenido{

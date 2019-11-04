@@ -1,0 +1,34 @@
+.selector-lista{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: column nowrap;
+    flex-flow: column nowrap;
+}
+
+.selector-lista div{
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.1s ease-in;
+}
+
+.selector-lista div p{
+    margin-bottom: 0px;
+    font-size: 0.9rem;
+    color: #707070;
+}
+
+.selector-lista div:hover{
+    background: rgb(230, 230, 230);
+}
+/*.selector-lista div:hover p{
+    color: rgb(70, 70, 70)
+}*/
+
+.selector-lista .seleccionado{
+    background: rgb(212, 212, 212);    
+}
+
+.selector-lista .seleccionado p{
+    color: rgb(126, 126, 126);
+    font-weight: bold;   
+}

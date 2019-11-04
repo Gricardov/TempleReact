@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Inicio.css';
-import PreguntasGlobales from './PreguntasGlobales';
-import SolicitudesGlobales from './SolicitudesGlobales';
+import LateralDerecho from './LateralDerecho';
+import LateralIzquierdo from './LateralIzquierdo';
 import Publicaciones from './Publicaciones';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -42,14 +42,16 @@ class Inicio extends Component {
         return (
             <div className="perfil-debajo-barra panel-fondo">
                 <div className="contenedor-inicio-profesor-css-grid">
-                    <SolicitudesGlobales solicitudes={[
-                        {id:0,img:'http://www.newdesignfile.com/postpic/2009/09/generic-user-icon-windows_354185.png',nombres:'Karol Chama',cuerpo:'Solicito profesor que enseñe matemáticas, física y química para mi niño de nivel primaria'},
-                        {id:1,img:'http://www.newdesignfile.com/postpic/2009/09/generic-user-icon-windows_354185.png',nombres:'Marisol Naveros',cuerpo:'No te contaron mal, estuve con alguien más. Si nos besamos, pero hasta ahí nomás'},
-                        {id:2,img:'http://www.newdesignfile.com/postpic/2009/09/generic-user-icon-windows_354185.png',nombres:'Sara Fuertes',cuerpo:'Hubo coqueteo, pero uno no es ninguno'},
-                        {id:3,img:'http://www.newdesignfile.com/postpic/2009/09/generic-user-icon-windows_354185.png',nombres:'Edison Robles',cuerpo:'Busco profesor de Matemáticas y Dirección financiera Dónde Lima Ciudad Estoy estudiando un curso de especialización de Planeamiento Financiero en ESAN'},
-                        {id:4,img:'http://www.newdesignfile.com/postpic/2009/09/generic-user-icon-windows_354185.png',nombres:'Axel Chacón',cuerpo:'Lorem ipsum et dolor sdfjdskfg fgtgf fsdjoso gog dfgdfog dfod0g ofdgjdfiog dfuohodfodgdghbuiouobdf'},
-                        {id:5,img:'http://www.newdesignfile.com/postpic/2009/09/generic-user-icon-windows_354185.png',nombres:'Michel Lucana',cuerpo:'afiodbnfo dfusdu sdigi duig dfghjg u uig guuiñ uio dfuiz gudfig uoguogduorg '},
-                        {id:6,img:'http://www.newdesignfile.com/postpic/2009/09/generic-user-icon-windows_354185.png',nombres:'Judith Vila',cuerpo:'Yo quiero ser tu profe, mejor dicho profesor, el que te enseñe del amor, lo que sabes y disimulas :v'},
+                    <LateralIzquierdo 
+                    
+                        destacados={[
+                        {id:0,autor:'Los Prisioneros',titulo:'Puedes estar inseguro de algo y aún así ganar',fecha:'Hace 5 minutos',cuerpo:'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus'},
+                        {id:1,autor:'Ronald Reagan',titulo:'Fórmulas de matemática en tu vida diaria',fecha:'Hace 10 minutos',cuerpo:'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus'},
+                        {id:2,autor:'Michel Huayta',titulo:'¿Por qué somos infelices?',fecha:'Hace 15 minutos',cuerpo:'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus'},
+                        {id:3,autor:'Kevin Chacón',titulo:'La belleza de las matemáticas',fecha:'Hace 6 minutos',cuerpo:'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus'},
+                        {id:4,autor:'Axel Donayre',titulo:'Cómo enseñar a tus alumnos',fecha:'Hace 7 minutos',cuerpo:'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus'},
+                        {id:5,autor:'Vane Sita',titulo:'Psicología y educación (pdf)',fecha:'Hace 56 minutos',cuerpo:'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus'},
+                        {id:6,autor:'Aurelio Cruz',titulo:'Cómo enamorar pt.1',fecha:'Hace 15 minutos',cuerpo:'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus'},
                     ]} />
                     <Publicaciones usuario={this.props.sesion.usuario}
                     publicaciones={[
@@ -60,7 +62,7 @@ class Inicio extends Component {
 
 
                     ]}/>
-                    <PreguntasGlobales preguntas={[
+                    <LateralDerecho preguntas={[
                         {curso:'Geometría',nivel:1,img:'',descripcion:'En el cuadrilátero ABCD está inscrito un círculo, siendo K, L, M, N los puntos de tangencia con los lados AB, BC, CD y DA, respectivamente. Las rectas DA y CB se cortan en S, mientras que BA y CD se cortan en P. Si S, K y M están alineados, probar que P, N y L también lo están.', precio:0, autor:'Carito Cuya',id:0},
                         {curso:'Física',nivel:2,img:'https://solviapp.com/media/publications/image_DjRrk2k.jpg',descripcion:'', precio:0, autor:'Te quiero',id:1},
                         {curso:'Música',img:'https://t2.up.ltmcdn.com/es/images/4/2/5/tipos_de_escala_musical_3524_orig.jpg',nivel:2,descripcion:'a) Calcular qué nota es una séptima menor por encima de Re.\nb) ¿Y una tercera mayor por debajo?', precio:3.00, autor:'Marisol Naveros',id:2},

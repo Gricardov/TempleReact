@@ -4,20 +4,23 @@
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 3fr 1fr;
-    grid-template-areas: "solicitudes-globales publicaciones preguntas-globales";
+    grid-template-areas: "lateral-izquierdo publicaciones lateral-derecho";
     grid-gap: 15px; 
 }
-
-.solicitudes-globales{
-grid-area: solicitudes-globales;
+.contenedor-inicio-profesor-css-grid hr{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.lateral-izquierdo{
+grid-area: lateral-izquierdo;
 }
 
 .publicaciones{
 grid-area: publicaciones;
 }
 
-.preguntas-globales{
-grid-area: preguntas-globales;
+.lateral-derecho{
+grid-area: lateral-derecho;
 }
 
 @media (max-width: 1350px){

@@ -57,7 +57,8 @@ const mapStateToProps = (state) => {
         perfil: state.perfil,
         contrato: state.contrato,
         registroContrato: state.registroContrato,
-        registroPublicacion: state.registroPublicacion
+        registroPublicacion: state.registroPublicacion,
+        menu: state.menu
     }
 
 }
@@ -101,7 +102,6 @@ class Principal extends Component {
         // La galleta indica que hay un usuario logueado
         if (usuario && usuario != "") {
             this.props.obtenerInicioGalleta();
-
         }
 
         this.props.obtenerLideres();
@@ -116,7 +116,7 @@ class Principal extends Component {
                     this.props.sesion.usuario
                         ?
                         <>
-                            <BarraUsuario usuario={this.props.sesion.usuario} />
+                            <BarraUsuario/>
                             <SwitchDeslizador>
                                 <Route exact path="/" component={() =>
                                     <InicioAlumno />} />
@@ -240,7 +240,9 @@ class Principal extends Component {
                                             id: 2, nombre: 'Álgebra', img: 'https://www.cienciamatematica.com/wp-content/uploads/algebra.jpg',
                                             desde: 'Hoy a la 1pm', hasta: 'Hoy a las 3pm', lugar: 'Jr. Las bellas 123 - piso 4 - surco'
                                         }
-                                    ]} />
+                                    ]}
+                                    horarios={this.props.perfil.perfil.horarios}
+                                    />
 
                                 } />
                                 {/*<MisHorarios

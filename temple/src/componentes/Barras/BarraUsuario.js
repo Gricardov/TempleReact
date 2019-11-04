@@ -16,7 +16,8 @@ import MenuOpcionesDeslizable from '../Utilidades/MenuOpcionesDeslizable';
 const mapStateToProps = (state) => {
 
     return {
-
+        usuario: state.sesion.usuario,
+        menu: state.sesion.usuario.menu
     }
 
 }
@@ -67,7 +68,6 @@ class BarraUsuario extends Component {
     componentDidMount() {
         // Si la sesión se ha iniciado correctamente, que pregunte qué tipo de usuario es
         if (this.props.usuario) {
-
             if (this.props.usuario.ID_ROL == 1) {
                 this.props.history.push(RUTAS.INICIO_PROFESOR.ruta);
 
@@ -80,14 +80,43 @@ class BarraUsuario extends Component {
     }
 
     render() {
+
+        let menuBarra = [];
+        let menuInicio = {};
+        let menuPerfil = {};
+        if (this.props.menu) {
+            this.props.menu.map((e, i) => {
+                // Solo va a devolver las opciones que sean de la barra
+                switch (e.TIP_MEN) {
+                    case 1:
+                        menuInicio = { direccion: e.DIR_MEN }
+                        break;
+
+                    case 2:
+                        menuBarra.push({ direccion: e.DIR_MEN, descripcion: e.NOM_MEN, icono: e.ICO_MEN })
+                        break;
+
+                    case 3:
+                        menuPerfil = { direccion: e.DIR_MEN }
+                        break;
+                }
+
+            })
+
+
+
+        }
+
+
         return (
             <>
                 <div className="barra-principal">
-                    <NavLink to={this.props.usuario.ID_ROL == 1 ? RUTAS.INICIO_PROFESOR.ruta : RUTAS.INICIO_ALUMNO.ruta}>
+                    <NavLink to={menuInicio ? menuInicio.direccion : '/'}>
                         <img className="logo-barra" src="recursos/imagenes/logo.png" />
                     </NavLink>
+
                     <div className="menu-usuario-barra">
-                        <NavLink to={this.props.usuario.ID_ROL == 1 ? RUTAS.MI_PERFIL_PROFESOR.ruta : RUTAS.MI_PERFIL_ALUMNO.ruta}
+                        <NavLink to={menuPerfil ? menuPerfil.direccion : '/'}
                             onClick={() => { this.props.obtenerPerfil(this.props.usuario.COD_USU, this.props.usuario.ID_ROL) }}>
                             <div className="btn-usuario">
                                 <img alt="img-usuario" src={this.props.usuario.IMG_PER}></img>
@@ -102,37 +131,28 @@ class BarraUsuario extends Component {
                             <i className="fa fa-caret-down"></i>
                         </div>
                     </div>
+
                     <div className="menu-usuario-barra-responsivo" style={{ color: "white" }}>
                         <IconoNotificacion icono="fa fa-home" tamano="fa-2x" numero={1} ruta={this.props.usuario.ID_ROL == 1 ? RUTAS.INICIO_PROFESOR.ruta : RUTAS.INICIO_ALUMNO.ruta} />
                         <IconoNotificacion icono="fa fa-bell-o" tamano="fa-2x" numero={1} />
                         <IconoNotificacion icono="fa fa-envelope-o" tamano="fa-2x" numero={2} />
                         <IconoNotificacion icono="fa fa-user-circle" tamano="fa-2x" ruta={this.props.usuario.ID_ROL == 1 ? RUTAS.MI_PERFIL_PROFESOR.ruta : RUTAS.MI_PERFIL_ALUMNO.ruta} />
                     </div>
+
                     <Opciones abierto={this.state.opcionesAbiertas} opciones={[
-                        { direccion: RUTAS.MIS_CONTRATOS_PROFESOR.ruta, descripcion: 'Gestionar clases' },
-                        { direccion: RUTAS.MIS_HORARIOS_PROFESOR.ruta, descripcion: 'Gestionar horarios' },
-                        { direccion: RUTAS.MIS_CITAS_PROFESOR.ruta, descripcion: 'Gestionar cursos' },
-                        { direccion: RUTAS.MIS_ALUMNOS_PROFESOR.ruta, descripcion: 'Gestionar alumnos' },
-                        { direccion: RUTAS.MIS_HORARIOS_PROFESOR.ruta, descripcion: 'Gestionar pagos' },
-                        { direccion: RUTAS.MIS_HORARIOS_PROFESOR.ruta, descripcion: 'Configuración' },
-                        { direccion: RUTAS.MIS_HORARIOS_PROFESOR.ruta, descripcion: 'Ayuda' },
-                        { direccion: RUTAS.INICIAR_SESION_BIENVENIDA.ruta, accion: () => { this.props.cerrarSesion() }, descripcion: 'Salir' }
+                        ...menuBarra,
+                        { direccion: RUTAS.INICIAR_SESION_BIENVENIDA.ruta, icono:'fa fa-sign-out', accion: () => { this.props.cerrarSesion() }, descripcion: 'Salir' }
                     ]} />
                     <div className="btn-sanguche-barra" onClick={() => { this.permutarOpciones(2) }}>
                         <i className="fa fa-bars" />
                     </div>
                 </div>
+
                 <MenuOpcionesDeslizable abierto={this.state.opcionesResponsivasAbiertas} opciones={[
-                    { direccion: RUTAS.MIS_CONTRATOS_PROFESOR.ruta, descripcion: 'Gestionar clases' },
-                    { direccion: RUTAS.MIS_HORARIOS_PROFESOR.ruta, descripcion: 'Gestionar horarios' },
-                    { direccion: RUTAS.MIS_CITAS_PROFESOR.ruta, descripcion: 'Gestionar cursos' },
-                    { direccion: RUTAS.MIS_ALUMNOS_PROFESOR.ruta, descripcion: 'Gestionar alumnos' },
-                    { direccion: RUTAS.MIS_HORARIOS_PROFESOR.ruta, descripcion: 'Gestionar pagos' },
-                    { direccion: RUTAS.MIS_HORARIOS_PROFESOR.ruta, descripcion: 'Configuración' },
-                    { direccion: RUTAS.MIS_HORARIOS_PROFESOR.ruta, descripcion: 'Ayuda' },
-                    { direccion: RUTAS.INICIAR_SESION_BIENVENIDA.ruta, accion: () => { this.props.cerrarSesion() }, descripcion: 'Salir' }
+                    ...menuBarra,                   
+                    { direccion: RUTAS.INICIAR_SESION_BIENVENIDA.ruta, icono:'fa fa-sign-out', accion: () => { this.props.cerrarSesion() }, descripcion: 'Salir' }
                 ]}
-                cerrar={()=>{this.setState({opcionesResponsivasAbiertas:false})}} />
+                    cerrar={() => { this.setState({ opcionesResponsivasAbiertas: false }) }} />
             </>
         );
 

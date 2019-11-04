@@ -18,6 +18,8 @@
     grid-area: botonera;
     display: flex;
     justify-self: end;
+    width: 100%;
+    justify-content: space-evenly;
 
 }
 

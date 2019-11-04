@@ -1,6 +1,6 @@
 .contenedor-gestion-contratos-css-grid{
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 3fr 2fr;
     grid-template-rows: 60px 100vh;
     grid-template-areas:    "titulo         botonera"
                             "contenedor     contenedor";
@@ -18,6 +18,8 @@
     grid-area: botonera;
     display: flex;
     justify-self: end;
+    width: 100%;
+    justify-content: space-evenly;
 
 }
 
@@ -31,7 +33,8 @@
         
         grid-template-areas:    "titulo         titulo"
                                 "contenedor     contenedor";
-       
+        grid-template-columns: 3fr 2fr;
+
     }
 
     .contenedor-gestion-contratos-css-grid .botonera{

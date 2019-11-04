@@ -17,7 +17,6 @@ const Publicaciones = (props) => {
     return (
         <div className="tarjeta-contenedora publicaciones">
             <Publicador img={props.usuario.IMG_PER} />
-            <hr />
             {publicaciones}
         </div>
     )

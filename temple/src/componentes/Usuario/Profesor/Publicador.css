@@ -2,36 +2,55 @@
     display: grid;
     grid-template-rows: auto 50px;
     grid-template-columns: 1fr 8fr;
-    grid-gap: 20px;
-    grid-template-areas:    "img-publicador titulo-publicador"
+    grid-gap: 5px;
+    grid-template-areas:    "encabezado-publicador encabezado-publicador"
                             "descripcion-publicador descripcion-publicador";
     align-items: center;   
     justify-content: center;
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 15px;
 }
 
-.publicaciones .publicador img{
-    grid-area: img-publicador;
-    width: 50px;
-    height: 50px;
+.publicaciones .publicador .encabezado{
+    grid-area: encabezado-publicador;
+}
+
+.publicaciones .publicador .encabezado img{
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
     justify-self: center;
 }
 
 .publicaciones .publicador input, .publicaciones .publicador textarea{
-    border: 1px solid #bdbdbd;
+    /*border: 1px solid #bdbdbd;*/
+    border: none;
     border-radius: 5px;
 }
 
-.publicaciones .publicador input{
-    grid-area: titulo-publicador;
+.publicaciones .publicador .encabezado input{
     height: 30px;
+    margin-left: 15px;
+}
 
+.publicaciones .publicador hr{
+    border-top: 1px solid rgb(216, 216, 216);
+    margin-top: 15px;
+    margin-bottom: 5px;
+    background: none;
 }
 
 .publicaciones .publicador textarea{
     grid-area: descripcion-publicador;
 
+}
+
+.publicaciones .publicador .controles-publicador{
+    display: flex;
+    
 }
 
 @media (max-width: 991px){

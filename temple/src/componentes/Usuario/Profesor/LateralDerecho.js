@@ -1,8 +1,8 @@
 import React from 'react';
-import './PreguntasGlobales.css';
+import './LateralDerecho.css';
 import TarjetaPreguntaGlobal from './TarjetaPreguntaGlobal';
 
-const PreguntasGlobales = (props) => {
+const LateralDerecho = (props) => {
 
     let preguntas =[];
     if (props.preguntas){
@@ -22,12 +22,12 @@ const PreguntasGlobales = (props) => {
     }
 
 return(
-    <div className="tarjeta-contenedora preguntas-globales">
-        <div className="encabezado-preguntas-globales">
+    <div className="tarjeta-contenedora lateral-derecho">
+        <div className="encabezado-lateral-derecho">
             <h2>Preguntas</h2>
             <p><i className="fa fa-cog"></i> Filtrar</p>
         </div>
-        <div className="cuerpo-preguntas-globales">
+        <div className="cuerpo-lateral-derecho">
             {preguntas}
         </div>
     </div>
@@ -35,4 +35,4 @@ return(
 
 }
 
-export default PreguntasGlobales;
+export default LateralDerecho;

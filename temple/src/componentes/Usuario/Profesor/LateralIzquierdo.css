@@ -1,0 +1,31 @@
+.lateral-izquierdo{
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.lateral-izquierdo .encabezado-lateral-izquierdo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.lateral-izquierdo .encabezado-lateral-izquierdo h2{
+    font-size: 0.9rem;
+    color: #6d6d6d;
+    margin: 0px;
+
+}
+
+.lateral-izquierdo .encabezado-lateral-izquierdo p{
+    line-height: 1.5;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #b3b3b3;
+    margin: 0px;
+
+}
+
+.lateral-izquierdo .cuerpo-lateral-izquierdo{
+    overflow: auto;
+}
