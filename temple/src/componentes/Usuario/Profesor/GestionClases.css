@@ -1,8 +1,9 @@
 .contenedor-gestion-contratos-css-grid{
     display: grid;
     grid-template-columns: 3fr 2fr;
-    grid-template-rows: 60px 100vh;
+    grid-template-rows: 60px auto 100vh;
     grid-template-areas:    "titulo         botonera"
+                            "selector-semana    selector-semana"
                             "contenedor     contenedor";
     padding-left: 30px;
     padding-right: 30px;
@@ -21,6 +22,10 @@
     width: 100%;
     justify-content: space-evenly;
 
+}
+
+.contenedor-gestion-contratos-css-grid .selector-semana{
+    grid-area: selector-semana;
 }
 
 .contenedor-gestion-contratos-css-grid .tarjeta-contenedora-contenido{

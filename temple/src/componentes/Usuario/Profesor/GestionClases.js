@@ -9,6 +9,8 @@ import { establecerOpcionesBarra, seleccionarOpcionBarra } from '../../../redux/
 import { Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
+import SelectorPastillas from '../../Utilidades/SelectorPastillas';
+import moment from 'moment';
 
 import './GestionClases.css';
 import './GestionHorarios.css';
@@ -37,29 +39,57 @@ class GestionContratos extends Component {
                 { id: 1, nombre: "Buscar", icono: 'fa fa-search' },
                 { id: 2, nombre: "Estadísticas", icono: 'fa fa-line-chart' }
             ],
+            diasSemana: [],
+            indiceDiaSemana:0,
             modalDetalleHorarioAbierto: false,
             modalAgregarHorarioAbierto: false,
             modalOpcionesAbierto: false,
             modalGestionAbierto: false,
             idContratoSeleccionado: null
         };
-        this.props.establecerOpcionesBarra(this.state.selectores)
-        this.props.seleccionarOpcionBarra(0)
+        this.props.establecerOpcionesBarra(this.state.selectores);
+        this.props.seleccionarOpcionBarra(0);
+        
     }
 
-    render() {        
+    componentDidMount(){
+        // Genero los días de la semana
+        let fechaActual = moment();
+        let inicioSemana = fechaActual.clone().startOf('isoWeek');
+        let finSemana = fechaActual.clone().endOf('isoWeek');
+        let diaActual=fechaActual.clone().format('D');
+
+        let diasSemana = [];
+        for (let i = 0; i <= 6; i++) {
+            // Genero los días de la semana
+            let cadenaDia = moment(inicioSemana).add(i, 'days').format("dddd D").toString();
+
+            diasSemana.push({nombre:cadenaDia[0].toUpperCase() + cadenaDia.slice(1)});
+
+            // Si un día de la semana coincide con la fecha actual, que guarde el índice correspondiente
+            if (moment(inicioSemana).add(i,'days').format("D").toString()==fechaActual.clone().format('D')){
+                this.setState({indiceDiaSemana:i})
+            }
+
+        }
+
+        this.setState({ diasSemana: diasSemana })
+    }
+
+    render() {
 
         let contenido = [];
         switch (this.state.tipoVista) {
             case 1:
+
                 contenido = renderizarLista(this.props.contratos)
                 break;
 
             case 2:
                 contenido = renderizarHorario(this.props.horarios, this.state.modalDetalleHorarioAbierto,
                     this.state.modalAgregarHorarioAbierto,
-                    (estado)=>{this.setState({modalDetalleHorarioAbierto:estado})},
-                    (estado)=>{this.setState({modalAgregarHorarioAbierto:estado})})
+                    (estado) => { this.setState({ modalDetalleHorarioAbierto: estado }) },
+                    (estado) => { this.setState({ modalAgregarHorarioAbierto: estado }) })
                 break;
         }
 
@@ -81,6 +111,20 @@ class GestionContratos extends Component {
                         <button className="btn-gestion visible" onClick={() => { this.setState({ buscar: true }) }}>
                             <i className="fa fa-search"></i></button>
                     </div>
+                    {
+                        this.state.tipoVista == 1
+                            ?
+                            <div className="selector-semana">
+                                <SelectorPastillas pestanas={this.state.diasSemana}
+                                    pestanasVisibles={7}
+                                    indiceSeleccion={this.state.indiceDiaSemana}
+                                    seleccionar={(indice)=>this.setState({indiceDiaSemana:indice})}
+                                />
+                            </div>
+                            :
+                            null
+
+                    }
                     <div className="tarjeta-contenedora-contenido-responsiva tarjeta-contenedora-contenido">
                         {contenido}
                     </div>
@@ -117,7 +161,7 @@ class GestionContratos extends Component {
                         { idInscripcion: 5, img: 'https://s2.r29static.com//bin/entry/2c8/720x864,85/2166446/adele-husband-simon-konecki-2166446.webp', nombres: 'José Soto', idEstado: 3, estado: 'No asistió' },
                         { idInscripcion: 6, img: 'https://s2.r29static.com//bin/entry/2c8/720x864,85/2166446/adele-husband-simon-konecki-2166446.webp', nombres: 'Lisa Simpson', idEstado: 2, estado: 'En camino' }]}
                     cerrar={() => { this.setState({ modalGestionAbierto: false, idContratoSeleccionado: null }) }} />
-                
+
             </>
         )
     }
@@ -127,25 +171,25 @@ class GestionContratos extends Component {
 const renderizarLista = (contratosRecibidos) => {
     let contratos = [];
 
-      if (contratosRecibidos) {
-            contratos = contratosRecibidos.map((e, i) => {
-                return <TarjetaClase key={i} contrato={e}
-                    abrirModalDetalle={(id) => { this.setState({ modalDetalleAbierto: true, idContratoSeleccionado: id }) }}
-                    abrirModalGestion={(id) => { this.setState({ modalGestionAbierto: true, idContratoSeleccionado: id }) }}
-                    abrirModalOpciones={(id) => { this.setState({ modalOpcionesAbierto: true, idContratoSeleccionado: id }) }}
+    if (contratosRecibidos) {
+        contratos = contratosRecibidos.map((e, i) => {
+            return <TarjetaClase key={i} contrato={e}
+                abrirModalDetalle={(id) => { this.setState({ modalDetalleAbierto: true, idContratoSeleccionado: id }) }}
+                abrirModalGestion={(id) => { this.setState({ modalGestionAbierto: true, idContratoSeleccionado: id }) }}
+                abrirModalOpciones={(id) => { this.setState({ modalOpcionesAbierto: true, idContratoSeleccionado: id }) }}
 
-                />
-            })
-        }
-        return contratos;
+            />
+        })
+    }
+    return contratos;
 }
 const renderizarHorario = (contratosRecibidos, modalDetalleAbierto, modalAgregarAbierto, cambiarEstadoModalDetalle, cambiarEstadoModalAgregar) => {
 
-            return <Horario eventos={contratosRecibidos}
-            modalDetalleAbierto={modalDetalleAbierto}
-            modalAgregarAbierto={modalAgregarAbierto}
-            cambiarEstadoModalDetalle={(estado) => { cambiarEstadoModalDetalle(estado) }}
-            cambiarEstadoModalAgregar={(estado)=>{ cambiarEstadoModalAgregar(estado) }} />
+    return <Horario eventos={contratosRecibidos}
+        modalDetalleAbierto={modalDetalleAbierto}
+        modalAgregarAbierto={modalAgregarAbierto}
+        cambiarEstadoModalDetalle={(estado) => { cambiarEstadoModalDetalle(estado) }}
+        cambiarEstadoModalAgregar={(estado) => { cambiarEstadoModalAgregar(estado) }} />
 
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GestionContratos));

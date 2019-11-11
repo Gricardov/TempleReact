@@ -24,7 +24,7 @@ const SelectorPastillas = (props) => {
         centerMode: false,
         infinite: false,
         speed: 200,
-        slidesToShow: pestanas.length <= 4 ? pestanas.length : 3.5,
+        slidesToShow: props.pestanasVisibles?props.pestanasVisibles:pestanas.length <= 4 ? pestanas.length : 3.5,
         slidesToScroll: 1,
         arrows: false,
         responsive: [
