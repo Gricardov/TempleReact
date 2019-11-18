@@ -1,4 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import {cambiarSeleccionPublicador} from '../../redux/CreadorAcciones';
+
+const mapStateToProps = (state) => {
+
+    return {        
+        enfasis: state.enfasis
+    }
+
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    cambiarSeleccionPublicador: (estado) => dispatch(cambiarSeleccionPublicador(estado))   
+})
 
 class CubiertaMensaje extends Component {
     constructor(props) {
@@ -32,4 +46,4 @@ class CubiertaMensaje extends Component {
 
 }
 
-export default CubiertaMensaje;
+export default connect(mapStateToProps, mapDispatchToProps)(CubiertaMensaje)

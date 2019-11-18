@@ -4,7 +4,7 @@
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 3fr 1fr;
-    grid-template-areas: "lateral-izquierdo publicaciones lateral-derecho";
+    /*grid-template-areas: "lateral-izquierdo lateral-central lateral-derecho";*/
     grid-gap: 15px; 
 }
 .contenedor-inicio-profesor-css-grid hr{
@@ -12,17 +12,19 @@
     margin-bottom: 10px;
 }
 .lateral-izquierdo{
-grid-area: lateral-izquierdo;
+grid-column: 1/1;
 }
 
 .publicaciones{
-grid-area: publicaciones;
+grid-column: 2/2;
 }
 
 .lateral-derecho{
-grid-area: lateral-derecho;
+grid-column: 3/3;
 }
-
+.panel-ejercicios{
+    grid-column: 2/4;
+}
 @media (max-width: 1350px){
     .contenedor-inicio-profesor-css-grid{
         padding: 20px 30px;    

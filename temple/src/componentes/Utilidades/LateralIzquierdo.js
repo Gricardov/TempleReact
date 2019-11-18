@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './LateralIzquierdo.css';
-import TarjetaSolicitudGlobal from './TarjetaSolicitudGlobal';
-import TarjetaDestacadoGlobal from './TarjetaDestacadoGlobal';
-import SelectorLista from '../../Utilidades/SelectorLista';
-import * as RUTAS from '../../../compartido/rutas';
+import TarjetaSolicitudGlobal from '../Usuario/Profesor/TarjetaSolicitudGlobal';
+import TarjetaDestacadoGlobal from '../Usuario/Profesor/TarjetaDestacadoGlobal';
+import SelectorLista from './SelectorLista';
+import * as RUTAS from '../../compartido/rutas';
 
 class LateralIzquierdo extends Component {
     constructor(props){
@@ -38,20 +38,17 @@ class LateralIzquierdo extends Component {
                     <h2>Navegar</h2>                    
                 </div>
                 <div className="cuerpo-lateral-izquierdo">
-                    <SelectorLista seleccionado={this.state.seleccionado}
-                        selectores={[{ nombre: 'Inicio' }, { nombre: 'Ejercicios' }, { nombre: 'Explorar' }]}
-                        seleccionar={(indice)=>this.setState({seleccionado:indice})} />
+                    <SelectorLista seleccionado={this.props.navegableSeleccionado}
+                        selectores={this.props.navegables}
+                        seleccionar={(indice)=>this.props.seleccionarNavegable(indice)} />
                 </div>
                 <div className="encabezado-lateral-izquierdo mt-3">
                     <h2>Gestionar</h2>                    
                 </div>
                 <div className="cuerpo-lateral-izquierdo">
                     <SelectorLista seleccionado={-1}
-                        selectores={[   { nombre: 'Mis clases', ruta:RUTAS.MIS_CONTRATOS_PROFESOR.ruta },
-                                        { nombre: 'Mis horarios', ruta:RUTAS.MIS_HORARIOS_PROFESOR.ruta },
-                                        { nombre: 'Mis cursos', ruta:RUTAS.MIS_CITAS_PROFESOR.ruta },
-                                        {nombre:'Mis alumnos', ruta:RUTAS.MIS_ALUMNOS_PROFESOR.ruta}]}
-                        seleccionar={(indice)=>this.setState({seleccionado:indice})} />
+                        selectores={this.props.gestiones}
+                        seleccionar={()=>null} />
                 </div>  
                 <div className="encabezado-lateral-izquierdo mt-3">
                     <h2>Destacado</h2>

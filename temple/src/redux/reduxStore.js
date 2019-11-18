@@ -20,7 +20,7 @@ import {RegistroPublicacion} from './reductorRegistroPublicacion';
 import {RegistroHorario} from './reductorRegistroHorario';
 import {Barra} from './reductorBarra';
 import {ChatBot} from './reductorChatBot';
-
+import {Enfasis} from './reductorEnfasis';
 export const ReduxStore = () => {
     
     return createStore(
@@ -41,6 +41,7 @@ export const ReduxStore = () => {
                 registroHorario: RegistroHorario,
                 chatBot: ChatBot,
                 barra: Barra,
+                enfasis: Enfasis,
                 ...createForms({
                     formContacto: InicioContacto
                 })

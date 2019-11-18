@@ -58,7 +58,8 @@ const mapStateToProps = (state) => {
         contrato: state.contrato,
         registroContrato: state.registroContrato,
         registroPublicacion: state.registroPublicacion,
-        menu: state.menu
+        menu: state.menu,
+        enfasis: state.enfasis
     }
 
 }
@@ -255,7 +256,8 @@ class Principal extends Component {
                                     /> */}
                             </SwitchDeslizador>
                             <CubiertaMensaje mensError={this.props.perfil.mensError}
-                                estaCargando={this.props.perfil.estaCargando} mensaje="Cargando perfil..." />
+                                estaCargando={this.props.perfil.estaCargando} mensaje="Cargando perfil..."
+                                />
 
                         </>
                         :

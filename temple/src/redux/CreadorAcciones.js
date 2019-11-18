@@ -4,6 +4,13 @@ import { URLBase } from '../compartido/URLBase';
 import { actions } from 'react-redux-form';
 import { establecerGalleta, obtenerGalleta } from '../componentes/Utilidades/gestorCookies';
 
+export const cambiarSeleccionPublicador = (seleccionado) =>{
+  return{
+ type: Acciones.PUBLICADOR_CAMBIADO,
+ payload: seleccionado
+}
+}
+
 // Acciones que no requieran externos
 export const establecerOpcionesBarra = (opciones) => (dispatch) =>{
     // Esto va a servir para que la vista responsiva tenga las opciones actualizadas

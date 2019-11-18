@@ -1,6 +1,6 @@
 import React from 'react';
 import './LateralDerecho.css';
-import TarjetaPreguntaGlobal from './TarjetaPreguntaGlobal';
+import TarjetaPreguntaGlobal from '../Usuario/Profesor/TarjetaPreguntaGlobal';
 
 const LateralDerecho = (props) => {
 
