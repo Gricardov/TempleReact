@@ -2085,3 +2085,40 @@ input, textarea {
 .my-masonry-grid_column > div {
   margin-bottom: 40px;
 }
+
+
+/*Para los círculos que contengan íconos personalizados*/
+.icono-circulo{
+    border-radius: 50%;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+   width: 30px;
+   height: 30px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.verde {
+  background: rgb(5, 119, 11);
+}
+
+.marron {
+  background: rgba(209, 69, 44, 0.582);
+}
+.rojizo{
+  background: rgba(230, 46, 13, 0.932);
+}
+.azulado{
+  background: rgba(13, 82, 230, 0.651);
+}
+.gris{
+  background: rgba(131, 131, 131, 0.651);
+}
+
+.sombra-lateral{
+  -webkit-box-shadow: 2px 4px 10px -1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 4px 10px -1px rgba(0,0,0,0.75);
+  box-shadow: 2px 4px 10px -1px rgba(0,0,0,0.75);
+}

@@ -10,16 +10,24 @@
     color: #fff;
 }
 
-.cajon-colapsable .contenedor-datos-resumidos-perfil
+.cajon-colapsable .contenedor-datos
 {
-    margin-right: auto;
-    margin-top: 50px; 
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 1fr;
+    grid-auto-rows: 1fr;
+    grid-gap: 10px;
+    width: 100%;
+    margin-top: 70px;
 }
-
-.cajon-colapsable .contenedor-atributos-perfil
+.cajon-colapsable .contenedor-datos div
 {
-    margin-right: auto;
-    margin-top: 10px; 
+    justify-self: center;
+}
+.cajon-colapsable .contenedor-datos p
+{
+    font-size: 0.9rem;
+    color: rgb(207, 207, 207);
 }
 
 .cajon-colapsable .txt-preguntado-por {
@@ -35,10 +43,14 @@
   }
 
 .cajon-colapsable .nombre-seguimiento{
-    color: rgb(158, 158, 158);
+    margin-top: 10px;
+    color: rgb(109, 109, 109);
+    font-size: 0.9rem;;    
+}
+.cajon-colapsable .profesion-usuario{
+    color: rgb(190, 190, 190);
     font-size: 1rem;;    
 }
-
 .cajon-colapsable .foto-perfil {
     background-position: center center;
     background-size: cover;
